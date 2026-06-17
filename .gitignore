@@ -32,3 +32,5 @@ outputs/
 # Local datasets / artifacts
 data/raw/
 data/processed/
+
+external/
