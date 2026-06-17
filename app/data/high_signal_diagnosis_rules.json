@@ -1,0 +1,52 @@
+[
+  {
+    "diagnosis": "Myasthenia gravis",
+    "keyword_groups": [
+      ["acetylcholine receptor antibod", "acetylcholine", "aChR"],
+      ["electromyography", "repetitive stimulation", "decreased muscle response"],
+      ["diplopia", "double vision", "ptosis"],
+      ["climbing stairs", "brush her hair", "fatigable", "improve significantly after a few hours of rest", "worsen after physical activity"]
+    ],
+    "min_groups": 3
+  },
+  {
+    "diagnosis": "Acute interstitial nephritis",
+    "keyword_groups": [
+      ["eosinophil", "eosinophilic", "hansel"],
+      ["creatinine", "urea", "renal"],
+      ["negative", "bacterial_culture", "culture"],
+      ["sinusitis", "persistent fever", "flank pain", "antibiotic"]
+    ],
+    "min_groups": 4
+  },
+  {
+    "diagnosis": "Diffuse large B-cell lymphoma",
+    "keyword_groups": [
+      ["cd20"],
+      ["high proliferative index"],
+      ["axillary", "mediastinal", "cervical lymph nodes", "lymphadenopathy"],
+      ["night sweats", "weight loss", "fatigue"]
+    ],
+    "min_groups": 3
+  },
+  {
+    "diagnosis": "Situational syncope",
+    "keyword_groups": [
+      ["loss of consciousness", "syncope"],
+      ["micturating", "micturition"],
+      ["electrocardiogram", "no abnormalities"],
+      ["glucose", "electrolytes", "within normal limits"]
+    ],
+    "min_groups": 3
+  },
+  {
+    "diagnosis": "Pes anserine bursitis",
+    "keyword_groups": [
+      ["knee pain"],
+      ["medial aspect of the tibia", "inferior to the patella", "medial tibia"],
+      ["volleyball", "repetitive pivoting", "twisting"],
+      ["no fracture", "no dislocation", "no appreciable joint effusion"]
+    ],
+    "min_groups": 3
+  }
+]

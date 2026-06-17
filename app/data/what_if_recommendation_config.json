@@ -1,0 +1,58 @@
+{
+  "routing": {
+    "base_score": 2.0,
+    "generic_bonus": 1.5,
+    "objective_ready_bonus": 1.0,
+    "low_gap_bonus": 2.0,
+    "moderate_gap_bonus": 1.0,
+    "fallback_department_penalty": 1.0,
+    "strong_prior_bonus": 1.5,
+    "no_prior_penalty": 1.0,
+    "large_gap_no_prior_penalty": 1.0,
+    "moderate_gap_no_prior_penalty": 0.5,
+    "min_recommendation_score": 3.0,
+    "priority_score_min": 5.0,
+    "priority_gap_max": 1.0,
+    "priority_objective_min": 2,
+    "priority_prior_rate_min": 0.75,
+    "priority_prior_count_min": 1,
+    "review_high_score_min": 5.0,
+    "review_high_gap_max": 4.0,
+    "moderate_gap_upper": 3.0
+  },
+  "specialty": {
+    "finalize_generic_refine_bonus": 3.0,
+    "finalize_divergent_refine_bonus": 2.0,
+    "finalize_request_test_bonus": 2.5,
+    "finalize_generic_diagnose_bonus": 1.0,
+    "next_step_request_test_bonus": 3.0,
+    "next_step_generic_diagnose_bonus": 2.5,
+    "next_step_refine_bonus": 2.0,
+    "generic_bonus": 1.0,
+    "objective_ready_bonus": 0.5,
+    "divergent_candidate_bonus": 0.5,
+    "same_family_only_penalty": 1.0,
+    "ask_loop_bonus": 0.25,
+    "strong_prior_bonus": 0.75,
+    "weak_prior_penalty": 0.75,
+    "min_recommendation_score": 3.0,
+    "priority_score_min": 4.0,
+    "review_high_score_min": 3.5,
+    "strong_prior_rate_min": 0.67,
+    "weak_prior_rate_max": 0.34,
+    "weak_prior_count_min": 2
+  },
+  "combined": {
+    "bucket_ranks": {
+      "priority_replay": 0,
+      "review_high": 1,
+      "review_low": 2,
+      "low_priority": 3
+    },
+    "type_ranks": {
+      "routing_department_incorrect": 0,
+      "routing_department_correct": 1,
+      "specialty": 1
+    }
+  }
+}

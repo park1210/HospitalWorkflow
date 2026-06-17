@@ -1,0 +1,213 @@
+[
+  {
+    "diagnosis": "Phyllodes tumor",
+    "keyword_groups": [
+      ["breast mass", "left breast", "breast"],
+      ["mammography", "polylobulated", "multinodular"],
+      ["leaf-like", "stromal cellular overgrowth", "stromal overgrowth"]
+    ],
+    "min_groups": 2
+  },
+  {
+    "diagnosis": "Eczematous dermatitis",
+    "keyword_groups": [
+      ["pruritic rash", "pruritic", "scaly", "crusted", "eczematous"],
+      ["intraepidermal accumulation of edematous fluid", "widening of intercellular spaces", "spongiosis", "spongiotic"]
+    ],
+    "min_groups": 2
+  },
+  {
+    "diagnosis": "Disseminated Gonococcal Infection",
+    "keyword_groups": [
+      ["gonorrhea", "stiscreen", "sti screen", "sexually active"],
+      ["gram-negative diplococci", "diplococci"],
+      ["joint aspiration", "septic arthritis", "wrist pain", "knee pain"],
+      ["vesiculopustular", "violaceous lesions", "skin lesions"]
+    ],
+    "min_groups": 2
+  },
+  {
+    "diagnosis": "Tuberculosis",
+    "keyword_groups": [
+      ["chronic cough", "cough", "fever"],
+      ["night sweats", "weight loss", "poor appetite"],
+      ["prison", "incarceration", "released from prison"],
+      ["diffuse infiltrates", "crackles", "tuberculin"]
+    ],
+    "min_groups": 3
+  },
+  {
+    "diagnosis": "Uterine rupture",
+    "keyword_groups": [
+      ["uterine wall", "uterine wall continuity", "disruption in the uterine wall"],
+      ["scar", "previous cesarean", "cesarean section", "c-section"],
+      ["hemoperitoneum", "severe abdominal pain", "vaginal bleeding"]
+    ],
+    "min_groups": 2
+  },
+  {
+    "diagnosis": "Boerhaave syndrome",
+    "keyword_groups": [
+      ["free mediastinal air", "mediastinal air", "mediastinum"],
+      ["perforation", "esophageal rupture", "esophageal perforation"],
+      ["retching", "forceful vomiting", "persistent vomiting"]
+    ],
+    "min_groups": 2
+  },
+  {
+    "diagnosis": "Glanzmann’s Thrombasthenia",
+    "keyword_groups": [
+      ["giiib", "gpiib", "giiia", "gpiiia", "gpiib/iiia", "giib/iiia"],
+      ["platelet surfaces deficient", "platelet receptor", "platelet receptors"],
+      ["epistaxis", "gum bleeding", "mucous membrane bleeding", "petechiae"]
+    ],
+    "min_groups": 2
+  },
+  {
+    "diagnosis": "Neonatal Respiratory Distress Syndrome (NRDS)",
+    "keyword_groups": [
+      ["newborn", "premature", "33 weeks", "preterm"],
+      ["respiratory distress", "hypoxia", "pao2", "blood gases"],
+      ["ground glass", "reticular granulation", "both lungs", "chest radiograph"]
+    ],
+    "min_groups": 2
+  },
+  {
+    "diagnosis": "Benign Paroxysmal Positional Vertigo (BPPV)",
+    "keyword_groups": [
+      ["dix-hallpike", "hallpike", "nystagmus"],
+      ["room is spinning", "vertigo", "spinning"],
+      ["normal", "no evidence of stroke", "within normal limits", "baseline"]
+    ],
+    "min_groups": 2
+  },
+  {
+    "diagnosis": "Syringomyelia",
+    "keyword_groups": [
+      ["syrinx", "syrinx cavity", "cavity within the spinal cord"],
+      ["spinal cord", "cervical", "thoracic"],
+      ["burning pain", "paresthesias", "hand weakness", "weakness in both hands"]
+    ],
+    "min_groups": 2
+  },
+  {
+    "diagnosis": "Legg-Calv\u00e9-Perthes disease (LCPD)",
+    "keyword_groups": [
+      ["flattening", "fragmentation"],
+      ["femoral head", "left femoral head", "hip x-ray", "x-ray_left_hip"],
+      ["legg-calv", "perthes", "limp", "favoring his left leg"]
+    ],
+    "min_groups": 2
+  },
+  {
+    "diagnosis": "Progressive multifocal leukoencephalopathy",
+    "keyword_groups": [
+      ["white matter lesions", "nonenhancing", "no mass effect"],
+      ["hiv viral load", "cd4", "severely compromised", "immunocompromised"],
+      ["forgetful", "multiple falls", "unsteady gait", "weakness"]
+    ],
+    "min_groups": 2
+  },
+  {
+    "diagnosis": "Congenital Rubella Infection",
+    "keyword_groups": [
+      ["rubella_igm", "rubella igm", "torch_screen", "torch screen"],
+      ["congenital cataracts", "cloudy lenses"],
+      ["bilateral sensorineural hearing loss", "failure to pass auditory screening tests", "failed auditory screening"],
+      ["patent ductus arteriosus", "continuous heart murmur", "heart murmur"]
+    ],
+    "min_groups": 2
+  },
+  {
+    "diagnosis": "Apical lung tumor",
+    "keyword_groups": [
+      ["apex of the right lung", "apex of the left lung", "apical lung", "lung apex", "pancoast"],
+      ["mass", "tumor", "solid mass"],
+      ["weakness in the right arm", "decreased sensation in the right arm", "burning pain in the right arm", "dropping objects", "arm pain", "upper extremity weakness"]
+    ],
+    "min_groups": 3
+  },
+  {
+    "diagnosis": "Chronic Venous Insufficiency",
+    "keyword_groups": [
+      ["venous reflux", "venous obstruction", "superficial and deep venous systems"],
+      ["chronic leg swelling", "chronically swollen", "legs have been chronically swollen"],
+      ["large wound on the right lower leg", "lower leg wound", "venous ulcer", "leg ulcer"],
+      ["deep vein thrombosis", "dvt"]
+    ],
+    "min_groups": 2
+  },
+  {
+    "diagnosis": "Membranous nephropathy",
+    "keyword_groups": [
+      ["protein': '4+", "proteinuria", "fatty_casts", "fatty casts"],
+      ["albumin': '1.8", "albumin 1.8", "total_cholesterol': '475", "cholesterol 475", "bilateral lower leg swelling", "edema"],
+      ["right upper lobe mass", "right upper lobe density", "ct_scan_chest", "lung mass", "solid mass"]
+    ],
+    "min_groups": 3
+  },
+  {
+    "diagnosis": "Intraventricular Hemorrhage",
+    "keyword_groups": [
+      ["cranial_ultrasound", "cranial ultrasound", "head ultrasound"],
+      ["bleeding within the ventricles", "within the ventricles", "intraventricular", "ventricles"],
+      ["premature", "31 weeks", "preterm", "1100 g", "newborn"]
+    ],
+    "min_groups": 2
+  },
+  {
+    "diagnosis": "C. difficile colitis",
+    "keyword_groups": [
+      ["watery diarrhea", "diarrhea", "abdominal discomfort", "cramping"],
+      ["levofloxacin", "antibiotic", "community-acquired pneumonia"],
+      ["clostridium difficile toxin", "c diff", "c. difficile", "stool toxin"]
+    ],
+    "min_groups": 2
+  },
+  {
+    "diagnosis": "Active chronic hepatitis B infection",
+    "keyword_groups": [
+      ["hepatitis_b_surface_antigen", "hepatitis b surface antigen"],
+      ["hepatitis_b_core_igg_antibody", "hepatitis b core igg antibody"],
+      ["hepatitis_b_envelope_antigen", "hepatitis b envelope antigen", "hbeag"],
+      ["bilirubin_total", "bilirubin_direct", "ast", "alt", "darkening of my urine", "dark urine"]
+    ],
+    "min_groups": 3
+  },
+  {
+    "diagnosis": "Complex partial seizure",
+    "keyword_groups": [
+      ["electroencephalogram", "eeg", "interictal spikes", "sharp waves"],
+      ["temporal lobes", "right side"],
+      ["staring", "nonresponsive", "facial grimacing", "postictal", "confused afterwards", "muddy taste"]
+    ],
+    "min_groups": 2
+  },
+  {
+    "diagnosis": "Coarctation of the aorta",
+    "keyword_groups": [
+      ["echocardiogram", "narrowing of the aorta", "distal to the left subclavian", "coarctation"],
+      ["blood_pressure_differential", "upper extremities", "lower extremities", "high blood pressure on the right upper extremity"],
+      ["rib notching", "normal heart size", "left ventricular function is normal"]
+    ],
+    "min_groups": 2
+  },
+  {
+    "diagnosis": "Nightmare disorder",
+    "keyword_groups": [
+      ["sleep_diary", "difficulty sleeping", "waking up frightened"],
+      ["one to two times per week", "1-2 times a week", "episodes of waking up frightened"],
+      ["does not seem confused after waking", "can be consoled", "more tired than usual", "polysomnography", "not indicated"]
+    ],
+    "min_groups": 2
+  },
+  {
+    "diagnosis": "Pemphigus vulgaris",
+    "keyword_groups": [
+      ["acantholysis", "intraepidermal blister formation"],
+      ["intercellular igg", "c3 deposition within the epidermis", "direct immunofluorescence"],
+      ["desmoglein antibodies", "pain in my left cheek when eating", "pain during sexual intercourse", "mucosal pain", "flaccid blisters"]
+    ],
+    "min_groups": 2
+  }
+]

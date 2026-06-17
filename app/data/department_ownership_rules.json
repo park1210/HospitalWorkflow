@@ -1,0 +1,79 @@
+[
+  {
+    "department": "hematology",
+    "min_score": 9.0,
+    "note": "hematology override: biopsy/pathology plus lymphoid malignancy markers",
+    "keyword_groups": [
+      ["biopsy", "pathology"],
+      ["cd20", "lymph node", "lymphadenopathy", "high proliferative index"]
+    ],
+    "min_groups": 2
+  },
+  {
+    "department": "hematology",
+    "min_score": 9.5,
+    "note": "hematology override: flow cytometry supports clonal lymphoid disease",
+    "keyword_groups": [
+      ["flow_cytometry", "flow cytometry"],
+      ["monoclonal b lymphocyte", "monoclonal b lymphocytes", "cll/sll", "phenotype consistent"]
+    ],
+    "min_groups": 2
+  },
+  {
+    "department": "neurology",
+    "min_score": 8.5,
+    "note": "neurology override: electrophysiology or acetylcholine-receptor evidence",
+    "keyword_groups": [
+      ["electromyography", "emg", "repetitive stimulation", "acetylcholine receptor", "achr"]
+    ],
+    "min_groups": 1
+  },
+  {
+    "department": "otolaryngology",
+    "min_score": 8.75,
+    "note": "otolaryngology override: peripheral vestibular pattern with reassuring central workup",
+    "keyword_groups": [
+      ["dix-hallpike", "hallpike", "nystagmus", "vertigo", "room is spinning", "spinning"],
+      ["normal, with no evidence of stroke", "no evidence of stroke", "within normal limits", "currently feels at my baseline", "lasted for approximately 3 minutes"]
+    ],
+    "min_groups": 2
+  },
+  {
+    "department": "surgery",
+    "min_score": 10.0,
+    "note": "surgery override: structural breast mass pattern outweighs infectious framing",
+    "keyword_groups": [
+      ["breast mass", "left breast", "right breast", "breast"],
+      ["mammography", "polylobulated", "multinodular", "solid lesion", "mass on imaging"],
+      ["leaf-like", "stromal cellular overgrowth", "stromal overgrowth", "stromal"]
+    ],
+    "min_groups": 2,
+    "max_marker_thresholds": {
+      "infectious_markers": 2
+    }
+  },
+  {
+    "department": "infectious_disease",
+    "min_score": 9.0,
+    "note": "infectious_disease override: microbiologic or STI-source evidence supports disseminated infection",
+    "keyword_groups": [
+      ["gonorrhea", "gram-negative diplococci", "joint aspiration", "vesiculopustular", "sexually active"]
+    ],
+    "min_groups": 1,
+    "min_marker_thresholds": {
+      "disseminated_gonococcal_markers": 2
+    }
+  },
+  {
+    "department": "infectious_disease",
+    "min_score": 8.5,
+    "note": "infectious_disease override: chronic pulmonary infectious pattern supports tuberculosis-family disease",
+    "keyword_groups": [
+      ["chronic cough", "night sweats", "weight loss", "released from prison", "prison", "diffuse infiltrates", "tuberculin", "crackles"]
+    ],
+    "min_groups": 1,
+    "min_marker_thresholds": {
+      "tuberculosis_markers": 3
+    }
+  }
+]

@@ -1,0 +1,204 @@
+{
+  "keywords": {
+    "neurology": ["diplopia", "ptosis", "fatigable", "electromyography", "emg", "weakness", "myasthen", "cranial"],
+    "surgery": ["right lower quadrant", "rebound", "appendic", "periton", "acute abdomen", "torsion"],
+    "radiology": ["ct", "mri", "x-ray", "xray", "ultrasound", "imaging", "scan"],
+    "cardiology": ["chest pain", "troponin", "ecg", "ekg", "arrhythmia", "stemi", "nstemi"],
+    "gastroenterology": ["abdominal pain", "hematemesis", "melena", "colitis", "hepatitis", "pancreatitis"],
+    "pulmonology": ["dyspnea", "shortness of breath", "hypoxia", "pneumonia", "wheezing", "hemoptysis"],
+    "endocrinology": ["thyroid", "diabetes", "hyperglycemia", "hypoglycemia", "adrenal"],
+    "nephrology": ["creatinine", "proteinuria", "hematuria", "renal", "kidney"],
+    "hematology": ["anemia", "thrombocytopenia", "coagulopathy", "hemolysis", "leukemia"],
+    "infectious_disease": ["fever", "infection", "sepsis", "bacteremia", "antibiotic"],
+    "dermatology": ["rash", "skin", "lesion", "dermatitis"],
+    "ophthalmology": ["vision", "ocular", "eye", "retina", "cornea"],
+    "otolaryngology": ["hearing", "vertigo", "sinus", "epistaxis", "tonsil"],
+    "obstetrics_gynecology": ["pregnan", "vaginal bleeding", "pelvic", "uterus", "ovar", "ectopic"],
+    "psychiatry": ["hallucination", "psychosis", "suicid", "mania", "depression", "anxiety"],
+    "urology": ["urinary", "testicular", "prostate", "ureter", "kidney stone"],
+    "orthopedics": ["fracture", "joint", "bone", "dislocation", "ligament"],
+    "rheumatology": ["arthritis", "lupus", "vasculitis", "joint swelling", "autoimmune"],
+    "pediatrics": ["child", "infant", "newborn", "pediatric"]
+  },
+  "diagnostic_focus": {
+    "general_medicine": "integrating broad multisystem clues and deciding which medical differential deserves priority",
+    "internal_medicine": "integrating unresolved multisystem findings and prioritizing the next medical diagnostic branch",
+    "neurology": "localizing neurologic dysfunction and separating central, peripheral, and neuromuscular causes",
+    "surgery": "deciding whether the pattern is primarily a surgical process and which surgical differential is most urgent",
+    "cardiology": "distinguishing cardiac ischemic, rhythm, and structural causes from non-cardiac mimics",
+    "pulmonology": "separating airway, parenchymal, pleural, and pulmonary vascular causes of respiratory symptoms",
+    "gastroenterology": "sorting hepatobiliary, pancreatic, luminal GI, and bleeding-related differentials",
+    "nephrology": "sorting intrinsic renal, post-renal, electrolyte, and inflammatory kidney processes",
+    "infectious_disease": "judging whether infection is the main driver and which infectious source best fits the evidence",
+    "orthopedics": "distinguishing fracture, joint, tendon, and mechanical musculoskeletal causes",
+    "obstetrics_gynecology": "sorting pregnancy-related, uterine, ovarian, and gynecologic urgent differentials",
+    "urology": "distinguishing obstructive, infectious, stone-related, and testicular/urinary tract causes",
+    "psychiatry": "separating primary psychiatric presentations from medical or neurologic mimics"
+  },
+  "next_steps": {
+    "general_medicine": "reconcile the ER data and decide the most informative next medical diagnostic step",
+    "internal_medicine": "review ER evidence, refine the differential, and recommend focused follow-up testing",
+    "neurology": "use neurologic pattern recognition to narrow the differential and identify confirmatory testing",
+    "surgery": "decide whether surgical pathology remains the leading explanation and what finding would confirm it",
+    "cardiology": "judge whether the pattern supports a cardiac diagnosis strongly enough for focused confirmation",
+    "pulmonology": "decide which respiratory diagnosis is best supported and what objective finding matters most",
+    "gastroenterology": "narrow the GI differential and identify the most discriminating objective clue",
+    "nephrology": "determine whether renal involvement is primary and which laboratory or urine clue is decisive",
+    "infectious_disease": "judge whether infection remains the lead diagnosis after reviewing objective data",
+    "orthopedics": "clarify whether the presentation is best explained by structural musculoskeletal pathology",
+    "obstetrics_gynecology": "determine whether the leading diagnosis is gynecologic or pregnancy-related",
+    "urology": "clarify whether the leading diagnosis is urinary tract, obstructive, or testicular in origin",
+    "psychiatry": "determine whether psychiatric framing is justified after reviewing current medical evidence"
+  },
+  "test_priorities": {
+    "general_medicine": ["blood_tests", "urinalysis", "imaging"],
+    "internal_medicine": ["blood_tests", "urinalysis", "imaging"],
+    "neurology": ["electromyography", "neurological examination", "imaging", "blood_tests"],
+    "surgery": ["imaging", "blood_tests", "abdominal examination"],
+    "cardiology": ["electrocardiogram", "blood_tests", "imaging"],
+    "pulmonology": ["imaging", "blood_tests"],
+    "gastroenterology": ["imaging", "blood_tests"],
+    "nephrology": ["urinalysis", "blood_tests", "imaging"],
+    "infectious_disease": ["blood_tests", "urinalysis", "imaging"],
+    "orthopedics": ["imaging", "musculoskeletal examination"],
+    "obstetrics_gynecology": ["imaging", "blood_tests", "urinalysis"],
+    "urology": ["urinalysis", "imaging", "blood_tests"],
+    "psychiatry": []
+  },
+  "interview_questions": {
+    "general_medicine": "What symptom has changed the most since you first came to the ER?",
+    "internal_medicine": "Have you noticed any other body system symptoms that seem connected to this problem?",
+    "neurology": "Have the symptoms been fluctuating, and do they get worse with activity or better with rest?",
+    "surgery": "Has the pain become more localized or more severe since it started?",
+    "cardiology": "Have you noticed palpitations, exertional worsening, or chest pressure since arriving?",
+    "pulmonology": "Has your breathing changed with exertion, lying down, or coughing?",
+    "gastroenterology": "Have you had any vomiting, bleeding, or change in bowel movements since this began?",
+    "nephrology": "Have you noticed any change in urine, swelling, rash, or recent medication exposure?",
+    "infectious_disease": "Have you had any fevers, exposures, or new infectious symptoms since this started?",
+    "orthopedics": "Does movement, weight bearing, or a specific position make the pain clearly worse?",
+    "obstetrics_gynecology": "Have you had any bleeding, pelvic symptoms, or pregnancy-related concerns along with this?",
+    "urology": "Have you had any urinary difficulty, blood in the urine, or flank-to-groin pain?",
+    "psychiatry": "Have stress, mood changes, or similar prior episodes contributed to how this feels now?"
+  },
+  "generic_fallback_rules": {
+    "neurology": [
+      {
+        "diagnosis": "possible neuromuscular junction disorder",
+        "group_sets_all": [
+          ["repetitive stimulation", "electromyography", "acetylcholine antibody", "acetylcholine receptor antibody", "emg"],
+          ["diplopia", "ptosis", "worsen after physical activity", "improve significantly after a few hours of rest", "fatigable", "rest"]
+        ]
+      },
+      {
+        "diagnosis": "possible spinal or radicular neurologic disorder",
+        "any_keywords": ["disc herniation", "nerve root", "radiculopathy", "lumbar spine"]
+      },
+      {
+        "diagnosis": "possible central neurologic disorder",
+        "any_keywords": ["seizure", "brain lesion", "encephalopathy", "demyelinating", "stroke"]
+      },
+      {
+        "diagnosis": "possible cerebellar or vestibular disorder",
+        "any_keywords": ["vertigo", "ataxia", "gait ataxia"]
+      }
+    ],
+    "surgery": [
+      {
+        "diagnosis": "possible bowel obstructive surgical process",
+        "any_keywords": ["hirschsprung", "bowel obstruction", "intestinal obstruction", "distended bowel", "transition zone"]
+      },
+      {
+        "diagnosis": "possible acute surgical abdomen",
+        "any_keywords": ["appendic", "right lower quadrant", "periton", "acute abdomen"]
+      }
+    ],
+    "cardiology": [
+      {
+        "diagnosis": "possible acute cardiac process",
+        "any_keywords": ["troponin", "ecg", "ekg", "chest pain", "stemi", "nstemi"]
+      }
+    ],
+    "pulmonology": [
+      {
+        "diagnosis": "possible acute pulmonary process",
+        "any_keywords": ["dyspnea", "hypoxia", "pneumonia", "hemoptysis", "wheezing"]
+      }
+    ],
+    "gastroenterology": [
+      {
+        "diagnosis": "possible hepatobiliary process",
+        "any_keywords": ["hepatitis", "liver", "cirrhosis"]
+      },
+      {
+        "diagnosis": "possible pancreatic inflammatory process",
+        "any_keywords": ["pancreatitis", "lipase"]
+      },
+      {
+        "diagnosis": "possible gastrointestinal bleeding process",
+        "any_keywords": ["melena", "hematemesis", "hematochezia", "gi bleed"]
+      }
+    ],
+    "nephrology": [
+      {
+        "diagnosis": "possible intrinsic renal inflammatory process",
+        "match_keywords": ["creatinine", "proteinuria", "hematuria", "nephrotic", "nephritic", "eosinophil", "eosinophilic", "hansel", "interstitial nephritis", "urinalysis"],
+        "min_match_count": 3,
+        "primary_keywords": ["proteinuria", "hematuria", "nephrotic", "nephritic", "eosinophil", "eosinophilic", "hansel", "interstitial nephritis"],
+        "min_primary_match_count": 1
+      }
+    ],
+    "infectious_disease": [
+      {
+        "diagnosis": "possible infectious process",
+        "match_keywords": ["fever", "sepsis", "bacteremia", "antibiotic", "positive culture", "blood culture", "bacterial culture", "viral load", "abscess", "cellulitis", "tuberculosis", "listeria"],
+        "min_match_count": 3,
+        "primary_keywords": ["positive culture", "blood culture", "bacterial culture", "viral load", "abscess", "cellulitis", "tuberculosis", "listeria", "sepsis", "bacteremia"],
+        "min_primary_match_count": 2
+      }
+    ],
+    "orthopedics": [
+      {
+        "diagnosis": "possible structural musculoskeletal process",
+        "any_keywords": ["fracture", "dislocation", "joint", "bone", "ligament", "hip", "tendon"]
+      }
+    ],
+    "obstetrics_gynecology": [
+      {
+        "diagnosis": "possible gynecologic or pregnancy-related process",
+        "any_keywords": ["pregnan", "vaginal bleeding", "pelvic", "ectopic", "ovar", "uterus"]
+      }
+    ],
+    "urology": [
+      {
+        "diagnosis": "possible urinary or obstructive urologic process",
+        "any_keywords": ["urinary", "testicular", "stone", "ureter", "prostate"]
+      }
+    ],
+    "psychiatry": [
+      {
+        "diagnosis": "possible primary psychiatric process",
+        "any_keywords": ["psychosis", "hallucination", "suicid", "mania", "depression", "anxiety"]
+      }
+    ],
+    "general_medicine": [
+      {
+        "diagnosis": "possible systemic inflammatory or medical process",
+        "any_keywords": ["fever", "rash", "autoimmune", "inflammatory"]
+      },
+      {
+        "diagnosis": "possible multisystem medical process",
+        "any_keywords": ["multisystem", "weakness", "fatigue"]
+      }
+    ],
+    "internal_medicine": [
+      {
+        "diagnosis": "possible systemic inflammatory or medical process",
+        "any_keywords": ["fever", "rash", "autoimmune", "inflammatory"]
+      },
+      {
+        "diagnosis": "possible multisystem medical process",
+        "any_keywords": ["multisystem", "weakness", "fatigue"]
+      }
+    ]
+  }
+}

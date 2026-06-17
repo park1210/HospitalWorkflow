@@ -1,0 +1,90 @@
+{
+  "version": 1,
+  "tile_size": 16,
+  "scale": 3,
+  "themes": {
+    "hospital_day": {
+      "description": "Warm hospital interior with readable ER, diagnostics, and consult zones."
+    }
+  },
+  "sprites": [
+    {
+      "id": "er_doctor_sheet",
+      "category": "character",
+      "theme": "hospital_day",
+      "path": "characters/doctors/er/er_doctor_sheet.svg",
+      "frame_width": 16,
+      "frame_height": 16,
+      "directions": ["down", "left", "right", "up"],
+      "animations": ["idle", "walk"],
+      "license": "pending",
+      "author": "",
+      "source_url": ""
+    },
+    {
+      "id": "nurse_sheet",
+      "category": "character",
+      "theme": "hospital_day",
+      "path": "characters/nurse/nurse_sheet.svg",
+      "frame_width": 16,
+      "frame_height": 16,
+      "directions": ["down", "left", "right", "up"],
+      "animations": ["idle", "walk"],
+      "license": "pending",
+      "author": "",
+      "source_url": ""
+    },
+    {
+      "id": "patient_sheet",
+      "category": "character",
+      "theme": "hospital_day",
+      "path": "characters/patient/patient_sheet.svg",
+      "frame_width": 16,
+      "frame_height": 16,
+      "directions": ["down", "left", "right", "up"],
+      "animations": ["idle", "walk"],
+      "license": "pending",
+      "author": "",
+      "source_url": ""
+    },
+    {
+      "id": "er_bed_tile",
+      "category": "furniture",
+      "theme": "hospital_day",
+      "path": "furniture/er/er_bed.svg",
+      "frame_width": 16,
+      "frame_height": 16,
+      "directions": [],
+      "animations": [],
+      "license": "local-placeholder",
+      "author": "OpenAI Codex",
+      "source_url": ""
+    },
+    {
+      "id": "desk_tile",
+      "category": "furniture",
+      "theme": "hospital_day",
+      "path": "furniture/office/desk.svg",
+      "frame_width": 16,
+      "frame_height": 16,
+      "directions": [],
+      "animations": [],
+      "license": "local-placeholder",
+      "author": "OpenAI Codex",
+      "source_url": ""
+    },
+    {
+      "id": "imaging_tile",
+      "category": "furniture",
+      "theme": "hospital_day",
+      "path": "props/medical/imaging_console.svg",
+      "frame_width": 16,
+      "frame_height": 16,
+      "directions": [],
+      "animations": [],
+      "license": "local-placeholder",
+      "author": "OpenAI Codex",
+      "source_url": ""
+    }
+  ]
+}

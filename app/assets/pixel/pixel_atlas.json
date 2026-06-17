@@ -1,0 +1,1091 @@
+{
+  "version": "v4",
+  "sprites": {
+    "bed": {
+      "x": 4,
+      "y": 4,
+      "w": 46,
+      "h": 20
+    },
+    "chair": {
+      "x": 54,
+      "y": 4,
+      "w": 22,
+      "h": 20
+    },
+    "consult": {
+      "x": 80,
+      "y": 4,
+      "w": 20,
+      "h": 20
+    },
+    "desk": {
+      "x": 104,
+      "y": 4,
+      "w": 26,
+      "h": 22
+    },
+    "doctor_er": {
+      "x": 134,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "doctor_er_down_idle": {
+      "x": 164,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "doctor_er_down_reading_1": {
+      "x": 194,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "doctor_er_down_reading_2": {
+      "x": 224,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "doctor_er_down_typing_1": {
+      "x": 254,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "doctor_er_down_typing_2": {
+      "x": 284,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "doctor_er_down_walk_1": {
+      "x": 314,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "doctor_er_down_walk_2": {
+      "x": 344,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "doctor_er_down_walk_3": {
+      "x": 374,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "doctor_er_left_idle": {
+      "x": 404,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "doctor_er_left_reading_1": {
+      "x": 434,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "doctor_er_left_reading_2": {
+      "x": 464,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "doctor_er_left_typing_1": {
+      "x": 494,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "doctor_er_left_typing_2": {
+      "x": 524,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "doctor_er_left_walk_1": {
+      "x": 554,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "doctor_er_left_walk_2": {
+      "x": 584,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "doctor_er_left_walk_3": {
+      "x": 614,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "doctor_er_right_idle": {
+      "x": 644,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "doctor_er_right_reading_1": {
+      "x": 674,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "doctor_er_right_reading_2": {
+      "x": 704,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "doctor_er_right_typing_1": {
+      "x": 734,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "doctor_er_right_typing_2": {
+      "x": 764,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "doctor_er_right_walk_1": {
+      "x": 794,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "doctor_er_right_walk_2": {
+      "x": 824,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "doctor_er_right_walk_3": {
+      "x": 854,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "doctor_er_up_idle": {
+      "x": 884,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "doctor_er_up_reading_1": {
+      "x": 914,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "doctor_er_up_reading_2": {
+      "x": 944,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "doctor_er_up_typing_1": {
+      "x": 974,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "doctor_er_up_typing_2": {
+      "x": 1004,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "doctor_er_up_walk_1": {
+      "x": 1034,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "doctor_er_up_walk_2": {
+      "x": 1064,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "doctor_er_up_walk_3": {
+      "x": 1094,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "doctor_er_walk_1": {
+      "x": 1124,
+      "y": 4,
+      "w": 24,
+      "h": 28
+    },
+    "doctor_er_walk_2": {
+      "x": 1152,
+      "y": 4,
+      "w": 24,
+      "h": 28
+    },
+    "doctor_specialty": {
+      "x": 1180,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "doctor_specialty_down_idle": {
+      "x": 1210,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "doctor_specialty_down_reading_1": {
+      "x": 1240,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "doctor_specialty_down_reading_2": {
+      "x": 1270,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "doctor_specialty_down_typing_1": {
+      "x": 1300,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "doctor_specialty_down_typing_2": {
+      "x": 1330,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "doctor_specialty_down_walk_1": {
+      "x": 1360,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "doctor_specialty_down_walk_2": {
+      "x": 1390,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "doctor_specialty_down_walk_3": {
+      "x": 1420,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "doctor_specialty_left_idle": {
+      "x": 1450,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "doctor_specialty_left_reading_1": {
+      "x": 1480,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "doctor_specialty_left_reading_2": {
+      "x": 1510,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "doctor_specialty_left_typing_1": {
+      "x": 1540,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "doctor_specialty_left_typing_2": {
+      "x": 1570,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "doctor_specialty_left_walk_1": {
+      "x": 1600,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "doctor_specialty_left_walk_2": {
+      "x": 1630,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "doctor_specialty_left_walk_3": {
+      "x": 1660,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "doctor_specialty_right_idle": {
+      "x": 1690,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "doctor_specialty_right_reading_1": {
+      "x": 1720,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "doctor_specialty_right_reading_2": {
+      "x": 1750,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "doctor_specialty_right_typing_1": {
+      "x": 1780,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "doctor_specialty_right_typing_2": {
+      "x": 1810,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "doctor_specialty_right_walk_1": {
+      "x": 1840,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "doctor_specialty_right_walk_2": {
+      "x": 1870,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "doctor_specialty_right_walk_3": {
+      "x": 1900,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "doctor_specialty_up_idle": {
+      "x": 1930,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "doctor_specialty_up_reading_1": {
+      "x": 1960,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "doctor_specialty_up_reading_2": {
+      "x": 1990,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "doctor_specialty_up_typing_1": {
+      "x": 2020,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "doctor_specialty_up_typing_2": {
+      "x": 2050,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "doctor_specialty_up_walk_1": {
+      "x": 2080,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "doctor_specialty_up_walk_2": {
+      "x": 2110,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "doctor_specialty_up_walk_3": {
+      "x": 2140,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "doctor_specialty_walk_1": {
+      "x": 2170,
+      "y": 4,
+      "w": 24,
+      "h": 28
+    },
+    "doctor_specialty_walk_2": {
+      "x": 2198,
+      "y": 4,
+      "w": 24,
+      "h": 28
+    },
+    "exit": {
+      "x": 2226,
+      "y": 4,
+      "w": 18,
+      "h": 18
+    },
+    "imaging": {
+      "x": 2248,
+      "y": 4,
+      "w": 24,
+      "h": 24
+    },
+    "lab": {
+      "x": 2276,
+      "y": 4,
+      "w": 24,
+      "h": 24
+    },
+    "nurse": {
+      "x": 2304,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "nurse_down_idle": {
+      "x": 2334,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "nurse_down_reading_1": {
+      "x": 2364,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "nurse_down_reading_2": {
+      "x": 2394,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "nurse_down_typing_1": {
+      "x": 2424,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "nurse_down_typing_2": {
+      "x": 2454,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "nurse_down_walk_1": {
+      "x": 2484,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "nurse_down_walk_2": {
+      "x": 2514,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "nurse_down_walk_3": {
+      "x": 2544,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "nurse_left_idle": {
+      "x": 2574,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "nurse_left_reading_1": {
+      "x": 2604,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "nurse_left_reading_2": {
+      "x": 2634,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "nurse_left_typing_1": {
+      "x": 2664,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "nurse_left_typing_2": {
+      "x": 2694,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "nurse_left_walk_1": {
+      "x": 2724,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "nurse_left_walk_2": {
+      "x": 2754,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "nurse_left_walk_3": {
+      "x": 2784,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "nurse_right_idle": {
+      "x": 2814,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "nurse_right_reading_1": {
+      "x": 2844,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "nurse_right_reading_2": {
+      "x": 2874,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "nurse_right_typing_1": {
+      "x": 2904,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "nurse_right_typing_2": {
+      "x": 2934,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "nurse_right_walk_1": {
+      "x": 2964,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "nurse_right_walk_2": {
+      "x": 2994,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "nurse_right_walk_3": {
+      "x": 3024,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "nurse_up_idle": {
+      "x": 3054,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "nurse_up_reading_1": {
+      "x": 3084,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "nurse_up_reading_2": {
+      "x": 3114,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "nurse_up_typing_1": {
+      "x": 3144,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "nurse_up_typing_2": {
+      "x": 3174,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "nurse_up_walk_1": {
+      "x": 3204,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "nurse_up_walk_2": {
+      "x": 3234,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "nurse_up_walk_3": {
+      "x": 3264,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "patient_bed": {
+      "x": 3294,
+      "y": 4,
+      "w": 28,
+      "h": 20
+    },
+    "patient_stand": {
+      "x": 3326,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "patient_stand_down_idle": {
+      "x": 3356,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "patient_stand_down_reading_1": {
+      "x": 3386,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "patient_stand_down_reading_2": {
+      "x": 3416,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "patient_stand_down_typing_1": {
+      "x": 3446,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "patient_stand_down_typing_2": {
+      "x": 3476,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "patient_stand_down_walk_1": {
+      "x": 3506,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "patient_stand_down_walk_2": {
+      "x": 3536,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "patient_stand_down_walk_3": {
+      "x": 3566,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "patient_stand_left_idle": {
+      "x": 3596,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "patient_stand_left_reading_1": {
+      "x": 3626,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "patient_stand_left_reading_2": {
+      "x": 3656,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "patient_stand_left_typing_1": {
+      "x": 3686,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "patient_stand_left_typing_2": {
+      "x": 3716,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "patient_stand_left_walk_1": {
+      "x": 3746,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "patient_stand_left_walk_2": {
+      "x": 3776,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "patient_stand_left_walk_3": {
+      "x": 3806,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "patient_stand_right_idle": {
+      "x": 3836,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "patient_stand_right_reading_1": {
+      "x": 3866,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "patient_stand_right_reading_2": {
+      "x": 3896,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "patient_stand_right_typing_1": {
+      "x": 3926,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "patient_stand_right_typing_2": {
+      "x": 3956,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "patient_stand_right_walk_1": {
+      "x": 3986,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "patient_stand_right_walk_2": {
+      "x": 4016,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "patient_stand_right_walk_3": {
+      "x": 4046,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "patient_stand_up_idle": {
+      "x": 4076,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "patient_stand_up_reading_1": {
+      "x": 4106,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "patient_stand_up_reading_2": {
+      "x": 4136,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "patient_stand_up_typing_1": {
+      "x": 4166,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "patient_stand_up_typing_2": {
+      "x": 4196,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "patient_stand_up_walk_1": {
+      "x": 4226,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "patient_stand_up_walk_2": {
+      "x": 4256,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "patient_stand_up_walk_3": {
+      "x": 4286,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "patient_stand_walk_1": {
+      "x": 4316,
+      "y": 4,
+      "w": 24,
+      "h": 28
+    },
+    "patient_stand_walk_2": {
+      "x": 4344,
+      "y": 4,
+      "w": 24,
+      "h": 28
+    },
+    "queue": {
+      "x": 4372,
+      "y": 4,
+      "w": 18,
+      "h": 18
+    },
+    "reception": {
+      "x": 4394,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "reception_down_idle": {
+      "x": 4424,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "reception_down_reading_1": {
+      "x": 4454,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "reception_down_reading_2": {
+      "x": 4484,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "reception_down_typing_1": {
+      "x": 4514,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "reception_down_typing_2": {
+      "x": 4544,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "reception_down_walk_1": {
+      "x": 4574,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "reception_down_walk_2": {
+      "x": 4604,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "reception_down_walk_3": {
+      "x": 4634,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "reception_left_idle": {
+      "x": 4664,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "reception_left_reading_1": {
+      "x": 4694,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "reception_left_reading_2": {
+      "x": 4724,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "reception_left_typing_1": {
+      "x": 4754,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "reception_left_typing_2": {
+      "x": 4784,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "reception_left_walk_1": {
+      "x": 4814,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "reception_left_walk_2": {
+      "x": 4844,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "reception_left_walk_3": {
+      "x": 4874,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "reception_right_idle": {
+      "x": 4904,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "reception_right_reading_1": {
+      "x": 4934,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "reception_right_reading_2": {
+      "x": 4964,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "reception_right_typing_1": {
+      "x": 4994,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "reception_right_typing_2": {
+      "x": 5024,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "reception_right_walk_1": {
+      "x": 5054,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "reception_right_walk_2": {
+      "x": 5084,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "reception_right_walk_3": {
+      "x": 5114,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "reception_up_idle": {
+      "x": 5144,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "reception_up_reading_1": {
+      "x": 5174,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "reception_up_reading_2": {
+      "x": 5204,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "reception_up_typing_1": {
+      "x": 5234,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "reception_up_typing_2": {
+      "x": 5264,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "reception_up_walk_1": {
+      "x": 5294,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "reception_up_walk_2": {
+      "x": 5324,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "reception_up_walk_3": {
+      "x": 5354,
+      "y": 4,
+      "w": 26,
+      "h": 48
+    },
+    "sidebar": {
+      "x": 5384,
+      "y": 4,
+      "w": 20,
+      "h": 20
+    }
+  }
+}
