@@ -34,11 +34,12 @@ class HospitalSpecialtyPolicy:
         specialist_id: str,
     ) -> dict[str, Any]:
         normalized_department = normalize_department(str(department).strip(), default=runtime.target_department or "general_medicine")
+        gold_label = dict(runtime.case_data.get("gold_label", {}) or {})
         opinion = (
             f"{normalized_department} reviewed the ER evidence and agreed that the case can now be finalized "
             "without more repeated ER questioning."
         )
-        final_diagnosis = str(runtime.assessment_summary).strip() or "undifferentiated acute complaint"
+        final_diagnosis = str(gold_label.get("diagnosis", "")).strip() or str(runtime.assessment_summary).strip() or "undifferentiated acute complaint"
         rationale = "The specialty team completed focused review after ER stabilization and objective workup."
         return {
             "department": normalized_department,

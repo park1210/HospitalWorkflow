@@ -57,6 +57,7 @@
       "obstetrics_gynecology": "sidebar_obgyn",
       "urology": "sidebar_urology",
       "psychiatry": "sidebar_psychiatry",
+      "endocrinology": "sidebar_endocrinology",
       "general_medicine": "sidebar_general_medicine",
       "internal_medicine": "sidebar_internal_medicine",
       "surgery": "sidebar_surgery"
@@ -152,6 +153,7 @@
     "sidebar_general_medicine": { "x": 41, "y": 15, "kind": "sidebar" },
     "sidebar_internal_medicine": { "x": 36, "y": 19, "kind": "sidebar" },
     "sidebar_surgery": { "x": 39, "y": 19, "kind": "sidebar" },
+    "sidebar_endocrinology": { "x": 41, "y": 19, "kind": "sidebar" },
     "specialty_desk_1": { "x": 37, "y": 4, "kind": "desk" },
     "specialty_desk_2": { "x": 40, "y": 4, "kind": "desk" },
     "specialty_desk_3": { "x": 37, "y": 8, "kind": "desk" },

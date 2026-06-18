@@ -55,6 +55,17 @@ def build_parser() -> argparse.ArgumentParser:
         default=20.0,
         help="How long to wait for the first live snapshot before failing.",
     )
+    parser.add_argument(
+        "--scenario-file",
+        type=str,
+        default="",
+        help="Optional fixed demo scenario JSON file to drive the web session.",
+    )
+    parser.add_argument(
+        "--fixed-demo",
+        action="store_true",
+        help="Run the fixed ER crowding demo scenario.",
+    )
     return parser
 
 
@@ -73,6 +84,10 @@ def main() -> None:
     if args.minute_limit is not None:
         sim_cmd.extend(["--minute-limit", str(args.minute_limit)])
     sim_cmd.extend(["--min-demo-minutes", str(max(0, int(args.min_demo_minutes or 0)))])
+    if str(args.scenario_file or "").strip():
+        sim_cmd.extend(["--scenario-file", str(args.scenario_file).strip()])
+    if bool(args.fixed_demo):
+        sim_cmd.append("--fixed-demo")
 
     web_cmd = [sys.executable, "-m", "app.scripts.run_live_web_server", str(int(args.port or 8010))]
 

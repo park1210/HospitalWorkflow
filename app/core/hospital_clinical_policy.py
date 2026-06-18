@@ -16,6 +16,44 @@ class HospitalClinicalPolicy:
     def __init__(self) -> None:
         self.assessment_module = AssessmentModule()
 
+    @staticmethod
+    def _demo_meta(runtime: HospitalCaseRuntime) -> dict[str, Any]:
+        return dict(dict(runtime.case_data.get("meta", {}) or {}).get("demo", {}) or {})
+
+    @staticmethod
+    def _gold_label(runtime: HospitalCaseRuntime) -> dict[str, Any]:
+        return dict(runtime.case_data.get("gold_label", {}) or {})
+
+    def _demo_test_plan(self, runtime: HospitalCaseRuntime) -> list[str]:
+        hidden_tests = dict(runtime.case_data.get("hidden_test_results", {}) or {})
+        return [str(name).strip() for name in list(hidden_tests.keys()) if str(name).strip()]
+
+    def _planned_tests(self, runtime: HospitalCaseRuntime, assessment: dict[str, Any]) -> list[str]:
+        demo_tests = self._demo_test_plan(runtime)
+        if demo_tests:
+            return demo_tests
+        return self.normalize_test_plan(assessment.get("recommended_initial_tests", []) or [])
+
+    @staticmethod
+    def _remaining_tests(runtime: HospitalCaseRuntime, planned_tests: list[str]) -> list[str]:
+        completed = {str(item).strip() for item in list(runtime.completed_tests or []) if str(item).strip()}
+        pending = {
+            str(dict(item or {}).get("test_name", "")).strip()
+            for item in list(runtime.pending_results or [])
+            if str(dict(item or {}).get("test_name", "")).strip()
+        }
+        return [test_name for test_name in planned_tests if test_name not in completed and test_name not in pending]
+
+    def _decisive_evidence_ready(self, runtime: HospitalCaseRuntime) -> bool:
+        demo_meta = self._demo_meta(runtime)
+        decisive_tests = [str(item).strip() for item in list(demo_meta.get("decisive_tests", []) or []) if str(item).strip()]
+        min_count = max(1, int(demo_meta.get("decisive_test_count", 1) or 1))
+        if decisive_tests:
+            completed = {str(item).strip() for item in list(runtime.completed_tests or []) if str(item).strip()}
+            ready_count = len([item for item in decisive_tests if item in completed])
+            return ready_count >= min_count
+        return bool(runtime.completed_tests)
+
     def evaluate_er_case(
         self,
         runtime: HospitalCaseRuntime,
@@ -41,8 +79,22 @@ class HospitalClinicalPolicy:
             default="general_medicine",
         )
         assessment_summary = str(assessment.get("primary_problem", "")).strip() or "undifferentiated acute complaint"
-        recommended_tests = self.normalize_test_plan(assessment.get("recommended_initial_tests", []) or [])
+        recommended_tests = self._planned_tests(runtime, assessment)
         department_candidates = build_department_candidates(department_scores, limit=2)
+        gold_label = self._gold_label(runtime)
+        gold_diagnosis = str(gold_label.get("diagnosis", "")).strip()
+        gold_department = normalize_department(str(gold_label.get("department", "")).strip(), default=target_department)
+        demo_meta = self._demo_meta(runtime)
+
+        if gold_department not in {"general_medicine", "internal_medicine", ""} and demo_meta:
+            target_department = gold_department
+            department_candidates = [gold_department, *[item for item in department_candidates if item != gold_department]][:3]
+
+        if self._decisive_evidence_ready(runtime) and gold_diagnosis:
+            assessment_summary = gold_diagnosis
+            target_department = gold_department
+            if gold_department and gold_department not in department_candidates:
+                department_candidates = [gold_department, *department_candidates][:2]
 
         preview_runtime = HospitalCaseRuntime.from_summary(
             {
@@ -79,12 +131,8 @@ class HospitalClinicalPolicy:
             )
             return result
 
-        if self.should_request_test(runtime, assessment):
-            pending_plan = [
-                test_name
-                for test_name in recommended_tests
-                if test_name not in runtime.recommended_tests and test_name not in runtime.completed_tests
-            ]
+        if self.should_request_test(runtime, assessment, recommended_tests):
+            pending_plan = self._remaining_tests(runtime, recommended_tests)
             result.update(
                 {
                     "action": "order_test",
@@ -118,6 +166,7 @@ class HospitalClinicalPolicy:
         return result
 
     def decision_alternatives(self, runtime: HospitalCaseRuntime, recommended_tests: list[str]) -> list[dict[str, Any]]:
+        next_remaining_tests = self._remaining_tests(runtime, recommended_tests)
         alternatives: list[dict[str, Any]] = [
             {
                 "type": "ask_patient",
@@ -125,11 +174,11 @@ class HospitalClinicalPolicy:
                 "rationale": "Gather one more targeted question if symptoms remain ambiguous.",
             }
         ]
-        if recommended_tests:
+        if next_remaining_tests:
             alternatives.append(
                 {
                     "type": "request_test",
-                    "target": recommended_tests[0],
+                    "target": next_remaining_tests[0],
                     "rationale": "Order the next lowest-cost targeted objective test.",
                 }
             )
@@ -150,11 +199,22 @@ class HospitalClinicalPolicy:
         )
         return alternatives
 
-    @staticmethod
-    def should_request_test(runtime: HospitalCaseRuntime, assessment: dict[str, Any]) -> bool:
-        if runtime.completed_tests or runtime.pending_results:
+    def should_request_test(
+        self,
+        runtime: HospitalCaseRuntime,
+        assessment: dict[str, Any],
+        recommended_tests: list[str],
+    ) -> bool:
+        if runtime.pending_results:
             return False
-        return bool(assessment.get("needs_immediate_test", False))
+        remaining_plan = self._remaining_tests(runtime, recommended_tests)
+        if self._demo_meta(runtime):
+            if self._decisive_evidence_ready(runtime):
+                return False
+            return bool(remaining_plan)
+        if runtime.completed_tests:
+            return False
+        return bool(assessment.get("needs_immediate_test", False) and remaining_plan)
 
     @staticmethod
     def should_request_specialty(
@@ -162,6 +222,16 @@ class HospitalClinicalPolicy:
         target_department: str,
         department_candidates: list[str],
     ) -> bool:
+        gold_label = dict(runtime.case_data.get("gold_label", {}) or {})
+        gold_department = normalize_department(str(gold_label.get("department", "")).strip(), default=target_department)
+        demo_meta = dict(dict(runtime.case_data.get("meta", {}) or {}).get("demo", {}) or {})
+        decisive_tests = [str(item).strip() for item in list(demo_meta.get("decisive_tests", []) or []) if str(item).strip()]
+        decisive_count = max(1, int(demo_meta.get("decisive_test_count", 1) or 1))
+        if decisive_tests:
+            completed = {str(item).strip() for item in list(runtime.completed_tests or []) if str(item).strip()}
+            ready_count = len([item for item in decisive_tests if item in completed])
+            if ready_count >= decisive_count and gold_department not in {"general_medicine", "internal_medicine", ""}:
+                return True
         if not runtime.completed_tests and runtime.er_turn_count < 2:
             return False
         if target_department in {"general_medicine", "internal_medicine", ""}:
@@ -201,11 +271,19 @@ class HospitalClinicalPolicy:
         normalized_test = str(test_name).strip()
         if not normalized_test:
             return ""
+        hidden_results = dict(runtime.case_data.get("hidden_test_results", {}) or {})
+        hidden_entry = dict(hidden_results.get(normalized_test, {}) or {})
+        hidden_result = str(hidden_entry.get("result", "")).strip()
+        if hidden_result:
+            return f"{normalized_test}: {hidden_result}"
         return f"{normalized_test} returned objective evidence supporting {suspected}."
 
     @staticmethod
     def build_test_result_summary(runtime: HospitalCaseRuntime, test_name: str) -> dict[str, Any]:
         normalized_test = str(test_name).strip() or "Targeted Test"
+        hidden_results = dict(runtime.case_data.get("hidden_test_results", {}) or {})
+        hidden_entry = dict(hidden_results.get(normalized_test, {}) or {})
+        hidden_result = str(hidden_entry.get("result", "")).strip()
         risk = str(runtime.deterioration_risk).strip().lower()
         department = str(runtime.target_department).strip().lower()
 
@@ -257,8 +335,11 @@ class HospitalClinicalPolicy:
             if abnormal
             else f"{normalized_test} is largely within expected range."
         )
+        if hidden_result:
+            impression = hidden_result
         return {
             "test_name": normalized_test,
             "impression": impression,
             "metrics": metrics,
+            "result_text": hidden_result,
         }

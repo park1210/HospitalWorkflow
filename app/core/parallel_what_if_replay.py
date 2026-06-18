@@ -39,6 +39,17 @@ def _dataset_case_map() -> dict[str, dict[str, Any]]:
     }
 
 
+def _case_data_map_for_report(report: dict[str, Any]) -> dict[str, dict[str, Any]]:
+    source_cases = [dict(item or {}) for item in list(report.get("source_cases", []) or []) if dict(item or {})]
+    if source_cases:
+        return {
+            str(case.get("case_id", "")).strip(): dict(case)
+            for case in source_cases
+            if str(case.get("case_id", "")).strip()
+        }
+    return _dataset_case_map()
+
+
 def _case_detail(run_id: str, case_id: str) -> dict[str, Any]:
     snapshot_path = settings.REPORTS_DIR / str(run_id).strip() / "live_visual_state.json"
     if not snapshot_path.exists():
@@ -151,6 +162,8 @@ def _replay_tests(detail: dict[str, Any], selected_action: dict[str, Any]) -> li
     target = str(selected_action.get("target", "")).strip()
     if action_type == "request_test" and target and target not in tests:
         tests.append(target)
+    if action_type == "await_results" and target and target not in tests:
+        tests.append(target)
     return tests[-6:]
 
 
@@ -161,6 +174,8 @@ def _replay_findings(detail: dict[str, Any], selected_action: dict[str, Any], ru
     suspected = str(runtime.get("assessment_summary", "")).strip() or "the working problem"
     if action_type == "request_test" and target:
         findings.append(f"{target} added another objective clue supporting {suspected}.")
+    if action_type == "await_results" and target:
+        findings.append(f"Waiting for {target} delayed escalation while the same working diagnosis stayed in play.")
     if action_type in {"consult_specialty", "request_consult"}:
         department = str(selected_action.get("target", "")).strip() or str(runtime.get("target_department", "")).strip()
         findings.append(f"{department} specialty review tightened ownership around the leading diagnosis.")
@@ -185,6 +200,8 @@ def _replay_reward(detail: dict[str, Any], selected_action: dict[str, Any]) -> f
         return -0.1
     if action_type == "request_test":
         return 0.15 if not list(detail.get("objective_findings", []) or []) else -0.05
+    if action_type == "await_results":
+        return -0.2
     if action_type in {"consult_specialty", "request_consult"}:
         return 0.2
     if action_type == "diagnose":
@@ -195,6 +212,8 @@ def _replay_reward(detail: dict[str, Any], selected_action: dict[str, Any]) -> f
 def _replay_zone(detail: dict[str, Any], selected_action: dict[str, Any]) -> str:
     action_type = str(selected_action.get("type", "")).strip()
     if action_type == "request_test":
+        return "awaiting_results"
+    if action_type == "await_results":
         return "awaiting_results"
     if action_type in {"consult_specialty", "request_consult"}:
         return "specialty_review"
@@ -255,6 +274,30 @@ def _trajectory_steps(
                 },
             }
         )
+    elif action_type == "await_results":
+        steps.append(
+            {
+                "action": "await_results",
+                "target": target,
+                "zone": "awaiting_results",
+                "rationale": "The branch waits for the pending objective result before escalating to specialty.",
+                "outcome": {
+                    "tests": replay_tests,
+                    "delayed_test": target,
+                },
+            }
+        )
+        steps.append(
+            {
+                "action": "review_results",
+                "target": target,
+                "zone": "er_workup",
+                "rationale": "After the pending result returns, ER reassesses the case from the bedside.",
+                "outcome": {
+                    "objective_findings": replay_findings,
+                },
+            }
+        )
     elif action_type in {"consult_specialty", "request_consult"}:
         department = target or str(runtime.get("target_department", "")).strip()
         steps.append(
@@ -310,9 +353,9 @@ def _event_window(report: dict[str, Any], case_id: str, snapshot_minute: int | N
     return filtered[-8:]
 
 
-def _reconstruct_state(snapshot: dict[str, Any]) -> HospitalSchedulerState:
+def _reconstruct_state(snapshot: dict[str, Any], report: dict[str, Any]) -> HospitalSchedulerState:
     case_ids = [str(case_id).strip() for case_id in list(dict(snapshot.get("cases", {}) or {}).keys()) if str(case_id).strip()]
-    all_cases = _dataset_case_map()
+    all_cases = _case_data_map_for_report(report)
     case_data_map = {case_id: dict(all_cases.get(case_id, {}) or {}) for case_id in case_ids}
     return HospitalSchedulerState.from_snapshot(snapshot, case_data_map=case_data_map)
 
@@ -358,7 +401,7 @@ def replay_parallel_case_from_snapshot(
     detail = _case_detail(run_id, normalized_case_id)
 
     scheduler_snapshot = _scheduler_snapshot_for_case(report, snapshot_id, normalized_case_id)
-    branch_state = _reconstruct_state(scheduler_snapshot)
+    branch_state = _reconstruct_state(scheduler_snapshot, report)
     state_before = deepcopy(branch_state)
     runtime_before = branch_state.case(normalized_case_id).to_summary()
     scheduler_decision = _decision_snapshot(runtime_before, snapshot_id)

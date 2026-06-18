@@ -1,4 +1,4 @@
-from __future__ import annotations
+﻿from __future__ import annotations
 
 import json
 from pathlib import Path
@@ -668,8 +668,16 @@ def build_live_web_viewer_html(
         <h2 class="band-title">Live Status</h2>
         <p class="band-text">
           This web page is designed to be served directly from a report folder or containerized static host.
-          It periodically refreshes the snapshot file, so later Docker or server deployment can reuse the same output format.
+          Open this viewer first, then start a fresh live ER run directly from the browser.
         </p>
+        <div class="hero-actions" style="margin-top:14px;">
+          <button class="hero-cta" id="startLiveSessionBtn" type="button">Start Live Demo</button>
+          <button class="hero-cta" id="stopLiveSessionBtn" type="button">Stop Live Demo</button>
+        </div>
+        <div class="detail-block" style="margin-top:14px;">
+          <h4>Browser Launch</h4>
+          <div id="liveLaunchStatus" class="muted">Ready to start a new browser-driven live simulation.</div>
+        </div>
         <div class="triage-strip">
           <span class="triage-chip" style="background:#4b5164;color:#f5f7ff;">BLACK</span>
           <span class="triage-chip" style="background:#ff7c74;">RED</span>
@@ -774,14 +782,13 @@ def build_live_web_viewer_html(
   </div>
 
   <script>
+    const INITIAL_RUN_ID = "{run_id}";
     const SNAPSHOT_URL = "{resolved_snapshot_source}";
     const ASSET_BASE_URL = "{resolved_asset_base_url}";
     const INITIAL_LAYOUT = {_safe_json(initial_layout)};
     const TILE_PX = 26;
     const STAGE_PADDING = 36;
-    const HISTORY_URL = String(SNAPSHOT_URL || "").startsWith("/api/runs/")
-      ? String(SNAPSHOT_URL).replace(/\/snapshot$/, "/history")
-      : "";
+    let currentRunId = INITIAL_RUN_ID;
     let selectedCaseId = "";
     let latestSnapshot = null;
     let sceneHitboxes = [];
@@ -828,6 +835,37 @@ def build_live_web_viewer_html(
       const base = String(ASSET_BASE_URL || "").replace(/\/+$/, "");
       const suffix = String(path || "").replace(/^\/+/, "");
       return base ? `${{base}}/${{suffix}}` : suffix;
+    }}
+
+    function getSnapshotUrl() {{
+      if (String(currentRunId || "").trim()) {{
+        return `/api/runs/${{encodeURIComponent(String(currentRunId).trim())}}/snapshot`;
+      }}
+      return SNAPSHOT_URL;
+    }}
+
+    function getHistoryUrl() {{
+      const snapshotUrl = getSnapshotUrl();
+      return String(snapshotUrl || "").startsWith("/api/runs/")
+        ? String(snapshotUrl).replace(/\/snapshot$/, "/history")
+        : "";
+    }}
+
+    function updateRunIdUi(runId) {{
+      const normalized = String(runId || "").trim();
+      if (!normalized) return;
+      currentRunId = normalized;
+      const heroRunId = document.getElementById("heroRunId");
+      if (heroRunId) {{
+        heroRunId.textContent = normalized;
+      }}
+    }}
+
+    function setLiveLaunchStatus(message) {{
+      const node = document.getElementById("liveLaunchStatus");
+      if (node) {{
+        node.textContent = String(message || "").trim();
+      }}
     }}
 
     function loadExternalSprite(path) {{
@@ -1649,8 +1687,9 @@ def build_live_web_viewer_html(
     }}
 
     function whatIfBaseUrl() {{
-      if (!String(SNAPSHOT_URL || "").startsWith("/api/runs/")) return "";
-      return String(SNAPSHOT_URL).replace(/\/snapshot$/, "");
+      const snapshotUrl = getSnapshotUrl();
+      if (!String(snapshotUrl || "").startsWith("/api/runs/")) return "";
+      return String(snapshotUrl).replace(/\/snapshot$/, "");
     }}
 
     async function triggerWhatIf(caseId, snapshotId, actionType, actionTarget) {{
@@ -2950,11 +2989,12 @@ def build_live_web_viewer_html(
 
     async function loadSnapshot(renderImmediately = true) {{
       try {{
-        const response = await fetch(`${{SNAPSHOT_URL}}?t=${{Date.now()}}`, {{ cache: "no-store" }});
+        const response = await fetch(`${{getSnapshotUrl()}}?t=${{Date.now()}}`, {{ cache: "no-store" }});
         if (!response.ok) {{
           throw new Error(`HTTP ${{response.status}}`);
         }}
         const snapshot = await response.json();
+        updateRunIdUi(snapshot?.run_id || currentRunId);
         if (renderImmediately) {{
           renderAll(snapshot);
         }}
@@ -2966,9 +3006,10 @@ def build_live_web_viewer_html(
     }}
 
     async function loadHistory() {{
-      if (!HISTORY_URL) return [];
+      const historyUrl = getHistoryUrl();
+      if (!historyUrl) return [];
       try {{
-        const response = await fetch(`${{HISTORY_URL}}?t=${{Date.now()}}`, {{ cache: "no-store" }});
+        const response = await fetch(`${{historyUrl}}?t=${{Date.now()}}`, {{ cache: "no-store" }});
         if (!response.ok) {{
           return [];
         }}
@@ -3103,6 +3144,76 @@ def build_live_web_viewer_html(
       setPlaybackStatus("Paused");
     }}
 
+    async function startBrowserLiveSession() {{
+      const startButton = document.getElementById("startLiveSessionBtn");
+      const stopButton = document.getElementById("stopLiveSessionBtn");
+      if (startButton) startButton.disabled = true;
+      if (stopButton) stopButton.disabled = true;
+      setLiveLaunchStatus("Starting a new live ER simulation...");
+      try {{
+        const response = await fetch("/api/live/start", {{
+          method: "POST",
+          headers: {{ "Content-Type": "application/json" }},
+          body: JSON.stringify({{
+            fixed_demo: true,
+            max_cases: 5,
+            minute_limit: 120,
+            min_demo_minutes: 20,
+            step_delay_sec: 0.55,
+          }}),
+        }});
+        const payload = await response.json();
+        if (!response.ok) {{
+          throw new Error(String(payload?.detail || payload?.message || `HTTP ${{response.status}}`).trim());
+        }}
+        const runId = String(payload?.run_id || "").trim();
+        if (!runId) {{
+          throw new Error("Live simulation started but no run_id was returned.");
+        }}
+        setLiveLaunchStatus(`Live simulation started for ${{runId}}. Redirecting now...`);
+        window.location.href = `/?run_id=${{encodeURIComponent(runId)}}`;
+      }} catch (error) {{
+        console.error("Failed to start live session", error);
+        setLiveLaunchStatus(`Failed to start live session: ${{error?.message || error}}`);
+        if (startButton) startButton.disabled = false;
+        if (stopButton) stopButton.disabled = false;
+      }}
+    }}
+
+    async function stopBrowserLiveSession() {{
+      const startButton = document.getElementById("startLiveSessionBtn");
+      const stopButton = document.getElementById("stopLiveSessionBtn");
+      if (startButton) startButton.disabled = true;
+      if (stopButton) stopButton.disabled = true;
+      setLiveLaunchStatus("Stopping the current live ER simulation...");
+      try {{
+        const response = await fetch("/api/live/stop", {{
+          method: "POST",
+          headers: {{ "Content-Type": "application/json" }},
+        }});
+        const payload = await response.json();
+        if (!response.ok) {{
+          throw new Error(String(payload?.detail || payload?.message || `HTTP ${{response.status}}`).trim());
+        }}
+        setLiveLaunchStatus(String(payload?.message || "Live simulation stopped."));
+      }} catch (error) {{
+        console.error("Failed to stop live session", error);
+        setLiveLaunchStatus(`Failed to stop live session: ${{error?.message || error}}`);
+      }} finally {{
+        if (startButton) startButton.disabled = false;
+        if (stopButton) stopButton.disabled = false;
+      }}
+    }}
+
+    function bindLiveSessionControls() {{
+      document.getElementById("startLiveSessionBtn")?.addEventListener("click", () => {{
+        startBrowserLiveSession();
+      }});
+      document.getElementById("stopLiveSessionBtn")?.addEventListener("click", () => {{
+        stopBrowserLiveSession();
+      }});
+    }}
+
     function bindPlaybackControls() {{
       document.getElementById("btnReplay")?.addEventListener("click", () => {{
         startReplayFromBeginning();
@@ -3115,6 +3226,7 @@ def build_live_web_viewer_html(
       }});
     }}
 
+    bindLiveSessionControls();
     bindPlaybackControls();
     startReplayFromBeginning();
   </script>

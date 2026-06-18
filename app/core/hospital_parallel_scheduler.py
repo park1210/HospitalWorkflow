@@ -132,6 +132,27 @@ class HospitalParallelScheduler:
             )
             return
 
+        if action_type == "await_results":
+            waiting_for = target or str(dict(runtime.pending_results[0] or {}).get("test_name", "")).strip()
+            runtime.workflow_state = "waiting_test" if list(runtime.pending_results or []) else "waiting_er"
+            runtime.zone = "awaiting_results" if list(runtime.pending_results or []) else "er_workup"
+            runtime.latest_action = "await_results"
+            runtime.latest_target = waiting_for
+            runtime.latest_rationale = "The replay branch delays escalation and waits for the pending objective result first."
+            state.er_queue = [item for item in list(state.er_queue or []) if str(item).strip() != str(case_id).strip()]
+            self._record_event(
+                state,
+                case_id=case_id,
+                action="await_results",
+                zone=runtime.zone,
+                actor=runtime.assigned_er_doctor_id or "doctor_er_0",
+                rationale=runtime.latest_rationale,
+                event_type="awaiting_results",
+                location_id=str(runtime.assigned_bed_id).strip() or "er_bed_1",
+                payload={"requested_test": waiting_for},
+            )
+            return
+
         if action_type in {"consult_specialty", "request_consult"}:
             if target:
                 runtime.target_department = target

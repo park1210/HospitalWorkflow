@@ -1,5 +1,10 @@
 from __future__ import annotations
 
+import os
+import subprocess
+import sys
+import threading
+import time
 from pathlib import Path
 from typing import Any, Optional
 
@@ -21,6 +26,78 @@ from app.webapp.report_store import (
     load_source_case,
     resolve_run_id,
 )
+
+_LIVE_SESSION_LOCK = threading.Lock()
+_LIVE_SESSION_STATE: dict[str, Any] = {
+    "process": None,
+    "run_id": "",
+    "port": None,
+    "started_at": 0.0,
+    "command": [],
+}
+
+
+def _find_new_live_run(reports_dir: Path, known_dirs: set[str], timeout_sec: float) -> str:
+    deadline = time.time() + timeout_sec
+    while time.time() < deadline:
+        candidates: list[tuple[float, str]] = []
+        for child in reports_dir.iterdir():
+            if not child.is_dir():
+                continue
+            run_id = child.name
+            if run_id in known_dirs:
+                continue
+            live_path = child / "live_visual_state.json"
+            if live_path.exists():
+                candidates.append((live_path.stat().st_mtime, run_id))
+        if candidates:
+            candidates.sort(reverse=True)
+            return candidates[0][1]
+        time.sleep(0.4)
+    raise TimeoutError("Timed out waiting for a new live_visual_state.json snapshot.")
+
+
+def _get_live_process() -> Optional[subprocess.Popen[Any]]:
+    process = _LIVE_SESSION_STATE.get("process")
+    return process if isinstance(process, subprocess.Popen) else None
+
+
+def _cleanup_finished_live_process() -> None:
+    process = _get_live_process()
+    if process is None:
+        return
+    if process.poll() is None:
+        return
+    _LIVE_SESSION_STATE.update(
+        {
+            "process": None,
+            "run_id": "",
+            "started_at": 0.0,
+            "command": [],
+        }
+    )
+
+
+def _live_status_payload_unlocked(*, port_override: Optional[int] = None) -> dict[str, Any]:
+    _cleanup_finished_live_process()
+    process = _get_live_process()
+    run_id = str(_LIVE_SESSION_STATE.get("run_id", "")).strip()
+    port = int(port_override or _LIVE_SESSION_STATE.get("port") or 8010)
+    snapshot_exists = bool(run_id and (settings.REPORTS_DIR / run_id / "live_visual_state.json").exists())
+    return {
+        "running": bool(process and process.poll() is None),
+        "pid": process.pid if process is not None and process.poll() is None else None,
+        "run_id": run_id,
+        "viewer_url": f"http://127.0.0.1:{port}/?run_id={run_id}" if run_id else "",
+        "snapshot_ready": snapshot_exists,
+        "started_at": _LIVE_SESSION_STATE.get("started_at") or 0.0,
+        "command": list(_LIVE_SESSION_STATE.get("command", []) or []),
+    }
+
+
+def _live_status_payload(*, port_override: Optional[int] = None) -> dict[str, Any]:
+    with _LIVE_SESSION_LOCK:
+        return _live_status_payload_unlocked(port_override=port_override)
 
 
 def _normalize_department_label(value: str) -> str:
@@ -113,6 +190,17 @@ def _build_parallel_branch_transcript(
                 {
                     "speaker": "ER",
                     "text": f"We need {requested_test} before finalizing this case.",
+                    "speaker_entity_id": "doctor_er_0",
+                    "listener_entity_id": patient_entity_id,
+                }
+            )
+            continue
+        if action == "await_results":
+            delayed_test = str(step_dict.get("target", "")).strip() or target
+            transcript.append(
+                {
+                    "speaker": "ER",
+                    "text": f"We already have a strong clue, but I want {delayed_test} before escalating.",
                     "speaker_entity_id": "doctor_er_0",
                     "listener_entity_id": patient_entity_id,
                 }
@@ -227,6 +315,95 @@ def create_app() -> FastAPI:
             "runs": run_ids,
             "latest_run_id": run_ids[0] if run_ids else "",
         }
+
+    @app.get("/api/live/status")
+    def live_status(port: Optional[int] = Query(default=None)) -> dict[str, Any]:
+        return _live_status_payload(port_override=port)
+
+    @app.post("/api/live/start")
+    def live_start(payload: dict[str, Any] = Body(default_factory=dict)) -> dict[str, Any]:
+        port = int(payload.get("port", 8010) or 8010)
+        max_cases_value = payload.get("max_cases", 5)
+        minute_limit_value = payload.get("minute_limit", 120)
+        min_demo_minutes = int(payload.get("min_demo_minutes", 20) or 20)
+        wait_timeout_sec = float(payload.get("wait_timeout_sec", 20.0) or 20.0)
+        step_delay_sec = float(payload.get("step_delay_sec", 0.55) or 0.55)
+        scenario_file = str(payload.get("scenario_file", "") or "").strip()
+        fixed_demo = bool(payload.get("fixed_demo", True))
+
+        with _LIVE_SESSION_LOCK:
+            _cleanup_finished_live_process()
+            existing = _get_live_process()
+            if existing is not None and existing.poll() is None:
+                run_id = str(_LIVE_SESSION_STATE.get("run_id", "")).strip()
+                return {
+                    "status": "already_running",
+                    **_live_status_payload_unlocked(port_override=port),
+                    "message": f"Live simulation already running for {run_id}" if run_id else "Live simulation already running",
+                }
+
+            reports_dir = settings.REPORTS_DIR
+            reports_dir.mkdir(parents=True, exist_ok=True)
+            known_dirs = {child.name for child in reports_dir.iterdir() if child.is_dir()}
+
+            env = os.environ.copy()
+            env["LIVE_VIS_STEP_DELAY_SEC"] = str(max(0.0, step_delay_sec))
+
+            sim_cmd = [sys.executable, "-m", "app.scripts.run_live_parallel_visual_multi_patient"]
+            if max_cases_value is not None and str(max_cases_value).strip() != "":
+                sim_cmd.extend(["--max-cases", str(int(max_cases_value))])
+            if minute_limit_value is not None and str(minute_limit_value).strip() != "":
+                sim_cmd.extend(["--minute-limit", str(int(minute_limit_value))])
+            sim_cmd.extend(["--min-demo-minutes", str(max(0, min_demo_minutes))])
+            if scenario_file:
+                sim_cmd.extend(["--scenario-file", scenario_file])
+            if fixed_demo:
+                sim_cmd.append("--fixed-demo")
+
+            process = subprocess.Popen(sim_cmd, env=env)
+            try:
+                run_id = _find_new_live_run(reports_dir, known_dirs, wait_timeout_sec)
+            except Exception:
+                if process.poll() is None:
+                    process.terminate()
+                    try:
+                        process.wait(timeout=5)
+                    except subprocess.TimeoutExpired:
+                        process.kill()
+                raise
+
+            _LIVE_SESSION_STATE.update(
+                {
+                    "process": process,
+                    "run_id": run_id,
+                    "port": port,
+                    "started_at": time.time(),
+                    "command": sim_cmd,
+                }
+            )
+
+        return {
+            "status": "started",
+            **_live_status_payload(port_override=port),
+            "message": f"Started live simulation for {run_id}",
+        }
+
+    @app.post("/api/live/stop")
+    def live_stop() -> dict[str, Any]:
+        with _LIVE_SESSION_LOCK:
+            _cleanup_finished_live_process()
+            process = _get_live_process()
+            run_id = str(_LIVE_SESSION_STATE.get("run_id", "")).strip()
+            if process is None or process.poll() is not None:
+                _LIVE_SESSION_STATE.update({"process": None, "run_id": "", "started_at": 0.0, "command": []})
+                return {"status": "idle", "message": "No live simulation is currently running."}
+            process.terminate()
+            try:
+                process.wait(timeout=5)
+            except subprocess.TimeoutExpired:
+                process.kill()
+            _LIVE_SESSION_STATE.update({"process": None, "run_id": "", "started_at": 0.0, "command": []})
+        return {"status": "stopped", "run_id": run_id, "message": f"Stopped live simulation for {run_id}"}
 
     @app.get("/api/runs/{run_id}/snapshot")
     def snapshot(run_id: str) -> dict[str, Any]:

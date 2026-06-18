@@ -57,6 +57,7 @@ class HospitalResourceRegistry:
                 ("obstetrics_gynecology", "obgyn"),
                 ("urology", "urology"),
                 ("psychiatry", "psychiatry"),
+                ("endocrinology", "endocrinology"),
                 ("general_medicine", "general_medicine"),
                 ("internal_medicine", "internal_medicine"),
                 ("surgery", "surgery"),

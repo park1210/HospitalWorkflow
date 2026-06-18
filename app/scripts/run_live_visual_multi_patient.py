@@ -1,23 +1,35 @@
 from __future__ import annotations
 
+from pathlib import Path
+
 from app.config import settings
 from app.core.live_visual_runtime import LiveVisualRuntimeWriter
 from app.core.logger import create_run_id, save_report_json, save_report_markdown, save_result
 from app.core.multi_patient_reporting import build_multi_patient_report, render_multi_patient_report_markdown
 from app.core.multi_patient_simulator import MultiPatientERSimulator
+from app.data.demo_scenario_loader import load_demo_scenario_cases
 from app.data.loader import load_processed_cases, load_raw_cases
 from app.data.transform import transform_case
 
 
-def load_cases() -> list[dict]:
+def load_cases_with_context(*, source_path: Path | None = None) -> tuple[list[dict], dict]:
+    path = Path(source_path) if source_path is not None else Path(settings.RAW_DATA_PATH)
+    if path.suffix.lower() == ".json":
+        return load_demo_scenario_cases(path)
+
     if settings.USE_PROCESSED_CASES and settings.PROCESSED_DATA_PATH.exists():
-        return load_processed_cases(settings.PROCESSED_DATA_PATH)
+        return load_processed_cases(settings.PROCESSED_DATA_PATH), {"fixed_demo": False}
 
-    if settings.RAW_DATA_PATH.exists():
-        raw_cases = load_raw_cases(settings.RAW_DATA_PATH)
-        return [transform_case(case, idx) for idx, case in enumerate(raw_cases)]
+    if path.exists():
+        raw_cases = load_raw_cases(path)
+        return [transform_case(case, idx) for idx, case in enumerate(raw_cases)], {"fixed_demo": False}
 
-    return []
+    return [], {"fixed_demo": False}
+
+
+def load_cases(*, source_path: Path | None = None) -> list[dict]:
+    cases, _ = load_cases_with_context(source_path=source_path)
+    return cases
 
 
 def main() -> None:

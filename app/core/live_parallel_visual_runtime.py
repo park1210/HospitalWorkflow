@@ -80,9 +80,16 @@ def _dialogue_ready_for_runtime(runtime: Any, action: str, current_minute: int) 
 
 
 class LiveParallelVisualRuntimeWriter:
-    def __init__(self, run_id: str, queue_policy: str, step_delay_sec: Optional[float] = None) -> None:
+    def __init__(
+        self,
+        run_id: str,
+        queue_policy: str,
+        step_delay_sec: Optional[float] = None,
+        demo_context: Optional[dict[str, Any]] = None,
+    ) -> None:
         self.run_id = run_id
         self.queue_policy = queue_policy
+        self.demo_context = dict(demo_context or {})
         delay_from_env = float(os.getenv("LIVE_VIS_STEP_DELAY_SEC", "0.55") or 0.55)
         self.step_delay_sec = delay_from_env if step_delay_sec is None else max(0.0, float(step_delay_sec))
         self.report_dir = get_run_dir(settings.REPORTS_DIR, run_id)
@@ -927,6 +934,7 @@ class LiveParallelVisualRuntimeWriter:
         }
 
     def _case_detail(self, state: HospitalSchedulerState, runtime: Any) -> dict[str, Any]:
+        demo_meta = dict(dict(runtime.case_data.get("meta", {}) or {}).get("demo", {}) or {})
         recent_events = [
             self._event_entry(state, dict(event or {}), index)
             for index, event in enumerate(list(state.event_log or []))
@@ -951,6 +959,28 @@ class LiveParallelVisualRuntimeWriter:
             or bool(recent_events)
         )
         if should_offer_decisions:
+            primary_what_if = dict(demo_meta.get("primary_what_if", {}) or {})
+            if primary_what_if:
+                alternatives.append(
+                    {
+                        "type": str(primary_what_if.get("type", "")).strip(),
+                        "target": str(primary_what_if.get("target", "")).strip(),
+                        "rationale": str(primary_what_if.get("impact", "")).strip()
+                        or str(primary_what_if.get("label", "")).strip()
+                        or "Replay the main presentation what-if branch for this patient.",
+                        "label": str(primary_what_if.get("label", "")).strip(),
+                    }
+                )
+            if list(runtime.pending_results or []):
+                pending_test_name = str(dict(runtime.pending_results[0] or {}).get("test_name", "")).strip()
+                if pending_test_name:
+                    alternatives.append(
+                        {
+                            "type": "await_results",
+                            "target": pending_test_name,
+                            "rationale": "Hold the current plan, wait for the pending objective result, then reassess.",
+                        }
+                    )
             alternatives.append(
                 {
                     "type": "ask_patient",
@@ -981,6 +1011,15 @@ class LiveParallelVisualRuntimeWriter:
                     "rationale": "Finalize immediately if current evidence is already decisive enough.",
                 }
             )
+        deduped_alternatives: list[dict[str, Any]] = []
+        seen_alternatives: set[tuple[str, str]] = set()
+        for candidate in alternatives:
+            key = (str(candidate.get("type", "")).strip(), str(candidate.get("target", "")).strip())
+            if key in seen_alternatives:
+                continue
+            seen_alternatives.add(key)
+            deduped_alternatives.append(candidate)
+        alternatives = deduped_alternatives
         if alternatives and not decision_points:
             decision_snapshot_id = f"parallel_{str(runtime.case_id).strip()}_m{int(state.current_minute or 0)}"
             decision_points.append(
@@ -994,6 +1033,15 @@ class LiveParallelVisualRuntimeWriter:
                     "alternatives": alternatives,
                 }
             )
+        merged_candidates: list[dict[str, Any]] = []
+        seen_candidate_keys: set[tuple[str, str]] = set()
+        latest_decision_alternatives = list(dict(decision_points[-1] or {}).get("alternatives", []) or []) if decision_points else []
+        for candidate in [*latest_decision_alternatives, *alternatives]:
+            key = (str(candidate.get("type", "")).strip(), str(candidate.get("target", "")).strip())
+            if key in seen_candidate_keys:
+                continue
+            seen_candidate_keys.add(key)
+            merged_candidates.append(candidate)
         return {
             "case_id": str(runtime.case_id).strip(),
             "zone": self._scheduler_zone(runtime),
@@ -1018,7 +1066,7 @@ class LiveParallelVisualRuntimeWriter:
             ],
             "tests": [str(item).strip() for item in list(runtime.recommended_tests or []) if str(item).strip()][-6:],
             "decision_points": decision_points,
-            "counterfactual_candidates": list(dict(decision_points[-1] or {}).get("alternatives", []) or alternatives[:]) if decision_points else alternatives[:],
+            "counterfactual_candidates": merged_candidates if decision_points else alternatives[:],
             "what_if_stats": {
                 "decision_snapshot_count": len(decision_points),
                 "shadow_disagreement_count": 0,
@@ -1027,6 +1075,9 @@ class LiveParallelVisualRuntimeWriter:
             "alerts": self._patient_alerts(runtime),
             "recent_events": recent_events,
             "current_event": current_event,
+            "demo_role": str(demo_meta.get("role", "")).strip(),
+            "primary_what_if": dict(demo_meta.get("primary_what_if", {}) or {}),
+            "expected_er_path": [str(item).strip() for item in list(demo_meta.get("expected_er_path", []) or []) if str(item).strip()],
         }
 
     def _resource_occupancy(self, state: HospitalSchedulerState) -> list[dict[str, Any]]:
@@ -1202,7 +1253,11 @@ class LiveParallelVisualRuntimeWriter:
             "er_focus": self._er_focus(state),
             "case_details": case_details,
             "scene": scene_snapshot,
+            "demo": dict(self.demo_context or {}),
         }
+        display_minute_limit = int(dict(self.demo_context or {}).get("display_minute_limit", 0) or 0)
+        snapshot["display_time_min"] = min(int(state.current_minute or 0), display_minute_limit) if display_minute_limit > 0 else int(state.current_minute or 0)
+        snapshot["post_demo_wrap_up"] = bool(display_minute_limit > 0 and int(state.current_minute or 0) > display_minute_limit)
         snapshot["world"] = self._world_snapshot(
             current_time_min=int(state.current_minute or 0),
             patients=patients,
