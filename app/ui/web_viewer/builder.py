@@ -786,9 +786,9 @@ def build_live_web_viewer_html(
     const SNAPSHOT_URL = "{resolved_snapshot_source}";
     const ASSET_BASE_URL = "{resolved_asset_base_url}";
     const INITIAL_LAYOUT = {_safe_json(initial_layout)};
-    const TILE_PX = 26;
+    const TILE_PX = 24;
     const STAGE_PADDING = 36;
-    let currentRunId = INITIAL_RUN_ID;
+    let currentRunId = String(INITIAL_RUN_ID || "").trim();
     let selectedCaseId = "";
     let latestSnapshot = null;
     let sceneHitboxes = [];
@@ -797,6 +797,8 @@ def build_live_web_viewer_html(
     let sceneAnimationFrame = 0;
     let whatIfResults = {{}};
     let caseViewModes = {{}};
+    let whatIfPlaybackState = null;
+    let whatIfPlaybackTimer = 0;
     let playbackHistory = [];
     let playbackFrames = [];
     let playbackIndex = 0;
@@ -814,9 +816,9 @@ def build_live_web_viewer_html(
     const MOVE_SETTLE_BUFFER_MS = 1600;
     const MIN_MOVEMENT_STAGE_MS = 1600;
     const MAX_MOVEMENT_STAGE_MS = 7600;
-    const CHARACTER_PNG_SIZE = 42;
-    const BED_PNG_WIDTH = 84;
-    const BED_PNG_HEIGHT = 68;
+    const CHARACTER_PNG_SIZE = 38;
+    const BED_PNG_WIDTH = 68;
+    const BED_PNG_HEIGHT = 48;
     const CHARACTER_ROLE_ASSET = {{
       patient: "patient",
       er: "er_doctor",
@@ -830,6 +832,7 @@ def build_live_web_viewer_html(
       right: "right",
     }};
     const externalSpriteImageCache = new Map();
+    const processedSpriteCanvasCache = new Map();
 
     function joinAssetUrl(path) {{
       const base = String(ASSET_BASE_URL || "").replace(/\/+$/, "");
@@ -841,11 +844,12 @@ def build_live_web_viewer_html(
       if (String(currentRunId || "").trim()) {{
         return `/api/runs/${{encodeURIComponent(String(currentRunId).trim())}}/snapshot`;
       }}
-      return SNAPSHOT_URL;
+      return String(SNAPSHOT_URL || "").trim();
     }}
 
     function getHistoryUrl() {{
       const snapshotUrl = getSnapshotUrl();
+      if (!snapshotUrl) return "";
       return String(snapshotUrl || "").startsWith("/api/runs/")
         ? String(snapshotUrl).replace(/\/snapshot$/, "/history")
         : "";
@@ -883,10 +887,149 @@ def build_live_web_viewer_html(
       return image;
     }}
 
+    function cornerBackgroundReference(imageData, width, height) {{
+      const corners = [
+        [0, 0],
+        [width - 1, 0],
+        [0, height - 1],
+        [width - 1, height - 1],
+      ];
+      const samples = corners
+        .map(([x, y]) => {{
+          const index = (y * width + x) * 4;
+          return {{
+            r: imageData.data[index],
+            g: imageData.data[index + 1],
+            b: imageData.data[index + 2],
+            a: imageData.data[index + 3],
+          }};
+        }})
+        .filter((item) => item.a > 0);
+      if (!samples.length) {{
+        return {{ r: 245, g: 245, b: 245 }};
+      }}
+      const total = samples.reduce((acc, item) => {{
+        acc.r += item.r;
+        acc.g += item.g;
+        acc.b += item.b;
+        return acc;
+      }}, {{ r: 0, g: 0, b: 0 }});
+      return {{
+        r: total.r / samples.length,
+        g: total.g / samples.length,
+        b: total.b / samples.length,
+      }};
+    }}
+
+    function pixelNearBackground(data, offset, background) {{
+      const r = data[offset];
+      const g = data[offset + 1];
+      const b = data[offset + 2];
+      const a = data[offset + 3];
+      if (a < 8) return false;
+      const brightness = (r + g + b) / 3;
+      const spread = Math.max(r, g, b) - Math.min(r, g, b);
+      const delta = Math.abs(r - background.r) + Math.abs(g - background.g) + Math.abs(b - background.b);
+      return brightness >= 214 && spread <= 36 && delta <= 84;
+    }}
+
+    function buildProcessedExternalSprite(image) {{
+      if (!image || !image.complete || !image.naturalWidth) return null;
+      const cacheKey = String(image.src || "");
+      if (processedSpriteCanvasCache.has(cacheKey)) {{
+        return processedSpriteCanvasCache.get(cacheKey);
+      }}
+      const sourceCanvas = document.createElement("canvas");
+      sourceCanvas.width = image.naturalWidth;
+      sourceCanvas.height = image.naturalHeight;
+      const sourceCtx = sourceCanvas.getContext("2d", {{ willReadFrequently: true }});
+      sourceCtx.clearRect(0, 0, sourceCanvas.width, sourceCanvas.height);
+      sourceCtx.drawImage(image, 0, 0);
+      const imageData = sourceCtx.getImageData(0, 0, sourceCanvas.width, sourceCanvas.height);
+      const background = cornerBackgroundReference(imageData, sourceCanvas.width, sourceCanvas.height);
+      const width = sourceCanvas.width;
+      const height = sourceCanvas.height;
+      const visited = new Uint8Array(width * height);
+      const queue = [];
+
+      function enqueue(x, y) {{
+        if (x < 0 || y < 0 || x >= width || y >= height) return;
+        const flatIndex = y * width + x;
+        if (visited[flatIndex]) return;
+        const offset = flatIndex * 4;
+        if (!pixelNearBackground(imageData.data, offset, background)) return;
+        visited[flatIndex] = 1;
+        queue.push([x, y]);
+      }}
+
+      for (let x = 0; x < width; x += 1) {{
+        enqueue(x, 0);
+        enqueue(x, height - 1);
+      }}
+      for (let y = 0; y < height; y += 1) {{
+        enqueue(0, y);
+        enqueue(width - 1, y);
+      }}
+
+      while (queue.length) {{
+        const [x, y] = queue.shift();
+        const flatIndex = y * width + x;
+        const offset = flatIndex * 4;
+        imageData.data[offset + 3] = 0;
+        enqueue(x + 1, y);
+        enqueue(x - 1, y);
+        enqueue(x, y + 1);
+        enqueue(x, y - 1);
+      }}
+
+      sourceCtx.putImageData(imageData, 0, 0);
+
+      let minX = width;
+      let minY = height;
+      let maxX = -1;
+      let maxY = -1;
+      for (let y = 0; y < height; y += 1) {{
+        for (let x = 0; x < width; x += 1) {{
+          const offset = (y * width + x) * 4;
+          if (imageData.data[offset + 3] > 8) {{
+            if (x < minX) minX = x;
+            if (y < minY) minY = y;
+            if (x > maxX) maxX = x;
+            if (y > maxY) maxY = y;
+          }}
+        }}
+      }}
+
+      if (maxX < minX || maxY < minY) {{
+        processedSpriteCanvasCache.set(cacheKey, sourceCanvas);
+        return sourceCanvas;
+      }}
+
+      const padding = 2;
+      minX = Math.max(0, minX - padding);
+      minY = Math.max(0, minY - padding);
+      maxX = Math.min(width - 1, maxX + padding);
+      maxY = Math.min(height - 1, maxY + padding);
+      const croppedWidth = Math.max(1, maxX - minX + 1);
+      const croppedHeight = Math.max(1, maxY - minY + 1);
+      const croppedCanvas = document.createElement("canvas");
+      croppedCanvas.width = croppedWidth;
+      croppedCanvas.height = croppedHeight;
+      const croppedCtx = croppedCanvas.getContext("2d");
+      croppedCtx.clearRect(0, 0, croppedWidth, croppedHeight);
+      croppedCtx.drawImage(sourceCanvas, minX, minY, croppedWidth, croppedHeight, 0, 0, croppedWidth, croppedHeight);
+      processedSpriteCanvasCache.set(cacheKey, croppedCanvas);
+      return croppedCanvas;
+    }}
+
     function drawExternalSprite(ctx, image, left, top, width, height) {{
-      if (!image || !image.complete || !image.naturalWidth) return false;
+      const processed = buildProcessedExternalSprite(image);
+      if (!processed) return false;
+      const scale = Math.min(width / processed.width, height / processed.height);
+      const drawWidth = Math.max(1, processed.width * scale);
+      const drawHeight = Math.max(1, processed.height * scale);
       ctx.imageSmoothingEnabled = false;
-      ctx.drawImage(image, left - width / 2, top - height / 2, width, height);
+      ctx.drawImage(processed, left - drawWidth / 2, top - drawHeight / 2, drawWidth, drawHeight);
       ctx.imageSmoothingEnabled = true;
       return true;
     }}
@@ -903,11 +1046,131 @@ def build_live_web_viewer_html(
     }}
 
     function getFurnitureSpriteAssetPaths(kind) {{
-      if (kind === "bed") {{
+      if (kind === "bed_er") {{
         return [
           "furniture/beds/hospital_bed_front_teal_shadow.png",
           "furniture/beds/hospital_bed_front_teal_base.png",
           "furniture/beds/hospital_bed_front_teal_overlay.png",
+        ];
+      }}
+      if (kind === "bed_observation") {{
+        return [
+          "furniture/beds/hospital_bed_angle_teal_shadow.png",
+          "furniture/beds/hospital_bed_angle_teal_base.png",
+          "furniture/beds/hospital_bed_angle_teal_overlay.png",
+        ];
+      }}
+      if (kind === "seat_waiting") {{
+        return [
+          "furniture/seating/waiting_bench/waiting_chair_front_shadow.png",
+          "furniture/seating/waiting_chair/waiting_chair_front_base.png",
+          "furniture/seating/waiting_chair/waiting_chair_seat_overlay.png",
+        ];
+      }}
+      if (kind === "seat_specialty") {{
+        return [
+          "furniture/seating/waiting_bench/waiting_chair_front_shadow.png",
+          "furniture/seating/waiting_chair/waiting_chair_front_base.png",
+          "furniture/seating/waiting_chair/waiting_chair_seat_overlay.png",
+        ];
+      }}
+      if (kind === "desk_reception") {{
+        return [
+          "furniture/reception/reception_counter_straight_shadow.png",
+          "furniture/reception/reception_counter_straight_base.png",
+          "furniture/reception/reception_counter_monitor_overlay.png",
+          "furniture/reception/reception_counter_clipboard_overlay.png",
+        ];
+      }}
+      if (kind === "desk_triage") {{
+        return [
+          "furniture/desks/triage/triage_desk_front_shadow.png",
+          "furniture/desks/triage/triage_desk_front_base.png",
+          "furniture/desks/triage/triage_desk_monitor_overlay.png",
+          "furniture/desks/triage/triage_desk_clipboard_overlay.png",
+        ];
+      }}
+      if (kind === "desk_chart") {{
+        return [
+          "furniture/desks/chart/chart_desk_front_shadow.png",
+          "furniture/desks/chart/chart_desk_front_base.png",
+          "furniture/desks/chart/chart_desk_monitors_overlay.png",
+        ];
+      }}
+      if (kind === "desk_observation") {{
+        return [
+          "furniture/desks/observation/observation_desk_front_shadow.png",
+          "furniture/desks/observation/observation_desk_front_base.png",
+          "furniture/desks/observation/observation_desk_dual_monitors_overlay.png",
+        ];
+      }}
+      if (kind === "desk_workstation") {{
+        return [
+          "furniture/desks/workstation/compact_workstation_front_shadow.png",
+          "furniture/desks/workstation/compact_workstation_front_base.png",
+          "furniture/desks/workstation/compact_workstation_laptop_overlay.png",
+        ];
+      }}
+      if (kind === "table_side" || kind === "consult") {{
+        return [
+          "furniture/tables/side_table_shadow.png",
+          "furniture/tables/side_table_front_base.png",
+        ];
+      }}
+      if (kind === "bench_waiting") {{
+        return [
+          "furniture/seating/waiting_bench/three_seat_waiting_bench_front_shadow.png",
+          "furniture/seating/waiting_bench/three_seat_waiting_bench_front_base.png",
+        ];
+      }}
+      if (kind === "cabinet") {{
+        return [
+          "furniture/cabinets/small_supply_cabinet_front_shadow.png",
+          "furniture/cabinets/small_supply_cabinet_front_base.png",
+          "furniture/cabinets/small_supply_cabinet_bottles_overlay.png",
+        ];
+      }}
+      if (kind === "lab_station") {{
+        return [
+          "equipment/diagnostics/imaging/blood_draw_cart_shadow.png",
+          "equipment/diagnostics/imaging/blood_draw_cart.png",
+          "equipment/lab/small_lab_device.png",
+          "equipment/lab/lab_test_tube_rack.png",
+        ];
+      }}
+      if (kind === "img_station") {{
+        return [
+          "equipment/diagnostics/ct/ct_scanner_shadow_01.png",
+          "equipment/diagnostics/ct/ct_scanner_front_01.png",
+        ];
+      }}
+      if (kind === "img_console") {{
+        return [
+          "equipment/diagnostics/imaging/imaging_workstation_shadow.png",
+          "equipment/diagnostics/imaging/imaging_workstation_base.png",
+        ];
+      }}
+      if (kind === "diagnostic_chair") {{
+        return [
+          "equipment/diagnostics/imaging/blood_draw_chair_shadow.png",
+          "equipment/diagnostics/imaging/blood_draw_chair.png",
+        ];
+      }}
+      if (kind === "ct_table") {{
+        return [
+          "equipment/diagnostics/ct/ct_table_side_02.png",
+        ];
+      }}
+      if (kind === "monitor") {{
+        return [
+          "equipment/monitors/bedside/bedside_monitor_cart_front_shadow.png",
+          "equipment/monitors/bedside/bedside_monitor_cart_front_base.png",
+          "equipment/monitors/bedside/bedside_monitor_cart_front_overlay.png",
+        ];
+      }}
+      if (kind === "door") {{
+        return [
+          "tiles/doors/swing/door_single_open_right.png",
         ];
       }}
       return [];
@@ -1219,10 +1482,47 @@ def build_live_web_viewer_html(
     }}
 
     function stagePosition(snapshot, locationId) {{
+      const specialtySidebarVisual = specialtySidebarVisualPosition(snapshot, locationId);
+      if (specialtySidebarVisual) {{
+        return specialtySidebarVisual;
+      }}
       const loc = locationMap(snapshot)[locationId] || {{}};
       return {{
         left: Number(loc.x || 8) * TILE_PX + STAGE_PADDING,
         top: Number(loc.y || 8) * TILE_PX + STAGE_PADDING
+      }};
+    }}
+
+    function specialtySidebarVisualPosition(snapshot, locationId) {{
+      const id = String(locationId || "").trim();
+      if (!id.startsWith("sidebar_")) return null;
+      const specialty = zoneBounds(snapshot, "specialty_review");
+      const sidebarOrder = [
+        "sidebar_neurology",
+        "sidebar_cardiology",
+        "sidebar_pulmonology",
+        "sidebar_gastroenterology",
+        "sidebar_nephrology",
+        "sidebar_hematology",
+        "sidebar_infectious_disease",
+        "sidebar_orthopedics",
+        "sidebar_obgyn",
+        "sidebar_urology",
+        "sidebar_psychiatry",
+        "sidebar_general_medicine",
+        "sidebar_internal_medicine",
+        "sidebar_surgery",
+        "sidebar_endocrinology",
+      ];
+      const index = sidebarOrder.indexOf(id);
+      if (index < 0) return null;
+      const col = index % 3;
+      const row = Math.floor(index / 3);
+      const deskLeft = specialty.left + 54 + col * 88;
+      const deskTop = specialty.top + 120 + row * 78;
+      return {{
+        left: deskLeft + 20,
+        top: deskTop + 24,
       }};
     }}
 
@@ -1249,29 +1549,29 @@ def build_live_web_viewer_html(
 
     const ROUTE_GRAPH = {{
       triage_desk: ["hallway_waiting_entry"],
-      hallway_waiting_entry: ["triage_desk", "door_waiting_to_er"],
-      door_waiting_to_er: ["hallway_waiting_entry", "hallway_er_lower"],
-      hallway_er_lower: ["door_waiting_to_er", "hallway_er_center", "hallway_observation_entry", "hallway_diagnostics_lower"],
-      hallway_er_center: ["hallway_er_lower", "hallway_er_upper", "door_er_to_observation"],
-      hallway_er_upper: ["hallway_er_center", "door_er_to_diagnostics", "hallway_er_to_consult"],
-      door_er_to_diagnostics: ["hallway_er_upper", "hallway_diagnostics_entry"],
-      hallway_diagnostics_entry: ["door_er_to_diagnostics", "hallway_er_to_imaging", "hallway_diagnostics_lower"],
+      hallway_waiting_entry: ["triage_desk", "hallway_er_lower"],
+      hallway_er_lower: ["hallway_waiting_entry", "hallway_er_center", "hallway_observation_entry", "hallway_diagnostics_lower"],
+      hallway_er_center: ["hallway_er_lower", "hallway_er_upper", "hallway_consult_to_er"],
+      hallway_er_upper: ["hallway_er_center", "hallway_diagnostics_entry", "hallway_er_to_consult"],
+      hallway_diagnostics_entry: ["hallway_er_upper", "hallway_er_to_imaging", "hallway_diagnostics_lower"],
       hallway_diagnostics_lower: ["hallway_diagnostics_entry", "hallway_er_lower"],
       hallway_er_to_imaging: ["hallway_diagnostics_entry"],
-      door_er_to_observation: ["hallway_er_center", "hallway_observation_entry"],
-      hallway_observation_entry: ["door_er_to_observation", "hallway_er_lower"],
+      hallway_observation_entry: ["hallway_er_lower"],
       hallway_er_to_consult: ["hallway_er_upper", "hallway_consult_upper"],
       hallway_consult_upper: ["hallway_er_to_consult", "hallway_consult_entry"],
-      hallway_consult_entry: ["hallway_consult_upper", "door_consult_entry", "hallway_consult_lower", "hallway_consult_to_er"],
+      hallway_consult_entry: ["hallway_consult_upper", "hallway_consult_lower", "hallway_consult_to_er"],
       hallway_consult_lower: ["hallway_consult_entry"],
-      door_consult_entry: ["hallway_consult_entry"],
       hallway_consult_to_er: ["hallway_consult_entry", "hallway_er_center"],
     }};
 
     function anchorNodeForLocation(locationId) {{
       const id = String(locationId || "").trim();
       if (!id) return "";
-      if (id.startsWith("hallway_") || id.startsWith("door_")) return id;
+      if (id.startsWith("hallway_")) return id;
+      if (id === "door_waiting_to_er") return "hallway_er_lower";
+      if (id === "door_er_to_diagnostics") return "hallway_diagnostics_entry";
+      if (id === "door_er_to_observation") return "hallway_observation_entry";
+      if (id === "door_consult_entry") return "hallway_consult_entry";
       if (id.startsWith("arrival_") || id.startsWith("triage_") || id.startsWith("waiting_")) return "hallway_waiting_entry";
       if (id === "triage_desk") return "triage_desk";
       if (id === "er_doctor_station" || id === "nurse_station" || id === "chart_desk_1" || id === "chart_desk_2") return "hallway_er_lower";
@@ -1522,8 +1822,11 @@ def build_live_web_viewer_html(
         }} else if (Math.abs(dy) > 0.1) {{
           position.facing = dy >= 0 ? "down" : "up";
         }}
-        position.x += (dx / distance) * SCENE_WALK_SPEED;
-        position.y += (dy / distance) * SCENE_WALK_SPEED;
+        if (distance > 0.1) {{
+          const ratio = Math.min(1, SCENE_WALK_SPEED / distance);
+          position.x += dx * ratio;
+          position.y += dy * ratio;
+        }}
         hasMovingEntity = true;
       }});
 
@@ -1667,6 +1970,16 @@ def build_live_web_viewer_html(
       }}
     }}
 
+    function clearWhatIfPlayback(resetState = true) {{
+      if (whatIfPlaybackTimer) {{
+        window.clearTimeout(whatIfPlaybackTimer);
+        whatIfPlaybackTimer = 0;
+      }}
+      if (resetState) {{
+        whatIfPlaybackState = null;
+      }}
+    }}
+
     function activeWhatIfPayload(caseId) {{
       const state = whatIfResults[caseId] || null;
       if (!state) return null;
@@ -1675,6 +1988,404 @@ def build_live_web_viewer_html(
       const activeReplayRunId = String(state.activeReplayRunId || "").trim();
       if (!histories.length) return null;
       return histories.find((item) => String(item?.replay_run_id || "").trim() === activeReplayRunId) || histories[histories.length - 1] || null;
+    }}
+
+    function transcriptSpeaker(item) {{
+      return normalizeText(item?.role || item?.speaker || item?.actor, "agent");
+    }}
+
+    function transcriptContent(item) {{
+      return normalizeText(item?.content || item?.text || item?.message, "");
+    }}
+
+    function activeWhatIfContext(snapshot) {{
+      const caseId = getSelectedCase(snapshot);
+      if (!caseId || currentCaseViewMode(caseId) !== "what-if") return null;
+      const payload = activeWhatIfPayload(caseId);
+      if (!payload) return null;
+      const replayRunId = String(payload?.replay_run_id || "").trim();
+      const actionType = String(payload?.selected_action?.type || "").trim();
+      const actionTarget = String(payload?.selected_action?.target || "").trim();
+      return {{
+        caseId,
+        payload,
+        signature: `${{caseId}}|${{replayRunId}}|${{actionType}}|${{actionTarget}}`,
+      }};
+    }}
+
+    function normalizeDepartmentEntityKey(value) {{
+      const raw = String(value || "").trim().toLowerCase().replace(/&/g, " and ");
+      if (!raw) return "";
+      const normalized = raw.replace(/[^a-z0-9]+/g, "_").replace(/^_+|_+$/g, "");
+      const aliases = {{
+        obgyn: "obstetrics_gynecology",
+        obstetrics_gynecology: "obstetrics_gynecology",
+        obstetrics_and_gynecology: "obstetrics_gynecology",
+        gynecology: "obstetrics_gynecology",
+        infectious_disease: "infectious_disease",
+        internal_medicine: "internal_medicine",
+        general_medicine: "general_medicine",
+      }};
+      return aliases[normalized] || normalized;
+    }}
+
+    function specialtySidebarLocationForDepartment(departmentKey) {{
+      const normalized = normalizeDepartmentEntityKey(departmentKey);
+      const map = {{
+        obstetrics_gynecology: "sidebar_obgyn",
+      }};
+      return map[normalized] || (normalized ? `sidebar_${{normalized}}` : "");
+    }}
+
+    function locateCasePatientEntity(snapshot, caseId) {{
+      return Array.isArray(snapshot?.scene?.entities)
+        ? snapshot.scene.entities.find((entity) => String(entity?.case_id || "").trim() === String(caseId || "").trim() && entity?.kind === "patient")
+        : null;
+    }}
+
+    function resolveCaseBedLocation(snapshot, caseId) {{
+      const patientEntity = locateCasePatientEntity(snapshot, caseId);
+      const candidates = [
+        String(patientEntity?.current_location_id || "").trim(),
+        String(patientEntity?.location_id || "").trim(),
+        String(patientEntity?.target_location_id || "").trim(),
+      ].filter(Boolean);
+      const directBed = candidates.find((item) => item.startsWith("er_bed_"));
+      if (directBed) return directBed;
+      const bedside = candidates.find((item) => item.startsWith("er_bedside_"));
+      if (bedside) {{
+        return bedside.replace("er_bedside_", "er_bed_");
+      }}
+      const caseNumber = Number(String(caseId || "").replace(/[^0-9]/g, "")) || 1;
+      const inferred = ((caseNumber - 1) % 4) + 1;
+      return `er_bed_${{inferred}}`;
+    }}
+
+    function resolveCaseBedsideLocation(snapshot, caseId) {{
+      return resolveCaseBedLocation(snapshot, caseId).replace("er_bed_", "er_bedside_");
+    }}
+
+    function resolveDischargeLocation(snapshot, caseId) {{
+      const patientEntity = locateCasePatientEntity(snapshot, caseId);
+      const candidates = [
+        String(patientEntity?.location_id || "").trim(),
+        String(patientEntity?.target_location_id || "").trim(),
+      ].filter((item) => item.startsWith("discharge_"));
+      if (candidates.length) return candidates[0];
+      const caseNumber = Number(String(caseId || "").replace(/[^0-9]/g, "")) || 1;
+      const inferred = ((caseNumber - 1) % 3) + 1;
+      return `discharge_${{inferred}}`;
+    }}
+
+    function isImagingTestName(value) {{
+      return /ct|mri|xray|ultra|scan|imaging/i.test(String(value || "").trim());
+    }}
+
+    function branchTestLocations(target) {{
+      const imaging = isImagingTestName(target);
+      return imaging
+        ? {{ wait: "imaging_wait_1", station: "imaging_machine" }}
+        : {{ wait: "lab_wait_1", station: "lab_station" }};
+    }}
+
+    function setBranchEntityLocation(snapshot, entityId, fromLocationId, toLocationId, extras = {{}}) {{
+      const entities = Array.isArray(snapshot?.scene?.entities) ? snapshot.scene.entities : [];
+      const entity = entities.find((item) => String(item?.id || "").trim() === String(entityId || "").trim());
+      if (!entity) return;
+      const fromId = String(fromLocationId || toLocationId || entity.location_id || "").trim();
+      const toId = String(toLocationId || entity.location_id || "").trim();
+      entity.current_location_id = fromId || toId;
+      entity.location_id = toId || fromId;
+      entity.target_location_id = toId || fromId;
+      if (Object.prototype.hasOwnProperty.call(extras, "status")) {{
+        entity.status = extras.status;
+      }}
+      if (Object.prototype.hasOwnProperty.call(extras, "last_action")) {{
+        entity.last_action = extras.last_action;
+      }}
+      if (Object.prototype.hasOwnProperty.call(extras, "case_id")) {{
+        entity.case_id = extras.case_id;
+      }}
+    }}
+
+    function buildBranchBaseSnapshot(snapshot, caseId, payload) {{
+      const base = movementSnapshot(snapshot);
+      const patientId = `patient_${{caseId}}`;
+      const bedLocation = resolveCaseBedLocation(snapshot, caseId);
+      const bedsideLocation = resolveCaseBedsideLocation(snapshot, caseId);
+      const selectedDepartment = normalizeDepartmentEntityKey(
+        payload?.selected_action?.target || payload?.replay?.predicted_department || payload?.branch_detail?.predicted_department
+      );
+      const specialtyEntityId = selectedDepartment ? `specialty_${{selectedDepartment}}` : "";
+      const specialtySidebarLocation = specialtySidebarLocationForDepartment(selectedDepartment);
+      setBranchEntityLocation(base, patientId, bedLocation, bedLocation, {{ last_action: "branch_replay" }});
+      setBranchEntityLocation(base, "doctor_er_0", "er_doctor_station", "er_doctor_station", {{ status: "idle" }});
+      if (specialtyEntityId && specialtySidebarLocation) {{
+        setBranchEntityLocation(base, specialtyEntityId, specialtySidebarLocation, specialtySidebarLocation, {{
+          status: "waiting",
+          case_id: "",
+        }});
+      }}
+      base.dialogue = {{
+        ...(deepClone(base?.dialogue || {{}})),
+        lines: [],
+        bubble_text: "",
+        speaker_entity_id: "",
+        listener_entity_id: "",
+        interaction_location_id: bedsideLocation,
+      }};
+      return {{
+        snapshot: base,
+        patientId,
+        bedLocation,
+        bedsideLocation,
+        specialtyEntityId,
+        specialtySidebarLocation,
+      }};
+    }}
+
+    function appendBranchDialogueFrames(frames, snapshot, entries, interactionLocationId) {{
+      const stagedLines = [];
+      entries.forEach((entry, index) => {{
+        const speaker = transcriptSpeaker(entry);
+        const text = transcriptContent(entry);
+        if (!text) return;
+        stagedLines.push(formatDialogueLine({{ speaker, text }}));
+        frames.push({{
+          snapshot: dialogueSnapshot(
+            snapshot,
+            {{
+              speaker,
+              text,
+              speaker_entity_id: String(entry?.speaker_entity_id || "").trim(),
+              listener_entity_id: String(entry?.listener_entity_id || "").trim(),
+              interaction_location_id: interactionLocationId,
+            }},
+            stagedLines,
+          ),
+          delayMs: Number(entry?.delay_ms || (index === 0 && entries.length > 1 ? DIALOGUE_RESPONSE_DELAY_MS : HISTORY_REPLAY_INTERVAL_MS)),
+        }});
+      }});
+    }}
+
+    function fallbackBranchStepFromPayload(payload) {{
+      return {{
+        action: String(payload?.selected_action?.type || "").trim(),
+        target: String(payload?.selected_action?.target || "").trim(),
+        zone: String(payload?.branch_detail?.zone || "").trim(),
+        rationale: "Counterfactual branch replay",
+        outcome: {{}},
+      }};
+    }}
+
+    function buildWhatIfPlaybackFrames(snapshot, caseId, payload) {{
+      const context = buildBranchBaseSnapshot(snapshot, caseId, payload);
+      const frames = [];
+      const transcript = Array.isArray(payload?.branch_detail?.transcript) ? payload.branch_detail.transcript.filter((item) => transcriptContent(item)) : [];
+      const events = Array.isArray(payload?.branch_detail?.event_log) && payload.branch_detail.event_log.length
+        ? payload.branch_detail.event_log
+        : [fallbackBranchStepFromPayload(payload)];
+      const positions = {{
+        patient: context.bedLocation,
+        er: "er_doctor_station",
+        specialty: context.specialtySidebarLocation,
+      }};
+      let transcriptIndex = 0;
+      let previousSnapshot = context.snapshot;
+
+      function takeTranscriptChunk(count) {{
+        const chunk = transcript.slice(transcriptIndex, transcriptIndex + count);
+        transcriptIndex += chunk.length;
+        return chunk;
+      }}
+
+      function pushSnapshot(nextSnapshot, delayMs) {{
+        frames.push({{
+          snapshot: nextSnapshot,
+          delayMs,
+        }});
+        previousSnapshot = nextSnapshot;
+      }}
+
+      function moveTo(updater) {{
+        const nextSnapshot = movementSnapshot(previousSnapshot);
+        updater(nextSnapshot);
+        pushSnapshot(nextSnapshot, estimateTravelDelayMs(nextSnapshot, previousSnapshot));
+      }}
+
+      events.forEach((event, index) => {{
+        const action = String(event?.action || event?.event_type || "").trim().toLowerCase();
+        const eventTarget = String(event?.target || event?.department || "").trim();
+        const normalizedTarget = normalizeDepartmentEntityKey(eventTarget);
+        const dialogueLocation = context.bedsideLocation;
+        if (["ask_patient", "focused_history", "ask_history", "interview", "bedside_history"].includes(action)) {{
+          if (positions.er !== context.bedsideLocation) {{
+            moveTo((nextSnapshot) => {{
+              setBranchEntityLocation(nextSnapshot, "doctor_er_0", positions.er, context.bedsideLocation, {{ status: "interview" }});
+              positions.er = context.bedsideLocation;
+            }});
+          }}
+          appendBranchDialogueFrames(frames, previousSnapshot, takeTranscriptChunk(2), dialogueLocation);
+          return;
+        }}
+
+        if (action === "request_test") {{
+          const testTarget = eventTarget || String(event?.payload?.requested_test || "").trim();
+          if (positions.er !== context.bedsideLocation) {{
+            moveTo((nextSnapshot) => {{
+              setBranchEntityLocation(nextSnapshot, "doctor_er_0", positions.er, context.bedsideLocation, {{ status: "order_test" }});
+              positions.er = context.bedsideLocation;
+            }});
+          }}
+          appendBranchDialogueFrames(frames, previousSnapshot, takeTranscriptChunk(1), dialogueLocation);
+          const testLocations = branchTestLocations(testTarget);
+          moveTo((nextSnapshot) => {{
+            setBranchEntityLocation(nextSnapshot, context.patientId, positions.patient, testLocations.wait, {{ last_action: "request_test" }});
+            positions.patient = testLocations.wait;
+          }});
+          pushSnapshot(movementSnapshot(previousSnapshot), 1800);
+          return;
+        }}
+
+        if (action === "await_results") {{
+          const testTarget = eventTarget || String(event?.payload?.requested_test || "").trim();
+          const testLocations = branchTestLocations(testTarget);
+          if (positions.patient !== testLocations.wait) {{
+            moveTo((nextSnapshot) => {{
+              setBranchEntityLocation(nextSnapshot, context.patientId, positions.patient, testLocations.wait, {{ last_action: "await_results" }});
+              positions.patient = testLocations.wait;
+            }});
+          }}
+          appendBranchDialogueFrames(frames, previousSnapshot, takeTranscriptChunk(1), testLocations.wait);
+          pushSnapshot(movementSnapshot(previousSnapshot), 1800);
+          return;
+        }}
+
+        if (action === "review_results") {{
+          if (positions.patient !== context.bedLocation) {{
+            moveTo((nextSnapshot) => {{
+              setBranchEntityLocation(nextSnapshot, context.patientId, positions.patient, context.bedLocation, {{ last_action: "review_results" }});
+              positions.patient = context.bedLocation;
+            }});
+          }}
+          if (positions.er !== context.bedsideLocation) {{
+            moveTo((nextSnapshot) => {{
+              setBranchEntityLocation(nextSnapshot, "doctor_er_0", positions.er, context.bedsideLocation, {{ status: "review_results" }});
+              positions.er = context.bedsideLocation;
+            }});
+          }}
+          appendBranchDialogueFrames(frames, previousSnapshot, takeTranscriptChunk(1), dialogueLocation);
+          return;
+        }}
+
+        if (action === "request_specialty") {{
+          if (positions.er !== context.bedsideLocation) {{
+            moveTo((nextSnapshot) => {{
+              setBranchEntityLocation(nextSnapshot, "doctor_er_0", positions.er, context.bedsideLocation, {{ status: "request_specialty" }});
+              positions.er = context.bedsideLocation;
+            }});
+          }}
+          appendBranchDialogueFrames(frames, previousSnapshot, takeTranscriptChunk(1), dialogueLocation);
+          if (context.specialtyEntityId && positions.specialty && positions.specialty !== context.bedsideLocation) {{
+            moveTo((nextSnapshot) => {{
+              setBranchEntityLocation(nextSnapshot, context.specialtyEntityId, positions.specialty, context.bedsideLocation, {{
+                status: "consult_started",
+                case_id: caseId,
+              }});
+              positions.specialty = context.bedsideLocation;
+            }});
+          }}
+          return;
+        }}
+
+        if (action === "specialty_consult" || action === "consult_started") {{
+          if (context.specialtyEntityId && positions.specialty !== context.bedsideLocation) {{
+            moveTo((nextSnapshot) => {{
+              setBranchEntityLocation(nextSnapshot, context.specialtyEntityId, positions.specialty || context.specialtySidebarLocation, context.bedsideLocation, {{
+                status: "specialty_consult",
+                case_id: caseId,
+              }});
+              positions.specialty = context.bedsideLocation;
+            }});
+          }}
+          appendBranchDialogueFrames(frames, previousSnapshot, takeTranscriptChunk(1), dialogueLocation);
+          return;
+        }}
+
+        if (["diagnose", "specialty_finalize", "er_finalize"].includes(action)) {{
+          if (positions.patient !== context.bedLocation) {{
+            moveTo((nextSnapshot) => {{
+              setBranchEntityLocation(nextSnapshot, context.patientId, positions.patient, context.bedLocation, {{ last_action: action }});
+              positions.patient = context.bedLocation;
+            }});
+          }}
+          appendBranchDialogueFrames(frames, previousSnapshot, takeTranscriptChunk(1), dialogueLocation);
+          moveTo((nextSnapshot) => {{
+            setBranchEntityLocation(nextSnapshot, context.patientId, positions.patient, resolveDischargeLocation(snapshot, caseId), {{ last_action: action }});
+            positions.patient = resolveDischargeLocation(snapshot, caseId);
+            if (context.specialtyEntityId && positions.specialty === context.bedsideLocation && context.specialtySidebarLocation) {{
+              setBranchEntityLocation(nextSnapshot, context.specialtyEntityId, positions.specialty, context.specialtySidebarLocation, {{
+                status: "waiting",
+                case_id: "",
+              }});
+              positions.specialty = context.specialtySidebarLocation;
+            }}
+          }});
+          return;
+        }}
+
+        if (!index) {{
+          appendBranchDialogueFrames(frames, previousSnapshot, takeTranscriptChunk(1), dialogueLocation);
+        }}
+      }});
+
+      if (!frames.length) {{
+        frames.push({{
+          snapshot: previousSnapshot,
+          delayMs: HISTORY_REPLAY_INTERVAL_MS,
+        }});
+      }}
+      return frames;
+    }}
+
+    function syncWhatIfPlayback(snapshot) {{
+      const context = activeWhatIfContext(snapshot);
+      if (!context) {{
+        clearWhatIfPlayback(true);
+        return;
+      }}
+      if (whatIfPlaybackState && whatIfPlaybackState.signature === context.signature) {{
+        return;
+      }}
+      clearWhatIfPlayback(false);
+      const frames = buildWhatIfPlaybackFrames(snapshot, context.caseId, context.payload);
+      whatIfPlaybackState = {{
+        ...context,
+        frames,
+        index: 0,
+      }};
+      const queueAdvance = () => {{
+        if (!whatIfPlaybackState || whatIfPlaybackState.signature !== context.signature) return;
+        const frame = whatIfPlaybackState.frames[whatIfPlaybackState.index] || null;
+        const delayMs = Number(frame?.delayMs || HISTORY_REPLAY_INTERVAL_MS);
+        whatIfPlaybackTimer = window.setTimeout(() => {{
+          if (!whatIfPlaybackState || whatIfPlaybackState.signature !== context.signature) return;
+          whatIfPlaybackState.index = (whatIfPlaybackState.index + 1) % Math.max(whatIfPlaybackState.frames.length, 1);
+          if (latestSnapshot) {{
+            renderAll(latestSnapshot);
+          }}
+          queueAdvance();
+        }}, delayMs);
+      }};
+      queueAdvance();
+    }}
+
+    function effectiveSceneSnapshot(snapshot) {{
+      const context = activeWhatIfContext(snapshot);
+      if (!context) return snapshot;
+      if (!whatIfPlaybackState || whatIfPlaybackState.signature !== context.signature) return snapshot;
+      const frame = whatIfPlaybackState.frames[whatIfPlaybackState.index] || null;
+      return frame?.snapshot || snapshot;
     }}
 
     function setActiveWhatIfHistory(caseId, replayRunId) {{
@@ -1728,10 +2439,16 @@ def build_live_web_viewer_html(
           loading: false,
           error: "",
           message: "",
+          payload,
           histories,
           activeReplayRunId: String(payload?.replay_run_id || "").trim(),
         }};
         caseViewModes[caseId] = "what-if";
+        const viewerRunId = String(payload?.viewer_run_id || payload?.replay_run_id || "").trim();
+        if (viewerRunId) {{
+          window.location.href = `/?run_id=${{encodeURIComponent(viewerRunId)}}`;
+          return;
+        }}
       }} catch (error) {{
         whatIfResults[caseId] = {{
           ...previousState,
@@ -1739,7 +2456,9 @@ def build_live_web_viewer_html(
           error: String(error?.message || error || "Unknown error"),
         }};
       }}
-      renderCaseDetail(latestSnapshot);
+      if (latestSnapshot) {{
+        renderAll(latestSnapshot);
+      }}
     }}
 
     function wrapText(ctx, text, maxWidth) {{
@@ -1789,79 +2508,130 @@ def build_live_web_viewer_html(
       }}
     }}
 
-    function drawZone(ctx, snapshot, zoneKey) {{
-      const bounds = zoneBounds(snapshot, zoneKey);
-      const fillMap = {{
-        waiting_room: "#efe7d7",
-        er_workup: "#e7edf8",
-        observation: "#e7efe7",
-        awaiting_results: "#e5ebf0",
-        specialty_review: "#eef2f8",
-        completed: "#dcebd8"
-      }};
-      const wallMap = {{
-        waiting_room: "#d4c3a2",
-        er_workup: "#c6d2e6",
-        observation: "#bdd0bf",
-        awaiting_results: "#c9d4dd",
-        specialty_review: "#cfd9ea",
-        completed: "#bad0b4"
-      }};
-      drawRoundedRect(ctx, bounds.left, bounds.top, bounds.width, bounds.height, 26, fillMap[zoneKey] || "#ebedf2", wallMap[zoneKey] || "rgba(120,131,164,0.28)");
-      ctx.fillStyle = "rgba(255,255,255,0.28)";
-      ctx.fillRect(bounds.left + 14, bounds.top + 14, bounds.width - 28, 20);
-      ctx.fillStyle = "rgba(37, 48, 76, 0.92)";
-      ctx.font = '700 24px Georgia';
-      ctx.fillText(zoneTitles[zoneKey] || zoneKey, bounds.left + 20, bounds.top + 30);
-      ctx.strokeStyle = "rgba(98, 110, 145, 0.22)";
-      ctx.lineWidth = 1;
-      for (let x = bounds.left + 24; x < bounds.left + bounds.width - 24; x += 54) {{
-        ctx.beginPath();
-        ctx.moveTo(x, bounds.top + 44);
-        ctx.lineTo(x, bounds.top + bounds.height - 20);
-        ctx.stroke();
+    function drawAssetSprite(ctx, assetPath, x, y, width, height) {{
+      const image = loadExternalSprite(assetPath);
+      return drawExternalSprite(ctx, image, x, y, width, height);
+    }}
+
+    function tileAreaWithAsset(ctx, assetPath, left, top, width, height, tileSize = TILE_PX) {{
+      for (let y = top; y < top + height; y += tileSize) {{
+        for (let x = left; x < left + width; x += tileSize) {{
+          drawAssetSprite(ctx, assetPath, x + tileSize / 2, y + tileSize / 2, tileSize, tileSize);
+        }}
       }}
     }}
 
-    function drawGrid(ctx, width, height) {{
-      ctx.strokeStyle = "rgba(140,148,168,0.16)";
-      ctx.lineWidth = 1;
-      for (let x = 0; x <= width; x += 44) {{
-        ctx.beginPath();
-        ctx.moveTo(x, 0);
-        ctx.lineTo(x, height);
-        ctx.stroke();
-      }}
-      for (let y = 0; y <= height; y += 44) {{
-        ctx.beginPath();
-        ctx.moveTo(0, y);
-        ctx.lineTo(width, y);
-        ctx.stroke();
-      }}
+    function drawZoneTitle(ctx, zoneKey, bounds) {{
+      const title = zoneTitles[zoneKey] || zoneKey;
+      ctx.font = '700 18px Georgia';
+      const metrics = ctx.measureText(title);
+      const boxWidth = Math.ceil(metrics.width) + 24;
+      drawRoundedRect(ctx, bounds.left + 14, bounds.top + 10, boxWidth, 28, 12, "rgba(248, 250, 255, 0.88)", "rgba(137, 155, 190, 0.18)");
+      ctx.fillStyle = "rgba(51, 71, 110, 0.92)";
+      ctx.fillText(title, bounds.left + 26, bounds.top + 30);
+    }}
+
+    function drawZone(ctx, snapshot, zoneKey) {{
+      const bounds = zoneBounds(snapshot, zoneKey);
+      const floorTileMap = {{
+        waiting_room: "tiles/floors/plain/floor_plain_light_01.png",
+        er_workup: "tiles/floors/speckled/floor_speckled_light_01.png",
+        observation: "tiles/floors/teal/floor_teal_light_01.png",
+        awaiting_results: "tiles/floors/plain/floor_plain_light_02.png",
+        specialty_review: "tiles/floors/speckled/floor_speckled_light_02.png",
+        completed: "tiles/floors/teal/floor_teal_light_02.png",
+      }};
+      const fillMap = {{
+        waiting_room: "rgba(246, 241, 229, 0.98)",
+        er_workup: "rgba(243, 246, 250, 0.98)",
+        observation: "rgba(236, 244, 239, 0.98)",
+        awaiting_results: "rgba(239, 243, 247, 0.98)",
+        specialty_review: "rgba(231, 238, 247, 0.98)",
+        completed: "rgba(235, 245, 238, 0.98)",
+      }};
+      const interiorLeft = bounds.left + 10;
+      const interiorTop = bounds.top + 18;
+      const interiorWidth = Math.max(64, bounds.width - 20);
+      const interiorHeight = Math.max(64, bounds.height - 28);
+      drawRoundedRect(
+        ctx,
+        interiorLeft,
+        interiorTop,
+        interiorWidth,
+        interiorHeight,
+        18,
+        fillMap[zoneKey] || "rgba(244, 246, 250, 0.98)",
+        "rgba(171, 184, 206, 0.22)",
+      );
+      tileAreaWithAsset(ctx, floorTileMap[zoneKey] || floorTileMap.er_workup, interiorLeft, interiorTop, interiorWidth, interiorHeight, TILE_PX);
+      drawZoneTitle(ctx, zoneKey, bounds);
     }}
 
     function drawFloorTiles(ctx, snapshot, width, height) {{
-      const tile = TILE_PX;
-      for (let y = 0; y < height; y += tile) {{
-        for (let x = 0; x < width; x += tile) {{
-          const isAlt = ((x / tile) + (y / tile)) % 2 === 0;
-          ctx.fillStyle = isAlt ? "#eef1f6" : "#e8ecf3";
-          ctx.fillRect(x, y, tile, tile);
-        }}
+      tileAreaWithAsset(ctx, "tiles/floors/plain/floor_plain_light_01.png", 0, 0, width, height, TILE_PX);
+    }}
+
+    function drawRouteCorridor(ctx, fromId, toId, snapshot) {{
+      const from = stagePosition(snapshot, fromId);
+      const to = stagePosition(snapshot, toId);
+      const corridor = {{
+        fill: "rgba(188, 211, 218, 0.42)",
+        stroke: "rgba(120, 154, 162, 0.30)",
+      }};
+      const hallWidth = TILE_PX * 1.15;
+      const horizontal = Math.abs(from.left - to.left) >= Math.abs(from.top - to.top);
+      if (horizontal) {{
+        const left = Math.min(from.left, to.left) - hallWidth / 2;
+        const width = Math.abs(from.left - to.left) + hallWidth;
+        const top = from.top - hallWidth / 2;
+        drawRoundedRect(ctx, left, top, width, hallWidth, 10, corridor.fill, corridor.stroke);
+      }} else {{
+        const left = from.left - hallWidth / 2;
+        const top = Math.min(from.top, to.top) - hallWidth / 2;
+        const height = Math.abs(from.top - to.top) + hallWidth;
+        drawRoundedRect(ctx, left, top, hallWidth, height, 10, corridor.fill, corridor.stroke);
       }}
+    }}
 
-      const waiting = zoneBounds(snapshot, "waiting_room");
-      const er = zoneBounds(snapshot, "er_workup");
-      const observation = zoneBounds(snapshot, "observation");
-      const diagnostics = zoneBounds(snapshot, "awaiting_results");
-      const specialty = zoneBounds(snapshot, "specialty_review");
+    function drawVisibleRoutes(ctx, snapshot) {{
+      const drawn = new Set();
+      Object.entries(ROUTE_GRAPH).forEach(([fromId, neighbors]) => {{
+        (Array.isArray(neighbors) ? neighbors : []).forEach((toId) => {{
+          const key = [fromId, toId].sort().join("|");
+          if (drawn.has(key)) return;
+          drawn.add(key);
+          drawRouteCorridor(ctx, fromId, toId, snapshot);
+        }});
+      }});
 
-      ctx.fillStyle = "rgba(218, 205, 176, 0.40)";
-      ctx.fillRect(waiting.left + 14, waiting.top + 30, waiting.width - 28, waiting.height - 44);
-
-      ctx.fillStyle = "rgba(205, 213, 228, 0.46)";
-      [er, observation, diagnostics, specialty].forEach((bounds) => {{
-        ctx.fillRect(bounds.left + 14, bounds.top + 30, bounds.width - 28, bounds.height - 44);
+      const routeNodes = [
+        "triage_desk",
+        "hallway_waiting_entry",
+        "hallway_er_lower",
+        "hallway_er_center",
+        "hallway_er_upper",
+        "hallway_diagnostics_entry",
+        "hallway_diagnostics_lower",
+        "hallway_er_to_imaging",
+        "hallway_observation_entry",
+        "hallway_er_to_consult",
+        "hallway_consult_upper",
+        "hallway_consult_entry",
+        "hallway_consult_lower",
+        "hallway_consult_to_er",
+      ];
+      routeNodes.forEach((nodeId) => {{
+        const pos = stagePosition(snapshot, nodeId);
+        drawRoundedRect(
+          ctx,
+          pos.left - 7,
+          pos.top - 7,
+          14,
+          14,
+          5,
+          "rgba(142, 176, 187, 0.55)",
+          "rgba(99, 130, 141, 0.32)",
+        );
       }});
     }}
 
@@ -1869,22 +2639,24 @@ def build_live_web_viewer_html(
       const waiting = zoneBounds(snapshot, "waiting_room");
       const er = zoneBounds(snapshot, "er_workup");
       const observation = zoneBounds(snapshot, "observation");
+      const diagnostics = zoneBounds(snapshot, "awaiting_results");
       const specialty = zoneBounds(snapshot, "specialty_review");
 
-      ctx.fillStyle = "rgba(156, 165, 188, 0.42)";
-      ctx.fillRect(er.left - 14, er.top + 18, 18, er.height - 36);
-      ctx.fillRect(observation.left - 14, observation.top + 18, 18, observation.height - 36);
-      ctx.fillRect(specialty.left - 16, specialty.top + 18, 20, specialty.height - 36);
+      drawVisibleRoutes(ctx, snapshot);
 
-      ctx.fillStyle = "rgba(243, 246, 251, 0.90)";
-      ctx.fillRect(er.left + 24, er.top + er.height - 88, er.width - 48, 18);
-      ctx.fillRect(observation.left + 24, observation.top + 52, observation.width - 48, 18);
-      ctx.fillRect(waiting.left + 18, waiting.top + waiting.height - 90, waiting.width - 36, 16);
-
-      ctx.strokeStyle = "rgba(120,131,164,0.30)";
-      ctx.lineWidth = 4;
-      [waiting, er, observation, specialty].forEach((bounds) => {{
-        ctx.strokeRect(bounds.left + 10, bounds.top + 40, bounds.width - 20, bounds.height - 52);
+      const wallStroke = "rgba(142, 157, 171, 0.55)";
+      const wallFill = "rgba(255,255,255,0.16)";
+      [waiting, er, observation, diagnostics, specialty].forEach((bounds) => {{
+        drawRoundedRect(
+          ctx,
+          bounds.left + 6,
+          bounds.top + 6,
+          bounds.width - 12,
+          bounds.height - 12,
+          24,
+          wallFill,
+          wallStroke,
+        );
       }});
     }}
 
@@ -1968,7 +2740,9 @@ def build_live_web_viewer_html(
     }}
 
     function drawSeat(ctx, left, top, palette = "waiting") {{
-      drawPixelFurniture(ctx, left, top, palette === "specialty" ? "seat_specialty" : "seat_waiting", 42, 42, palette);
+      const kind = palette === "specialty" ? "seat_specialty" : "seat_waiting";
+      const [width, height] = palette === "specialty" ? [24, 24] : [28, 28];
+      drawPixelFurniture(ctx, left, top, kind, width, height, palette);
     }}
 
     function drawMonitor(ctx, left, top) {{
@@ -1986,12 +2760,18 @@ def build_live_web_viewer_html(
     function drawLocationDecor(ctx, locationId, location, left, top) {{
       const kind = String(location?.kind || "").trim();
       if (!kind) return;
+      if (locationId.startsWith("sidebar_")) {{
+        return;
+      }}
+      if (locationId.startsWith("specialty_desk_") || locationId.startsWith("specialty_chair_")) {{
+        return;
+      }}
       if (kind === "seat") {{
         drawSeat(ctx, left, top, locationId.startsWith("specialty_") ? "specialty" : "waiting");
         return;
       }}
       if (kind === "bed") {{
-        drawFurniture(ctx, "bed", left, top);
+        drawFurniture(ctx, locationId.startsWith("observation_") ? "bed_observation" : "bed_er", left, top);
         return;
       }}
       if (kind === "consult") {{
@@ -2002,14 +2782,43 @@ def build_live_web_viewer_html(
         if (locationId.includes("monitor")) {{
           drawMonitor(ctx, left, top);
         }} else if (locationId.includes("machine")) {{
-          drawFurniture(ctx, "img", left, top);
+          drawFurniture(ctx, "img_station", left, top);
+        }} else if (locationId.includes("lab")) {{
+          drawFurniture(ctx, "lab_station", left, top);
         }} else {{
-          drawFurniture(ctx, "lab", left, top);
+          drawFurniture(ctx, "img_console", left, top);
         }}
         return;
       }}
+      if (locationId === "triage_desk") {{
+        drawFurniture(ctx, "desk_reception", left, top);
+        return;
+      }}
+      if (locationId.startsWith("chart_desk_")) {{
+        drawFurniture(ctx, "desk_chart", left, top);
+        return;
+      }}
+      if (locationId.startsWith("observation_desk_")) {{
+        drawFurniture(ctx, "desk_observation", left, top);
+        return;
+      }}
+      if (locationId === "er_doctor_station") {{
+        drawFurniture(ctx, "desk_chart", left, top);
+        return;
+      }}
+      if (locationId === "nurse_station") {{
+        drawFurniture(ctx, "desk_workstation", left, top);
+        return;
+      }}
+      if (locationId.startsWith("nurse_base_")) {{
+        return;
+      }}
+      if (locationId.startsWith("waiting_side_table_")) {{
+        drawFurniture(ctx, "table_side", left, top);
+        return;
+      }}
       if (kind === "desk" || kind === "staff_station") {{
-        drawFurniture(ctx, "desk", left, top);
+        drawFurniture(ctx, "desk_workstation", left, top);
         return;
       }}
       if (kind === "sidebar") {{
@@ -2017,7 +2826,6 @@ def build_live_web_viewer_html(
         return;
       }}
       if (kind === "door") {{
-        drawDoor(ctx, left, top);
         return;
       }}
       if (kind === "exit") {{
@@ -2028,19 +2836,33 @@ def build_live_web_viewer_html(
         return;
       }}
       if (kind === "queue") {{
-        if (locationId.includes("entry")) {{
-          ctx.fillStyle = "rgba(89, 149, 86, 0.65)";
-          ctx.fillRect(left - 14, top - 14, 28, 28);
+        if (locationId.startsWith("arrival_") || locationId.startsWith("triage_queue_")) {{
+          ctx.fillStyle = "rgba(89, 149, 86, 0.42)";
+          ctx.fillRect(left - 10, top - 10, 20, 20);
+        }} else if (locationId.startsWith("hallway_")) {{
+          return;
         }} else {{
-          ctx.strokeStyle = "rgba(90, 112, 152, 0.40)";
+          ctx.strokeStyle = "rgba(90, 112, 152, 0.22)";
           ctx.lineWidth = 2;
-          ctx.strokeRect(left - 10, top - 10, 20, 20);
+          ctx.strokeRect(left - 7, top - 7, 14, 14);
         }}
         return;
       }}
     }}
 
     function drawStaticSceneDecor(ctx, snapshot) {{
+      function drawSpecialtyWorkstation(x, y) {{
+        drawAssetSprite(ctx, "furniture/desks/workstation/compact_workstation_front_shadow.png", x, y, 56, 32);
+        drawAssetSprite(ctx, "furniture/desks/workstation/compact_workstation_front_base.png", x, y, 56, 32);
+        drawAssetSprite(ctx, "furniture/desks/workstation/compact_workstation_laptop_overlay.png", x, y, 56, 32);
+        drawAssetSprite(ctx, "furniture/seating/waiting_chair/waiting_chair_front_base.png", x, y + 28, 20, 20);
+      }}
+
+      function drawSpecialtyLoungeSeat(x, y) {{
+        drawAssetSprite(ctx, "furniture/seating/waiting_bench/three_seat_waiting_bench_front_shadow.png", x, y, 76, 28);
+        drawAssetSprite(ctx, "furniture/seating/waiting_bench/three_seat_waiting_bench_front_base.png", x, y, 76, 28);
+      }}
+
       const locations = locationMap(snapshot);
       Object.entries(locations).forEach(([locationId, location]) => {{
         if (!location) return;
@@ -2049,32 +2871,97 @@ def build_live_web_viewer_html(
       }});
 
       const waiting = zoneBounds(snapshot, "waiting_room");
-      ctx.fillStyle = "#9ec0dc";
-      ctx.fillRect(waiting.left + 38, waiting.top + 54, 48, 28);
-      ctx.fillStyle = "#d1b8dd";
-      ctx.fillRect(waiting.left + 116, waiting.top + 54, 48, 28);
-
+      const er = zoneBounds(snapshot, "er_workup");
+      const observation = zoneBounds(snapshot, "observation");
+      const diagnostics = zoneBounds(snapshot, "awaiting_results");
       const specialty = zoneBounds(snapshot, "specialty_review");
-      for (let index = 0; index < 4; index += 1) {{
-        const y = specialty.top + 74 + index * 120;
-        ctx.strokeStyle = "rgba(123, 133, 164, 0.30)";
-        ctx.lineWidth = 3;
-        ctx.beginPath();
-        ctx.moveTo(specialty.left + 36, y);
-        ctx.lineTo(specialty.left + specialty.width - 36, y);
-        ctx.stroke();
+
+      drawRoundedRect(ctx, specialty.left + 18, specialty.top + 24, specialty.width - 36, specialty.height - 42, 22, "rgba(33, 42, 69, 0.96)", "rgba(100, 117, 161, 0.26)");
+      drawRoundedRect(ctx, specialty.left + 34, specialty.top + 48, specialty.width - 68, 58, 18, "rgba(59, 71, 109, 0.42)", "rgba(126, 144, 188, 0.16)");
+      drawRoundedRect(ctx, specialty.left + 34, specialty.top + specialty.height - 102, specialty.width - 68, 48, 18, "rgba(59, 71, 109, 0.28)", "rgba(126, 144, 188, 0.14)");
+      drawSpecialtyLoungeSeat(specialty.left + 96, specialty.top + 76);
+      drawSpecialtyLoungeSeat(specialty.left + 184, specialty.top + 76);
+      drawSpecialtyLoungeSeat(specialty.left + 96, specialty.top + specialty.height - 76);
+      drawSpecialtyLoungeSeat(specialty.left + 184, specialty.top + specialty.height - 76);
+
+      const waitingBenchX = waiting.left + waiting.width * 0.48;
+      drawAssetSprite(ctx, "furniture/seating/waiting_bench/three_seat_waiting_bench_front_shadow.png", waitingBenchX, waiting.top + 78, 92, 32);
+      drawAssetSprite(ctx, "furniture/seating/waiting_bench/three_seat_waiting_bench_front_base.png", waitingBenchX, waiting.top + 78, 92, 32);
+      drawAssetSprite(ctx, "furniture/seating/waiting_bench/three_seat_waiting_bench_front_shadow.png", waitingBenchX, waiting.top + 152, 92, 32);
+      drawAssetSprite(ctx, "furniture/seating/waiting_bench/three_seat_waiting_bench_front_base.png", waitingBenchX, waiting.top + 152, 92, 32);
+      drawAssetSprite(ctx, "furniture/reception/reception_counter_straight_shadow.png", waiting.left + waiting.width * 0.5, waiting.top + waiting.height - 48, 132, 52);
+      drawAssetSprite(ctx, "furniture/reception/reception_counter_straight_base.png", waiting.left + waiting.width * 0.5, waiting.top + waiting.height - 48, 132, 52);
+      drawAssetSprite(ctx, "furniture/reception/reception_counter_monitor_overlay.png", waiting.left + waiting.width * 0.5, waiting.top + waiting.height - 48, 132, 52);
+      drawAssetSprite(ctx, "furniture/reception/reception_counter_clipboard_overlay.png", waiting.left + waiting.width * 0.5, waiting.top + waiting.height - 48, 132, 52);
+
+      drawAssetSprite(ctx, "tiles/partitions/curtain/curtain_partition_single.png", er.left + er.width * 0.5 - 56, er.top + er.height * 0.5, 20, 138);
+      drawAssetSprite(ctx, "tiles/partitions/curtain/curtain_partition_single.png", er.left + er.width * 0.5 + 56, er.top + er.height * 0.5, 20, 138);
+      drawAssetSprite(ctx, "furniture/desks/chart/chart_desk_front_shadow.png", er.left + 90, er.top + 56, 58, 32);
+      drawAssetSprite(ctx, "furniture/desks/chart/chart_desk_front_base.png", er.left + 90, er.top + 56, 58, 32);
+      drawAssetSprite(ctx, "furniture/desks/chart/chart_desk_monitors_overlay.png", er.left + 90, er.top + 56, 58, 32);
+      drawAssetSprite(ctx, "furniture/desks/chart/chart_desk_front_shadow.png", er.left + 188, er.top + 56, 58, 32);
+      drawAssetSprite(ctx, "furniture/desks/chart/chart_desk_front_base.png", er.left + 188, er.top + 56, 58, 32);
+      drawAssetSprite(ctx, "furniture/desks/chart/chart_desk_monitors_overlay.png", er.left + 188, er.top + 56, 58, 32);
+
+      drawAssetSprite(ctx, "equipment/diagnostics/ct/ct_scanner_shadow_01.png", diagnostics.left + diagnostics.width * 0.52, diagnostics.top + 112, 96, 68);
+      drawAssetSprite(ctx, "equipment/diagnostics/ct/ct_scanner_front_01.png", diagnostics.left + diagnostics.width * 0.52, diagnostics.top + 112, 96, 68);
+      drawAssetSprite(ctx, "equipment/diagnostics/imaging/imaging_workstation_shadow.png", diagnostics.left + diagnostics.width * 0.74, diagnostics.top + 74, 44, 32);
+      drawAssetSprite(ctx, "equipment/diagnostics/imaging/imaging_workstation_base.png", diagnostics.left + diagnostics.width * 0.74, diagnostics.top + 74, 44, 32);
+      drawAssetSprite(ctx, "equipment/diagnostics/imaging/xray_stand_front_shadow.png", diagnostics.left + diagnostics.width * 0.22, diagnostics.top + 92, 28, 42);
+      drawAssetSprite(ctx, "equipment/diagnostics/imaging/xray_stand_front.png", diagnostics.left + diagnostics.width * 0.22, diagnostics.top + 92, 28, 42);
+      drawAssetSprite(ctx, "equipment/diagnostics/imaging/blood_draw_chair_shadow.png", diagnostics.left + diagnostics.width * 0.28, diagnostics.top + diagnostics.height - 64, 24, 28);
+      drawAssetSprite(ctx, "equipment/diagnostics/imaging/blood_draw_chair.png", diagnostics.left + diagnostics.width * 0.28, diagnostics.top + diagnostics.height - 64, 24, 28);
+
+      drawAssetSprite(ctx, "furniture/desks/observation/observation_desk_front_shadow.png", observation.left + 100, observation.top + 54, 56, 32);
+      drawAssetSprite(ctx, "furniture/desks/observation/observation_desk_front_base.png", observation.left + 100, observation.top + 54, 56, 32);
+      drawAssetSprite(ctx, "furniture/desks/observation/observation_desk_dual_monitors_overlay.png", observation.left + 100, observation.top + 54, 56, 32);
+      drawAssetSprite(ctx, "furniture/desks/observation/observation_desk_front_shadow.png", observation.left + 198, observation.top + 54, 56, 32);
+      drawAssetSprite(ctx, "furniture/desks/observation/observation_desk_front_base.png", observation.left + 198, observation.top + 54, 56, 32);
+      drawAssetSprite(ctx, "furniture/desks/observation/observation_desk_dual_monitors_overlay.png", observation.left + 198, observation.top + 54, 56, 32);
+
+      const specialtyRows = [0, 1, 2, 3, 4];
+      const specialtyCols = [0, 1, 2];
+      specialtyRows.forEach((row) => {{
+        const y = specialty.top + 120 + row * 78;
+        specialtyCols.forEach((col) => {{
+          drawSpecialtyWorkstation(specialty.left + 54 + col * 88, y);
+        }});
+        drawAssetSprite(
+          ctx,
+          "tiles/partitions/glass/glass_partition_long.png",
+          specialty.left + specialty.width / 2,
+          y + 44,
+          specialty.width - 64,
+          12
+        );
+      }});
+
+      for (let index = 0; index < 5; index += 1) {{
+        const y = specialty.top + 146 + index * 78;
+        drawAssetSprite(ctx, "furniture/tables/side_table_shadow.png", specialty.left + specialty.width - 42, y, 24, 18);
+        drawAssetSprite(ctx, "furniture/tables/side_table_front_base.png", specialty.left + specialty.width - 42, y, 24, 18);
       }}
     }}
 
     function drawFurniture(ctx, type, left, top) {{
       const sizeMap = {{
-        desk: [70, 42],
-        bed: [BED_PNG_WIDTH, BED_PNG_HEIGHT],
-        consult: [54, 40],
-        lab: [40, 34],
-        img: [42, 36],
+        desk_reception: [112, 46],
+        desk_triage: [82, 38],
+        desk_chart: [52, 30],
+        desk_observation: [52, 30],
+        desk_workstation: [40, 24],
+        table_side: [26, 18],
+        bed_er: [BED_PNG_WIDTH, BED_PNG_HEIGHT],
+        bed_observation: [50, 38],
+        consult: [26, 18],
+        lab_station: [34, 24],
+        img_station: [76, 54],
+        img_console: [38, 28],
+        diagnostic_chair: [24, 28],
+        ct_table: [54, 24],
+        monitor: [20, 22],
       }};
-      const [width, height] = sizeMap[type] || sizeMap.desk;
+      const [width, height] = sizeMap[type] || sizeMap.desk_workstation;
       drawPixelFurniture(ctx, left, top, type, width, height, type);
     }}
 
@@ -2437,30 +3324,49 @@ def build_live_web_viewer_html(
       const actor = String(snapshot?.dialogue?.actor || "").trim().replaceAll("_", " ");
       ctx.font = "700 13px Segoe UI";
       const header = actor ? actor.toUpperCase() : "DIALOGUE";
-      const bubbleLines = wrapText(ctx, bubble, 240);
+      const bubbleLines = wrapText(ctx, bubble, 230);
+      const chunks = [];
+      for (let index = 0; index < bubbleLines.length; index += 4) {{
+        chunks.push(bubbleLines.slice(index, index + 4));
+      }}
+      const visibleChunks = chunks.slice(0, 2);
       const headerWidth = ctx.measureText(header).width;
       ctx.font = "14px Segoe UI";
-      const textWidth = Math.max(...bubbleLines.map((line) => ctx.measureText(line).width), 120, headerWidth) + 34;
-      const width = Math.max(180, Math.min(300, textWidth));
-      const height = 34 + bubbleLines.length * 20;
-      const x = pos.left - width / 2;
-      const y = pos.top - (height + 38);
-      drawRoundedRect(ctx, x, y, width, height, 18, "rgba(255,255,255,0.98)", "rgba(104,122,169,0.18)");
-      ctx.fillStyle = "#87d4ff";
-      ctx.font = "700 12px Segoe UI";
-      ctx.fillText(header, x + 16, y + 18);
-      ctx.fillStyle = "#27314e";
-      ctx.font = "14px Segoe UI";
-      bubbleLines.forEach((line, index) => {{
-        ctx.fillText(line, x + 16, y + 38 + index * 20);
+      const maxLineWidth = Math.max(
+        120,
+        headerWidth,
+        ...visibleChunks.flat().map((line) => ctx.measureText(line).width),
+      ) + 34;
+      const width = Math.max(180, Math.min(300, maxLineWidth));
+      let bottomY = pos.top - 28;
+      visibleChunks.slice().reverse().forEach((chunkLines, reverseIndex) => {{
+        const height = 34 + chunkLines.length * 20;
+        const x = pos.left - width / 2;
+        const y = bottomY - height;
+        drawRoundedRect(ctx, x, y, width, height, 18, "rgba(255,255,255,0.98)", "rgba(104,122,169,0.18)");
+        ctx.fillStyle = "#87d4ff";
+        ctx.font = "700 12px Segoe UI";
+        if (reverseIndex === visibleChunks.length - 1) {{
+          ctx.fillText(header, x + 16, y + 18);
+        }} else {{
+          ctx.fillText("CONT.", x + 16, y + 18);
+        }}
+        ctx.fillStyle = "#27314e";
+        ctx.font = "14px Segoe UI";
+        chunkLines.forEach((line, lineIndex) => {{
+          ctx.fillText(line, x + 16, y + 38 + lineIndex * 20);
+        }});
+        if (reverseIndex === 0) {{
+          ctx.beginPath();
+          ctx.moveTo(pos.left - 8, y + height - 2);
+          ctx.lineTo(pos.left, y + height + 10);
+          ctx.lineTo(pos.left + 8, y + height - 2);
+          ctx.closePath();
+          ctx.fillStyle = "rgba(255,255,255,0.97)";
+          ctx.fill();
+        }}
+        bottomY = y - 10;
       }});
-      ctx.beginPath();
-      ctx.moveTo(pos.left - 8, y + height - 2);
-      ctx.lineTo(pos.left, y + height + 10);
-      ctx.lineTo(pos.left + 8, y + height - 2);
-      ctx.closePath();
-      ctx.fillStyle = "rgba(255,255,255,0.97)";
-      ctx.fill();
     }}
 
     function drawTestResultOverlay(ctx, snapshot, entities) {{
@@ -2573,7 +3479,6 @@ def build_live_web_viewer_html(
       bindCanvasSelection(canvas);
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       drawFloorTiles(ctx, snapshot, canvas.width, canvas.height);
-      drawGrid(ctx, canvas.width, canvas.height);
       document.getElementById("scenePhase").textContent = `Phase · ${{normalizeText(snapshot.phase)}} · m${{snapshot.current_time_min || 0}}`;
 
       Object.keys(zoneTitles).forEach((zoneKey) => {{
@@ -2930,10 +3835,10 @@ def build_live_web_viewer_html(
       const current = document.getElementById("currentDialogue");
       const selectedCaseId = getSelectedCase(snapshot);
       const viewMode = currentCaseViewMode(selectedCaseId);
-      const branchState = whatIfResults[selectedCaseId]?.payload || null;
+      const branchState = activeWhatIfPayload(selectedCaseId);
       const branchTranscript = Array.isArray(branchState?.branch_detail?.transcript) ? branchState.branch_detail.transcript : [];
       const dialogue = viewMode === "what-if"
-        ? branchTranscript.slice(-4).map((item) => `${{normalizeText(item.role, "agent")}}: ${{normalizeText(item.content, "")}}`)
+        ? branchTranscript.slice(-4).map((item) => `${{transcriptSpeaker(item)}}: ${{transcriptContent(item)}}`)
         : (snapshot?.dialogue?.lines || []);
       current.innerHTML = dialogue.length
         ? dialogue.map((line) => `<div class="conversation-item current">${{normalizeText(line)}}</div>`).join("")
@@ -2944,9 +3849,9 @@ def build_live_web_viewer_html(
       const selectedHistory = viewMode === "what-if"
         ? branchTranscript.slice(-8).reverse().map((item, index) => ({{
             minute: index,
-            actor: item.role,
+            actor: transcriptSpeaker(item),
             case_id: selectedCaseId,
-            lines: [String(item.content || "").trim()],
+            lines: [String(transcriptContent(item) || "").trim()],
           }}))
         : history.filter((item) => String(item?.case_id || "").trim() === String(selectedCaseId || "").trim());
       selectedWrap.innerHTML = selectedHistory.length
@@ -2978,18 +3883,24 @@ def build_live_web_viewer_html(
     function renderAll(snapshot) {{
       if (!snapshot) return;
       latestSnapshot = snapshot;
-      syncSceneRenderTargets(snapshot);
+      syncWhatIfPlayback(snapshot);
+      const sceneSnapshot = effectiveSceneSnapshot(snapshot);
+      syncSceneRenderTargets(sceneSnapshot);
       getSelectedCase(snapshot);
       renderOverview(snapshot);
-      renderScene(snapshot);
+      renderScene(sceneSnapshot);
       renderPatients(snapshot);
       renderCaseDetail(snapshot);
       renderConversation(snapshot);
     }}
 
     async function loadSnapshot(renderImmediately = true) {{
+      const snapshotUrl = getSnapshotUrl();
+      if (!snapshotUrl) {{
+        return null;
+      }}
       try {{
-        const response = await fetch(`${{getSnapshotUrl()}}?t=${{Date.now()}}`, {{ cache: "no-store" }});
+        const response = await fetch(`${{snapshotUrl}}?t=${{Date.now()}}`, {{ cache: "no-store" }});
         if (!response.ok) {{
           throw new Error(`HTTP ${{response.status}}`);
         }}
@@ -3108,6 +4019,14 @@ def build_live_web_viewer_html(
     }}
 
     async function startReplayFromBeginning() {{
+      if (!String(currentRunId || "").trim()) {{
+        clearPlaybackTimers();
+        playbackMode = "replay";
+        playbackPaused = true;
+        applyPlaybackModeUi();
+        setPlaybackStatus("Idle · start a live demo to attach a new run");
+        return;
+      }}
       clearPlaybackTimers();
       playbackMode = "replay";
       playbackPaused = false;
@@ -3125,6 +4044,10 @@ def build_live_web_viewer_html(
     }}
 
     function startLiveFollow() {{
+      if (!String(currentRunId || "").trim()) {{
+        setPlaybackStatus("No active run yet · start a live demo first");
+        return;
+      }}
       clearPlaybackTimers();
       playbackMode = "live";
       playbackPaused = false;

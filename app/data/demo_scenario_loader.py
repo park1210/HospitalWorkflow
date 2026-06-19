@@ -128,6 +128,7 @@ def _demo_control(patient: dict[str, Any]) -> dict[str, Any]:
             "role": "main_what_if_case",
             "decisive_tests": ["ECG"],
             "decisive_test_count": 1,
+            "demo_test_plan": ["ECG"],
             "primary_what_if": {
                 "type": "await_results",
                 "target": "Troponin I",
@@ -136,20 +137,32 @@ def _demo_control(patient: dict[str, Any]) -> dict[str, Any]:
             },
         }
     if patient_id == "P02":
-        return {"role": "waiting_room_deterioration", "decisive_tests": ["CT Pulmonary Angiography"], "decisive_test_count": 1}
+        return {
+            "role": "waiting_room_deterioration",
+            "decisive_tests": ["D-dimer", "CT Pulmonary Angiography"],
+            "decisive_test_count": 1,
+            "demo_test_plan": ["D-dimer", "CT Pulmonary Angiography"],
+        }
     if patient_id == "P03":
-        return {"role": "lower_priority_but_worsens", "decisive_tests": ["Abdominal CT"], "decisive_test_count": 1}
+        return {
+            "role": "lower_priority_but_worsens",
+            "decisive_tests": ["CBC", "Abdominal CT"],
+            "decisive_test_count": 1,
+            "demo_test_plan": ["CBC", "Abdominal CT"],
+        }
     if patient_id == "P04":
         return {
             "role": "rapid_metabolic_confirmation",
-            "decisive_tests": ["Glucose", "Serum ketone", "ABG", "Electrolytes"],
-            "decisive_test_count": 3,
+            "decisive_tests": ["Glucose", "ABG"],
+            "decisive_test_count": 1,
+            "demo_test_plan": ["Glucose", "ABG"],
         }
     if patient_id == "P05":
         return {
             "role": "delayed_neuro_infectious_consult",
             "decisive_tests": ["Brain CT", "CSF analysis"],
-            "decisive_test_count": 2,
+            "decisive_test_count": 1,
+            "demo_test_plan": ["Brain CT", "CSF analysis"],
         }
     return {}
 

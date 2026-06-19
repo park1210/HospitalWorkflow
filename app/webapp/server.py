@@ -12,6 +12,7 @@ from fastapi import Body, FastAPI, HTTPException, Query
 from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 
+from app.config import settings
 from app.core.logger import create_run_id, save_what_if_comparison, save_what_if_replay
 from app.core.parallel_what_if_replay import replay_parallel_case_from_snapshot
 from app.core.what_if_replay import get_snapshot_by_id, replay_case_from_snapshot
@@ -255,6 +256,8 @@ def _normalize_parallel_what_if_payload(
         "case_id": case_id,
         "status": str(replay_payload.get("status", "completed")).strip() or "completed",
         "replay_run_id": replay_run_id,
+        "viewer_run_id": replay_run_id,
+        "viewer_url": f"/?run_id={replay_run_id}",
         "snapshot_id": str(replay_payload.get("snapshot_id", "")).strip(),
         "selected_action": selected_action,
         "comparison": comparison,
@@ -292,19 +295,21 @@ def create_app() -> FastAPI:
 
     @app.get("/", response_class=HTMLResponse)
     def index(run_id: Optional[str] = Query(default=None)) -> HTMLResponse:
-        resolved_run_id = resolve_run_id(run_id)
+        resolved_run_id = str(run_id or "").strip()
         html = build_live_web_viewer_html(
             run_id=resolved_run_id,
-            snapshot_endpoint=f"/api/runs/{resolved_run_id}/snapshot",
+            snapshot_endpoint=(f"/api/runs/{resolved_run_id}/snapshot" if resolved_run_id else ""),
             asset_base_url="/pixel-re-assets",
         )
         return HTMLResponse(content=html)
 
     @app.get("/api/health")
     def health(run_id: Optional[str] = Query(default=None)) -> dict[str, Any]:
+        explicit_run_id = str(run_id or "").strip()
+        active_run_id = explicit_run_id or str(_LIVE_SESSION_STATE.get("run_id", "")).strip()
         return {
             "status": "ok",
-            "active_run_id": resolve_run_id(run_id),
+            "active_run_id": active_run_id,
             "available_runs": available_runs(),
         }
 
@@ -465,6 +470,7 @@ def create_app() -> FastAPI:
                     case_id=case_id,
                     snapshot_id=snapshot_id,
                     selected_action=selected_action,
+                    replay_run_id=replay_run_id,
                 )
             except FileNotFoundError as exc:
                 raise HTTPException(status_code=404, detail=str(exc)) from exc

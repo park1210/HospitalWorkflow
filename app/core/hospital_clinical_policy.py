@@ -25,8 +25,28 @@ class HospitalClinicalPolicy:
         return dict(runtime.case_data.get("gold_label", {}) or {})
 
     def _demo_test_plan(self, runtime: HospitalCaseRuntime) -> list[str]:
+        demo_meta = self._demo_meta(runtime)
+        explicit_plan = [
+            str(item).strip()
+            for item in list(demo_meta.get("demo_test_plan", []) or [])
+            if str(item).strip()
+        ]
+        if explicit_plan:
+            return explicit_plan
+        decisive_tests = [
+            str(item).strip()
+            for item in list(demo_meta.get("decisive_tests", []) or [])
+            if str(item).strip()
+        ]
         hidden_tests = dict(runtime.case_data.get("hidden_test_results", {}) or {})
-        return [str(name).strip() for name in list(hidden_tests.keys()) if str(name).strip()]
+        hidden_plan = [str(name).strip() for name in list(hidden_tests.keys()) if str(name).strip()]
+        compact_plan: list[str] = []
+        for test_name in decisive_tests + hidden_plan:
+            if test_name and test_name not in compact_plan:
+                compact_plan.append(test_name)
+        if decisive_tests:
+            return compact_plan[: min(2, len(compact_plan))]
+        return compact_plan[: min(2, len(compact_plan))]
 
     def _planned_tests(self, runtime: HospitalCaseRuntime, assessment: dict[str, Any]) -> list[str]:
         demo_tests = self._demo_test_plan(runtime)
@@ -211,6 +231,14 @@ class HospitalClinicalPolicy:
         if self._demo_meta(runtime):
             if self._decisive_evidence_ready(runtime):
                 return False
+            if runtime.completed_tests:
+                decisive_tests = {
+                    str(item).strip()
+                    for item in list(self._demo_meta(runtime).get("decisive_tests", []) or [])
+                    if str(item).strip()
+                }
+                if decisive_tests.intersection({str(item).strip() for item in list(runtime.completed_tests or []) if str(item).strip()}):
+                    return False
             return bool(remaining_plan)
         if runtime.completed_tests:
             return False
@@ -230,7 +258,7 @@ class HospitalClinicalPolicy:
         if decisive_tests:
             completed = {str(item).strip() for item in list(runtime.completed_tests or []) if str(item).strip()}
             ready_count = len([item for item in decisive_tests if item in completed])
-            if ready_count >= decisive_count and gold_department not in {"general_medicine", "internal_medicine", ""}:
+            if ready_count >= min(1, decisive_count) and gold_department not in {"general_medicine", "internal_medicine", ""}:
                 return True
         if not runtime.completed_tests and runtime.er_turn_count < 2:
             return False

@@ -10,6 +10,8 @@ from typing import Any
 from app.config import settings
 from app.core.hospital_parallel_scheduler import HospitalParallelScheduler
 from app.core.hospital_scheduler_state import HospitalSchedulerState
+from app.core.live_parallel_visual_runtime import LiveParallelVisualRuntimeWriter
+from app.core.logger import save_report_json
 from app.data.loader import load_processed_cases, load_raw_cases
 from app.data.transform import transform_case
 
@@ -388,22 +390,112 @@ def _events_to_trajectory_steps(events: list[dict[str, Any]]) -> list[dict[str, 
     return steps
 
 
+def _run_branch_with_history(
+    scheduler: HospitalParallelScheduler,
+    *,
+    state: HospitalSchedulerState,
+    case_id: str,
+    minute_horizon: int,
+) -> list[dict[str, Any]]:
+    normalized_case_id = str(case_id).strip()
+    snapshots: list[dict[str, Any]] = [state.snapshot()]
+    for _ in range(max(1, int(minute_horizon or 0))):
+        runtime = state.case(normalized_case_id)
+        if runtime.is_completed:
+            break
+        previous_tick = int(state.tick or 0)
+        scheduler.step(state)
+        snapshots.append(state.snapshot())
+        runtime = state.case(normalized_case_id)
+        is_waiting_stable = (
+            str(runtime.workflow_state).strip() in {"waiting_er", "awaiting_results", "waiting_specialty", "completed"}
+            and int(state.tick or 0) > previous_tick
+        )
+        if is_waiting_stable and not any(
+            str(dict(event or {}).get("case_id", "")).strip() == normalized_case_id
+            for event in list(state.scheduled_events or [])
+        ):
+            break
+    return snapshots
+
+
+def _persist_branch_visual_run(
+    *,
+    replay_run_id: str,
+    report: dict[str, Any],
+    state_before: HospitalSchedulerState,
+    state_after_apply: HospitalSchedulerState,
+    final_state: HospitalSchedulerState,
+    scheduler_snapshots: list[dict[str, Any]],
+    snapshot_id: str,
+    case_id: str,
+    selected_action: dict[str, str],
+) -> None:
+    original_demo_context = dict(report.get("demo_context", {}) or {})
+    demo_context = dict(original_demo_context)
+    demo_context.update(
+        {
+            "branch_mode": True,
+            "branch_origin_run_id": str(report.get("run_id", "")).strip(),
+            "branch_snapshot_id": str(snapshot_id).strip(),
+            "branch_case_id": str(case_id).strip(),
+            "branch_selected_action": dict(selected_action or {}),
+        }
+    )
+    writer = LiveParallelVisualRuntimeWriter(
+        run_id=replay_run_id,
+        queue_policy="parallel_hospital_temporal_scheduler_branch",
+        step_delay_sec=0.0,
+        demo_context=demo_context,
+    )
+    writer.initialize(state_before)
+    writer.on_step(state_after_apply)
+    for snapshot in scheduler_snapshots[1:]:
+        branch_state = _reconstruct_state(snapshot, report)
+        writer.on_step(branch_state)
+    writer.finalize(final_state)
+    summary = {
+        "run_id": replay_run_id,
+        "queue_policy": "parallel_hospital_temporal_scheduler_branch",
+        "minute_limit": int(final_state.current_minute or 0),
+        "display_minute_limit": int(final_state.current_minute or 0),
+        "min_demo_minutes": 0,
+        "scheduler_horizon_minute": int(final_state.current_minute or 0),
+        "grace_window_minutes": 0,
+        "final_minute": int(final_state.current_minute or 0),
+        "case_count": len(list(final_state.cases or {})),
+        "completed_count": len([case for case in final_state.cases.values() if bool(case.is_completed)]),
+        "demo_context": demo_context,
+        "source_cases": list(report.get("source_cases", []) or []),
+        "snapshots": [state_before.snapshot(), *scheduler_snapshots],
+        "final_state": final_state.snapshot(),
+        "branch_origin_run_id": str(report.get("run_id", "")).strip(),
+        "branch_snapshot_id": str(snapshot_id).strip(),
+        "branch_case_id": str(case_id).strip(),
+        "branch_selected_action": dict(selected_action or {}),
+    }
+    save_report_json(summary, "parallel_live_run_summary", replay_run_id)
+
+
 def replay_parallel_case_from_snapshot(
     *,
     run_id: str,
     case_id: str,
     snapshot_id: str,
     selected_action: dict[str, Any],
+    replay_run_id: str = "",
 ) -> dict[str, Any]:
     report = _load_parallel_report(run_id)
     normalized_case_id = str(case_id).strip()
     normalized_action = _normalize_action(selected_action)
     detail = _case_detail(run_id, normalized_case_id)
+    resolved_replay_run_id = str(replay_run_id).strip() or f"parallel_{run_id}"
 
     scheduler_snapshot = _scheduler_snapshot_for_case(report, snapshot_id, normalized_case_id)
-    branch_state = _reconstruct_state(scheduler_snapshot, report)
-    state_before = deepcopy(branch_state)
-    runtime_before = branch_state.case(normalized_case_id).to_summary()
+    state_before = _reconstruct_state(scheduler_snapshot, report)
+    state_before.run_id = resolved_replay_run_id
+    branch_state = deepcopy(state_before)
+    runtime_before = state_before.case(normalized_case_id).to_summary()
     scheduler_decision = _decision_snapshot(runtime_before, snapshot_id)
 
     original = _original_summary(runtime_before)
@@ -413,12 +505,13 @@ def replay_parallel_case_from_snapshot(
         case_id=normalized_case_id,
         selected_action=normalized_action,
     )
-    scheduler.run_branch_until_stable(
-        branch_state,
+    state_after_apply = deepcopy(branch_state)
+    scheduler_snapshots = _run_branch_with_history(
+        scheduler,
+        state=branch_state,
         case_id=normalized_case_id,
-        minute_horizon=12,
+        minute_horizon=20,
     )
-
     runtime_after = branch_state.case(normalized_case_id).to_summary()
     replay_questions = [dict(item or {}) for item in list(runtime_after.get("question_history", []) or [])][-6:]
     replay_tests = [str(item).strip() for item in list(runtime_after.get("recommended_tests", []) or []) if str(item).strip()][-6:]
@@ -483,9 +576,20 @@ def replay_parallel_case_from_snapshot(
         "case_after": deepcopy(runtime_after),
         "decision_snapshot": deepcopy(scheduler_decision),
     }
+    _persist_branch_visual_run(
+        replay_run_id=resolved_replay_run_id,
+        report=report,
+        state_before=state_before,
+        state_after_apply=state_after_apply,
+        final_state=branch_state,
+        scheduler_snapshots=scheduler_snapshots,
+        snapshot_id=snapshot_id,
+        case_id=normalized_case_id,
+        selected_action=normalized_action,
+    )
     return {
         "status": "completed",
-        "replay_run_id": f"parallel_{run_id}",
+        "replay_run_id": resolved_replay_run_id,
         "snapshot_id": str(snapshot_id).strip(),
         "selected_action": normalized_action,
         "comparison": comparison,
