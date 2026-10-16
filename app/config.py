@@ -44,6 +44,8 @@ class Settings:
     OLLAMA_BASE_URL: str = os.getenv("OLLAMA_BASE_URL", "http://host.docker.internal:11434/v1")
     OLLAMA_API_KEY: str = os.getenv("OLLAMA_API_KEY", "ollama")
     OLLAMA_MODEL: str = os.getenv("OLLAMA_MODEL", "llama3.2:3b")
+    LLM_TIMEOUT_SECONDS: float = float(os.getenv("LLM_TIMEOUT_SECONDS", "120"))
+    LLM_MAX_OUTPUT_TOKENS: int = int(os.getenv("LLM_MAX_OUTPUT_TOKENS", "768"))
     SPECIALTY_BASE_URL: str = os.getenv("SPECIALTY_BASE_URL", os.getenv("OLLAMA_BASE_URL", "http://host.docker.internal:11434/v1"))
     SPECIALTY_API_KEY: str = os.getenv("SPECIALTY_API_KEY", os.getenv("OLLAMA_API_KEY", "ollama"))
     SPECIALTY_OLLAMA_MODEL: str = os.getenv("SPECIALTY_OLLAMA_MODEL", "qwen2.5:1.5b-instruct")

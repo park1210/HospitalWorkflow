@@ -1,0 +1,56 @@
+{
+  "[\"challenge-train-distractors\", \"v1\"]": {
+    "relevant_memory_ids": [
+      "challenge-train-distractors-indicator"
+    ],
+    "stale_memory_ids": []
+  },
+  "[\"challenge-train-distractors\", \"v2\"]": {
+    "relevant_memory_ids": [
+      "challenge-train-distractors-indicator"
+    ],
+    "stale_memory_ids": []
+  },
+  "[\"challenge-train-superseded\", \"v1\"]": {
+    "relevant_memory_ids": [
+      "challenge-train-superseded-indicator"
+    ],
+    "stale_memory_ids": []
+  },
+  "[\"challenge-train-superseded\", \"v2\"]": {
+    "relevant_memory_ids": [
+      "challenge-train-superseded-update"
+    ],
+    "stale_memory_ids": [
+      "challenge-train-superseded-indicator"
+    ]
+  },
+  "[\"challenge-train-conflict\", \"v1\"]": {
+    "relevant_memory_ids": [
+      "challenge-train-conflict-indicator",
+      "challenge-train-conflict-positive",
+      "challenge-train-conflict-negative"
+    ],
+    "stale_memory_ids": []
+  },
+  "[\"challenge-train-conflict\", \"v2\"]": {
+    "relevant_memory_ids": [
+      "challenge-train-conflict-indicator",
+      "challenge-train-conflict-positive",
+      "challenge-train-conflict-negative"
+    ],
+    "stale_memory_ids": []
+  },
+  "[\"challenge-train-paraphrase\", \"v1\"]": {
+    "relevant_memory_ids": [
+      "challenge-train-paraphrase-indicator"
+    ],
+    "stale_memory_ids": []
+  },
+  "[\"challenge-train-paraphrase\", \"v2\"]": {
+    "relevant_memory_ids": [
+      "challenge-train-paraphrase-indicator"
+    ],
+    "stale_memory_ids": []
+  }
+}

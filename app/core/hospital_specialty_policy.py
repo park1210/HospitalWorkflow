@@ -18,7 +18,7 @@ class HospitalSpecialtyPolicy:
         return {
             "department": department,
             "duration_min": self.consult_duration_minutes(runtime),
-            "rationale": "The leading department still owned the unresolved evidence, so a specialty consult was started in the consult room.",
+            "rationale": "The leading department was requested to review unresolved evidence at the patient's bedside.",
             "payload": {
                 "department": department,
                 "consult_room_id": str(consult_room_id).strip(),

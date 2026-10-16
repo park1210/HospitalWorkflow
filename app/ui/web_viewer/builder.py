@@ -1411,7 +1411,7 @@ def build_live_web_viewer_html(
       observation: "Observation",
       awaiting_results: "Diagnostics",
       specialty_review: "Consult Hall",
-      completed: "Discharge"
+      completed: "Diagnostic episode complete"
     }};
 
     const severityPalette = {{
@@ -3991,6 +3991,15 @@ def build_live_web_viewer_html(
 
     async function pollLiveSnapshot() {{
       const snapshot = await loadSnapshot(false);
+      if (snapshot?.simulation_status === "waiting_for_model") {{
+        const progress = snapshot.inference_progress || {{}};
+        setPlaybackStatus(`Waiting for ${{progress.role || "model"}} · ${{progress.wall_wait_seconds || 0}}s · simulation time paused`);
+        return;
+      }}
+      if (snapshot?.simulation_status === "failed") {{
+        setPlaybackStatus("Simulation failed · inspect hospital_failed_run.json");
+        return;
+      }}
       enqueueLiveSnapshot(snapshot);
     }}
 
@@ -4008,8 +4017,8 @@ def build_live_web_viewer_html(
         if (refreshed.length > playbackHistory.length) {{
           playbackHistory = refreshed;
           playbackFrames = buildPlaybackFrames(playbackHistory);
-        }} else if (latestSnapshot?.simulation_status === "completed") {{
-          setPlaybackStatus("Replay completed");
+        }} else if (["completed", "stopped"].includes(latestSnapshot?.simulation_status)) {{
+          setPlaybackStatus(latestSnapshot.simulation_status === "stopped" ? "Replay ended with unfinished patients" : "Replay completed");
           return;
         }} else {{
           setPlaybackStatus("Waiting for more live history…");

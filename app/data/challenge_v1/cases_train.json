@@ -1,0 +1,290 @@
+[
+  {
+    "case_id": "challenge-train-distractors-v1",
+    "longitudinal": {
+      "patient_id": "challenge-train-distractors",
+      "visit_id": "v1",
+      "started_at": "2026-02-01T00:00:00Z"
+    },
+    "doctor_visible_info": {
+      "chief_complaint": "Prior synthetic indicator discomfort",
+      "initial_vitals": {
+        "spo2": 98
+      }
+    },
+    "patient_visible_info": {
+      "history": "Synthetic indicator is absent."
+    },
+    "available_tests": [
+      "T"
+    ],
+    "hidden_test_results": {
+      "T": {
+        "result": "Synthetic B finding"
+      }
+    },
+    "resource_profile": {
+      "test_resources": {
+        "T": "lab_slot"
+      },
+      "test_occupancy": {
+        "T": 1
+      },
+      "test_turnaround": {
+        "T": 1
+      }
+    }
+  },
+  {
+    "case_id": "challenge-train-distractors-v2",
+    "longitudinal": {
+      "patient_id": "challenge-train-distractors",
+      "visit_id": "v2",
+      "started_at": "2026-03-01T00:00:00Z"
+    },
+    "doctor_visible_info": {
+      "chief_complaint": "Prior synthetic indicator discomfort",
+      "initial_vitals": {
+        "spo2": 98
+      }
+    },
+    "patient_visible_info": {
+      "history": "Synthetic indicator is present."
+    },
+    "available_tests": [
+      "T"
+    ],
+    "hidden_test_results": {
+      "T": {
+        "result": "Synthetic A finding"
+      }
+    },
+    "resource_profile": {
+      "test_resources": {
+        "T": "lab_slot"
+      },
+      "test_occupancy": {
+        "T": 1
+      },
+      "test_turnaround": {
+        "T": 1
+      }
+    }
+  },
+  {
+    "case_id": "challenge-train-superseded-v1",
+    "longitudinal": {
+      "patient_id": "challenge-train-superseded",
+      "visit_id": "v1",
+      "started_at": "2026-02-01T00:00:00Z"
+    },
+    "doctor_visible_info": {
+      "chief_complaint": "Prior synthetic indicator discomfort",
+      "initial_vitals": {
+        "spo2": 98
+      }
+    },
+    "patient_visible_info": {
+      "history": "Synthetic indicator is present."
+    },
+    "available_tests": [
+      "T"
+    ],
+    "hidden_test_results": {
+      "T": {
+        "result": "Synthetic A finding"
+      }
+    },
+    "resource_profile": {
+      "test_resources": {
+        "T": "lab_slot"
+      },
+      "test_occupancy": {
+        "T": 1
+      },
+      "test_turnaround": {
+        "T": 1
+      }
+    }
+  },
+  {
+    "case_id": "challenge-train-superseded-v2",
+    "longitudinal": {
+      "patient_id": "challenge-train-superseded",
+      "visit_id": "v2",
+      "started_at": "2026-03-01T00:00:00Z"
+    },
+    "doctor_visible_info": {
+      "chief_complaint": "Prior synthetic indicator discomfort",
+      "initial_vitals": {
+        "spo2": 98
+      }
+    },
+    "patient_visible_info": {
+      "history": "Synthetic indicator is absent."
+    },
+    "available_tests": [
+      "T"
+    ],
+    "hidden_test_results": {
+      "T": {
+        "result": "Synthetic B finding"
+      }
+    },
+    "resource_profile": {
+      "test_resources": {
+        "T": "lab_slot"
+      },
+      "test_occupancy": {
+        "T": 1
+      },
+      "test_turnaround": {
+        "T": 1
+      }
+    }
+  },
+  {
+    "case_id": "challenge-train-conflict-v1",
+    "longitudinal": {
+      "patient_id": "challenge-train-conflict",
+      "visit_id": "v1",
+      "started_at": "2026-02-01T00:00:00Z"
+    },
+    "doctor_visible_info": {
+      "chief_complaint": "Prior synthetic indicator discomfort",
+      "initial_vitals": {
+        "spo2": 98
+      }
+    },
+    "patient_visible_info": {
+      "history": "Synthetic indicator is absent."
+    },
+    "available_tests": [
+      "T"
+    ],
+    "hidden_test_results": {
+      "T": {
+        "result": "Synthetic B finding"
+      }
+    },
+    "resource_profile": {
+      "test_resources": {
+        "T": "lab_slot"
+      },
+      "test_occupancy": {
+        "T": 1
+      },
+      "test_turnaround": {
+        "T": 1
+      }
+    }
+  },
+  {
+    "case_id": "challenge-train-conflict-v2",
+    "longitudinal": {
+      "patient_id": "challenge-train-conflict",
+      "visit_id": "v2",
+      "started_at": "2026-03-01T00:00:00Z"
+    },
+    "doctor_visible_info": {
+      "chief_complaint": "Prior synthetic indicator discomfort",
+      "initial_vitals": {
+        "spo2": 98
+      }
+    },
+    "patient_visible_info": {
+      "history": "Synthetic indicator is present."
+    },
+    "available_tests": [
+      "T"
+    ],
+    "hidden_test_results": {
+      "T": {
+        "result": "Synthetic A finding"
+      }
+    },
+    "resource_profile": {
+      "test_resources": {
+        "T": "lab_slot"
+      },
+      "test_occupancy": {
+        "T": 1
+      },
+      "test_turnaround": {
+        "T": 1
+      }
+    }
+  },
+  {
+    "case_id": "challenge-train-paraphrase-v1",
+    "longitudinal": {
+      "patient_id": "challenge-train-paraphrase",
+      "visit_id": "v1",
+      "started_at": "2026-02-01T00:00:00Z"
+    },
+    "doctor_visible_info": {
+      "chief_complaint": "Recurring marker concern",
+      "initial_vitals": {
+        "spo2": 98
+      }
+    },
+    "patient_visible_info": {
+      "history": "Synthetic indicator is present."
+    },
+    "available_tests": [
+      "T"
+    ],
+    "hidden_test_results": {
+      "T": {
+        "result": "Synthetic A finding"
+      }
+    },
+    "resource_profile": {
+      "test_resources": {
+        "T": "lab_slot"
+      },
+      "test_occupancy": {
+        "T": 1
+      },
+      "test_turnaround": {
+        "T": 1
+      }
+    }
+  },
+  {
+    "case_id": "challenge-train-paraphrase-v2",
+    "longitudinal": {
+      "patient_id": "challenge-train-paraphrase",
+      "visit_id": "v2",
+      "started_at": "2026-03-01T00:00:00Z"
+    },
+    "doctor_visible_info": {
+      "chief_complaint": "Recurring marker concern",
+      "initial_vitals": {
+        "spo2": 98
+      }
+    },
+    "patient_visible_info": {
+      "history": "Synthetic indicator is absent."
+    },
+    "available_tests": [
+      "T"
+    ],
+    "hidden_test_results": {
+      "T": {
+        "result": "Synthetic B finding"
+      }
+    },
+    "resource_profile": {
+      "test_resources": {
+        "T": "lab_slot"
+      },
+      "test_occupancy": {
+        "T": 1
+      },
+      "test_turnaround": {
+        "T": 1
+      }
+    }
+  }
+]

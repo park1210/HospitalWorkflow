@@ -1,0 +1,56 @@
+{
+  "[\"challenge-test-distractors\", \"v1\"]": {
+    "relevant_memory_ids": [
+      "challenge-test-distractors-indicator"
+    ],
+    "stale_memory_ids": []
+  },
+  "[\"challenge-test-distractors\", \"v2\"]": {
+    "relevant_memory_ids": [
+      "challenge-test-distractors-indicator"
+    ],
+    "stale_memory_ids": []
+  },
+  "[\"challenge-test-superseded\", \"v1\"]": {
+    "relevant_memory_ids": [
+      "challenge-test-superseded-indicator"
+    ],
+    "stale_memory_ids": []
+  },
+  "[\"challenge-test-superseded\", \"v2\"]": {
+    "relevant_memory_ids": [
+      "challenge-test-superseded-update"
+    ],
+    "stale_memory_ids": [
+      "challenge-test-superseded-indicator"
+    ]
+  },
+  "[\"challenge-test-conflict\", \"v1\"]": {
+    "relevant_memory_ids": [
+      "challenge-test-conflict-indicator",
+      "challenge-test-conflict-positive",
+      "challenge-test-conflict-negative"
+    ],
+    "stale_memory_ids": []
+  },
+  "[\"challenge-test-conflict\", \"v2\"]": {
+    "relevant_memory_ids": [
+      "challenge-test-conflict-indicator",
+      "challenge-test-conflict-positive",
+      "challenge-test-conflict-negative"
+    ],
+    "stale_memory_ids": []
+  },
+  "[\"challenge-test-paraphrase\", \"v1\"]": {
+    "relevant_memory_ids": [
+      "challenge-test-paraphrase-indicator"
+    ],
+    "stale_memory_ids": []
+  },
+  "[\"challenge-test-paraphrase\", \"v2\"]": {
+    "relevant_memory_ids": [
+      "challenge-test-paraphrase-indicator"
+    ],
+    "stale_memory_ids": []
+  }
+}

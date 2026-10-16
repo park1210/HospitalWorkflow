@@ -1,0 +1,6 @@
+{
+  "capacities": {"triage_nurses": 1, "er_doctors": 2, "er_beds": 4, "lab_slots": 2, "imaging_slots": 1},
+  "durations": {"triage": 1, "er_assessment": 2, "er_travel": 1, "specialty_travel": 2, "specialty_consult": 4, "lab_slot": 5, "imaging_slot": 6, "result_hold": 3},
+  "priority": {"severity": 1.0, "waiting": 0.05, "risk": 1.0},
+  "arrival": {"mode": "fixed", "rate_per_minute": 0.2, "seed": 42}
+}

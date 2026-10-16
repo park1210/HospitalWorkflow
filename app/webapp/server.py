@@ -476,6 +476,8 @@ def create_app() -> FastAPI:
                 raise HTTPException(status_code=404, detail=str(exc)) from exc
             except KeyError as exc:
                 raise HTTPException(status_code=404, detail=str(exc)) from exc
+            except ValueError as exc:
+                raise HTTPException(status_code=400, detail=str(exc)) from exc
 
             normalized_payload = _normalize_parallel_what_if_payload(
                 run_id=run_id,

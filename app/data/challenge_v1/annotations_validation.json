@@ -1,0 +1,56 @@
+{
+  "[\"challenge-validation-distractors\", \"v1\"]": {
+    "relevant_memory_ids": [
+      "challenge-validation-distractors-indicator"
+    ],
+    "stale_memory_ids": []
+  },
+  "[\"challenge-validation-distractors\", \"v2\"]": {
+    "relevant_memory_ids": [
+      "challenge-validation-distractors-indicator"
+    ],
+    "stale_memory_ids": []
+  },
+  "[\"challenge-validation-superseded\", \"v1\"]": {
+    "relevant_memory_ids": [
+      "challenge-validation-superseded-indicator"
+    ],
+    "stale_memory_ids": []
+  },
+  "[\"challenge-validation-superseded\", \"v2\"]": {
+    "relevant_memory_ids": [
+      "challenge-validation-superseded-update"
+    ],
+    "stale_memory_ids": [
+      "challenge-validation-superseded-indicator"
+    ]
+  },
+  "[\"challenge-validation-conflict\", \"v1\"]": {
+    "relevant_memory_ids": [
+      "challenge-validation-conflict-indicator",
+      "challenge-validation-conflict-positive",
+      "challenge-validation-conflict-negative"
+    ],
+    "stale_memory_ids": []
+  },
+  "[\"challenge-validation-conflict\", \"v2\"]": {
+    "relevant_memory_ids": [
+      "challenge-validation-conflict-indicator",
+      "challenge-validation-conflict-positive",
+      "challenge-validation-conflict-negative"
+    ],
+    "stale_memory_ids": []
+  },
+  "[\"challenge-validation-paraphrase\", \"v1\"]": {
+    "relevant_memory_ids": [
+      "challenge-validation-paraphrase-indicator"
+    ],
+    "stale_memory_ids": []
+  },
+  "[\"challenge-validation-paraphrase\", \"v2\"]": {
+    "relevant_memory_ids": [
+      "challenge-validation-paraphrase-indicator"
+    ],
+    "stale_memory_ids": []
+  }
+}

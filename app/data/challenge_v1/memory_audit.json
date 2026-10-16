@@ -1,0 +1,4836 @@
+{
+  "status": "passed",
+  "boundary_checks": 96,
+  "new_llm_calls": 0,
+  "rows": [
+    {
+      "split": "train",
+      "group": "distractors",
+      "identity": {
+        "patient_id": "challenge-train-distractors",
+        "visit_id": "v1",
+        "started_at": "2026-02-01T00:00:00Z"
+      },
+      "mode": "none",
+      "top_k": 1,
+      "metrics": {
+        "precision": {
+          "value": null,
+          "numerator": 0,
+          "denominator": 0,
+          "status": "not_applicable"
+        },
+        "recall": {
+          "value": 0.0,
+          "numerator": 0,
+          "denominator": 1,
+          "status": "available"
+        },
+        "stale_retrieval_rate": {
+          "value": null,
+          "numerator": 0,
+          "denominator": 0,
+          "status": "not_applicable"
+        },
+        "stale_misuse_rate": {
+          "value": null,
+          "numerator": null,
+          "denominator": null,
+          "status": "missing_annotation"
+        },
+        "retrieved_ids": [],
+        "cited_ids": [],
+        "citation_reporting_complete": true,
+        "interpretation": "Citations are self-reported; semantic use and clinical correctness require review."
+      },
+      "conflict_candidates": 0
+    },
+    {
+      "split": "train",
+      "group": "distractors",
+      "identity": {
+        "patient_id": "challenge-train-distractors",
+        "visit_id": "v1",
+        "started_at": "2026-02-01T00:00:00Z"
+      },
+      "mode": "full_history",
+      "top_k": 1,
+      "metrics": {
+        "precision": {
+          "value": 0.25,
+          "numerator": 1,
+          "denominator": 4,
+          "status": "available"
+        },
+        "recall": {
+          "value": 1.0,
+          "numerator": 1,
+          "denominator": 1,
+          "status": "available"
+        },
+        "stale_retrieval_rate": {
+          "value": 0.0,
+          "numerator": 0,
+          "denominator": 4,
+          "status": "available"
+        },
+        "stale_misuse_rate": {
+          "value": null,
+          "numerator": null,
+          "denominator": null,
+          "status": "missing_annotation"
+        },
+        "retrieved_ids": [
+          "challenge-train-distractors-indicator",
+          "challenge-train-distractors-noise-0",
+          "challenge-train-distractors-noise-1",
+          "challenge-train-distractors-noise-2"
+        ],
+        "cited_ids": [],
+        "citation_reporting_complete": true,
+        "interpretation": "Citations are self-reported; semantic use and clinical correctness require review."
+      },
+      "conflict_candidates": 0
+    },
+    {
+      "split": "train",
+      "group": "distractors",
+      "identity": {
+        "patient_id": "challenge-train-distractors",
+        "visit_id": "v1",
+        "started_at": "2026-02-01T00:00:00Z"
+      },
+      "mode": "selective",
+      "top_k": 1,
+      "metrics": {
+        "precision": {
+          "value": 1.0,
+          "numerator": 1,
+          "denominator": 1,
+          "status": "available"
+        },
+        "recall": {
+          "value": 1.0,
+          "numerator": 1,
+          "denominator": 1,
+          "status": "available"
+        },
+        "stale_retrieval_rate": {
+          "value": 0.0,
+          "numerator": 0,
+          "denominator": 1,
+          "status": "available"
+        },
+        "stale_misuse_rate": {
+          "value": null,
+          "numerator": null,
+          "denominator": null,
+          "status": "missing_annotation"
+        },
+        "retrieved_ids": [
+          "challenge-train-distractors-indicator"
+        ],
+        "cited_ids": [],
+        "citation_reporting_complete": true,
+        "interpretation": "Citations are self-reported; semantic use and clinical correctness require review."
+      },
+      "conflict_candidates": 0
+    },
+    {
+      "split": "train",
+      "group": "distractors",
+      "identity": {
+        "patient_id": "challenge-train-distractors",
+        "visit_id": "v1",
+        "started_at": "2026-02-01T00:00:00Z"
+      },
+      "mode": "selective",
+      "top_k": 3,
+      "metrics": {
+        "precision": {
+          "value": 1.0,
+          "numerator": 1,
+          "denominator": 1,
+          "status": "available"
+        },
+        "recall": {
+          "value": 1.0,
+          "numerator": 1,
+          "denominator": 1,
+          "status": "available"
+        },
+        "stale_retrieval_rate": {
+          "value": 0.0,
+          "numerator": 0,
+          "denominator": 1,
+          "status": "available"
+        },
+        "stale_misuse_rate": {
+          "value": null,
+          "numerator": null,
+          "denominator": null,
+          "status": "missing_annotation"
+        },
+        "retrieved_ids": [
+          "challenge-train-distractors-indicator"
+        ],
+        "cited_ids": [],
+        "citation_reporting_complete": true,
+        "interpretation": "Citations are self-reported; semantic use and clinical correctness require review."
+      },
+      "conflict_candidates": 0
+    },
+    {
+      "split": "train",
+      "group": "distractors",
+      "identity": {
+        "patient_id": "challenge-train-distractors",
+        "visit_id": "v2",
+        "started_at": "2026-03-01T00:00:00Z"
+      },
+      "mode": "none",
+      "top_k": 1,
+      "metrics": {
+        "precision": {
+          "value": null,
+          "numerator": 0,
+          "denominator": 0,
+          "status": "not_applicable"
+        },
+        "recall": {
+          "value": 0.0,
+          "numerator": 0,
+          "denominator": 1,
+          "status": "available"
+        },
+        "stale_retrieval_rate": {
+          "value": null,
+          "numerator": 0,
+          "denominator": 0,
+          "status": "not_applicable"
+        },
+        "stale_misuse_rate": {
+          "value": null,
+          "numerator": null,
+          "denominator": null,
+          "status": "missing_annotation"
+        },
+        "retrieved_ids": [],
+        "cited_ids": [],
+        "citation_reporting_complete": true,
+        "interpretation": "Citations are self-reported; semantic use and clinical correctness require review."
+      },
+      "conflict_candidates": 0
+    },
+    {
+      "split": "train",
+      "group": "distractors",
+      "identity": {
+        "patient_id": "challenge-train-distractors",
+        "visit_id": "v2",
+        "started_at": "2026-03-01T00:00:00Z"
+      },
+      "mode": "full_history",
+      "top_k": 1,
+      "metrics": {
+        "precision": {
+          "value": 0.25,
+          "numerator": 1,
+          "denominator": 4,
+          "status": "available"
+        },
+        "recall": {
+          "value": 1.0,
+          "numerator": 1,
+          "denominator": 1,
+          "status": "available"
+        },
+        "stale_retrieval_rate": {
+          "value": 0.0,
+          "numerator": 0,
+          "denominator": 4,
+          "status": "available"
+        },
+        "stale_misuse_rate": {
+          "value": null,
+          "numerator": null,
+          "denominator": null,
+          "status": "missing_annotation"
+        },
+        "retrieved_ids": [
+          "challenge-train-distractors-indicator",
+          "challenge-train-distractors-noise-0",
+          "challenge-train-distractors-noise-1",
+          "challenge-train-distractors-noise-2"
+        ],
+        "cited_ids": [],
+        "citation_reporting_complete": true,
+        "interpretation": "Citations are self-reported; semantic use and clinical correctness require review."
+      },
+      "conflict_candidates": 0
+    },
+    {
+      "split": "train",
+      "group": "distractors",
+      "identity": {
+        "patient_id": "challenge-train-distractors",
+        "visit_id": "v2",
+        "started_at": "2026-03-01T00:00:00Z"
+      },
+      "mode": "selective",
+      "top_k": 1,
+      "metrics": {
+        "precision": {
+          "value": 1.0,
+          "numerator": 1,
+          "denominator": 1,
+          "status": "available"
+        },
+        "recall": {
+          "value": 1.0,
+          "numerator": 1,
+          "denominator": 1,
+          "status": "available"
+        },
+        "stale_retrieval_rate": {
+          "value": 0.0,
+          "numerator": 0,
+          "denominator": 1,
+          "status": "available"
+        },
+        "stale_misuse_rate": {
+          "value": null,
+          "numerator": null,
+          "denominator": null,
+          "status": "missing_annotation"
+        },
+        "retrieved_ids": [
+          "challenge-train-distractors-indicator"
+        ],
+        "cited_ids": [],
+        "citation_reporting_complete": true,
+        "interpretation": "Citations are self-reported; semantic use and clinical correctness require review."
+      },
+      "conflict_candidates": 0
+    },
+    {
+      "split": "train",
+      "group": "distractors",
+      "identity": {
+        "patient_id": "challenge-train-distractors",
+        "visit_id": "v2",
+        "started_at": "2026-03-01T00:00:00Z"
+      },
+      "mode": "selective",
+      "top_k": 3,
+      "metrics": {
+        "precision": {
+          "value": 1.0,
+          "numerator": 1,
+          "denominator": 1,
+          "status": "available"
+        },
+        "recall": {
+          "value": 1.0,
+          "numerator": 1,
+          "denominator": 1,
+          "status": "available"
+        },
+        "stale_retrieval_rate": {
+          "value": 0.0,
+          "numerator": 0,
+          "denominator": 1,
+          "status": "available"
+        },
+        "stale_misuse_rate": {
+          "value": null,
+          "numerator": null,
+          "denominator": null,
+          "status": "missing_annotation"
+        },
+        "retrieved_ids": [
+          "challenge-train-distractors-indicator"
+        ],
+        "cited_ids": [],
+        "citation_reporting_complete": true,
+        "interpretation": "Citations are self-reported; semantic use and clinical correctness require review."
+      },
+      "conflict_candidates": 0
+    },
+    {
+      "split": "train",
+      "group": "superseded",
+      "identity": {
+        "patient_id": "challenge-train-superseded",
+        "visit_id": "v1",
+        "started_at": "2026-02-01T00:00:00Z"
+      },
+      "mode": "none",
+      "top_k": 1,
+      "metrics": {
+        "precision": {
+          "value": null,
+          "numerator": 0,
+          "denominator": 0,
+          "status": "not_applicable"
+        },
+        "recall": {
+          "value": 0.0,
+          "numerator": 0,
+          "denominator": 1,
+          "status": "available"
+        },
+        "stale_retrieval_rate": {
+          "value": null,
+          "numerator": 0,
+          "denominator": 0,
+          "status": "not_applicable"
+        },
+        "stale_misuse_rate": {
+          "value": null,
+          "numerator": null,
+          "denominator": null,
+          "status": "missing_annotation"
+        },
+        "retrieved_ids": [],
+        "cited_ids": [],
+        "citation_reporting_complete": true,
+        "interpretation": "Citations are self-reported; semantic use and clinical correctness require review."
+      },
+      "conflict_candidates": 0
+    },
+    {
+      "split": "train",
+      "group": "superseded",
+      "identity": {
+        "patient_id": "challenge-train-superseded",
+        "visit_id": "v1",
+        "started_at": "2026-02-01T00:00:00Z"
+      },
+      "mode": "full_history",
+      "top_k": 1,
+      "metrics": {
+        "precision": {
+          "value": 0.25,
+          "numerator": 1,
+          "denominator": 4,
+          "status": "available"
+        },
+        "recall": {
+          "value": 1.0,
+          "numerator": 1,
+          "denominator": 1,
+          "status": "available"
+        },
+        "stale_retrieval_rate": {
+          "value": 0.0,
+          "numerator": 0,
+          "denominator": 4,
+          "status": "available"
+        },
+        "stale_misuse_rate": {
+          "value": null,
+          "numerator": null,
+          "denominator": null,
+          "status": "missing_annotation"
+        },
+        "retrieved_ids": [
+          "challenge-train-superseded-indicator",
+          "challenge-train-superseded-noise-0",
+          "challenge-train-superseded-noise-1",
+          "challenge-train-superseded-noise-2"
+        ],
+        "cited_ids": [],
+        "citation_reporting_complete": true,
+        "interpretation": "Citations are self-reported; semantic use and clinical correctness require review."
+      },
+      "conflict_candidates": 0
+    },
+    {
+      "split": "train",
+      "group": "superseded",
+      "identity": {
+        "patient_id": "challenge-train-superseded",
+        "visit_id": "v1",
+        "started_at": "2026-02-01T00:00:00Z"
+      },
+      "mode": "selective",
+      "top_k": 1,
+      "metrics": {
+        "precision": {
+          "value": 1.0,
+          "numerator": 1,
+          "denominator": 1,
+          "status": "available"
+        },
+        "recall": {
+          "value": 1.0,
+          "numerator": 1,
+          "denominator": 1,
+          "status": "available"
+        },
+        "stale_retrieval_rate": {
+          "value": 0.0,
+          "numerator": 0,
+          "denominator": 1,
+          "status": "available"
+        },
+        "stale_misuse_rate": {
+          "value": null,
+          "numerator": null,
+          "denominator": null,
+          "status": "missing_annotation"
+        },
+        "retrieved_ids": [
+          "challenge-train-superseded-indicator"
+        ],
+        "cited_ids": [],
+        "citation_reporting_complete": true,
+        "interpretation": "Citations are self-reported; semantic use and clinical correctness require review."
+      },
+      "conflict_candidates": 0
+    },
+    {
+      "split": "train",
+      "group": "superseded",
+      "identity": {
+        "patient_id": "challenge-train-superseded",
+        "visit_id": "v1",
+        "started_at": "2026-02-01T00:00:00Z"
+      },
+      "mode": "selective",
+      "top_k": 3,
+      "metrics": {
+        "precision": {
+          "value": 1.0,
+          "numerator": 1,
+          "denominator": 1,
+          "status": "available"
+        },
+        "recall": {
+          "value": 1.0,
+          "numerator": 1,
+          "denominator": 1,
+          "status": "available"
+        },
+        "stale_retrieval_rate": {
+          "value": 0.0,
+          "numerator": 0,
+          "denominator": 1,
+          "status": "available"
+        },
+        "stale_misuse_rate": {
+          "value": null,
+          "numerator": null,
+          "denominator": null,
+          "status": "missing_annotation"
+        },
+        "retrieved_ids": [
+          "challenge-train-superseded-indicator"
+        ],
+        "cited_ids": [],
+        "citation_reporting_complete": true,
+        "interpretation": "Citations are self-reported; semantic use and clinical correctness require review."
+      },
+      "conflict_candidates": 0
+    },
+    {
+      "split": "train",
+      "group": "superseded",
+      "identity": {
+        "patient_id": "challenge-train-superseded",
+        "visit_id": "v2",
+        "started_at": "2026-03-01T00:00:00Z"
+      },
+      "mode": "none",
+      "top_k": 1,
+      "metrics": {
+        "precision": {
+          "value": null,
+          "numerator": 0,
+          "denominator": 0,
+          "status": "not_applicable"
+        },
+        "recall": {
+          "value": 0.0,
+          "numerator": 0,
+          "denominator": 1,
+          "status": "available"
+        },
+        "stale_retrieval_rate": {
+          "value": null,
+          "numerator": 0,
+          "denominator": 0,
+          "status": "not_applicable"
+        },
+        "stale_misuse_rate": {
+          "value": null,
+          "numerator": null,
+          "denominator": null,
+          "status": "missing_annotation"
+        },
+        "retrieved_ids": [],
+        "cited_ids": [],
+        "citation_reporting_complete": true,
+        "interpretation": "Citations are self-reported; semantic use and clinical correctness require review."
+      },
+      "conflict_candidates": 0
+    },
+    {
+      "split": "train",
+      "group": "superseded",
+      "identity": {
+        "patient_id": "challenge-train-superseded",
+        "visit_id": "v2",
+        "started_at": "2026-03-01T00:00:00Z"
+      },
+      "mode": "full_history",
+      "top_k": 1,
+      "metrics": {
+        "precision": {
+          "value": 0.2,
+          "numerator": 1,
+          "denominator": 5,
+          "status": "available"
+        },
+        "recall": {
+          "value": 1.0,
+          "numerator": 1,
+          "denominator": 1,
+          "status": "available"
+        },
+        "stale_retrieval_rate": {
+          "value": 0.2,
+          "numerator": 1,
+          "denominator": 5,
+          "status": "available"
+        },
+        "stale_misuse_rate": {
+          "value": null,
+          "numerator": null,
+          "denominator": null,
+          "status": "missing_annotation"
+        },
+        "retrieved_ids": [
+          "challenge-train-superseded-indicator",
+          "challenge-train-superseded-noise-0",
+          "challenge-train-superseded-noise-1",
+          "challenge-train-superseded-noise-2",
+          "challenge-train-superseded-update"
+        ],
+        "cited_ids": [],
+        "citation_reporting_complete": true,
+        "interpretation": "Citations are self-reported; semantic use and clinical correctness require review."
+      },
+      "conflict_candidates": 0
+    },
+    {
+      "split": "train",
+      "group": "superseded",
+      "identity": {
+        "patient_id": "challenge-train-superseded",
+        "visit_id": "v2",
+        "started_at": "2026-03-01T00:00:00Z"
+      },
+      "mode": "selective",
+      "top_k": 1,
+      "metrics": {
+        "precision": {
+          "value": 1.0,
+          "numerator": 1,
+          "denominator": 1,
+          "status": "available"
+        },
+        "recall": {
+          "value": 1.0,
+          "numerator": 1,
+          "denominator": 1,
+          "status": "available"
+        },
+        "stale_retrieval_rate": {
+          "value": 0.0,
+          "numerator": 0,
+          "denominator": 1,
+          "status": "available"
+        },
+        "stale_misuse_rate": {
+          "value": null,
+          "numerator": null,
+          "denominator": null,
+          "status": "missing_annotation"
+        },
+        "retrieved_ids": [
+          "challenge-train-superseded-update"
+        ],
+        "cited_ids": [],
+        "citation_reporting_complete": true,
+        "interpretation": "Citations are self-reported; semantic use and clinical correctness require review."
+      },
+      "conflict_candidates": 0
+    },
+    {
+      "split": "train",
+      "group": "superseded",
+      "identity": {
+        "patient_id": "challenge-train-superseded",
+        "visit_id": "v2",
+        "started_at": "2026-03-01T00:00:00Z"
+      },
+      "mode": "selective",
+      "top_k": 3,
+      "metrics": {
+        "precision": {
+          "value": 1.0,
+          "numerator": 1,
+          "denominator": 1,
+          "status": "available"
+        },
+        "recall": {
+          "value": 1.0,
+          "numerator": 1,
+          "denominator": 1,
+          "status": "available"
+        },
+        "stale_retrieval_rate": {
+          "value": 0.0,
+          "numerator": 0,
+          "denominator": 1,
+          "status": "available"
+        },
+        "stale_misuse_rate": {
+          "value": null,
+          "numerator": null,
+          "denominator": null,
+          "status": "missing_annotation"
+        },
+        "retrieved_ids": [
+          "challenge-train-superseded-update"
+        ],
+        "cited_ids": [],
+        "citation_reporting_complete": true,
+        "interpretation": "Citations are self-reported; semantic use and clinical correctness require review."
+      },
+      "conflict_candidates": 0
+    },
+    {
+      "split": "train",
+      "group": "conflict",
+      "identity": {
+        "patient_id": "challenge-train-conflict",
+        "visit_id": "v1",
+        "started_at": "2026-02-01T00:00:00Z"
+      },
+      "mode": "none",
+      "top_k": 1,
+      "metrics": {
+        "precision": {
+          "value": null,
+          "numerator": 0,
+          "denominator": 0,
+          "status": "not_applicable"
+        },
+        "recall": {
+          "value": 0.0,
+          "numerator": 0,
+          "denominator": 3,
+          "status": "available"
+        },
+        "stale_retrieval_rate": {
+          "value": null,
+          "numerator": 0,
+          "denominator": 0,
+          "status": "not_applicable"
+        },
+        "stale_misuse_rate": {
+          "value": null,
+          "numerator": null,
+          "denominator": null,
+          "status": "missing_annotation"
+        },
+        "retrieved_ids": [],
+        "cited_ids": [],
+        "citation_reporting_complete": true,
+        "interpretation": "Citations are self-reported; semantic use and clinical correctness require review."
+      },
+      "conflict_candidates": 0
+    },
+    {
+      "split": "train",
+      "group": "conflict",
+      "identity": {
+        "patient_id": "challenge-train-conflict",
+        "visit_id": "v1",
+        "started_at": "2026-02-01T00:00:00Z"
+      },
+      "mode": "full_history",
+      "top_k": 1,
+      "metrics": {
+        "precision": {
+          "value": 0.5,
+          "numerator": 3,
+          "denominator": 6,
+          "status": "available"
+        },
+        "recall": {
+          "value": 1.0,
+          "numerator": 3,
+          "denominator": 3,
+          "status": "available"
+        },
+        "stale_retrieval_rate": {
+          "value": 0.0,
+          "numerator": 0,
+          "denominator": 6,
+          "status": "available"
+        },
+        "stale_misuse_rate": {
+          "value": null,
+          "numerator": null,
+          "denominator": null,
+          "status": "missing_annotation"
+        },
+        "retrieved_ids": [
+          "challenge-train-conflict-indicator",
+          "challenge-train-conflict-negative",
+          "challenge-train-conflict-noise-0",
+          "challenge-train-conflict-noise-1",
+          "challenge-train-conflict-noise-2",
+          "challenge-train-conflict-positive"
+        ],
+        "cited_ids": [],
+        "citation_reporting_complete": true,
+        "interpretation": "Citations are self-reported; semantic use and clinical correctness require review."
+      },
+      "conflict_candidates": 1
+    },
+    {
+      "split": "train",
+      "group": "conflict",
+      "identity": {
+        "patient_id": "challenge-train-conflict",
+        "visit_id": "v1",
+        "started_at": "2026-02-01T00:00:00Z"
+      },
+      "mode": "selective",
+      "top_k": 1,
+      "metrics": {
+        "precision": {
+          "value": 1.0,
+          "numerator": 1,
+          "denominator": 1,
+          "status": "available"
+        },
+        "recall": {
+          "value": 0.3333333333333333,
+          "numerator": 1,
+          "denominator": 3,
+          "status": "available"
+        },
+        "stale_retrieval_rate": {
+          "value": 0.0,
+          "numerator": 0,
+          "denominator": 1,
+          "status": "available"
+        },
+        "stale_misuse_rate": {
+          "value": null,
+          "numerator": null,
+          "denominator": null,
+          "status": "missing_annotation"
+        },
+        "retrieved_ids": [
+          "challenge-train-conflict-indicator"
+        ],
+        "cited_ids": [],
+        "citation_reporting_complete": true,
+        "interpretation": "Citations are self-reported; semantic use and clinical correctness require review."
+      },
+      "conflict_candidates": 0
+    },
+    {
+      "split": "train",
+      "group": "conflict",
+      "identity": {
+        "patient_id": "challenge-train-conflict",
+        "visit_id": "v1",
+        "started_at": "2026-02-01T00:00:00Z"
+      },
+      "mode": "selective",
+      "top_k": 3,
+      "metrics": {
+        "precision": {
+          "value": 1.0,
+          "numerator": 3,
+          "denominator": 3,
+          "status": "available"
+        },
+        "recall": {
+          "value": 1.0,
+          "numerator": 3,
+          "denominator": 3,
+          "status": "available"
+        },
+        "stale_retrieval_rate": {
+          "value": 0.0,
+          "numerator": 0,
+          "denominator": 3,
+          "status": "available"
+        },
+        "stale_misuse_rate": {
+          "value": null,
+          "numerator": null,
+          "denominator": null,
+          "status": "missing_annotation"
+        },
+        "retrieved_ids": [
+          "challenge-train-conflict-indicator",
+          "challenge-train-conflict-negative",
+          "challenge-train-conflict-positive"
+        ],
+        "cited_ids": [],
+        "citation_reporting_complete": true,
+        "interpretation": "Citations are self-reported; semantic use and clinical correctness require review."
+      },
+      "conflict_candidates": 1
+    },
+    {
+      "split": "train",
+      "group": "conflict",
+      "identity": {
+        "patient_id": "challenge-train-conflict",
+        "visit_id": "v2",
+        "started_at": "2026-03-01T00:00:00Z"
+      },
+      "mode": "none",
+      "top_k": 1,
+      "metrics": {
+        "precision": {
+          "value": null,
+          "numerator": 0,
+          "denominator": 0,
+          "status": "not_applicable"
+        },
+        "recall": {
+          "value": 0.0,
+          "numerator": 0,
+          "denominator": 3,
+          "status": "available"
+        },
+        "stale_retrieval_rate": {
+          "value": null,
+          "numerator": 0,
+          "denominator": 0,
+          "status": "not_applicable"
+        },
+        "stale_misuse_rate": {
+          "value": null,
+          "numerator": null,
+          "denominator": null,
+          "status": "missing_annotation"
+        },
+        "retrieved_ids": [],
+        "cited_ids": [],
+        "citation_reporting_complete": true,
+        "interpretation": "Citations are self-reported; semantic use and clinical correctness require review."
+      },
+      "conflict_candidates": 0
+    },
+    {
+      "split": "train",
+      "group": "conflict",
+      "identity": {
+        "patient_id": "challenge-train-conflict",
+        "visit_id": "v2",
+        "started_at": "2026-03-01T00:00:00Z"
+      },
+      "mode": "full_history",
+      "top_k": 1,
+      "metrics": {
+        "precision": {
+          "value": 0.5,
+          "numerator": 3,
+          "denominator": 6,
+          "status": "available"
+        },
+        "recall": {
+          "value": 1.0,
+          "numerator": 3,
+          "denominator": 3,
+          "status": "available"
+        },
+        "stale_retrieval_rate": {
+          "value": 0.0,
+          "numerator": 0,
+          "denominator": 6,
+          "status": "available"
+        },
+        "stale_misuse_rate": {
+          "value": null,
+          "numerator": null,
+          "denominator": null,
+          "status": "missing_annotation"
+        },
+        "retrieved_ids": [
+          "challenge-train-conflict-indicator",
+          "challenge-train-conflict-negative",
+          "challenge-train-conflict-noise-0",
+          "challenge-train-conflict-noise-1",
+          "challenge-train-conflict-noise-2",
+          "challenge-train-conflict-positive"
+        ],
+        "cited_ids": [],
+        "citation_reporting_complete": true,
+        "interpretation": "Citations are self-reported; semantic use and clinical correctness require review."
+      },
+      "conflict_candidates": 1
+    },
+    {
+      "split": "train",
+      "group": "conflict",
+      "identity": {
+        "patient_id": "challenge-train-conflict",
+        "visit_id": "v2",
+        "started_at": "2026-03-01T00:00:00Z"
+      },
+      "mode": "selective",
+      "top_k": 1,
+      "metrics": {
+        "precision": {
+          "value": 1.0,
+          "numerator": 1,
+          "denominator": 1,
+          "status": "available"
+        },
+        "recall": {
+          "value": 0.3333333333333333,
+          "numerator": 1,
+          "denominator": 3,
+          "status": "available"
+        },
+        "stale_retrieval_rate": {
+          "value": 0.0,
+          "numerator": 0,
+          "denominator": 1,
+          "status": "available"
+        },
+        "stale_misuse_rate": {
+          "value": null,
+          "numerator": null,
+          "denominator": null,
+          "status": "missing_annotation"
+        },
+        "retrieved_ids": [
+          "challenge-train-conflict-indicator"
+        ],
+        "cited_ids": [],
+        "citation_reporting_complete": true,
+        "interpretation": "Citations are self-reported; semantic use and clinical correctness require review."
+      },
+      "conflict_candidates": 0
+    },
+    {
+      "split": "train",
+      "group": "conflict",
+      "identity": {
+        "patient_id": "challenge-train-conflict",
+        "visit_id": "v2",
+        "started_at": "2026-03-01T00:00:00Z"
+      },
+      "mode": "selective",
+      "top_k": 3,
+      "metrics": {
+        "precision": {
+          "value": 1.0,
+          "numerator": 3,
+          "denominator": 3,
+          "status": "available"
+        },
+        "recall": {
+          "value": 1.0,
+          "numerator": 3,
+          "denominator": 3,
+          "status": "available"
+        },
+        "stale_retrieval_rate": {
+          "value": 0.0,
+          "numerator": 0,
+          "denominator": 3,
+          "status": "available"
+        },
+        "stale_misuse_rate": {
+          "value": null,
+          "numerator": null,
+          "denominator": null,
+          "status": "missing_annotation"
+        },
+        "retrieved_ids": [
+          "challenge-train-conflict-indicator",
+          "challenge-train-conflict-negative",
+          "challenge-train-conflict-positive"
+        ],
+        "cited_ids": [],
+        "citation_reporting_complete": true,
+        "interpretation": "Citations are self-reported; semantic use and clinical correctness require review."
+      },
+      "conflict_candidates": 1
+    },
+    {
+      "split": "train",
+      "group": "paraphrase",
+      "identity": {
+        "patient_id": "challenge-train-paraphrase",
+        "visit_id": "v1",
+        "started_at": "2026-02-01T00:00:00Z"
+      },
+      "mode": "none",
+      "top_k": 1,
+      "metrics": {
+        "precision": {
+          "value": null,
+          "numerator": 0,
+          "denominator": 0,
+          "status": "not_applicable"
+        },
+        "recall": {
+          "value": 0.0,
+          "numerator": 0,
+          "denominator": 1,
+          "status": "available"
+        },
+        "stale_retrieval_rate": {
+          "value": null,
+          "numerator": 0,
+          "denominator": 0,
+          "status": "not_applicable"
+        },
+        "stale_misuse_rate": {
+          "value": null,
+          "numerator": null,
+          "denominator": null,
+          "status": "missing_annotation"
+        },
+        "retrieved_ids": [],
+        "cited_ids": [],
+        "citation_reporting_complete": true,
+        "interpretation": "Citations are self-reported; semantic use and clinical correctness require review."
+      },
+      "conflict_candidates": 0
+    },
+    {
+      "split": "train",
+      "group": "paraphrase",
+      "identity": {
+        "patient_id": "challenge-train-paraphrase",
+        "visit_id": "v1",
+        "started_at": "2026-02-01T00:00:00Z"
+      },
+      "mode": "full_history",
+      "top_k": 1,
+      "metrics": {
+        "precision": {
+          "value": 0.25,
+          "numerator": 1,
+          "denominator": 4,
+          "status": "available"
+        },
+        "recall": {
+          "value": 1.0,
+          "numerator": 1,
+          "denominator": 1,
+          "status": "available"
+        },
+        "stale_retrieval_rate": {
+          "value": 0.0,
+          "numerator": 0,
+          "denominator": 4,
+          "status": "available"
+        },
+        "stale_misuse_rate": {
+          "value": null,
+          "numerator": null,
+          "denominator": null,
+          "status": "missing_annotation"
+        },
+        "retrieved_ids": [
+          "challenge-train-paraphrase-indicator",
+          "challenge-train-paraphrase-noise-0",
+          "challenge-train-paraphrase-noise-1",
+          "challenge-train-paraphrase-noise-2"
+        ],
+        "cited_ids": [],
+        "citation_reporting_complete": true,
+        "interpretation": "Citations are self-reported; semantic use and clinical correctness require review."
+      },
+      "conflict_candidates": 0
+    },
+    {
+      "split": "train",
+      "group": "paraphrase",
+      "identity": {
+        "patient_id": "challenge-train-paraphrase",
+        "visit_id": "v1",
+        "started_at": "2026-02-01T00:00:00Z"
+      },
+      "mode": "selective",
+      "top_k": 1,
+      "metrics": {
+        "precision": {
+          "value": null,
+          "numerator": 0,
+          "denominator": 0,
+          "status": "not_applicable"
+        },
+        "recall": {
+          "value": 0.0,
+          "numerator": 0,
+          "denominator": 1,
+          "status": "available"
+        },
+        "stale_retrieval_rate": {
+          "value": null,
+          "numerator": 0,
+          "denominator": 0,
+          "status": "not_applicable"
+        },
+        "stale_misuse_rate": {
+          "value": null,
+          "numerator": null,
+          "denominator": null,
+          "status": "missing_annotation"
+        },
+        "retrieved_ids": [],
+        "cited_ids": [],
+        "citation_reporting_complete": true,
+        "interpretation": "Citations are self-reported; semantic use and clinical correctness require review."
+      },
+      "conflict_candidates": 0
+    },
+    {
+      "split": "train",
+      "group": "paraphrase",
+      "identity": {
+        "patient_id": "challenge-train-paraphrase",
+        "visit_id": "v1",
+        "started_at": "2026-02-01T00:00:00Z"
+      },
+      "mode": "selective",
+      "top_k": 3,
+      "metrics": {
+        "precision": {
+          "value": null,
+          "numerator": 0,
+          "denominator": 0,
+          "status": "not_applicable"
+        },
+        "recall": {
+          "value": 0.0,
+          "numerator": 0,
+          "denominator": 1,
+          "status": "available"
+        },
+        "stale_retrieval_rate": {
+          "value": null,
+          "numerator": 0,
+          "denominator": 0,
+          "status": "not_applicable"
+        },
+        "stale_misuse_rate": {
+          "value": null,
+          "numerator": null,
+          "denominator": null,
+          "status": "missing_annotation"
+        },
+        "retrieved_ids": [],
+        "cited_ids": [],
+        "citation_reporting_complete": true,
+        "interpretation": "Citations are self-reported; semantic use and clinical correctness require review."
+      },
+      "conflict_candidates": 0
+    },
+    {
+      "split": "train",
+      "group": "paraphrase",
+      "identity": {
+        "patient_id": "challenge-train-paraphrase",
+        "visit_id": "v2",
+        "started_at": "2026-03-01T00:00:00Z"
+      },
+      "mode": "none",
+      "top_k": 1,
+      "metrics": {
+        "precision": {
+          "value": null,
+          "numerator": 0,
+          "denominator": 0,
+          "status": "not_applicable"
+        },
+        "recall": {
+          "value": 0.0,
+          "numerator": 0,
+          "denominator": 1,
+          "status": "available"
+        },
+        "stale_retrieval_rate": {
+          "value": null,
+          "numerator": 0,
+          "denominator": 0,
+          "status": "not_applicable"
+        },
+        "stale_misuse_rate": {
+          "value": null,
+          "numerator": null,
+          "denominator": null,
+          "status": "missing_annotation"
+        },
+        "retrieved_ids": [],
+        "cited_ids": [],
+        "citation_reporting_complete": true,
+        "interpretation": "Citations are self-reported; semantic use and clinical correctness require review."
+      },
+      "conflict_candidates": 0
+    },
+    {
+      "split": "train",
+      "group": "paraphrase",
+      "identity": {
+        "patient_id": "challenge-train-paraphrase",
+        "visit_id": "v2",
+        "started_at": "2026-03-01T00:00:00Z"
+      },
+      "mode": "full_history",
+      "top_k": 1,
+      "metrics": {
+        "precision": {
+          "value": 0.25,
+          "numerator": 1,
+          "denominator": 4,
+          "status": "available"
+        },
+        "recall": {
+          "value": 1.0,
+          "numerator": 1,
+          "denominator": 1,
+          "status": "available"
+        },
+        "stale_retrieval_rate": {
+          "value": 0.0,
+          "numerator": 0,
+          "denominator": 4,
+          "status": "available"
+        },
+        "stale_misuse_rate": {
+          "value": null,
+          "numerator": null,
+          "denominator": null,
+          "status": "missing_annotation"
+        },
+        "retrieved_ids": [
+          "challenge-train-paraphrase-indicator",
+          "challenge-train-paraphrase-noise-0",
+          "challenge-train-paraphrase-noise-1",
+          "challenge-train-paraphrase-noise-2"
+        ],
+        "cited_ids": [],
+        "citation_reporting_complete": true,
+        "interpretation": "Citations are self-reported; semantic use and clinical correctness require review."
+      },
+      "conflict_candidates": 0
+    },
+    {
+      "split": "train",
+      "group": "paraphrase",
+      "identity": {
+        "patient_id": "challenge-train-paraphrase",
+        "visit_id": "v2",
+        "started_at": "2026-03-01T00:00:00Z"
+      },
+      "mode": "selective",
+      "top_k": 1,
+      "metrics": {
+        "precision": {
+          "value": null,
+          "numerator": 0,
+          "denominator": 0,
+          "status": "not_applicable"
+        },
+        "recall": {
+          "value": 0.0,
+          "numerator": 0,
+          "denominator": 1,
+          "status": "available"
+        },
+        "stale_retrieval_rate": {
+          "value": null,
+          "numerator": 0,
+          "denominator": 0,
+          "status": "not_applicable"
+        },
+        "stale_misuse_rate": {
+          "value": null,
+          "numerator": null,
+          "denominator": null,
+          "status": "missing_annotation"
+        },
+        "retrieved_ids": [],
+        "cited_ids": [],
+        "citation_reporting_complete": true,
+        "interpretation": "Citations are self-reported; semantic use and clinical correctness require review."
+      },
+      "conflict_candidates": 0
+    },
+    {
+      "split": "train",
+      "group": "paraphrase",
+      "identity": {
+        "patient_id": "challenge-train-paraphrase",
+        "visit_id": "v2",
+        "started_at": "2026-03-01T00:00:00Z"
+      },
+      "mode": "selective",
+      "top_k": 3,
+      "metrics": {
+        "precision": {
+          "value": null,
+          "numerator": 0,
+          "denominator": 0,
+          "status": "not_applicable"
+        },
+        "recall": {
+          "value": 0.0,
+          "numerator": 0,
+          "denominator": 1,
+          "status": "available"
+        },
+        "stale_retrieval_rate": {
+          "value": null,
+          "numerator": 0,
+          "denominator": 0,
+          "status": "not_applicable"
+        },
+        "stale_misuse_rate": {
+          "value": null,
+          "numerator": null,
+          "denominator": null,
+          "status": "missing_annotation"
+        },
+        "retrieved_ids": [],
+        "cited_ids": [],
+        "citation_reporting_complete": true,
+        "interpretation": "Citations are self-reported; semantic use and clinical correctness require review."
+      },
+      "conflict_candidates": 0
+    },
+    {
+      "split": "validation",
+      "group": "distractors",
+      "identity": {
+        "patient_id": "challenge-validation-distractors",
+        "visit_id": "v1",
+        "started_at": "2026-02-01T00:00:00Z"
+      },
+      "mode": "none",
+      "top_k": 1,
+      "metrics": {
+        "precision": {
+          "value": null,
+          "numerator": 0,
+          "denominator": 0,
+          "status": "not_applicable"
+        },
+        "recall": {
+          "value": 0.0,
+          "numerator": 0,
+          "denominator": 1,
+          "status": "available"
+        },
+        "stale_retrieval_rate": {
+          "value": null,
+          "numerator": 0,
+          "denominator": 0,
+          "status": "not_applicable"
+        },
+        "stale_misuse_rate": {
+          "value": null,
+          "numerator": null,
+          "denominator": null,
+          "status": "missing_annotation"
+        },
+        "retrieved_ids": [],
+        "cited_ids": [],
+        "citation_reporting_complete": true,
+        "interpretation": "Citations are self-reported; semantic use and clinical correctness require review."
+      },
+      "conflict_candidates": 0
+    },
+    {
+      "split": "validation",
+      "group": "distractors",
+      "identity": {
+        "patient_id": "challenge-validation-distractors",
+        "visit_id": "v1",
+        "started_at": "2026-02-01T00:00:00Z"
+      },
+      "mode": "full_history",
+      "top_k": 1,
+      "metrics": {
+        "precision": {
+          "value": 0.25,
+          "numerator": 1,
+          "denominator": 4,
+          "status": "available"
+        },
+        "recall": {
+          "value": 1.0,
+          "numerator": 1,
+          "denominator": 1,
+          "status": "available"
+        },
+        "stale_retrieval_rate": {
+          "value": 0.0,
+          "numerator": 0,
+          "denominator": 4,
+          "status": "available"
+        },
+        "stale_misuse_rate": {
+          "value": null,
+          "numerator": null,
+          "denominator": null,
+          "status": "missing_annotation"
+        },
+        "retrieved_ids": [
+          "challenge-validation-distractors-indicator",
+          "challenge-validation-distractors-noise-0",
+          "challenge-validation-distractors-noise-1",
+          "challenge-validation-distractors-noise-2"
+        ],
+        "cited_ids": [],
+        "citation_reporting_complete": true,
+        "interpretation": "Citations are self-reported; semantic use and clinical correctness require review."
+      },
+      "conflict_candidates": 0
+    },
+    {
+      "split": "validation",
+      "group": "distractors",
+      "identity": {
+        "patient_id": "challenge-validation-distractors",
+        "visit_id": "v1",
+        "started_at": "2026-02-01T00:00:00Z"
+      },
+      "mode": "selective",
+      "top_k": 1,
+      "metrics": {
+        "precision": {
+          "value": 1.0,
+          "numerator": 1,
+          "denominator": 1,
+          "status": "available"
+        },
+        "recall": {
+          "value": 1.0,
+          "numerator": 1,
+          "denominator": 1,
+          "status": "available"
+        },
+        "stale_retrieval_rate": {
+          "value": 0.0,
+          "numerator": 0,
+          "denominator": 1,
+          "status": "available"
+        },
+        "stale_misuse_rate": {
+          "value": null,
+          "numerator": null,
+          "denominator": null,
+          "status": "missing_annotation"
+        },
+        "retrieved_ids": [
+          "challenge-validation-distractors-indicator"
+        ],
+        "cited_ids": [],
+        "citation_reporting_complete": true,
+        "interpretation": "Citations are self-reported; semantic use and clinical correctness require review."
+      },
+      "conflict_candidates": 0
+    },
+    {
+      "split": "validation",
+      "group": "distractors",
+      "identity": {
+        "patient_id": "challenge-validation-distractors",
+        "visit_id": "v1",
+        "started_at": "2026-02-01T00:00:00Z"
+      },
+      "mode": "selective",
+      "top_k": 3,
+      "metrics": {
+        "precision": {
+          "value": 1.0,
+          "numerator": 1,
+          "denominator": 1,
+          "status": "available"
+        },
+        "recall": {
+          "value": 1.0,
+          "numerator": 1,
+          "denominator": 1,
+          "status": "available"
+        },
+        "stale_retrieval_rate": {
+          "value": 0.0,
+          "numerator": 0,
+          "denominator": 1,
+          "status": "available"
+        },
+        "stale_misuse_rate": {
+          "value": null,
+          "numerator": null,
+          "denominator": null,
+          "status": "missing_annotation"
+        },
+        "retrieved_ids": [
+          "challenge-validation-distractors-indicator"
+        ],
+        "cited_ids": [],
+        "citation_reporting_complete": true,
+        "interpretation": "Citations are self-reported; semantic use and clinical correctness require review."
+      },
+      "conflict_candidates": 0
+    },
+    {
+      "split": "validation",
+      "group": "distractors",
+      "identity": {
+        "patient_id": "challenge-validation-distractors",
+        "visit_id": "v2",
+        "started_at": "2026-03-01T00:00:00Z"
+      },
+      "mode": "none",
+      "top_k": 1,
+      "metrics": {
+        "precision": {
+          "value": null,
+          "numerator": 0,
+          "denominator": 0,
+          "status": "not_applicable"
+        },
+        "recall": {
+          "value": 0.0,
+          "numerator": 0,
+          "denominator": 1,
+          "status": "available"
+        },
+        "stale_retrieval_rate": {
+          "value": null,
+          "numerator": 0,
+          "denominator": 0,
+          "status": "not_applicable"
+        },
+        "stale_misuse_rate": {
+          "value": null,
+          "numerator": null,
+          "denominator": null,
+          "status": "missing_annotation"
+        },
+        "retrieved_ids": [],
+        "cited_ids": [],
+        "citation_reporting_complete": true,
+        "interpretation": "Citations are self-reported; semantic use and clinical correctness require review."
+      },
+      "conflict_candidates": 0
+    },
+    {
+      "split": "validation",
+      "group": "distractors",
+      "identity": {
+        "patient_id": "challenge-validation-distractors",
+        "visit_id": "v2",
+        "started_at": "2026-03-01T00:00:00Z"
+      },
+      "mode": "full_history",
+      "top_k": 1,
+      "metrics": {
+        "precision": {
+          "value": 0.25,
+          "numerator": 1,
+          "denominator": 4,
+          "status": "available"
+        },
+        "recall": {
+          "value": 1.0,
+          "numerator": 1,
+          "denominator": 1,
+          "status": "available"
+        },
+        "stale_retrieval_rate": {
+          "value": 0.0,
+          "numerator": 0,
+          "denominator": 4,
+          "status": "available"
+        },
+        "stale_misuse_rate": {
+          "value": null,
+          "numerator": null,
+          "denominator": null,
+          "status": "missing_annotation"
+        },
+        "retrieved_ids": [
+          "challenge-validation-distractors-indicator",
+          "challenge-validation-distractors-noise-0",
+          "challenge-validation-distractors-noise-1",
+          "challenge-validation-distractors-noise-2"
+        ],
+        "cited_ids": [],
+        "citation_reporting_complete": true,
+        "interpretation": "Citations are self-reported; semantic use and clinical correctness require review."
+      },
+      "conflict_candidates": 0
+    },
+    {
+      "split": "validation",
+      "group": "distractors",
+      "identity": {
+        "patient_id": "challenge-validation-distractors",
+        "visit_id": "v2",
+        "started_at": "2026-03-01T00:00:00Z"
+      },
+      "mode": "selective",
+      "top_k": 1,
+      "metrics": {
+        "precision": {
+          "value": 1.0,
+          "numerator": 1,
+          "denominator": 1,
+          "status": "available"
+        },
+        "recall": {
+          "value": 1.0,
+          "numerator": 1,
+          "denominator": 1,
+          "status": "available"
+        },
+        "stale_retrieval_rate": {
+          "value": 0.0,
+          "numerator": 0,
+          "denominator": 1,
+          "status": "available"
+        },
+        "stale_misuse_rate": {
+          "value": null,
+          "numerator": null,
+          "denominator": null,
+          "status": "missing_annotation"
+        },
+        "retrieved_ids": [
+          "challenge-validation-distractors-indicator"
+        ],
+        "cited_ids": [],
+        "citation_reporting_complete": true,
+        "interpretation": "Citations are self-reported; semantic use and clinical correctness require review."
+      },
+      "conflict_candidates": 0
+    },
+    {
+      "split": "validation",
+      "group": "distractors",
+      "identity": {
+        "patient_id": "challenge-validation-distractors",
+        "visit_id": "v2",
+        "started_at": "2026-03-01T00:00:00Z"
+      },
+      "mode": "selective",
+      "top_k": 3,
+      "metrics": {
+        "precision": {
+          "value": 1.0,
+          "numerator": 1,
+          "denominator": 1,
+          "status": "available"
+        },
+        "recall": {
+          "value": 1.0,
+          "numerator": 1,
+          "denominator": 1,
+          "status": "available"
+        },
+        "stale_retrieval_rate": {
+          "value": 0.0,
+          "numerator": 0,
+          "denominator": 1,
+          "status": "available"
+        },
+        "stale_misuse_rate": {
+          "value": null,
+          "numerator": null,
+          "denominator": null,
+          "status": "missing_annotation"
+        },
+        "retrieved_ids": [
+          "challenge-validation-distractors-indicator"
+        ],
+        "cited_ids": [],
+        "citation_reporting_complete": true,
+        "interpretation": "Citations are self-reported; semantic use and clinical correctness require review."
+      },
+      "conflict_candidates": 0
+    },
+    {
+      "split": "validation",
+      "group": "superseded",
+      "identity": {
+        "patient_id": "challenge-validation-superseded",
+        "visit_id": "v1",
+        "started_at": "2026-02-01T00:00:00Z"
+      },
+      "mode": "none",
+      "top_k": 1,
+      "metrics": {
+        "precision": {
+          "value": null,
+          "numerator": 0,
+          "denominator": 0,
+          "status": "not_applicable"
+        },
+        "recall": {
+          "value": 0.0,
+          "numerator": 0,
+          "denominator": 1,
+          "status": "available"
+        },
+        "stale_retrieval_rate": {
+          "value": null,
+          "numerator": 0,
+          "denominator": 0,
+          "status": "not_applicable"
+        },
+        "stale_misuse_rate": {
+          "value": null,
+          "numerator": null,
+          "denominator": null,
+          "status": "missing_annotation"
+        },
+        "retrieved_ids": [],
+        "cited_ids": [],
+        "citation_reporting_complete": true,
+        "interpretation": "Citations are self-reported; semantic use and clinical correctness require review."
+      },
+      "conflict_candidates": 0
+    },
+    {
+      "split": "validation",
+      "group": "superseded",
+      "identity": {
+        "patient_id": "challenge-validation-superseded",
+        "visit_id": "v1",
+        "started_at": "2026-02-01T00:00:00Z"
+      },
+      "mode": "full_history",
+      "top_k": 1,
+      "metrics": {
+        "precision": {
+          "value": 0.25,
+          "numerator": 1,
+          "denominator": 4,
+          "status": "available"
+        },
+        "recall": {
+          "value": 1.0,
+          "numerator": 1,
+          "denominator": 1,
+          "status": "available"
+        },
+        "stale_retrieval_rate": {
+          "value": 0.0,
+          "numerator": 0,
+          "denominator": 4,
+          "status": "available"
+        },
+        "stale_misuse_rate": {
+          "value": null,
+          "numerator": null,
+          "denominator": null,
+          "status": "missing_annotation"
+        },
+        "retrieved_ids": [
+          "challenge-validation-superseded-indicator",
+          "challenge-validation-superseded-noise-0",
+          "challenge-validation-superseded-noise-1",
+          "challenge-validation-superseded-noise-2"
+        ],
+        "cited_ids": [],
+        "citation_reporting_complete": true,
+        "interpretation": "Citations are self-reported; semantic use and clinical correctness require review."
+      },
+      "conflict_candidates": 0
+    },
+    {
+      "split": "validation",
+      "group": "superseded",
+      "identity": {
+        "patient_id": "challenge-validation-superseded",
+        "visit_id": "v1",
+        "started_at": "2026-02-01T00:00:00Z"
+      },
+      "mode": "selective",
+      "top_k": 1,
+      "metrics": {
+        "precision": {
+          "value": 1.0,
+          "numerator": 1,
+          "denominator": 1,
+          "status": "available"
+        },
+        "recall": {
+          "value": 1.0,
+          "numerator": 1,
+          "denominator": 1,
+          "status": "available"
+        },
+        "stale_retrieval_rate": {
+          "value": 0.0,
+          "numerator": 0,
+          "denominator": 1,
+          "status": "available"
+        },
+        "stale_misuse_rate": {
+          "value": null,
+          "numerator": null,
+          "denominator": null,
+          "status": "missing_annotation"
+        },
+        "retrieved_ids": [
+          "challenge-validation-superseded-indicator"
+        ],
+        "cited_ids": [],
+        "citation_reporting_complete": true,
+        "interpretation": "Citations are self-reported; semantic use and clinical correctness require review."
+      },
+      "conflict_candidates": 0
+    },
+    {
+      "split": "validation",
+      "group": "superseded",
+      "identity": {
+        "patient_id": "challenge-validation-superseded",
+        "visit_id": "v1",
+        "started_at": "2026-02-01T00:00:00Z"
+      },
+      "mode": "selective",
+      "top_k": 3,
+      "metrics": {
+        "precision": {
+          "value": 1.0,
+          "numerator": 1,
+          "denominator": 1,
+          "status": "available"
+        },
+        "recall": {
+          "value": 1.0,
+          "numerator": 1,
+          "denominator": 1,
+          "status": "available"
+        },
+        "stale_retrieval_rate": {
+          "value": 0.0,
+          "numerator": 0,
+          "denominator": 1,
+          "status": "available"
+        },
+        "stale_misuse_rate": {
+          "value": null,
+          "numerator": null,
+          "denominator": null,
+          "status": "missing_annotation"
+        },
+        "retrieved_ids": [
+          "challenge-validation-superseded-indicator"
+        ],
+        "cited_ids": [],
+        "citation_reporting_complete": true,
+        "interpretation": "Citations are self-reported; semantic use and clinical correctness require review."
+      },
+      "conflict_candidates": 0
+    },
+    {
+      "split": "validation",
+      "group": "superseded",
+      "identity": {
+        "patient_id": "challenge-validation-superseded",
+        "visit_id": "v2",
+        "started_at": "2026-03-01T00:00:00Z"
+      },
+      "mode": "none",
+      "top_k": 1,
+      "metrics": {
+        "precision": {
+          "value": null,
+          "numerator": 0,
+          "denominator": 0,
+          "status": "not_applicable"
+        },
+        "recall": {
+          "value": 0.0,
+          "numerator": 0,
+          "denominator": 1,
+          "status": "available"
+        },
+        "stale_retrieval_rate": {
+          "value": null,
+          "numerator": 0,
+          "denominator": 0,
+          "status": "not_applicable"
+        },
+        "stale_misuse_rate": {
+          "value": null,
+          "numerator": null,
+          "denominator": null,
+          "status": "missing_annotation"
+        },
+        "retrieved_ids": [],
+        "cited_ids": [],
+        "citation_reporting_complete": true,
+        "interpretation": "Citations are self-reported; semantic use and clinical correctness require review."
+      },
+      "conflict_candidates": 0
+    },
+    {
+      "split": "validation",
+      "group": "superseded",
+      "identity": {
+        "patient_id": "challenge-validation-superseded",
+        "visit_id": "v2",
+        "started_at": "2026-03-01T00:00:00Z"
+      },
+      "mode": "full_history",
+      "top_k": 1,
+      "metrics": {
+        "precision": {
+          "value": 0.2,
+          "numerator": 1,
+          "denominator": 5,
+          "status": "available"
+        },
+        "recall": {
+          "value": 1.0,
+          "numerator": 1,
+          "denominator": 1,
+          "status": "available"
+        },
+        "stale_retrieval_rate": {
+          "value": 0.2,
+          "numerator": 1,
+          "denominator": 5,
+          "status": "available"
+        },
+        "stale_misuse_rate": {
+          "value": null,
+          "numerator": null,
+          "denominator": null,
+          "status": "missing_annotation"
+        },
+        "retrieved_ids": [
+          "challenge-validation-superseded-indicator",
+          "challenge-validation-superseded-noise-0",
+          "challenge-validation-superseded-noise-1",
+          "challenge-validation-superseded-noise-2",
+          "challenge-validation-superseded-update"
+        ],
+        "cited_ids": [],
+        "citation_reporting_complete": true,
+        "interpretation": "Citations are self-reported; semantic use and clinical correctness require review."
+      },
+      "conflict_candidates": 0
+    },
+    {
+      "split": "validation",
+      "group": "superseded",
+      "identity": {
+        "patient_id": "challenge-validation-superseded",
+        "visit_id": "v2",
+        "started_at": "2026-03-01T00:00:00Z"
+      },
+      "mode": "selective",
+      "top_k": 1,
+      "metrics": {
+        "precision": {
+          "value": 1.0,
+          "numerator": 1,
+          "denominator": 1,
+          "status": "available"
+        },
+        "recall": {
+          "value": 1.0,
+          "numerator": 1,
+          "denominator": 1,
+          "status": "available"
+        },
+        "stale_retrieval_rate": {
+          "value": 0.0,
+          "numerator": 0,
+          "denominator": 1,
+          "status": "available"
+        },
+        "stale_misuse_rate": {
+          "value": null,
+          "numerator": null,
+          "denominator": null,
+          "status": "missing_annotation"
+        },
+        "retrieved_ids": [
+          "challenge-validation-superseded-update"
+        ],
+        "cited_ids": [],
+        "citation_reporting_complete": true,
+        "interpretation": "Citations are self-reported; semantic use and clinical correctness require review."
+      },
+      "conflict_candidates": 0
+    },
+    {
+      "split": "validation",
+      "group": "superseded",
+      "identity": {
+        "patient_id": "challenge-validation-superseded",
+        "visit_id": "v2",
+        "started_at": "2026-03-01T00:00:00Z"
+      },
+      "mode": "selective",
+      "top_k": 3,
+      "metrics": {
+        "precision": {
+          "value": 1.0,
+          "numerator": 1,
+          "denominator": 1,
+          "status": "available"
+        },
+        "recall": {
+          "value": 1.0,
+          "numerator": 1,
+          "denominator": 1,
+          "status": "available"
+        },
+        "stale_retrieval_rate": {
+          "value": 0.0,
+          "numerator": 0,
+          "denominator": 1,
+          "status": "available"
+        },
+        "stale_misuse_rate": {
+          "value": null,
+          "numerator": null,
+          "denominator": null,
+          "status": "missing_annotation"
+        },
+        "retrieved_ids": [
+          "challenge-validation-superseded-update"
+        ],
+        "cited_ids": [],
+        "citation_reporting_complete": true,
+        "interpretation": "Citations are self-reported; semantic use and clinical correctness require review."
+      },
+      "conflict_candidates": 0
+    },
+    {
+      "split": "validation",
+      "group": "conflict",
+      "identity": {
+        "patient_id": "challenge-validation-conflict",
+        "visit_id": "v1",
+        "started_at": "2026-02-01T00:00:00Z"
+      },
+      "mode": "none",
+      "top_k": 1,
+      "metrics": {
+        "precision": {
+          "value": null,
+          "numerator": 0,
+          "denominator": 0,
+          "status": "not_applicable"
+        },
+        "recall": {
+          "value": 0.0,
+          "numerator": 0,
+          "denominator": 3,
+          "status": "available"
+        },
+        "stale_retrieval_rate": {
+          "value": null,
+          "numerator": 0,
+          "denominator": 0,
+          "status": "not_applicable"
+        },
+        "stale_misuse_rate": {
+          "value": null,
+          "numerator": null,
+          "denominator": null,
+          "status": "missing_annotation"
+        },
+        "retrieved_ids": [],
+        "cited_ids": [],
+        "citation_reporting_complete": true,
+        "interpretation": "Citations are self-reported; semantic use and clinical correctness require review."
+      },
+      "conflict_candidates": 0
+    },
+    {
+      "split": "validation",
+      "group": "conflict",
+      "identity": {
+        "patient_id": "challenge-validation-conflict",
+        "visit_id": "v1",
+        "started_at": "2026-02-01T00:00:00Z"
+      },
+      "mode": "full_history",
+      "top_k": 1,
+      "metrics": {
+        "precision": {
+          "value": 0.5,
+          "numerator": 3,
+          "denominator": 6,
+          "status": "available"
+        },
+        "recall": {
+          "value": 1.0,
+          "numerator": 3,
+          "denominator": 3,
+          "status": "available"
+        },
+        "stale_retrieval_rate": {
+          "value": 0.0,
+          "numerator": 0,
+          "denominator": 6,
+          "status": "available"
+        },
+        "stale_misuse_rate": {
+          "value": null,
+          "numerator": null,
+          "denominator": null,
+          "status": "missing_annotation"
+        },
+        "retrieved_ids": [
+          "challenge-validation-conflict-indicator",
+          "challenge-validation-conflict-negative",
+          "challenge-validation-conflict-noise-0",
+          "challenge-validation-conflict-noise-1",
+          "challenge-validation-conflict-noise-2",
+          "challenge-validation-conflict-positive"
+        ],
+        "cited_ids": [],
+        "citation_reporting_complete": true,
+        "interpretation": "Citations are self-reported; semantic use and clinical correctness require review."
+      },
+      "conflict_candidates": 1
+    },
+    {
+      "split": "validation",
+      "group": "conflict",
+      "identity": {
+        "patient_id": "challenge-validation-conflict",
+        "visit_id": "v1",
+        "started_at": "2026-02-01T00:00:00Z"
+      },
+      "mode": "selective",
+      "top_k": 1,
+      "metrics": {
+        "precision": {
+          "value": 1.0,
+          "numerator": 1,
+          "denominator": 1,
+          "status": "available"
+        },
+        "recall": {
+          "value": 0.3333333333333333,
+          "numerator": 1,
+          "denominator": 3,
+          "status": "available"
+        },
+        "stale_retrieval_rate": {
+          "value": 0.0,
+          "numerator": 0,
+          "denominator": 1,
+          "status": "available"
+        },
+        "stale_misuse_rate": {
+          "value": null,
+          "numerator": null,
+          "denominator": null,
+          "status": "missing_annotation"
+        },
+        "retrieved_ids": [
+          "challenge-validation-conflict-indicator"
+        ],
+        "cited_ids": [],
+        "citation_reporting_complete": true,
+        "interpretation": "Citations are self-reported; semantic use and clinical correctness require review."
+      },
+      "conflict_candidates": 0
+    },
+    {
+      "split": "validation",
+      "group": "conflict",
+      "identity": {
+        "patient_id": "challenge-validation-conflict",
+        "visit_id": "v1",
+        "started_at": "2026-02-01T00:00:00Z"
+      },
+      "mode": "selective",
+      "top_k": 3,
+      "metrics": {
+        "precision": {
+          "value": 1.0,
+          "numerator": 3,
+          "denominator": 3,
+          "status": "available"
+        },
+        "recall": {
+          "value": 1.0,
+          "numerator": 3,
+          "denominator": 3,
+          "status": "available"
+        },
+        "stale_retrieval_rate": {
+          "value": 0.0,
+          "numerator": 0,
+          "denominator": 3,
+          "status": "available"
+        },
+        "stale_misuse_rate": {
+          "value": null,
+          "numerator": null,
+          "denominator": null,
+          "status": "missing_annotation"
+        },
+        "retrieved_ids": [
+          "challenge-validation-conflict-indicator",
+          "challenge-validation-conflict-negative",
+          "challenge-validation-conflict-positive"
+        ],
+        "cited_ids": [],
+        "citation_reporting_complete": true,
+        "interpretation": "Citations are self-reported; semantic use and clinical correctness require review."
+      },
+      "conflict_candidates": 1
+    },
+    {
+      "split": "validation",
+      "group": "conflict",
+      "identity": {
+        "patient_id": "challenge-validation-conflict",
+        "visit_id": "v2",
+        "started_at": "2026-03-01T00:00:00Z"
+      },
+      "mode": "none",
+      "top_k": 1,
+      "metrics": {
+        "precision": {
+          "value": null,
+          "numerator": 0,
+          "denominator": 0,
+          "status": "not_applicable"
+        },
+        "recall": {
+          "value": 0.0,
+          "numerator": 0,
+          "denominator": 3,
+          "status": "available"
+        },
+        "stale_retrieval_rate": {
+          "value": null,
+          "numerator": 0,
+          "denominator": 0,
+          "status": "not_applicable"
+        },
+        "stale_misuse_rate": {
+          "value": null,
+          "numerator": null,
+          "denominator": null,
+          "status": "missing_annotation"
+        },
+        "retrieved_ids": [],
+        "cited_ids": [],
+        "citation_reporting_complete": true,
+        "interpretation": "Citations are self-reported; semantic use and clinical correctness require review."
+      },
+      "conflict_candidates": 0
+    },
+    {
+      "split": "validation",
+      "group": "conflict",
+      "identity": {
+        "patient_id": "challenge-validation-conflict",
+        "visit_id": "v2",
+        "started_at": "2026-03-01T00:00:00Z"
+      },
+      "mode": "full_history",
+      "top_k": 1,
+      "metrics": {
+        "precision": {
+          "value": 0.5,
+          "numerator": 3,
+          "denominator": 6,
+          "status": "available"
+        },
+        "recall": {
+          "value": 1.0,
+          "numerator": 3,
+          "denominator": 3,
+          "status": "available"
+        },
+        "stale_retrieval_rate": {
+          "value": 0.0,
+          "numerator": 0,
+          "denominator": 6,
+          "status": "available"
+        },
+        "stale_misuse_rate": {
+          "value": null,
+          "numerator": null,
+          "denominator": null,
+          "status": "missing_annotation"
+        },
+        "retrieved_ids": [
+          "challenge-validation-conflict-indicator",
+          "challenge-validation-conflict-negative",
+          "challenge-validation-conflict-noise-0",
+          "challenge-validation-conflict-noise-1",
+          "challenge-validation-conflict-noise-2",
+          "challenge-validation-conflict-positive"
+        ],
+        "cited_ids": [],
+        "citation_reporting_complete": true,
+        "interpretation": "Citations are self-reported; semantic use and clinical correctness require review."
+      },
+      "conflict_candidates": 1
+    },
+    {
+      "split": "validation",
+      "group": "conflict",
+      "identity": {
+        "patient_id": "challenge-validation-conflict",
+        "visit_id": "v2",
+        "started_at": "2026-03-01T00:00:00Z"
+      },
+      "mode": "selective",
+      "top_k": 1,
+      "metrics": {
+        "precision": {
+          "value": 1.0,
+          "numerator": 1,
+          "denominator": 1,
+          "status": "available"
+        },
+        "recall": {
+          "value": 0.3333333333333333,
+          "numerator": 1,
+          "denominator": 3,
+          "status": "available"
+        },
+        "stale_retrieval_rate": {
+          "value": 0.0,
+          "numerator": 0,
+          "denominator": 1,
+          "status": "available"
+        },
+        "stale_misuse_rate": {
+          "value": null,
+          "numerator": null,
+          "denominator": null,
+          "status": "missing_annotation"
+        },
+        "retrieved_ids": [
+          "challenge-validation-conflict-indicator"
+        ],
+        "cited_ids": [],
+        "citation_reporting_complete": true,
+        "interpretation": "Citations are self-reported; semantic use and clinical correctness require review."
+      },
+      "conflict_candidates": 0
+    },
+    {
+      "split": "validation",
+      "group": "conflict",
+      "identity": {
+        "patient_id": "challenge-validation-conflict",
+        "visit_id": "v2",
+        "started_at": "2026-03-01T00:00:00Z"
+      },
+      "mode": "selective",
+      "top_k": 3,
+      "metrics": {
+        "precision": {
+          "value": 1.0,
+          "numerator": 3,
+          "denominator": 3,
+          "status": "available"
+        },
+        "recall": {
+          "value": 1.0,
+          "numerator": 3,
+          "denominator": 3,
+          "status": "available"
+        },
+        "stale_retrieval_rate": {
+          "value": 0.0,
+          "numerator": 0,
+          "denominator": 3,
+          "status": "available"
+        },
+        "stale_misuse_rate": {
+          "value": null,
+          "numerator": null,
+          "denominator": null,
+          "status": "missing_annotation"
+        },
+        "retrieved_ids": [
+          "challenge-validation-conflict-indicator",
+          "challenge-validation-conflict-negative",
+          "challenge-validation-conflict-positive"
+        ],
+        "cited_ids": [],
+        "citation_reporting_complete": true,
+        "interpretation": "Citations are self-reported; semantic use and clinical correctness require review."
+      },
+      "conflict_candidates": 1
+    },
+    {
+      "split": "validation",
+      "group": "paraphrase",
+      "identity": {
+        "patient_id": "challenge-validation-paraphrase",
+        "visit_id": "v1",
+        "started_at": "2026-02-01T00:00:00Z"
+      },
+      "mode": "none",
+      "top_k": 1,
+      "metrics": {
+        "precision": {
+          "value": null,
+          "numerator": 0,
+          "denominator": 0,
+          "status": "not_applicable"
+        },
+        "recall": {
+          "value": 0.0,
+          "numerator": 0,
+          "denominator": 1,
+          "status": "available"
+        },
+        "stale_retrieval_rate": {
+          "value": null,
+          "numerator": 0,
+          "denominator": 0,
+          "status": "not_applicable"
+        },
+        "stale_misuse_rate": {
+          "value": null,
+          "numerator": null,
+          "denominator": null,
+          "status": "missing_annotation"
+        },
+        "retrieved_ids": [],
+        "cited_ids": [],
+        "citation_reporting_complete": true,
+        "interpretation": "Citations are self-reported; semantic use and clinical correctness require review."
+      },
+      "conflict_candidates": 0
+    },
+    {
+      "split": "validation",
+      "group": "paraphrase",
+      "identity": {
+        "patient_id": "challenge-validation-paraphrase",
+        "visit_id": "v1",
+        "started_at": "2026-02-01T00:00:00Z"
+      },
+      "mode": "full_history",
+      "top_k": 1,
+      "metrics": {
+        "precision": {
+          "value": 0.25,
+          "numerator": 1,
+          "denominator": 4,
+          "status": "available"
+        },
+        "recall": {
+          "value": 1.0,
+          "numerator": 1,
+          "denominator": 1,
+          "status": "available"
+        },
+        "stale_retrieval_rate": {
+          "value": 0.0,
+          "numerator": 0,
+          "denominator": 4,
+          "status": "available"
+        },
+        "stale_misuse_rate": {
+          "value": null,
+          "numerator": null,
+          "denominator": null,
+          "status": "missing_annotation"
+        },
+        "retrieved_ids": [
+          "challenge-validation-paraphrase-indicator",
+          "challenge-validation-paraphrase-noise-0",
+          "challenge-validation-paraphrase-noise-1",
+          "challenge-validation-paraphrase-noise-2"
+        ],
+        "cited_ids": [],
+        "citation_reporting_complete": true,
+        "interpretation": "Citations are self-reported; semantic use and clinical correctness require review."
+      },
+      "conflict_candidates": 0
+    },
+    {
+      "split": "validation",
+      "group": "paraphrase",
+      "identity": {
+        "patient_id": "challenge-validation-paraphrase",
+        "visit_id": "v1",
+        "started_at": "2026-02-01T00:00:00Z"
+      },
+      "mode": "selective",
+      "top_k": 1,
+      "metrics": {
+        "precision": {
+          "value": null,
+          "numerator": 0,
+          "denominator": 0,
+          "status": "not_applicable"
+        },
+        "recall": {
+          "value": 0.0,
+          "numerator": 0,
+          "denominator": 1,
+          "status": "available"
+        },
+        "stale_retrieval_rate": {
+          "value": null,
+          "numerator": 0,
+          "denominator": 0,
+          "status": "not_applicable"
+        },
+        "stale_misuse_rate": {
+          "value": null,
+          "numerator": null,
+          "denominator": null,
+          "status": "missing_annotation"
+        },
+        "retrieved_ids": [],
+        "cited_ids": [],
+        "citation_reporting_complete": true,
+        "interpretation": "Citations are self-reported; semantic use and clinical correctness require review."
+      },
+      "conflict_candidates": 0
+    },
+    {
+      "split": "validation",
+      "group": "paraphrase",
+      "identity": {
+        "patient_id": "challenge-validation-paraphrase",
+        "visit_id": "v1",
+        "started_at": "2026-02-01T00:00:00Z"
+      },
+      "mode": "selective",
+      "top_k": 3,
+      "metrics": {
+        "precision": {
+          "value": null,
+          "numerator": 0,
+          "denominator": 0,
+          "status": "not_applicable"
+        },
+        "recall": {
+          "value": 0.0,
+          "numerator": 0,
+          "denominator": 1,
+          "status": "available"
+        },
+        "stale_retrieval_rate": {
+          "value": null,
+          "numerator": 0,
+          "denominator": 0,
+          "status": "not_applicable"
+        },
+        "stale_misuse_rate": {
+          "value": null,
+          "numerator": null,
+          "denominator": null,
+          "status": "missing_annotation"
+        },
+        "retrieved_ids": [],
+        "cited_ids": [],
+        "citation_reporting_complete": true,
+        "interpretation": "Citations are self-reported; semantic use and clinical correctness require review."
+      },
+      "conflict_candidates": 0
+    },
+    {
+      "split": "validation",
+      "group": "paraphrase",
+      "identity": {
+        "patient_id": "challenge-validation-paraphrase",
+        "visit_id": "v2",
+        "started_at": "2026-03-01T00:00:00Z"
+      },
+      "mode": "none",
+      "top_k": 1,
+      "metrics": {
+        "precision": {
+          "value": null,
+          "numerator": 0,
+          "denominator": 0,
+          "status": "not_applicable"
+        },
+        "recall": {
+          "value": 0.0,
+          "numerator": 0,
+          "denominator": 1,
+          "status": "available"
+        },
+        "stale_retrieval_rate": {
+          "value": null,
+          "numerator": 0,
+          "denominator": 0,
+          "status": "not_applicable"
+        },
+        "stale_misuse_rate": {
+          "value": null,
+          "numerator": null,
+          "denominator": null,
+          "status": "missing_annotation"
+        },
+        "retrieved_ids": [],
+        "cited_ids": [],
+        "citation_reporting_complete": true,
+        "interpretation": "Citations are self-reported; semantic use and clinical correctness require review."
+      },
+      "conflict_candidates": 0
+    },
+    {
+      "split": "validation",
+      "group": "paraphrase",
+      "identity": {
+        "patient_id": "challenge-validation-paraphrase",
+        "visit_id": "v2",
+        "started_at": "2026-03-01T00:00:00Z"
+      },
+      "mode": "full_history",
+      "top_k": 1,
+      "metrics": {
+        "precision": {
+          "value": 0.25,
+          "numerator": 1,
+          "denominator": 4,
+          "status": "available"
+        },
+        "recall": {
+          "value": 1.0,
+          "numerator": 1,
+          "denominator": 1,
+          "status": "available"
+        },
+        "stale_retrieval_rate": {
+          "value": 0.0,
+          "numerator": 0,
+          "denominator": 4,
+          "status": "available"
+        },
+        "stale_misuse_rate": {
+          "value": null,
+          "numerator": null,
+          "denominator": null,
+          "status": "missing_annotation"
+        },
+        "retrieved_ids": [
+          "challenge-validation-paraphrase-indicator",
+          "challenge-validation-paraphrase-noise-0",
+          "challenge-validation-paraphrase-noise-1",
+          "challenge-validation-paraphrase-noise-2"
+        ],
+        "cited_ids": [],
+        "citation_reporting_complete": true,
+        "interpretation": "Citations are self-reported; semantic use and clinical correctness require review."
+      },
+      "conflict_candidates": 0
+    },
+    {
+      "split": "validation",
+      "group": "paraphrase",
+      "identity": {
+        "patient_id": "challenge-validation-paraphrase",
+        "visit_id": "v2",
+        "started_at": "2026-03-01T00:00:00Z"
+      },
+      "mode": "selective",
+      "top_k": 1,
+      "metrics": {
+        "precision": {
+          "value": null,
+          "numerator": 0,
+          "denominator": 0,
+          "status": "not_applicable"
+        },
+        "recall": {
+          "value": 0.0,
+          "numerator": 0,
+          "denominator": 1,
+          "status": "available"
+        },
+        "stale_retrieval_rate": {
+          "value": null,
+          "numerator": 0,
+          "denominator": 0,
+          "status": "not_applicable"
+        },
+        "stale_misuse_rate": {
+          "value": null,
+          "numerator": null,
+          "denominator": null,
+          "status": "missing_annotation"
+        },
+        "retrieved_ids": [],
+        "cited_ids": [],
+        "citation_reporting_complete": true,
+        "interpretation": "Citations are self-reported; semantic use and clinical correctness require review."
+      },
+      "conflict_candidates": 0
+    },
+    {
+      "split": "validation",
+      "group": "paraphrase",
+      "identity": {
+        "patient_id": "challenge-validation-paraphrase",
+        "visit_id": "v2",
+        "started_at": "2026-03-01T00:00:00Z"
+      },
+      "mode": "selective",
+      "top_k": 3,
+      "metrics": {
+        "precision": {
+          "value": null,
+          "numerator": 0,
+          "denominator": 0,
+          "status": "not_applicable"
+        },
+        "recall": {
+          "value": 0.0,
+          "numerator": 0,
+          "denominator": 1,
+          "status": "available"
+        },
+        "stale_retrieval_rate": {
+          "value": null,
+          "numerator": 0,
+          "denominator": 0,
+          "status": "not_applicable"
+        },
+        "stale_misuse_rate": {
+          "value": null,
+          "numerator": null,
+          "denominator": null,
+          "status": "missing_annotation"
+        },
+        "retrieved_ids": [],
+        "cited_ids": [],
+        "citation_reporting_complete": true,
+        "interpretation": "Citations are self-reported; semantic use and clinical correctness require review."
+      },
+      "conflict_candidates": 0
+    },
+    {
+      "split": "test",
+      "group": "distractors",
+      "identity": {
+        "patient_id": "challenge-test-distractors",
+        "visit_id": "v1",
+        "started_at": "2026-02-01T00:00:00Z"
+      },
+      "mode": "none",
+      "top_k": 1,
+      "metrics": {
+        "precision": {
+          "value": null,
+          "numerator": 0,
+          "denominator": 0,
+          "status": "not_applicable"
+        },
+        "recall": {
+          "value": 0.0,
+          "numerator": 0,
+          "denominator": 1,
+          "status": "available"
+        },
+        "stale_retrieval_rate": {
+          "value": null,
+          "numerator": 0,
+          "denominator": 0,
+          "status": "not_applicable"
+        },
+        "stale_misuse_rate": {
+          "value": null,
+          "numerator": null,
+          "denominator": null,
+          "status": "missing_annotation"
+        },
+        "retrieved_ids": [],
+        "cited_ids": [],
+        "citation_reporting_complete": true,
+        "interpretation": "Citations are self-reported; semantic use and clinical correctness require review."
+      },
+      "conflict_candidates": 0
+    },
+    {
+      "split": "test",
+      "group": "distractors",
+      "identity": {
+        "patient_id": "challenge-test-distractors",
+        "visit_id": "v1",
+        "started_at": "2026-02-01T00:00:00Z"
+      },
+      "mode": "full_history",
+      "top_k": 1,
+      "metrics": {
+        "precision": {
+          "value": 0.25,
+          "numerator": 1,
+          "denominator": 4,
+          "status": "available"
+        },
+        "recall": {
+          "value": 1.0,
+          "numerator": 1,
+          "denominator": 1,
+          "status": "available"
+        },
+        "stale_retrieval_rate": {
+          "value": 0.0,
+          "numerator": 0,
+          "denominator": 4,
+          "status": "available"
+        },
+        "stale_misuse_rate": {
+          "value": null,
+          "numerator": null,
+          "denominator": null,
+          "status": "missing_annotation"
+        },
+        "retrieved_ids": [
+          "challenge-test-distractors-indicator",
+          "challenge-test-distractors-noise-0",
+          "challenge-test-distractors-noise-1",
+          "challenge-test-distractors-noise-2"
+        ],
+        "cited_ids": [],
+        "citation_reporting_complete": true,
+        "interpretation": "Citations are self-reported; semantic use and clinical correctness require review."
+      },
+      "conflict_candidates": 0
+    },
+    {
+      "split": "test",
+      "group": "distractors",
+      "identity": {
+        "patient_id": "challenge-test-distractors",
+        "visit_id": "v1",
+        "started_at": "2026-02-01T00:00:00Z"
+      },
+      "mode": "selective",
+      "top_k": 1,
+      "metrics": {
+        "precision": {
+          "value": 1.0,
+          "numerator": 1,
+          "denominator": 1,
+          "status": "available"
+        },
+        "recall": {
+          "value": 1.0,
+          "numerator": 1,
+          "denominator": 1,
+          "status": "available"
+        },
+        "stale_retrieval_rate": {
+          "value": 0.0,
+          "numerator": 0,
+          "denominator": 1,
+          "status": "available"
+        },
+        "stale_misuse_rate": {
+          "value": null,
+          "numerator": null,
+          "denominator": null,
+          "status": "missing_annotation"
+        },
+        "retrieved_ids": [
+          "challenge-test-distractors-indicator"
+        ],
+        "cited_ids": [],
+        "citation_reporting_complete": true,
+        "interpretation": "Citations are self-reported; semantic use and clinical correctness require review."
+      },
+      "conflict_candidates": 0
+    },
+    {
+      "split": "test",
+      "group": "distractors",
+      "identity": {
+        "patient_id": "challenge-test-distractors",
+        "visit_id": "v1",
+        "started_at": "2026-02-01T00:00:00Z"
+      },
+      "mode": "selective",
+      "top_k": 3,
+      "metrics": {
+        "precision": {
+          "value": 1.0,
+          "numerator": 1,
+          "denominator": 1,
+          "status": "available"
+        },
+        "recall": {
+          "value": 1.0,
+          "numerator": 1,
+          "denominator": 1,
+          "status": "available"
+        },
+        "stale_retrieval_rate": {
+          "value": 0.0,
+          "numerator": 0,
+          "denominator": 1,
+          "status": "available"
+        },
+        "stale_misuse_rate": {
+          "value": null,
+          "numerator": null,
+          "denominator": null,
+          "status": "missing_annotation"
+        },
+        "retrieved_ids": [
+          "challenge-test-distractors-indicator"
+        ],
+        "cited_ids": [],
+        "citation_reporting_complete": true,
+        "interpretation": "Citations are self-reported; semantic use and clinical correctness require review."
+      },
+      "conflict_candidates": 0
+    },
+    {
+      "split": "test",
+      "group": "distractors",
+      "identity": {
+        "patient_id": "challenge-test-distractors",
+        "visit_id": "v2",
+        "started_at": "2026-03-01T00:00:00Z"
+      },
+      "mode": "none",
+      "top_k": 1,
+      "metrics": {
+        "precision": {
+          "value": null,
+          "numerator": 0,
+          "denominator": 0,
+          "status": "not_applicable"
+        },
+        "recall": {
+          "value": 0.0,
+          "numerator": 0,
+          "denominator": 1,
+          "status": "available"
+        },
+        "stale_retrieval_rate": {
+          "value": null,
+          "numerator": 0,
+          "denominator": 0,
+          "status": "not_applicable"
+        },
+        "stale_misuse_rate": {
+          "value": null,
+          "numerator": null,
+          "denominator": null,
+          "status": "missing_annotation"
+        },
+        "retrieved_ids": [],
+        "cited_ids": [],
+        "citation_reporting_complete": true,
+        "interpretation": "Citations are self-reported; semantic use and clinical correctness require review."
+      },
+      "conflict_candidates": 0
+    },
+    {
+      "split": "test",
+      "group": "distractors",
+      "identity": {
+        "patient_id": "challenge-test-distractors",
+        "visit_id": "v2",
+        "started_at": "2026-03-01T00:00:00Z"
+      },
+      "mode": "full_history",
+      "top_k": 1,
+      "metrics": {
+        "precision": {
+          "value": 0.25,
+          "numerator": 1,
+          "denominator": 4,
+          "status": "available"
+        },
+        "recall": {
+          "value": 1.0,
+          "numerator": 1,
+          "denominator": 1,
+          "status": "available"
+        },
+        "stale_retrieval_rate": {
+          "value": 0.0,
+          "numerator": 0,
+          "denominator": 4,
+          "status": "available"
+        },
+        "stale_misuse_rate": {
+          "value": null,
+          "numerator": null,
+          "denominator": null,
+          "status": "missing_annotation"
+        },
+        "retrieved_ids": [
+          "challenge-test-distractors-indicator",
+          "challenge-test-distractors-noise-0",
+          "challenge-test-distractors-noise-1",
+          "challenge-test-distractors-noise-2"
+        ],
+        "cited_ids": [],
+        "citation_reporting_complete": true,
+        "interpretation": "Citations are self-reported; semantic use and clinical correctness require review."
+      },
+      "conflict_candidates": 0
+    },
+    {
+      "split": "test",
+      "group": "distractors",
+      "identity": {
+        "patient_id": "challenge-test-distractors",
+        "visit_id": "v2",
+        "started_at": "2026-03-01T00:00:00Z"
+      },
+      "mode": "selective",
+      "top_k": 1,
+      "metrics": {
+        "precision": {
+          "value": 1.0,
+          "numerator": 1,
+          "denominator": 1,
+          "status": "available"
+        },
+        "recall": {
+          "value": 1.0,
+          "numerator": 1,
+          "denominator": 1,
+          "status": "available"
+        },
+        "stale_retrieval_rate": {
+          "value": 0.0,
+          "numerator": 0,
+          "denominator": 1,
+          "status": "available"
+        },
+        "stale_misuse_rate": {
+          "value": null,
+          "numerator": null,
+          "denominator": null,
+          "status": "missing_annotation"
+        },
+        "retrieved_ids": [
+          "challenge-test-distractors-indicator"
+        ],
+        "cited_ids": [],
+        "citation_reporting_complete": true,
+        "interpretation": "Citations are self-reported; semantic use and clinical correctness require review."
+      },
+      "conflict_candidates": 0
+    },
+    {
+      "split": "test",
+      "group": "distractors",
+      "identity": {
+        "patient_id": "challenge-test-distractors",
+        "visit_id": "v2",
+        "started_at": "2026-03-01T00:00:00Z"
+      },
+      "mode": "selective",
+      "top_k": 3,
+      "metrics": {
+        "precision": {
+          "value": 1.0,
+          "numerator": 1,
+          "denominator": 1,
+          "status": "available"
+        },
+        "recall": {
+          "value": 1.0,
+          "numerator": 1,
+          "denominator": 1,
+          "status": "available"
+        },
+        "stale_retrieval_rate": {
+          "value": 0.0,
+          "numerator": 0,
+          "denominator": 1,
+          "status": "available"
+        },
+        "stale_misuse_rate": {
+          "value": null,
+          "numerator": null,
+          "denominator": null,
+          "status": "missing_annotation"
+        },
+        "retrieved_ids": [
+          "challenge-test-distractors-indicator"
+        ],
+        "cited_ids": [],
+        "citation_reporting_complete": true,
+        "interpretation": "Citations are self-reported; semantic use and clinical correctness require review."
+      },
+      "conflict_candidates": 0
+    },
+    {
+      "split": "test",
+      "group": "superseded",
+      "identity": {
+        "patient_id": "challenge-test-superseded",
+        "visit_id": "v1",
+        "started_at": "2026-02-01T00:00:00Z"
+      },
+      "mode": "none",
+      "top_k": 1,
+      "metrics": {
+        "precision": {
+          "value": null,
+          "numerator": 0,
+          "denominator": 0,
+          "status": "not_applicable"
+        },
+        "recall": {
+          "value": 0.0,
+          "numerator": 0,
+          "denominator": 1,
+          "status": "available"
+        },
+        "stale_retrieval_rate": {
+          "value": null,
+          "numerator": 0,
+          "denominator": 0,
+          "status": "not_applicable"
+        },
+        "stale_misuse_rate": {
+          "value": null,
+          "numerator": null,
+          "denominator": null,
+          "status": "missing_annotation"
+        },
+        "retrieved_ids": [],
+        "cited_ids": [],
+        "citation_reporting_complete": true,
+        "interpretation": "Citations are self-reported; semantic use and clinical correctness require review."
+      },
+      "conflict_candidates": 0
+    },
+    {
+      "split": "test",
+      "group": "superseded",
+      "identity": {
+        "patient_id": "challenge-test-superseded",
+        "visit_id": "v1",
+        "started_at": "2026-02-01T00:00:00Z"
+      },
+      "mode": "full_history",
+      "top_k": 1,
+      "metrics": {
+        "precision": {
+          "value": 0.25,
+          "numerator": 1,
+          "denominator": 4,
+          "status": "available"
+        },
+        "recall": {
+          "value": 1.0,
+          "numerator": 1,
+          "denominator": 1,
+          "status": "available"
+        },
+        "stale_retrieval_rate": {
+          "value": 0.0,
+          "numerator": 0,
+          "denominator": 4,
+          "status": "available"
+        },
+        "stale_misuse_rate": {
+          "value": null,
+          "numerator": null,
+          "denominator": null,
+          "status": "missing_annotation"
+        },
+        "retrieved_ids": [
+          "challenge-test-superseded-indicator",
+          "challenge-test-superseded-noise-0",
+          "challenge-test-superseded-noise-1",
+          "challenge-test-superseded-noise-2"
+        ],
+        "cited_ids": [],
+        "citation_reporting_complete": true,
+        "interpretation": "Citations are self-reported; semantic use and clinical correctness require review."
+      },
+      "conflict_candidates": 0
+    },
+    {
+      "split": "test",
+      "group": "superseded",
+      "identity": {
+        "patient_id": "challenge-test-superseded",
+        "visit_id": "v1",
+        "started_at": "2026-02-01T00:00:00Z"
+      },
+      "mode": "selective",
+      "top_k": 1,
+      "metrics": {
+        "precision": {
+          "value": 1.0,
+          "numerator": 1,
+          "denominator": 1,
+          "status": "available"
+        },
+        "recall": {
+          "value": 1.0,
+          "numerator": 1,
+          "denominator": 1,
+          "status": "available"
+        },
+        "stale_retrieval_rate": {
+          "value": 0.0,
+          "numerator": 0,
+          "denominator": 1,
+          "status": "available"
+        },
+        "stale_misuse_rate": {
+          "value": null,
+          "numerator": null,
+          "denominator": null,
+          "status": "missing_annotation"
+        },
+        "retrieved_ids": [
+          "challenge-test-superseded-indicator"
+        ],
+        "cited_ids": [],
+        "citation_reporting_complete": true,
+        "interpretation": "Citations are self-reported; semantic use and clinical correctness require review."
+      },
+      "conflict_candidates": 0
+    },
+    {
+      "split": "test",
+      "group": "superseded",
+      "identity": {
+        "patient_id": "challenge-test-superseded",
+        "visit_id": "v1",
+        "started_at": "2026-02-01T00:00:00Z"
+      },
+      "mode": "selective",
+      "top_k": 3,
+      "metrics": {
+        "precision": {
+          "value": 1.0,
+          "numerator": 1,
+          "denominator": 1,
+          "status": "available"
+        },
+        "recall": {
+          "value": 1.0,
+          "numerator": 1,
+          "denominator": 1,
+          "status": "available"
+        },
+        "stale_retrieval_rate": {
+          "value": 0.0,
+          "numerator": 0,
+          "denominator": 1,
+          "status": "available"
+        },
+        "stale_misuse_rate": {
+          "value": null,
+          "numerator": null,
+          "denominator": null,
+          "status": "missing_annotation"
+        },
+        "retrieved_ids": [
+          "challenge-test-superseded-indicator"
+        ],
+        "cited_ids": [],
+        "citation_reporting_complete": true,
+        "interpretation": "Citations are self-reported; semantic use and clinical correctness require review."
+      },
+      "conflict_candidates": 0
+    },
+    {
+      "split": "test",
+      "group": "superseded",
+      "identity": {
+        "patient_id": "challenge-test-superseded",
+        "visit_id": "v2",
+        "started_at": "2026-03-01T00:00:00Z"
+      },
+      "mode": "none",
+      "top_k": 1,
+      "metrics": {
+        "precision": {
+          "value": null,
+          "numerator": 0,
+          "denominator": 0,
+          "status": "not_applicable"
+        },
+        "recall": {
+          "value": 0.0,
+          "numerator": 0,
+          "denominator": 1,
+          "status": "available"
+        },
+        "stale_retrieval_rate": {
+          "value": null,
+          "numerator": 0,
+          "denominator": 0,
+          "status": "not_applicable"
+        },
+        "stale_misuse_rate": {
+          "value": null,
+          "numerator": null,
+          "denominator": null,
+          "status": "missing_annotation"
+        },
+        "retrieved_ids": [],
+        "cited_ids": [],
+        "citation_reporting_complete": true,
+        "interpretation": "Citations are self-reported; semantic use and clinical correctness require review."
+      },
+      "conflict_candidates": 0
+    },
+    {
+      "split": "test",
+      "group": "superseded",
+      "identity": {
+        "patient_id": "challenge-test-superseded",
+        "visit_id": "v2",
+        "started_at": "2026-03-01T00:00:00Z"
+      },
+      "mode": "full_history",
+      "top_k": 1,
+      "metrics": {
+        "precision": {
+          "value": 0.2,
+          "numerator": 1,
+          "denominator": 5,
+          "status": "available"
+        },
+        "recall": {
+          "value": 1.0,
+          "numerator": 1,
+          "denominator": 1,
+          "status": "available"
+        },
+        "stale_retrieval_rate": {
+          "value": 0.2,
+          "numerator": 1,
+          "denominator": 5,
+          "status": "available"
+        },
+        "stale_misuse_rate": {
+          "value": null,
+          "numerator": null,
+          "denominator": null,
+          "status": "missing_annotation"
+        },
+        "retrieved_ids": [
+          "challenge-test-superseded-indicator",
+          "challenge-test-superseded-noise-0",
+          "challenge-test-superseded-noise-1",
+          "challenge-test-superseded-noise-2",
+          "challenge-test-superseded-update"
+        ],
+        "cited_ids": [],
+        "citation_reporting_complete": true,
+        "interpretation": "Citations are self-reported; semantic use and clinical correctness require review."
+      },
+      "conflict_candidates": 0
+    },
+    {
+      "split": "test",
+      "group": "superseded",
+      "identity": {
+        "patient_id": "challenge-test-superseded",
+        "visit_id": "v2",
+        "started_at": "2026-03-01T00:00:00Z"
+      },
+      "mode": "selective",
+      "top_k": 1,
+      "metrics": {
+        "precision": {
+          "value": 1.0,
+          "numerator": 1,
+          "denominator": 1,
+          "status": "available"
+        },
+        "recall": {
+          "value": 1.0,
+          "numerator": 1,
+          "denominator": 1,
+          "status": "available"
+        },
+        "stale_retrieval_rate": {
+          "value": 0.0,
+          "numerator": 0,
+          "denominator": 1,
+          "status": "available"
+        },
+        "stale_misuse_rate": {
+          "value": null,
+          "numerator": null,
+          "denominator": null,
+          "status": "missing_annotation"
+        },
+        "retrieved_ids": [
+          "challenge-test-superseded-update"
+        ],
+        "cited_ids": [],
+        "citation_reporting_complete": true,
+        "interpretation": "Citations are self-reported; semantic use and clinical correctness require review."
+      },
+      "conflict_candidates": 0
+    },
+    {
+      "split": "test",
+      "group": "superseded",
+      "identity": {
+        "patient_id": "challenge-test-superseded",
+        "visit_id": "v2",
+        "started_at": "2026-03-01T00:00:00Z"
+      },
+      "mode": "selective",
+      "top_k": 3,
+      "metrics": {
+        "precision": {
+          "value": 1.0,
+          "numerator": 1,
+          "denominator": 1,
+          "status": "available"
+        },
+        "recall": {
+          "value": 1.0,
+          "numerator": 1,
+          "denominator": 1,
+          "status": "available"
+        },
+        "stale_retrieval_rate": {
+          "value": 0.0,
+          "numerator": 0,
+          "denominator": 1,
+          "status": "available"
+        },
+        "stale_misuse_rate": {
+          "value": null,
+          "numerator": null,
+          "denominator": null,
+          "status": "missing_annotation"
+        },
+        "retrieved_ids": [
+          "challenge-test-superseded-update"
+        ],
+        "cited_ids": [],
+        "citation_reporting_complete": true,
+        "interpretation": "Citations are self-reported; semantic use and clinical correctness require review."
+      },
+      "conflict_candidates": 0
+    },
+    {
+      "split": "test",
+      "group": "conflict",
+      "identity": {
+        "patient_id": "challenge-test-conflict",
+        "visit_id": "v1",
+        "started_at": "2026-02-01T00:00:00Z"
+      },
+      "mode": "none",
+      "top_k": 1,
+      "metrics": {
+        "precision": {
+          "value": null,
+          "numerator": 0,
+          "denominator": 0,
+          "status": "not_applicable"
+        },
+        "recall": {
+          "value": 0.0,
+          "numerator": 0,
+          "denominator": 3,
+          "status": "available"
+        },
+        "stale_retrieval_rate": {
+          "value": null,
+          "numerator": 0,
+          "denominator": 0,
+          "status": "not_applicable"
+        },
+        "stale_misuse_rate": {
+          "value": null,
+          "numerator": null,
+          "denominator": null,
+          "status": "missing_annotation"
+        },
+        "retrieved_ids": [],
+        "cited_ids": [],
+        "citation_reporting_complete": true,
+        "interpretation": "Citations are self-reported; semantic use and clinical correctness require review."
+      },
+      "conflict_candidates": 0
+    },
+    {
+      "split": "test",
+      "group": "conflict",
+      "identity": {
+        "patient_id": "challenge-test-conflict",
+        "visit_id": "v1",
+        "started_at": "2026-02-01T00:00:00Z"
+      },
+      "mode": "full_history",
+      "top_k": 1,
+      "metrics": {
+        "precision": {
+          "value": 0.5,
+          "numerator": 3,
+          "denominator": 6,
+          "status": "available"
+        },
+        "recall": {
+          "value": 1.0,
+          "numerator": 3,
+          "denominator": 3,
+          "status": "available"
+        },
+        "stale_retrieval_rate": {
+          "value": 0.0,
+          "numerator": 0,
+          "denominator": 6,
+          "status": "available"
+        },
+        "stale_misuse_rate": {
+          "value": null,
+          "numerator": null,
+          "denominator": null,
+          "status": "missing_annotation"
+        },
+        "retrieved_ids": [
+          "challenge-test-conflict-indicator",
+          "challenge-test-conflict-negative",
+          "challenge-test-conflict-noise-0",
+          "challenge-test-conflict-noise-1",
+          "challenge-test-conflict-noise-2",
+          "challenge-test-conflict-positive"
+        ],
+        "cited_ids": [],
+        "citation_reporting_complete": true,
+        "interpretation": "Citations are self-reported; semantic use and clinical correctness require review."
+      },
+      "conflict_candidates": 1
+    },
+    {
+      "split": "test",
+      "group": "conflict",
+      "identity": {
+        "patient_id": "challenge-test-conflict",
+        "visit_id": "v1",
+        "started_at": "2026-02-01T00:00:00Z"
+      },
+      "mode": "selective",
+      "top_k": 1,
+      "metrics": {
+        "precision": {
+          "value": 1.0,
+          "numerator": 1,
+          "denominator": 1,
+          "status": "available"
+        },
+        "recall": {
+          "value": 0.3333333333333333,
+          "numerator": 1,
+          "denominator": 3,
+          "status": "available"
+        },
+        "stale_retrieval_rate": {
+          "value": 0.0,
+          "numerator": 0,
+          "denominator": 1,
+          "status": "available"
+        },
+        "stale_misuse_rate": {
+          "value": null,
+          "numerator": null,
+          "denominator": null,
+          "status": "missing_annotation"
+        },
+        "retrieved_ids": [
+          "challenge-test-conflict-indicator"
+        ],
+        "cited_ids": [],
+        "citation_reporting_complete": true,
+        "interpretation": "Citations are self-reported; semantic use and clinical correctness require review."
+      },
+      "conflict_candidates": 0
+    },
+    {
+      "split": "test",
+      "group": "conflict",
+      "identity": {
+        "patient_id": "challenge-test-conflict",
+        "visit_id": "v1",
+        "started_at": "2026-02-01T00:00:00Z"
+      },
+      "mode": "selective",
+      "top_k": 3,
+      "metrics": {
+        "precision": {
+          "value": 1.0,
+          "numerator": 3,
+          "denominator": 3,
+          "status": "available"
+        },
+        "recall": {
+          "value": 1.0,
+          "numerator": 3,
+          "denominator": 3,
+          "status": "available"
+        },
+        "stale_retrieval_rate": {
+          "value": 0.0,
+          "numerator": 0,
+          "denominator": 3,
+          "status": "available"
+        },
+        "stale_misuse_rate": {
+          "value": null,
+          "numerator": null,
+          "denominator": null,
+          "status": "missing_annotation"
+        },
+        "retrieved_ids": [
+          "challenge-test-conflict-indicator",
+          "challenge-test-conflict-negative",
+          "challenge-test-conflict-positive"
+        ],
+        "cited_ids": [],
+        "citation_reporting_complete": true,
+        "interpretation": "Citations are self-reported; semantic use and clinical correctness require review."
+      },
+      "conflict_candidates": 1
+    },
+    {
+      "split": "test",
+      "group": "conflict",
+      "identity": {
+        "patient_id": "challenge-test-conflict",
+        "visit_id": "v2",
+        "started_at": "2026-03-01T00:00:00Z"
+      },
+      "mode": "none",
+      "top_k": 1,
+      "metrics": {
+        "precision": {
+          "value": null,
+          "numerator": 0,
+          "denominator": 0,
+          "status": "not_applicable"
+        },
+        "recall": {
+          "value": 0.0,
+          "numerator": 0,
+          "denominator": 3,
+          "status": "available"
+        },
+        "stale_retrieval_rate": {
+          "value": null,
+          "numerator": 0,
+          "denominator": 0,
+          "status": "not_applicable"
+        },
+        "stale_misuse_rate": {
+          "value": null,
+          "numerator": null,
+          "denominator": null,
+          "status": "missing_annotation"
+        },
+        "retrieved_ids": [],
+        "cited_ids": [],
+        "citation_reporting_complete": true,
+        "interpretation": "Citations are self-reported; semantic use and clinical correctness require review."
+      },
+      "conflict_candidates": 0
+    },
+    {
+      "split": "test",
+      "group": "conflict",
+      "identity": {
+        "patient_id": "challenge-test-conflict",
+        "visit_id": "v2",
+        "started_at": "2026-03-01T00:00:00Z"
+      },
+      "mode": "full_history",
+      "top_k": 1,
+      "metrics": {
+        "precision": {
+          "value": 0.5,
+          "numerator": 3,
+          "denominator": 6,
+          "status": "available"
+        },
+        "recall": {
+          "value": 1.0,
+          "numerator": 3,
+          "denominator": 3,
+          "status": "available"
+        },
+        "stale_retrieval_rate": {
+          "value": 0.0,
+          "numerator": 0,
+          "denominator": 6,
+          "status": "available"
+        },
+        "stale_misuse_rate": {
+          "value": null,
+          "numerator": null,
+          "denominator": null,
+          "status": "missing_annotation"
+        },
+        "retrieved_ids": [
+          "challenge-test-conflict-indicator",
+          "challenge-test-conflict-negative",
+          "challenge-test-conflict-noise-0",
+          "challenge-test-conflict-noise-1",
+          "challenge-test-conflict-noise-2",
+          "challenge-test-conflict-positive"
+        ],
+        "cited_ids": [],
+        "citation_reporting_complete": true,
+        "interpretation": "Citations are self-reported; semantic use and clinical correctness require review."
+      },
+      "conflict_candidates": 1
+    },
+    {
+      "split": "test",
+      "group": "conflict",
+      "identity": {
+        "patient_id": "challenge-test-conflict",
+        "visit_id": "v2",
+        "started_at": "2026-03-01T00:00:00Z"
+      },
+      "mode": "selective",
+      "top_k": 1,
+      "metrics": {
+        "precision": {
+          "value": 1.0,
+          "numerator": 1,
+          "denominator": 1,
+          "status": "available"
+        },
+        "recall": {
+          "value": 0.3333333333333333,
+          "numerator": 1,
+          "denominator": 3,
+          "status": "available"
+        },
+        "stale_retrieval_rate": {
+          "value": 0.0,
+          "numerator": 0,
+          "denominator": 1,
+          "status": "available"
+        },
+        "stale_misuse_rate": {
+          "value": null,
+          "numerator": null,
+          "denominator": null,
+          "status": "missing_annotation"
+        },
+        "retrieved_ids": [
+          "challenge-test-conflict-indicator"
+        ],
+        "cited_ids": [],
+        "citation_reporting_complete": true,
+        "interpretation": "Citations are self-reported; semantic use and clinical correctness require review."
+      },
+      "conflict_candidates": 0
+    },
+    {
+      "split": "test",
+      "group": "conflict",
+      "identity": {
+        "patient_id": "challenge-test-conflict",
+        "visit_id": "v2",
+        "started_at": "2026-03-01T00:00:00Z"
+      },
+      "mode": "selective",
+      "top_k": 3,
+      "metrics": {
+        "precision": {
+          "value": 1.0,
+          "numerator": 3,
+          "denominator": 3,
+          "status": "available"
+        },
+        "recall": {
+          "value": 1.0,
+          "numerator": 3,
+          "denominator": 3,
+          "status": "available"
+        },
+        "stale_retrieval_rate": {
+          "value": 0.0,
+          "numerator": 0,
+          "denominator": 3,
+          "status": "available"
+        },
+        "stale_misuse_rate": {
+          "value": null,
+          "numerator": null,
+          "denominator": null,
+          "status": "missing_annotation"
+        },
+        "retrieved_ids": [
+          "challenge-test-conflict-indicator",
+          "challenge-test-conflict-negative",
+          "challenge-test-conflict-positive"
+        ],
+        "cited_ids": [],
+        "citation_reporting_complete": true,
+        "interpretation": "Citations are self-reported; semantic use and clinical correctness require review."
+      },
+      "conflict_candidates": 1
+    },
+    {
+      "split": "test",
+      "group": "paraphrase",
+      "identity": {
+        "patient_id": "challenge-test-paraphrase",
+        "visit_id": "v1",
+        "started_at": "2026-02-01T00:00:00Z"
+      },
+      "mode": "none",
+      "top_k": 1,
+      "metrics": {
+        "precision": {
+          "value": null,
+          "numerator": 0,
+          "denominator": 0,
+          "status": "not_applicable"
+        },
+        "recall": {
+          "value": 0.0,
+          "numerator": 0,
+          "denominator": 1,
+          "status": "available"
+        },
+        "stale_retrieval_rate": {
+          "value": null,
+          "numerator": 0,
+          "denominator": 0,
+          "status": "not_applicable"
+        },
+        "stale_misuse_rate": {
+          "value": null,
+          "numerator": null,
+          "denominator": null,
+          "status": "missing_annotation"
+        },
+        "retrieved_ids": [],
+        "cited_ids": [],
+        "citation_reporting_complete": true,
+        "interpretation": "Citations are self-reported; semantic use and clinical correctness require review."
+      },
+      "conflict_candidates": 0
+    },
+    {
+      "split": "test",
+      "group": "paraphrase",
+      "identity": {
+        "patient_id": "challenge-test-paraphrase",
+        "visit_id": "v1",
+        "started_at": "2026-02-01T00:00:00Z"
+      },
+      "mode": "full_history",
+      "top_k": 1,
+      "metrics": {
+        "precision": {
+          "value": 0.25,
+          "numerator": 1,
+          "denominator": 4,
+          "status": "available"
+        },
+        "recall": {
+          "value": 1.0,
+          "numerator": 1,
+          "denominator": 1,
+          "status": "available"
+        },
+        "stale_retrieval_rate": {
+          "value": 0.0,
+          "numerator": 0,
+          "denominator": 4,
+          "status": "available"
+        },
+        "stale_misuse_rate": {
+          "value": null,
+          "numerator": null,
+          "denominator": null,
+          "status": "missing_annotation"
+        },
+        "retrieved_ids": [
+          "challenge-test-paraphrase-indicator",
+          "challenge-test-paraphrase-noise-0",
+          "challenge-test-paraphrase-noise-1",
+          "challenge-test-paraphrase-noise-2"
+        ],
+        "cited_ids": [],
+        "citation_reporting_complete": true,
+        "interpretation": "Citations are self-reported; semantic use and clinical correctness require review."
+      },
+      "conflict_candidates": 0
+    },
+    {
+      "split": "test",
+      "group": "paraphrase",
+      "identity": {
+        "patient_id": "challenge-test-paraphrase",
+        "visit_id": "v1",
+        "started_at": "2026-02-01T00:00:00Z"
+      },
+      "mode": "selective",
+      "top_k": 1,
+      "metrics": {
+        "precision": {
+          "value": null,
+          "numerator": 0,
+          "denominator": 0,
+          "status": "not_applicable"
+        },
+        "recall": {
+          "value": 0.0,
+          "numerator": 0,
+          "denominator": 1,
+          "status": "available"
+        },
+        "stale_retrieval_rate": {
+          "value": null,
+          "numerator": 0,
+          "denominator": 0,
+          "status": "not_applicable"
+        },
+        "stale_misuse_rate": {
+          "value": null,
+          "numerator": null,
+          "denominator": null,
+          "status": "missing_annotation"
+        },
+        "retrieved_ids": [],
+        "cited_ids": [],
+        "citation_reporting_complete": true,
+        "interpretation": "Citations are self-reported; semantic use and clinical correctness require review."
+      },
+      "conflict_candidates": 0
+    },
+    {
+      "split": "test",
+      "group": "paraphrase",
+      "identity": {
+        "patient_id": "challenge-test-paraphrase",
+        "visit_id": "v1",
+        "started_at": "2026-02-01T00:00:00Z"
+      },
+      "mode": "selective",
+      "top_k": 3,
+      "metrics": {
+        "precision": {
+          "value": null,
+          "numerator": 0,
+          "denominator": 0,
+          "status": "not_applicable"
+        },
+        "recall": {
+          "value": 0.0,
+          "numerator": 0,
+          "denominator": 1,
+          "status": "available"
+        },
+        "stale_retrieval_rate": {
+          "value": null,
+          "numerator": 0,
+          "denominator": 0,
+          "status": "not_applicable"
+        },
+        "stale_misuse_rate": {
+          "value": null,
+          "numerator": null,
+          "denominator": null,
+          "status": "missing_annotation"
+        },
+        "retrieved_ids": [],
+        "cited_ids": [],
+        "citation_reporting_complete": true,
+        "interpretation": "Citations are self-reported; semantic use and clinical correctness require review."
+      },
+      "conflict_candidates": 0
+    },
+    {
+      "split": "test",
+      "group": "paraphrase",
+      "identity": {
+        "patient_id": "challenge-test-paraphrase",
+        "visit_id": "v2",
+        "started_at": "2026-03-01T00:00:00Z"
+      },
+      "mode": "none",
+      "top_k": 1,
+      "metrics": {
+        "precision": {
+          "value": null,
+          "numerator": 0,
+          "denominator": 0,
+          "status": "not_applicable"
+        },
+        "recall": {
+          "value": 0.0,
+          "numerator": 0,
+          "denominator": 1,
+          "status": "available"
+        },
+        "stale_retrieval_rate": {
+          "value": null,
+          "numerator": 0,
+          "denominator": 0,
+          "status": "not_applicable"
+        },
+        "stale_misuse_rate": {
+          "value": null,
+          "numerator": null,
+          "denominator": null,
+          "status": "missing_annotation"
+        },
+        "retrieved_ids": [],
+        "cited_ids": [],
+        "citation_reporting_complete": true,
+        "interpretation": "Citations are self-reported; semantic use and clinical correctness require review."
+      },
+      "conflict_candidates": 0
+    },
+    {
+      "split": "test",
+      "group": "paraphrase",
+      "identity": {
+        "patient_id": "challenge-test-paraphrase",
+        "visit_id": "v2",
+        "started_at": "2026-03-01T00:00:00Z"
+      },
+      "mode": "full_history",
+      "top_k": 1,
+      "metrics": {
+        "precision": {
+          "value": 0.25,
+          "numerator": 1,
+          "denominator": 4,
+          "status": "available"
+        },
+        "recall": {
+          "value": 1.0,
+          "numerator": 1,
+          "denominator": 1,
+          "status": "available"
+        },
+        "stale_retrieval_rate": {
+          "value": 0.0,
+          "numerator": 0,
+          "denominator": 4,
+          "status": "available"
+        },
+        "stale_misuse_rate": {
+          "value": null,
+          "numerator": null,
+          "denominator": null,
+          "status": "missing_annotation"
+        },
+        "retrieved_ids": [
+          "challenge-test-paraphrase-indicator",
+          "challenge-test-paraphrase-noise-0",
+          "challenge-test-paraphrase-noise-1",
+          "challenge-test-paraphrase-noise-2"
+        ],
+        "cited_ids": [],
+        "citation_reporting_complete": true,
+        "interpretation": "Citations are self-reported; semantic use and clinical correctness require review."
+      },
+      "conflict_candidates": 0
+    },
+    {
+      "split": "test",
+      "group": "paraphrase",
+      "identity": {
+        "patient_id": "challenge-test-paraphrase",
+        "visit_id": "v2",
+        "started_at": "2026-03-01T00:00:00Z"
+      },
+      "mode": "selective",
+      "top_k": 1,
+      "metrics": {
+        "precision": {
+          "value": null,
+          "numerator": 0,
+          "denominator": 0,
+          "status": "not_applicable"
+        },
+        "recall": {
+          "value": 0.0,
+          "numerator": 0,
+          "denominator": 1,
+          "status": "available"
+        },
+        "stale_retrieval_rate": {
+          "value": null,
+          "numerator": 0,
+          "denominator": 0,
+          "status": "not_applicable"
+        },
+        "stale_misuse_rate": {
+          "value": null,
+          "numerator": null,
+          "denominator": null,
+          "status": "missing_annotation"
+        },
+        "retrieved_ids": [],
+        "cited_ids": [],
+        "citation_reporting_complete": true,
+        "interpretation": "Citations are self-reported; semantic use and clinical correctness require review."
+      },
+      "conflict_candidates": 0
+    },
+    {
+      "split": "test",
+      "group": "paraphrase",
+      "identity": {
+        "patient_id": "challenge-test-paraphrase",
+        "visit_id": "v2",
+        "started_at": "2026-03-01T00:00:00Z"
+      },
+      "mode": "selective",
+      "top_k": 3,
+      "metrics": {
+        "precision": {
+          "value": null,
+          "numerator": 0,
+          "denominator": 0,
+          "status": "not_applicable"
+        },
+        "recall": {
+          "value": 0.0,
+          "numerator": 0,
+          "denominator": 1,
+          "status": "available"
+        },
+        "stale_retrieval_rate": {
+          "value": null,
+          "numerator": 0,
+          "denominator": 0,
+          "status": "not_applicable"
+        },
+        "stale_misuse_rate": {
+          "value": null,
+          "numerator": null,
+          "denominator": null,
+          "status": "missing_annotation"
+        },
+        "retrieved_ids": [],
+        "cited_ids": [],
+        "citation_reporting_complete": true,
+        "interpretation": "Citations are self-reported; semantic use and clinical correctness require review."
+      },
+      "conflict_candidates": 0
+    }
+  ],
+  "summary": [
+    {
+      "split": "train",
+      "group": "distractors",
+      "mode": "none",
+      "top_k": 1,
+      "visits": 2,
+      "precision": null,
+      "precision_coverage": 0.0,
+      "recall": 0.0,
+      "recall_coverage": 1.0,
+      "stale_selected": 0
+    },
+    {
+      "split": "train",
+      "group": "distractors",
+      "mode": "full_history",
+      "top_k": 1,
+      "visits": 2,
+      "precision": 0.25,
+      "precision_coverage": 1.0,
+      "recall": 1.0,
+      "recall_coverage": 1.0,
+      "stale_selected": 0
+    },
+    {
+      "split": "train",
+      "group": "distractors",
+      "mode": "selective",
+      "top_k": 1,
+      "visits": 2,
+      "precision": 1.0,
+      "precision_coverage": 1.0,
+      "recall": 1.0,
+      "recall_coverage": 1.0,
+      "stale_selected": 0
+    },
+    {
+      "split": "train",
+      "group": "distractors",
+      "mode": "selective",
+      "top_k": 3,
+      "visits": 2,
+      "precision": 1.0,
+      "precision_coverage": 1.0,
+      "recall": 1.0,
+      "recall_coverage": 1.0,
+      "stale_selected": 0
+    },
+    {
+      "split": "train",
+      "group": "superseded",
+      "mode": "none",
+      "top_k": 1,
+      "visits": 2,
+      "precision": null,
+      "precision_coverage": 0.0,
+      "recall": 0.0,
+      "recall_coverage": 1.0,
+      "stale_selected": 0
+    },
+    {
+      "split": "train",
+      "group": "superseded",
+      "mode": "full_history",
+      "top_k": 1,
+      "visits": 2,
+      "precision": 0.225,
+      "precision_coverage": 1.0,
+      "recall": 1.0,
+      "recall_coverage": 1.0,
+      "stale_selected": 1
+    },
+    {
+      "split": "train",
+      "group": "superseded",
+      "mode": "selective",
+      "top_k": 1,
+      "visits": 2,
+      "precision": 1.0,
+      "precision_coverage": 1.0,
+      "recall": 1.0,
+      "recall_coverage": 1.0,
+      "stale_selected": 0
+    },
+    {
+      "split": "train",
+      "group": "superseded",
+      "mode": "selective",
+      "top_k": 3,
+      "visits": 2,
+      "precision": 1.0,
+      "precision_coverage": 1.0,
+      "recall": 1.0,
+      "recall_coverage": 1.0,
+      "stale_selected": 0
+    },
+    {
+      "split": "train",
+      "group": "conflict",
+      "mode": "none",
+      "top_k": 1,
+      "visits": 2,
+      "precision": null,
+      "precision_coverage": 0.0,
+      "recall": 0.0,
+      "recall_coverage": 1.0,
+      "stale_selected": 0
+    },
+    {
+      "split": "train",
+      "group": "conflict",
+      "mode": "full_history",
+      "top_k": 1,
+      "visits": 2,
+      "precision": 0.5,
+      "precision_coverage": 1.0,
+      "recall": 1.0,
+      "recall_coverage": 1.0,
+      "stale_selected": 0
+    },
+    {
+      "split": "train",
+      "group": "conflict",
+      "mode": "selective",
+      "top_k": 1,
+      "visits": 2,
+      "precision": 1.0,
+      "precision_coverage": 1.0,
+      "recall": 0.3333333333333333,
+      "recall_coverage": 1.0,
+      "stale_selected": 0
+    },
+    {
+      "split": "train",
+      "group": "conflict",
+      "mode": "selective",
+      "top_k": 3,
+      "visits": 2,
+      "precision": 1.0,
+      "precision_coverage": 1.0,
+      "recall": 1.0,
+      "recall_coverage": 1.0,
+      "stale_selected": 0
+    },
+    {
+      "split": "train",
+      "group": "paraphrase",
+      "mode": "none",
+      "top_k": 1,
+      "visits": 2,
+      "precision": null,
+      "precision_coverage": 0.0,
+      "recall": 0.0,
+      "recall_coverage": 1.0,
+      "stale_selected": 0
+    },
+    {
+      "split": "train",
+      "group": "paraphrase",
+      "mode": "full_history",
+      "top_k": 1,
+      "visits": 2,
+      "precision": 0.25,
+      "precision_coverage": 1.0,
+      "recall": 1.0,
+      "recall_coverage": 1.0,
+      "stale_selected": 0
+    },
+    {
+      "split": "train",
+      "group": "paraphrase",
+      "mode": "selective",
+      "top_k": 1,
+      "visits": 2,
+      "precision": null,
+      "precision_coverage": 0.0,
+      "recall": 0.0,
+      "recall_coverage": 1.0,
+      "stale_selected": 0
+    },
+    {
+      "split": "train",
+      "group": "paraphrase",
+      "mode": "selective",
+      "top_k": 3,
+      "visits": 2,
+      "precision": null,
+      "precision_coverage": 0.0,
+      "recall": 0.0,
+      "recall_coverage": 1.0,
+      "stale_selected": 0
+    },
+    {
+      "split": "validation",
+      "group": "distractors",
+      "mode": "none",
+      "top_k": 1,
+      "visits": 2,
+      "precision": null,
+      "precision_coverage": 0.0,
+      "recall": 0.0,
+      "recall_coverage": 1.0,
+      "stale_selected": 0
+    },
+    {
+      "split": "validation",
+      "group": "distractors",
+      "mode": "full_history",
+      "top_k": 1,
+      "visits": 2,
+      "precision": 0.25,
+      "precision_coverage": 1.0,
+      "recall": 1.0,
+      "recall_coverage": 1.0,
+      "stale_selected": 0
+    },
+    {
+      "split": "validation",
+      "group": "distractors",
+      "mode": "selective",
+      "top_k": 1,
+      "visits": 2,
+      "precision": 1.0,
+      "precision_coverage": 1.0,
+      "recall": 1.0,
+      "recall_coverage": 1.0,
+      "stale_selected": 0
+    },
+    {
+      "split": "validation",
+      "group": "distractors",
+      "mode": "selective",
+      "top_k": 3,
+      "visits": 2,
+      "precision": 1.0,
+      "precision_coverage": 1.0,
+      "recall": 1.0,
+      "recall_coverage": 1.0,
+      "stale_selected": 0
+    },
+    {
+      "split": "validation",
+      "group": "superseded",
+      "mode": "none",
+      "top_k": 1,
+      "visits": 2,
+      "precision": null,
+      "precision_coverage": 0.0,
+      "recall": 0.0,
+      "recall_coverage": 1.0,
+      "stale_selected": 0
+    },
+    {
+      "split": "validation",
+      "group": "superseded",
+      "mode": "full_history",
+      "top_k": 1,
+      "visits": 2,
+      "precision": 0.225,
+      "precision_coverage": 1.0,
+      "recall": 1.0,
+      "recall_coverage": 1.0,
+      "stale_selected": 1
+    },
+    {
+      "split": "validation",
+      "group": "superseded",
+      "mode": "selective",
+      "top_k": 1,
+      "visits": 2,
+      "precision": 1.0,
+      "precision_coverage": 1.0,
+      "recall": 1.0,
+      "recall_coverage": 1.0,
+      "stale_selected": 0
+    },
+    {
+      "split": "validation",
+      "group": "superseded",
+      "mode": "selective",
+      "top_k": 3,
+      "visits": 2,
+      "precision": 1.0,
+      "precision_coverage": 1.0,
+      "recall": 1.0,
+      "recall_coverage": 1.0,
+      "stale_selected": 0
+    },
+    {
+      "split": "validation",
+      "group": "conflict",
+      "mode": "none",
+      "top_k": 1,
+      "visits": 2,
+      "precision": null,
+      "precision_coverage": 0.0,
+      "recall": 0.0,
+      "recall_coverage": 1.0,
+      "stale_selected": 0
+    },
+    {
+      "split": "validation",
+      "group": "conflict",
+      "mode": "full_history",
+      "top_k": 1,
+      "visits": 2,
+      "precision": 0.5,
+      "precision_coverage": 1.0,
+      "recall": 1.0,
+      "recall_coverage": 1.0,
+      "stale_selected": 0
+    },
+    {
+      "split": "validation",
+      "group": "conflict",
+      "mode": "selective",
+      "top_k": 1,
+      "visits": 2,
+      "precision": 1.0,
+      "precision_coverage": 1.0,
+      "recall": 0.3333333333333333,
+      "recall_coverage": 1.0,
+      "stale_selected": 0
+    },
+    {
+      "split": "validation",
+      "group": "conflict",
+      "mode": "selective",
+      "top_k": 3,
+      "visits": 2,
+      "precision": 1.0,
+      "precision_coverage": 1.0,
+      "recall": 1.0,
+      "recall_coverage": 1.0,
+      "stale_selected": 0
+    },
+    {
+      "split": "validation",
+      "group": "paraphrase",
+      "mode": "none",
+      "top_k": 1,
+      "visits": 2,
+      "precision": null,
+      "precision_coverage": 0.0,
+      "recall": 0.0,
+      "recall_coverage": 1.0,
+      "stale_selected": 0
+    },
+    {
+      "split": "validation",
+      "group": "paraphrase",
+      "mode": "full_history",
+      "top_k": 1,
+      "visits": 2,
+      "precision": 0.25,
+      "precision_coverage": 1.0,
+      "recall": 1.0,
+      "recall_coverage": 1.0,
+      "stale_selected": 0
+    },
+    {
+      "split": "validation",
+      "group": "paraphrase",
+      "mode": "selective",
+      "top_k": 1,
+      "visits": 2,
+      "precision": null,
+      "precision_coverage": 0.0,
+      "recall": 0.0,
+      "recall_coverage": 1.0,
+      "stale_selected": 0
+    },
+    {
+      "split": "validation",
+      "group": "paraphrase",
+      "mode": "selective",
+      "top_k": 3,
+      "visits": 2,
+      "precision": null,
+      "precision_coverage": 0.0,
+      "recall": 0.0,
+      "recall_coverage": 1.0,
+      "stale_selected": 0
+    },
+    {
+      "split": "test",
+      "group": "distractors",
+      "mode": "none",
+      "top_k": 1,
+      "visits": 2,
+      "precision": null,
+      "precision_coverage": 0.0,
+      "recall": 0.0,
+      "recall_coverage": 1.0,
+      "stale_selected": 0
+    },
+    {
+      "split": "test",
+      "group": "distractors",
+      "mode": "full_history",
+      "top_k": 1,
+      "visits": 2,
+      "precision": 0.25,
+      "precision_coverage": 1.0,
+      "recall": 1.0,
+      "recall_coverage": 1.0,
+      "stale_selected": 0
+    },
+    {
+      "split": "test",
+      "group": "distractors",
+      "mode": "selective",
+      "top_k": 1,
+      "visits": 2,
+      "precision": 1.0,
+      "precision_coverage": 1.0,
+      "recall": 1.0,
+      "recall_coverage": 1.0,
+      "stale_selected": 0
+    },
+    {
+      "split": "test",
+      "group": "distractors",
+      "mode": "selective",
+      "top_k": 3,
+      "visits": 2,
+      "precision": 1.0,
+      "precision_coverage": 1.0,
+      "recall": 1.0,
+      "recall_coverage": 1.0,
+      "stale_selected": 0
+    },
+    {
+      "split": "test",
+      "group": "superseded",
+      "mode": "none",
+      "top_k": 1,
+      "visits": 2,
+      "precision": null,
+      "precision_coverage": 0.0,
+      "recall": 0.0,
+      "recall_coverage": 1.0,
+      "stale_selected": 0
+    },
+    {
+      "split": "test",
+      "group": "superseded",
+      "mode": "full_history",
+      "top_k": 1,
+      "visits": 2,
+      "precision": 0.225,
+      "precision_coverage": 1.0,
+      "recall": 1.0,
+      "recall_coverage": 1.0,
+      "stale_selected": 1
+    },
+    {
+      "split": "test",
+      "group": "superseded",
+      "mode": "selective",
+      "top_k": 1,
+      "visits": 2,
+      "precision": 1.0,
+      "precision_coverage": 1.0,
+      "recall": 1.0,
+      "recall_coverage": 1.0,
+      "stale_selected": 0
+    },
+    {
+      "split": "test",
+      "group": "superseded",
+      "mode": "selective",
+      "top_k": 3,
+      "visits": 2,
+      "precision": 1.0,
+      "precision_coverage": 1.0,
+      "recall": 1.0,
+      "recall_coverage": 1.0,
+      "stale_selected": 0
+    },
+    {
+      "split": "test",
+      "group": "conflict",
+      "mode": "none",
+      "top_k": 1,
+      "visits": 2,
+      "precision": null,
+      "precision_coverage": 0.0,
+      "recall": 0.0,
+      "recall_coverage": 1.0,
+      "stale_selected": 0
+    },
+    {
+      "split": "test",
+      "group": "conflict",
+      "mode": "full_history",
+      "top_k": 1,
+      "visits": 2,
+      "precision": 0.5,
+      "precision_coverage": 1.0,
+      "recall": 1.0,
+      "recall_coverage": 1.0,
+      "stale_selected": 0
+    },
+    {
+      "split": "test",
+      "group": "conflict",
+      "mode": "selective",
+      "top_k": 1,
+      "visits": 2,
+      "precision": 1.0,
+      "precision_coverage": 1.0,
+      "recall": 0.3333333333333333,
+      "recall_coverage": 1.0,
+      "stale_selected": 0
+    },
+    {
+      "split": "test",
+      "group": "conflict",
+      "mode": "selective",
+      "top_k": 3,
+      "visits": 2,
+      "precision": 1.0,
+      "precision_coverage": 1.0,
+      "recall": 1.0,
+      "recall_coverage": 1.0,
+      "stale_selected": 0
+    },
+    {
+      "split": "test",
+      "group": "paraphrase",
+      "mode": "none",
+      "top_k": 1,
+      "visits": 2,
+      "precision": null,
+      "precision_coverage": 0.0,
+      "recall": 0.0,
+      "recall_coverage": 1.0,
+      "stale_selected": 0
+    },
+    {
+      "split": "test",
+      "group": "paraphrase",
+      "mode": "full_history",
+      "top_k": 1,
+      "visits": 2,
+      "precision": 0.25,
+      "precision_coverage": 1.0,
+      "recall": 1.0,
+      "recall_coverage": 1.0,
+      "stale_selected": 0
+    },
+    {
+      "split": "test",
+      "group": "paraphrase",
+      "mode": "selective",
+      "top_k": 1,
+      "visits": 2,
+      "precision": null,
+      "precision_coverage": 0.0,
+      "recall": 0.0,
+      "recall_coverage": 1.0,
+      "stale_selected": 0
+    },
+    {
+      "split": "test",
+      "group": "paraphrase",
+      "mode": "selective",
+      "top_k": 3,
+      "visits": 2,
+      "precision": null,
+      "precision_coverage": 0.0,
+      "recall": 0.0,
+      "recall_coverage": 1.0,
+      "stale_selected": 0
+    }
+  ]
+}

@@ -1425,7 +1425,7 @@ class DepartmentDiagnosticAgent:
 
             if selected_action == "ask_patient" and patient_agent is not None and specialty_interview_count < 1:
                 question = self._choose_interview_question(local_state)
-                answer = str(patient_agent.answer(question)).strip()
+                answer = str(patient_agent.answer(question, state)).strip()
                 self._append_local_known_information(local_state, answer)
                 specialty_steps.append(
                     {

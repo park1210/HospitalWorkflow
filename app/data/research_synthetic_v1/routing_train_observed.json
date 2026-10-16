@@ -1,0 +1,122 @@
+[
+  {
+    "patient_id": "synthetic-patient-0",
+    "decision_id": "synthetic-patient-0-probe",
+    "split": "train",
+    "agent_id": "local-neurology",
+    "model": "qwen-neurology:latest",
+    "version": "d56baced7349a8a3a911933b4e58a2656ce6754fa0bd28fd9c7fe6c9ebfc0128",
+    "observation": {
+      "chief_complaint": "Synthetic recurring discomfort; no diagnostic evidence is available."
+    },
+    "correct": false,
+    "cost": null,
+    "latency_seconds": 34.172,
+    "answer": null,
+    "audit": [
+      {
+        "role": "specialty",
+        "model": "qwen-neurology:latest",
+        "backend": "OllamaClient",
+        "status": "error",
+        "fallback_used": false,
+        "input_sha256": "4e15dfb673ded8f7ea36551a9a3be684aaffd755d2c3d1595c756089152aecb9",
+        "error_type": "APITimeoutError",
+        "usage": null,
+        "usage_status": "unavailable",
+        "latency_seconds": 34.172
+      }
+    ],
+    "scope": "single_assessment_probe_not_full_trajectory"
+  },
+  {
+    "patient_id": "synthetic-patient-0",
+    "decision_id": "synthetic-patient-0-probe",
+    "split": "train",
+    "agent_id": "local-pulmonology",
+    "model": "qwen-pulmonology:latest",
+    "version": "f49ce9dbb5036498fe3ad0d9600fec881df85877253dc3c3f74cbabd0e92956c",
+    "observation": {
+      "chief_complaint": "Synthetic recurring discomfort; no diagnostic evidence is available."
+    },
+    "correct": false,
+    "cost": null,
+    "latency_seconds": 32.062,
+    "answer": null,
+    "audit": [
+      {
+        "role": "specialty",
+        "model": "qwen-pulmonology:latest",
+        "backend": "OllamaClient",
+        "status": "error",
+        "fallback_used": false,
+        "input_sha256": "913c96790c519a24b233f3012c8bb55296878a52797f78ab1ec5efa1b900266b",
+        "error_type": "APITimeoutError",
+        "usage": null,
+        "usage_status": "unavailable",
+        "latency_seconds": 32.062
+      }
+    ],
+    "scope": "single_assessment_probe_not_full_trajectory"
+  },
+  {
+    "patient_id": "synthetic-patient-1",
+    "decision_id": "synthetic-patient-1-probe",
+    "split": "train",
+    "agent_id": "local-neurology",
+    "model": "qwen-neurology:latest",
+    "version": "d56baced7349a8a3a911933b4e58a2656ce6754fa0bd28fd9c7fe6c9ebfc0128",
+    "observation": {
+      "chief_complaint": "Synthetic recurring discomfort; no diagnostic evidence is available."
+    },
+    "correct": false,
+    "cost": null,
+    "latency_seconds": 32.047,
+    "answer": null,
+    "audit": [
+      {
+        "role": "specialty",
+        "model": "qwen-neurology:latest",
+        "backend": "OllamaClient",
+        "status": "error",
+        "fallback_used": false,
+        "input_sha256": "4e15dfb673ded8f7ea36551a9a3be684aaffd755d2c3d1595c756089152aecb9",
+        "error_type": "APITimeoutError",
+        "usage": null,
+        "usage_status": "unavailable",
+        "latency_seconds": 32.047
+      }
+    ],
+    "scope": "single_assessment_probe_not_full_trajectory"
+  },
+  {
+    "patient_id": "synthetic-patient-1",
+    "decision_id": "synthetic-patient-1-probe",
+    "split": "train",
+    "agent_id": "local-pulmonology",
+    "model": "qwen-pulmonology:latest",
+    "version": "f49ce9dbb5036498fe3ad0d9600fec881df85877253dc3c3f74cbabd0e92956c",
+    "observation": {
+      "chief_complaint": "Synthetic recurring discomfort; no diagnostic evidence is available."
+    },
+    "correct": false,
+    "cost": null,
+    "latency_seconds": 32.063,
+    "answer": null,
+    "audit": [
+      {
+        "role": "specialty",
+        "model": "qwen-pulmonology:latest",
+        "backend": "OllamaClient",
+        "status": "error",
+        "fallback_used": false,
+        "input_sha256": "913c96790c519a24b233f3012c8bb55296878a52797f78ab1ec5efa1b900266b",
+        "error_type": "APITimeoutError",
+        "usage": null,
+        "usage_status": "unavailable",
+        "latency_seconds": 32.063
+      }
+    ],
+    "scope": "single_assessment_probe_not_full_trajectory"
+  }
+]

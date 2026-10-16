@@ -1,5 +1,13 @@
 # ClinicaTextSim Hospital Workflow
 
+- [7·9·10번 연구 구현 현황 및 작업 지도](tracker.md)
+- [한 번의 명령으로 7·9·10 빠른 데모](docs/quick_research_demo.md): `python -m app.scripts.run_research_demo`
+- [KSC 논문 B0~B4 실험 방법](docs/paper_experiments.md): `python -m app.scripts.run_paper_experiments`
+- [12명·24방문 도전 실험 세트와 실행 순서](docs/challenge_benchmark.md)
+- [실행 중 병행할 검색·라우팅 비교 및 남은 작업](docs/component_comparison_tests.md)
+- [새 UI 구성 제안](docs/new_ui_proposal.md)
+- [장기 기억 연구 실행 안내](docs/longitudinal_research.md)
+
 ER-style multi-agent clinical simulator with two what-if analysis layers:
 
 - **routing what-if**
@@ -16,6 +24,9 @@ The current what-if system is designed for:
 
 More detailed guidance:
 
+- [7장 반복 실험과 연구 범위: 재현성, 부하·자원 비교, 데이터 준비도](docs/hospital_experiment_protocol.md)
+- [5장 평가 프레임워크: 지표, 정답 워크플로, 실행 및 비교](docs/hospital_evaluation_framework.md)
+- [6장 병원 자원·환자 흐름 모델: 설정, 수식, 데이터 요구사항](docs/hospital_flow_model.md)
 - [docs/what_if_operating_guide.md](docs/what_if_operating_guide.md)
 
 Main what-if recommendation config:
@@ -175,3 +186,14 @@ It is no longer part of the active specialty decision path.
   - `outputs/what_if/recommendations/...`
 - batch summaries:
   - `outputs/what_if/batch_summaries/...`
+
+
+## LLM 역할 통합 실행
+
+환자·응급실·전문과 LLM을 병렬 엔진에서 사용하려면 `--clinical-mode llm_required`를 명시하세요. 기존 기본값은 `demo`입니다.
+
+```powershell
+python -m app.scripts.run_live_parallel_visual_multi_patient --fixed-demo --max-cases 1 --clinical-mode llm_required --minute-limit 60
+```
+
+[적용 구조, 악화/치료 입력 형식, 오류 기록, 검증 범위](docs/llm_role_upgrade.md)

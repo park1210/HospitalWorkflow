@@ -1,0 +1,8 @@
+{
+  "schema_version": 1,
+  "agents": [
+    {"agent_id": "base-er", "role": "er", "department": "", "model": "llama3.2:3b", "version": "example-tag-unverified", "keywords": []},
+    {"agent_id": "neurology-role", "role": "specialty", "department": "neurology", "model": "qwen2.5:1.5b-instruct", "version": "example-shared-model-not-specialty-lora", "keywords": ["synthetic"]},
+    {"agent_id": "cardiology-role", "role": "specialty", "department": "cardiology", "model": "qwen2.5:1.5b-instruct", "version": "example-shared-model-not-specialty-lora", "keywords": ["synthetic"]}
+  ]
+}

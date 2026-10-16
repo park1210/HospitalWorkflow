@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "synthetic": true,
+  "review_status": "unreviewed",
+  "generator": "app.scripts.prepare_challenge_benchmark:v1",
+  "patients": 12,
+  "visits": 24,
+  "split_patients": {
+    "train": [
+      "challenge-train-conflict",
+      "challenge-train-distractors",
+      "challenge-train-paraphrase",
+      "challenge-train-superseded"
+    ],
+    "validation": [
+      "challenge-validation-conflict",
+      "challenge-validation-distractors",
+      "challenge-validation-paraphrase",
+      "challenge-validation-superseded"
+    ],
+    "test": [
+      "challenge-test-conflict",
+      "challenge-test-distractors",
+      "challenge-test-paraphrase",
+      "challenge-test-superseded"
+    ]
+  },
+  "limitations": [
+    "Fixed curated synthetic history, not prior LLM-generated visits",
+    "Only two categorical diagnoses",
+    "Lexical cues and labels are designed, not clinically adjudicated",
+    "Routing utility remains the earlier toy probe model",
+    "No semantic embeddings supplied; paraphrase stress exposes lexical limitations",
+    "No clinical misuse labels"
+  ]
+}

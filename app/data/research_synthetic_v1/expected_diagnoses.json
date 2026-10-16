@@ -1,0 +1,38 @@
+{
+  "[\"synthetic-patient-0\", \"visit-1\"]": [
+    "Synthetic unresolved condition"
+  ],
+  "[\"synthetic-patient-0\", \"visit-2\"]": [
+    "Synthetic unresolved condition"
+  ],
+  "[\"synthetic-patient-1\", \"visit-1\"]": [
+    "Synthetic unresolved condition"
+  ],
+  "[\"synthetic-patient-1\", \"visit-2\"]": [
+    "Synthetic unresolved condition"
+  ],
+  "[\"synthetic-patient-2\", \"visit-1\"]": [
+    "Synthetic unresolved condition"
+  ],
+  "[\"synthetic-patient-2\", \"visit-2\"]": [
+    "Synthetic unresolved condition"
+  ],
+  "[\"synthetic-patient-3\", \"visit-1\"]": [
+    "Synthetic unresolved condition"
+  ],
+  "[\"synthetic-patient-3\", \"visit-2\"]": [
+    "Synthetic unresolved condition"
+  ],
+  "[\"synthetic-patient-4\", \"visit-1\"]": [
+    "Synthetic unresolved condition"
+  ],
+  "[\"synthetic-patient-4\", \"visit-2\"]": [
+    "Synthetic unresolved condition"
+  ],
+  "[\"synthetic-patient-5\", \"visit-1\"]": [
+    "Synthetic unresolved condition"
+  ],
+  "[\"synthetic-patient-5\", \"visit-2\"]": [
+    "Synthetic unresolved condition"
+  ]
+}

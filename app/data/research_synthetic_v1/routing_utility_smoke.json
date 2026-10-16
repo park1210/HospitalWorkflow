@@ -1,0 +1,117 @@
+{
+  "schema_version": 1,
+  "method": "jaccard_beta_v1",
+  "registry": {
+    "schema_version": 1,
+    "agents": [
+      {
+        "agent_id": "local-er",
+        "role": "er",
+        "department": "",
+        "model": "llama3.2:3b",
+        "version": "a80c4f17acd55265feec403c7aef86be0c25983ab279d83f3bcd3abbcb5b8b72",
+        "keywords": []
+      },
+      {
+        "agent_id": "local-neurology",
+        "role": "specialty",
+        "department": "neurology",
+        "model": "qwen-neurology:latest",
+        "version": "d56baced7349a8a3a911933b4e58a2656ce6754fa0bd28fd9c7fe6c9ebfc0128",
+        "keywords": [
+          "synthetic"
+        ]
+      },
+      {
+        "agent_id": "local-pulmonology",
+        "role": "specialty",
+        "department": "pulmonology",
+        "model": "qwen-pulmonology:latest",
+        "version": "f49ce9dbb5036498fe3ad0d9600fec881df85877253dc3c3f74cbabd0e92956c",
+        "keywords": [
+          "synthetic"
+        ]
+      }
+    ]
+  },
+  "weights": {
+    "accuracy": 1,
+    "cost": 0,
+    "latency": 0.001
+  },
+  "min_samples": 2,
+  "samples": [
+    {
+      "patient_id": "synthetic-patient-0",
+      "decision_id": "synthetic-patient-0-probe",
+      "agent_id": "local-neurology",
+      "correct": false,
+      "cost": 0.0,
+      "latency_seconds": 30.282,
+      "tokens": [
+        "available",
+        "diagnostic",
+        "discomfort",
+        "evidence",
+        "is",
+        "no",
+        "recurring",
+        "synthetic"
+      ]
+    },
+    {
+      "patient_id": "synthetic-patient-1",
+      "decision_id": "synthetic-patient-1-probe",
+      "agent_id": "local-neurology",
+      "correct": false,
+      "cost": 0.0,
+      "latency_seconds": 21.359,
+      "tokens": [
+        "available",
+        "diagnostic",
+        "discomfort",
+        "evidence",
+        "is",
+        "no",
+        "recurring",
+        "synthetic"
+      ]
+    },
+    {
+      "patient_id": "synthetic-patient-0",
+      "decision_id": "synthetic-patient-0-probe",
+      "agent_id": "local-pulmonology",
+      "correct": false,
+      "cost": 0.0,
+      "latency_seconds": 34.812,
+      "tokens": [
+        "available",
+        "diagnostic",
+        "discomfort",
+        "evidence",
+        "is",
+        "no",
+        "recurring",
+        "synthetic"
+      ]
+    },
+    {
+      "patient_id": "synthetic-patient-1",
+      "decision_id": "synthetic-patient-1-probe",
+      "agent_id": "local-pulmonology",
+      "correct": false,
+      "cost": 0.0,
+      "latency_seconds": 23.094,
+      "tokens": [
+        "available",
+        "diagnostic",
+        "discomfort",
+        "evidence",
+        "is",
+        "no",
+        "recurring",
+        "synthetic"
+      ]
+    }
+  ]
+}

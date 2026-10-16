@@ -1,0 +1,6 @@
+{
+  "embedding_model": "embeddinggemma:latest",
+  "embedding_digest": "85462619ee721b466c5927d109d4cb765861907d5417b9109caebc4e614679f1",
+  "price_scope": "local API fee only; excludes electricity, hardware and labor",
+  "clinical_review": "unreviewed"
+}

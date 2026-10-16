@@ -1,0 +1,4 @@
+{
+  "[\"voi-heldout-A\", \"v1\"]": {"relevant_memory_ids": ["voi-heldout-A-prior"], "stale_memory_ids": []},
+  "[\"voi-heldout-B\", \"v1\"]": {"relevant_memory_ids": ["voi-heldout-B-prior"], "stale_memory_ids": []}
+}

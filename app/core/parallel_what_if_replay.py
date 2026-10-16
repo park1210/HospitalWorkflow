@@ -1,4 +1,5 @@
 from __future__ import annotations
+from app.core.hospital_flow import flow_report
 
 import json
 import re
@@ -12,6 +13,7 @@ from app.core.hospital_parallel_scheduler import HospitalParallelScheduler
 from app.core.hospital_scheduler_state import HospitalSchedulerState
 from app.core.live_parallel_visual_runtime import LiveParallelVisualRuntimeWriter
 from app.core.logger import save_report_json
+from app.core.hospital_evaluation import evaluation_report
 from app.data.loader import load_processed_cases, load_raw_cases
 from app.data.transform import transform_case
 
@@ -403,19 +405,8 @@ def _run_branch_with_history(
         runtime = state.case(normalized_case_id)
         if runtime.is_completed:
             break
-        previous_tick = int(state.tick or 0)
         scheduler.step(state)
         snapshots.append(state.snapshot())
-        runtime = state.case(normalized_case_id)
-        is_waiting_stable = (
-            str(runtime.workflow_state).strip() in {"waiting_er", "awaiting_results", "waiting_specialty", "completed"}
-            and int(state.tick or 0) > previous_tick
-        )
-        if is_waiting_stable and not any(
-            str(dict(event or {}).get("case_id", "")).strip() == normalized_case_id
-            for event in list(state.scheduled_events or [])
-        ):
-            break
     return snapshots
 
 
@@ -469,12 +460,16 @@ def _persist_branch_visual_run(
         "source_cases": list(report.get("source_cases", []) or []),
         "snapshots": [state_before.snapshot(), *scheduler_snapshots],
         "final_state": final_state.snapshot(),
+        "flow_metrics": flow_report(final_state),
+        "evaluation_metrics": evaluation_report(final_state),
+        "flow_config": final_state.flow_config,
         "branch_origin_run_id": str(report.get("run_id", "")).strip(),
         "branch_snapshot_id": str(snapshot_id).strip(),
         "branch_case_id": str(case_id).strip(),
         "branch_selected_action": dict(selected_action or {}),
     }
     save_report_json(summary, "parallel_live_run_summary", replay_run_id)
+    save_report_json(summary["evaluation_metrics"], "hospital_evaluation_metrics", replay_run_id)
 
 
 def replay_parallel_case_from_snapshot(

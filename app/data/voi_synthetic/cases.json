@@ -1,0 +1,74 @@
+[
+  {
+    "case_id": "voi-heldout-A",
+    "longitudinal": {
+      "patient_id": "voi-heldout-A",
+      "visit_id": "v1",
+      "started_at": "2026-02-01T00:00:00Z"
+    },
+    "doctor_visible_info": {
+      "chief_complaint": "Synthetic undifferentiated complaint",
+      "initial_vitals": {
+        "spo2": 98
+      }
+    },
+    "patient_visible_info": {
+      "history": "Synthetic indicator is present."
+    },
+    "available_tests": [
+      "T"
+    ],
+    "hidden_test_results": {
+      "T": {
+        "result": "Synthetic A finding"
+      }
+    },
+    "resource_profile": {
+      "test_resources": {
+        "T": "lab_slot"
+      },
+      "test_occupancy": {
+        "T": 1
+      },
+      "test_turnaround": {
+        "T": 1
+      }
+    }
+  },
+  {
+    "case_id": "voi-heldout-B",
+    "longitudinal": {
+      "patient_id": "voi-heldout-B",
+      "visit_id": "v1",
+      "started_at": "2026-02-01T00:00:00Z"
+    },
+    "doctor_visible_info": {
+      "chief_complaint": "Synthetic undifferentiated complaint",
+      "initial_vitals": {
+        "spo2": 98
+      }
+    },
+    "patient_visible_info": {
+      "history": "Synthetic indicator is present."
+    },
+    "available_tests": [
+      "T"
+    ],
+    "hidden_test_results": {
+      "T": {
+        "result": "Synthetic B finding"
+      }
+    },
+    "resource_profile": {
+      "test_resources": {
+        "T": "lab_slot"
+      },
+      "test_occupancy": {
+        "T": 1
+      },
+      "test_turnaround": {
+        "T": 1
+      }
+    }
+  }
+]

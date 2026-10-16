@@ -1,0 +1,146 @@
+[
+  {
+    "case_id": "synthetic-patient-4-visit-0",
+    "longitudinal": {
+      "patient_id": "synthetic-patient-4",
+      "visit_id": "visit-1",
+      "started_at": "2026-01-01T09:00:00+09:00"
+    },
+    "doctor_visible_info": {
+      "chief_complaint": "Synthetic recurring discomfort",
+      "initial_vitals": {
+        "spo2": 98
+      }
+    },
+    "patient_visible_info": {
+      "history": "Synthetic discomfort started today."
+    },
+    "available_tests": [
+      "Synthetic Test"
+    ],
+    "hidden_test_results": {
+      "Synthetic Test": {
+        "result": "Synthetic observation A; no clinical diagnostic meaning."
+      }
+    },
+    "resource_profile": {
+      "test_resources": {
+        "Synthetic Test": "lab_slot"
+      },
+      "test_occupancy": {
+        "Synthetic Test": 1
+      },
+      "test_turnaround": {
+        "Synthetic Test": 2
+      }
+    }
+  },
+  {
+    "case_id": "synthetic-patient-4-visit-1",
+    "longitudinal": {
+      "patient_id": "synthetic-patient-4",
+      "visit_id": "visit-2",
+      "started_at": "2026-02-01T09:00:00+09:00"
+    },
+    "doctor_visible_info": {
+      "chief_complaint": "Synthetic recurring discomfort",
+      "initial_vitals": {
+        "spo2": 98
+      }
+    },
+    "patient_visible_info": {
+      "history": "Synthetic discomfort returned today."
+    },
+    "available_tests": [
+      "Synthetic Test"
+    ],
+    "hidden_test_results": {
+      "Synthetic Test": {
+        "result": "Synthetic observation B; no clinical diagnostic meaning."
+      }
+    },
+    "resource_profile": {
+      "test_resources": {
+        "Synthetic Test": "lab_slot"
+      },
+      "test_occupancy": {
+        "Synthetic Test": 1
+      },
+      "test_turnaround": {
+        "Synthetic Test": 2
+      }
+    }
+  },
+  {
+    "case_id": "synthetic-patient-5-visit-0",
+    "longitudinal": {
+      "patient_id": "synthetic-patient-5",
+      "visit_id": "visit-1",
+      "started_at": "2026-01-01T09:00:00+09:00"
+    },
+    "doctor_visible_info": {
+      "chief_complaint": "Synthetic recurring discomfort",
+      "initial_vitals": {
+        "spo2": 98
+      }
+    },
+    "patient_visible_info": {
+      "history": "Synthetic discomfort started today."
+    },
+    "available_tests": [
+      "Synthetic Test"
+    ],
+    "hidden_test_results": {
+      "Synthetic Test": {
+        "result": "Synthetic observation A; no clinical diagnostic meaning."
+      }
+    },
+    "resource_profile": {
+      "test_resources": {
+        "Synthetic Test": "lab_slot"
+      },
+      "test_occupancy": {
+        "Synthetic Test": 1
+      },
+      "test_turnaround": {
+        "Synthetic Test": 2
+      }
+    }
+  },
+  {
+    "case_id": "synthetic-patient-5-visit-1",
+    "longitudinal": {
+      "patient_id": "synthetic-patient-5",
+      "visit_id": "visit-2",
+      "started_at": "2026-02-01T09:00:00+09:00"
+    },
+    "doctor_visible_info": {
+      "chief_complaint": "Synthetic recurring discomfort",
+      "initial_vitals": {
+        "spo2": 98
+      }
+    },
+    "patient_visible_info": {
+      "history": "Synthetic discomfort returned today."
+    },
+    "available_tests": [
+      "Synthetic Test"
+    ],
+    "hidden_test_results": {
+      "Synthetic Test": {
+        "result": "Synthetic observation B; no clinical diagnostic meaning."
+      }
+    },
+    "resource_profile": {
+      "test_resources": {
+        "Synthetic Test": "lab_slot"
+      },
+      "test_occupancy": {
+        "Synthetic Test": 1
+      },
+      "test_turnaround": {
+        "Synthetic Test": 2
+      }
+    }
+  }
+]

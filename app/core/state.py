@@ -4,6 +4,7 @@ from dataclasses import asdict, dataclass, field
 from typing import Any
 
 from app.core.event_schema import ClinicalEvent
+from app.core.clinical_observation import initial_symptoms
 
 
 @dataclass
@@ -21,6 +22,9 @@ class ReasoningState:
     needs_resuscitation_now: bool = False
     arrival_info: str = ""
     vital_signs: dict[str, Any] = field(default_factory=dict)
+    current_symptoms: list[str] = field(default_factory=list)
+    interventions: list[dict[str, Any]] = field(default_factory=list)
+    llm_audit: list[dict[str, Any]] = field(default_factory=list)
     working_problem_list: list[str] = field(default_factory=list)
     red_flags: list[str] = field(default_factory=list)
     stabilization_actions: list[str] = field(default_factory=list)
@@ -121,7 +125,8 @@ def initialize_reasoning_state(case: dict[str, Any]) -> ReasoningState:
         last_seen_time_min=arrival_time_min,
         deterioration_risk=str(deterioration_model.get("baseline_risk", "")).strip(),
         arrival_info=arrival_info,
-        vital_signs=initial_vitals,
+        vital_signs=dict(initial_vitals),
+        current_symptoms=initial_symptoms(case),
         known_information=known_information,
         missing_information=missing_information,
         summary=str(doctor_visible.get("initial_summary", "")).strip(),

@@ -1,0 +1,146 @@
+[
+  {
+    "patient_id": "challenge-train-distractors",
+    "visit_id": "v1",
+    "split": "train",
+    "group": "distractors"
+  },
+  {
+    "patient_id": "challenge-train-distractors",
+    "visit_id": "v2",
+    "split": "train",
+    "group": "distractors"
+  },
+  {
+    "patient_id": "challenge-train-superseded",
+    "visit_id": "v1",
+    "split": "train",
+    "group": "superseded"
+  },
+  {
+    "patient_id": "challenge-train-superseded",
+    "visit_id": "v2",
+    "split": "train",
+    "group": "superseded"
+  },
+  {
+    "patient_id": "challenge-train-conflict",
+    "visit_id": "v1",
+    "split": "train",
+    "group": "conflict"
+  },
+  {
+    "patient_id": "challenge-train-conflict",
+    "visit_id": "v2",
+    "split": "train",
+    "group": "conflict"
+  },
+  {
+    "patient_id": "challenge-train-paraphrase",
+    "visit_id": "v1",
+    "split": "train",
+    "group": "paraphrase"
+  },
+  {
+    "patient_id": "challenge-train-paraphrase",
+    "visit_id": "v2",
+    "split": "train",
+    "group": "paraphrase"
+  },
+  {
+    "patient_id": "challenge-validation-distractors",
+    "visit_id": "v1",
+    "split": "validation",
+    "group": "distractors"
+  },
+  {
+    "patient_id": "challenge-validation-distractors",
+    "visit_id": "v2",
+    "split": "validation",
+    "group": "distractors"
+  },
+  {
+    "patient_id": "challenge-validation-superseded",
+    "visit_id": "v1",
+    "split": "validation",
+    "group": "superseded"
+  },
+  {
+    "patient_id": "challenge-validation-superseded",
+    "visit_id": "v2",
+    "split": "validation",
+    "group": "superseded"
+  },
+  {
+    "patient_id": "challenge-validation-conflict",
+    "visit_id": "v1",
+    "split": "validation",
+    "group": "conflict"
+  },
+  {
+    "patient_id": "challenge-validation-conflict",
+    "visit_id": "v2",
+    "split": "validation",
+    "group": "conflict"
+  },
+  {
+    "patient_id": "challenge-validation-paraphrase",
+    "visit_id": "v1",
+    "split": "validation",
+    "group": "paraphrase"
+  },
+  {
+    "patient_id": "challenge-validation-paraphrase",
+    "visit_id": "v2",
+    "split": "validation",
+    "group": "paraphrase"
+  },
+  {
+    "patient_id": "challenge-test-distractors",
+    "visit_id": "v1",
+    "split": "test",
+    "group": "distractors"
+  },
+  {
+    "patient_id": "challenge-test-distractors",
+    "visit_id": "v2",
+    "split": "test",
+    "group": "distractors"
+  },
+  {
+    "patient_id": "challenge-test-superseded",
+    "visit_id": "v1",
+    "split": "test",
+    "group": "superseded"
+  },
+  {
+    "patient_id": "challenge-test-superseded",
+    "visit_id": "v2",
+    "split": "test",
+    "group": "superseded"
+  },
+  {
+    "patient_id": "challenge-test-conflict",
+    "visit_id": "v1",
+    "split": "test",
+    "group": "conflict"
+  },
+  {
+    "patient_id": "challenge-test-conflict",
+    "visit_id": "v2",
+    "split": "test",
+    "group": "conflict"
+  },
+  {
+    "patient_id": "challenge-test-paraphrase",
+    "visit_id": "v1",
+    "split": "test",
+    "group": "paraphrase"
+  },
+  {
+    "patient_id": "challenge-test-paraphrase",
+    "visit_id": "v2",
+    "split": "test",
+    "group": "paraphrase"
+  }
+]

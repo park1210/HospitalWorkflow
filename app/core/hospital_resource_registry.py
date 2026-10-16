@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field
+from copy import deepcopy
 from typing import Any
 
 
@@ -16,6 +17,15 @@ class HospitalResource:
 
     def is_available(self, current_minute: int) -> bool:
         return str(self.status).strip() == "idle" and int(self.available_minute or 0) <= int(current_minute or 0)
+
+    def acquire(self, case_id: str, current_minute: int, duration: int) -> None:
+        if not case_id or duration <= 0 or not self.is_available(current_minute):
+            raise ValueError(f"Invalid or overlapping allocation of {self.resource_id}")
+        self.status = "busy"
+        self.assigned_case_id = case_id
+        self.available_minute = current_minute + duration
+        self.meta["allocation_count"] = int(self.meta.get("allocation_count", 0)) + 1
+        self.meta["allocated_minutes"] = int(self.meta.get("allocated_minutes", 0)) + duration
 
     @classmethod
     def from_summary(cls, payload: dict[str, Any]) -> "HospitalResource":
@@ -40,6 +50,37 @@ class HospitalResourceRegistry:
     imaging_slots: list[HospitalResource] = field(default_factory=list)
     specialists: list[HospitalResource] = field(default_factory=list)
     consult_rooms: list[HospitalResource] = field(default_factory=list)
+
+    def all_resources(self) -> list[HospitalResource]:
+        return [r for collection in (self.triage_nurses, self.er_doctors, self.er_beds,
+                self.lab_slots, self.imaging_slots, self.specialists, self.consult_rooms) for r in collection]
+
+    @staticmethod
+    def specialist_department(resource: HospitalResource) -> str:
+        return str(resource.meta.get("department") or resource.resource_id.removeprefix("specialty_").split("_extra_")[0])
+
+    def expand_specialists(self, per_department: int) -> None:
+        expanded = []
+        for template in self.specialists:
+            department = self.specialist_department(template)
+            for index in range(per_department):
+                resource = deepcopy(template)
+                resource.meta["department"] = department
+                if index:
+                    resource.resource_id = f"{template.resource_id}_extra_{index}"
+                expanded.append(resource)
+        self.specialists = expanded
+
+    def configure_capacities(self, capacities: dict[str, int]) -> None:
+        for name, count in capacities.items():
+            resources = getattr(self, name)
+            template = resources[0]
+            updated = list(resources[:count])
+            while len(updated) < count:
+                resource = deepcopy(template)
+                resource.resource_id = f"{template.resource_id}_extra_{len(updated)}"
+                updated.append(resource)
+            setattr(self, name, updated)
 
     @classmethod
     def default(cls) -> "HospitalResourceRegistry":

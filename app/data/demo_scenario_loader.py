@@ -106,9 +106,22 @@ def _natural_history(patient: dict[str, Any]) -> list[dict[str, Any]]:
         time_min = int(event.get("time_min", 0) or 0)
         if time_min <= 0:
             continue
+        vitals = _normalize_vitals(dict(event.get("vitals", {}) or {}))
+        numeric = {}
+        for key, value in vitals.items():
+            if key in {"blood_pressure", "mental_status"} or not value:
+                continue
+            numeric[key] = float(value)
+        changes = {"vital_values": numeric}
+        if _text(event.get("symptom_change")):
+            changes["new_symptoms"] = [_text(event["symptom_change"])]
+        health = {"worse": "Worsening", "urgent": "Worsening", "critical": "Critical", "stable": "Stable"}.get(_text(event.get("condition")).lower())
+        if health:
+            changes["health_state"] = health
         events.append(
             {
                 "minute": time_min,
+                "changes": changes,
                 "condition": _text(event.get("condition")),
                 "symptom_change": _text(event.get("symptom_change")),
                 "vitals": _normalize_vitals(dict(event.get("vitals", {}) or {})),
@@ -227,17 +240,7 @@ def _case_from_patient(patient: dict[str, Any], scenario: dict[str, Any], patien
             "deterioration_model": {
                 "type": "rule_based",
                 "baseline_risk": _risk_from_esi(esi_level),
-                "triggers": [
-                    {
-                        "if_unaddressed_for_minutes": int(item.get("minute", 0) or 0),
-                        "effect": {
-                            "condition": _text(item.get("condition")),
-                            "symptom_change": _text(item.get("symptom_change")),
-                        },
-                        "rationale": _text(item.get("symptom_change")) or "The patient worsens while waiting.",
-                    }
-                    for item in natural_history
-                ],
+                "triggers": [],
             },
             "natural_history_events": natural_history,
             "reassessment_suggestions": [

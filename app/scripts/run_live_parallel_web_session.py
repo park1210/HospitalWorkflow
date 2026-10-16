@@ -35,6 +35,10 @@ def build_parser() -> argparse.ArgumentParser:
         description="Start the parallel live simulation and web server together for a browser-based real-time session."
     )
     parser.add_argument("--max-cases", type=int, default=None, help="Override MAX_CASES for the live simulation.")
+    parser.add_argument("--clinical-mode", choices=["demo", "llm_required"], default=None)
+    parser.add_argument("--followup-minutes", type=int, default=0,
+                        help="Export postdiagnostic observation without extra model calls.")
+    parser.add_argument("--flow-config", default=None, help="Chapter 6 flow configuration JSON.")
     parser.add_argument("--minute-limit", type=int, default=None, help="Optional hard stop for the scheduler minute horizon.")
     parser.add_argument(
         "--min-demo-minutes",
@@ -71,6 +75,8 @@ def build_parser() -> argparse.ArgumentParser:
 
 def main() -> None:
     args = build_parser().parse_args()
+    if args.followup_minutes < 0:
+        raise ValueError("followup-minutes must be nonnegative")
     reports_dir = settings.REPORTS_DIR
     reports_dir.mkdir(parents=True, exist_ok=True)
     known_dirs = {child.name for child in reports_dir.iterdir() if child.is_dir()}
@@ -79,6 +85,11 @@ def main() -> None:
     env["LIVE_VIS_STEP_DELAY_SEC"] = str(max(0.0, float(args.step_delay_sec or 0.0)))
 
     sim_cmd = [sys.executable, "-m", "app.scripts.run_live_parallel_visual_multi_patient"]
+    sim_cmd.extend(["--followup-minutes", str(args.followup_minutes)])
+    if args.clinical_mode:
+        sim_cmd.extend(["--clinical-mode", args.clinical_mode])
+    if args.flow_config:
+        sim_cmd.extend(["--flow-config", args.flow_config])
     if args.max_cases is not None:
         sim_cmd.extend(["--max-cases", str(args.max_cases)])
     if args.minute_limit is not None:

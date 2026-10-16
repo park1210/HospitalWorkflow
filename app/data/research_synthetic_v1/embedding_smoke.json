@@ -1,0 +1,67 @@
+{
+  "model": "embeddinggemma",
+  "revision": "85462619ee721b466c5927d109d4cb765861907d5417b9109caebc4e614679f1",
+  "visits": [
+    {
+      "case_id": "synthetic-patient-0-visit-0",
+      "selected": 1,
+      "conflicts": 0
+    },
+    {
+      "case_id": "synthetic-patient-0-visit-1",
+      "selected": 2,
+      "conflicts": 1
+    },
+    {
+      "case_id": "synthetic-patient-1-visit-0",
+      "selected": 1,
+      "conflicts": 0
+    },
+    {
+      "case_id": "synthetic-patient-1-visit-1",
+      "selected": 2,
+      "conflicts": 1
+    },
+    {
+      "case_id": "synthetic-patient-2-visit-0",
+      "selected": 1,
+      "conflicts": 0
+    },
+    {
+      "case_id": "synthetic-patient-2-visit-1",
+      "selected": 2,
+      "conflicts": 1
+    },
+    {
+      "case_id": "synthetic-patient-3-visit-0",
+      "selected": 1,
+      "conflicts": 0
+    },
+    {
+      "case_id": "synthetic-patient-3-visit-1",
+      "selected": 2,
+      "conflicts": 1
+    },
+    {
+      "case_id": "synthetic-patient-4-visit-0",
+      "selected": 1,
+      "conflicts": 0
+    },
+    {
+      "case_id": "synthetic-patient-4-visit-1",
+      "selected": 2,
+      "conflicts": 1
+    },
+    {
+      "case_id": "synthetic-patient-5-visit-0",
+      "selected": 1,
+      "conflicts": 0
+    },
+    {
+      "case_id": "synthetic-patient-5-visit-1",
+      "selected": 2,
+      "conflicts": 1
+    }
+  ],
+  "clinical_validation": false
+}

@@ -5,6 +5,9 @@ from typing import Any
 from app.config import settings
 from app.llm.ollama_client import OllamaClient
 from app.utils.prompt_loader import load_prompt
+from app.core.clinical_observation import patient_observation
+from app.llm.role_call import role_call, RoleCallError
+from app.core.patient_facts import patient_facts, facts_for_question, selection_schema, render_selection
 
 
 DEFAULT_PATIENT_SYSTEM_PROMPT = """
@@ -159,7 +162,7 @@ class PatientAgent:
             "scan",
             "imaging",
         ]
-        return any(keyword in q for keyword in clinician_keywords)
+        return any(re.search(r"\b" + re.escape(keyword) + r"\b", q) for keyword in clinician_keywords)
 
     def _fallback_answer(self, question: str) -> str:
         q = self._normalize_question(question)
@@ -199,24 +202,44 @@ class PatientAgent:
 
         return self._best_history_sentence(["noticed", "started", "worse", "better", "changed"]) or self._to_spoken_history(history) or self._to_first_person(chief_complaint) or "I am not sure."
 
-    def answer(self, question: str) -> str:
+    def answer(self, question: str, state=None, *, required: bool = False) -> str:
         fallback_answer = self._fallback_answer(question)
-        if self._is_patient_history_question(question):
-            return fallback_answer
-        if self._is_clinician_only_question(question):
-            return fallback_answer
-        if not settings.USE_LLM_FOR_PATIENT_AGENT:
+        if not required and not settings.USE_LLM_FOR_PATIENT_AGENT:
             return fallback_answer
 
+        observation = patient_observation(self.case, state)
+        facts = patient_facts(observation)
+        if self._is_clinician_only_question(question):
+            facts = []
+        else:
+            facts = facts_for_question(facts, question)
         payload = {
-            "patient_visible_info": self.patient_info,
+            "facts": facts,
             "doctor_question": question,
-            "instruction": "Answer as the patient in 1 to 3 sentences using only patient_visible_info.",
+            "instruction": "Act as the patient. Select up to three fact_ids that answer the question. Return JSON with fact_ids and unknown only. For current symptoms use current facts; history describes the past. Do not add prose or infer any detail. If the answer is absent, or asks for clinician-only test results, return fact_ids=[] and unknown=true.",
         }
+        audit = state.setdefault("llm_audit", []) if isinstance(state, dict) else getattr(state, "llm_audit", [])
+        self.last_audit = audit
+        selection = {}
+        def validate_selection(raw):
+            answer = render_selection(raw, facts)
+            selection.update(json.loads(raw))
+            return answer
         try:
-            response = self.client.chat(self.system_prompt, json.dumps(payload, ensure_ascii=False, indent=2)).strip()
-            if response:
-                return response
-        except Exception:
-            pass
-        return fallback_answer
+            answer = role_call(self.client, role="patient", model=settings.OLLAMA_MODEL,
+                             system="You select source facts to speak as a simulated patient. Follow the JSON selection contract.",
+                             payload=payload, audit=audit,
+                             validate=validate_selection, schema=selection_schema(facts))
+            audit[-1]["grounding"] = {"mode": "extractive_selection", "facts": facts,
+                                      "selection": selection, "rendered_answer": answer}
+            return answer
+        except RoleCallError:
+            if required:
+                raise
+            audit[-1]["fallback_used"] = True
+            return "I am not sure about that."
+        finally:
+            if isinstance(state, dict):
+                state["llm_call_count"] = state.get("llm_call_count", 0) + 1
+            elif state is not None and hasattr(state, "llm_call_count"):
+                state.llm_call_count += 1

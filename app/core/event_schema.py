@@ -16,6 +16,7 @@ EventType = Literal[
     "answer_received",
     "test_ordered",
     "test_started",
+    "test_resource_released",
     "test_completed",
     "result_received",
     "consult_requested",

@@ -1,0 +1,190 @@
+{
+  "schema_version": 1,
+  "model_id": "synthetic-two-diagnosis-voi",
+  "revision": "v1",
+  "provenance": {
+    "synthetic": true,
+    "review_status": "unreviewed",
+    "assumptions": [
+      "Fixed finite diagnosis universe",
+      "Outcomes conditionally independent given diagnosis",
+      "Exact categorical outcome text",
+      "Costs are synthetic utility units, not clinical prices"
+    ]
+  },
+  "diagnoses": {
+    "Synthetic A": "general_medicine",
+    "Synthetic B": "general_medicine"
+  },
+  "prior": {
+    "Synthetic A": 0.5,
+    "Synthetic B": 0.5
+  },
+  "terminal_utility": {
+    "Synthetic A": {
+      "Synthetic A": 1,
+      "Synthetic B": 0
+    },
+    "Synthetic B": {
+      "Synthetic A": 0,
+      "Synthetic B": 1
+    }
+  },
+  "cost_weights": {
+    "money": 1,
+    "minutes": 0,
+    "tokens": 0
+  },
+  "stop_probability": 0.95,
+  "horizon": 1,
+  "actions": [
+    {
+      "id": "test-t",
+      "type": "request_test",
+      "target": "T",
+      "cost": {
+        "money": 0.05,
+        "minutes": 0,
+        "tokens": 0
+      },
+      "outcomes": [
+        {
+          "id": "a",
+          "likelihood": {
+            "Synthetic A": 0.99,
+            "Synthetic B": 0.01
+          },
+          "observation": {
+            "source": "objective_findings",
+            "text": "T: Synthetic A finding"
+          },
+          "supports_diagnoses": [
+            "Synthetic A"
+          ]
+        },
+        {
+          "id": "b",
+          "likelihood": {
+            "Synthetic A": 0.01,
+            "Synthetic B": 0.99
+          },
+          "observation": {
+            "source": "objective_findings",
+            "text": "T: Synthetic B finding"
+          },
+          "supports_diagnoses": [
+            "Synthetic B"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "interview",
+      "type": "ask_patient",
+      "target": "Is the synthetic indicator present?",
+      "cost": {
+        "money": 0.02,
+        "minutes": 0,
+        "tokens": 0
+      },
+      "outcomes": [
+        {
+          "id": "yes",
+          "likelihood": {
+            "Synthetic A": 0.6,
+            "Synthetic B": 0.4
+          },
+          "observation": {
+            "source": "history",
+            "text": "Synthetic indicator is present."
+          },
+          "supports_diagnoses": []
+        },
+        {
+          "id": "no",
+          "likelihood": {
+            "Synthetic A": 0.4,
+            "Synthetic B": 0.6
+          },
+          "observation": {
+            "source": "history",
+            "text": "Synthetic indicator is absent."
+          },
+          "supports_diagnoses": []
+        }
+      ]
+    },
+    {
+      "id": "memory",
+      "type": "retrieve_memory",
+      "target": "longitudinal",
+      "cost": {
+        "money": 0.01,
+        "minutes": 0,
+        "tokens": 0
+      },
+      "outcomes": [
+        {
+          "id": "a",
+          "likelihood": {
+            "Synthetic A": 0.65,
+            "Synthetic B": 0.35
+          },
+          "observation": {
+            "source": "memory",
+            "text": "Prior synthetic indicator A."
+          },
+          "supports_diagnoses": []
+        },
+        {
+          "id": "b",
+          "likelihood": {
+            "Synthetic A": 0.35,
+            "Synthetic B": 0.65
+          },
+          "observation": {
+            "source": "memory",
+            "text": "Prior synthetic indicator B."
+          },
+          "supports_diagnoses": []
+        }
+      ]
+    },
+    {
+      "id": "consult",
+      "type": "consult_specialty",
+      "target": "neurology",
+      "cost": {
+        "money": 0.2,
+        "minutes": 0,
+        "tokens": 0
+      },
+      "outcomes": [
+        {
+          "id": "a",
+          "likelihood": {
+            "Synthetic A": 0.8,
+            "Synthetic B": 0.2
+          },
+          "observation": {
+            "source": "consults",
+            "text": "Synthetic opinion A."
+          },
+          "supports_diagnoses": []
+        },
+        {
+          "id": "b",
+          "likelihood": {
+            "Synthetic A": 0.2,
+            "Synthetic B": 0.8
+          },
+          "observation": {
+            "source": "consults",
+            "text": "Synthetic opinion B."
+          },
+          "supports_diagnoses": []
+        }
+      ]
+    }
+  ]
+}

@@ -1,14 +1,17 @@
 from __future__ import annotations
+from app.core.hospital_test_model import test_resource_type
 
 import json
 import os
 import time
+from copy import deepcopy
 from pathlib import Path
 from typing import Any, Optional
 
 from app.config import settings
 from app.core.hospital_scene_builder import build_hospital_scene_snapshot
 from app.core.hospital_scheduler_state import HospitalSchedulerState
+from app.core.hospital_flow import flow_report
 from app.core.logger import get_run_dir
 
 
@@ -128,6 +131,17 @@ class LiveParallelVisualRuntimeWriter:
     def finalize(self, state: HospitalSchedulerState) -> None:
         self._write_snapshot(state, phase="completed", actor="system", action="completed")
 
+    def on_inference_wait(self, progress, *, failed=False):
+        if not self.history:
+            return
+        snapshot = deepcopy(self.history[-1])
+        snapshot["simulation_status"] = "failed" if failed else "waiting_for_model"
+        snapshot["snapshot_written_at_unix"] = time.time()
+        snapshot["inference_progress"] = dict(progress)
+        snapshot["dialogue"] = self._empty_dialogue()
+        # Heartbeats are wall-clock updates, not new simulation/replay frames.
+        self._atomic_write_json(self.snapshot_path, snapshot)
+
     @staticmethod
     def _atomic_write_json(path: Path, payload: Any) -> None:
         tmp_path = path.with_suffix(path.suffix + ".tmp")
@@ -180,7 +194,7 @@ class LiveParallelVisualRuntimeWriter:
         alerts = [str(item).strip() for item in list(getattr(runtime, "alerts", []) or []) if str(item).strip()]
         if list(getattr(runtime, "pending_results", []) or []):
             alerts.append("pending_result")
-        if str(getattr(runtime, "deterioration_risk", "")).strip().lower() == "high":
+        if runtime.health_state != "Stable":
             alerts.append("deterioration")
         deduped: list[str] = []
         for item in alerts:
@@ -208,6 +222,8 @@ class LiveParallelVisualRuntimeWriter:
                     "zone": zone,
                     "triage_level": int(runtime.triage_level or 3),
                     "effective_triage_level": int(runtime.effective_priority or runtime.triage_level or 3),
+                    "health_state": runtime.health_state,
+                    "priority_score": runtime.priority_score,
                     "predicted_diagnosis": _visible_diagnosis(runtime),
                     "predicted_department": str(runtime.target_department).strip(),
                     "diagnosis_correct": False,
@@ -655,6 +671,9 @@ class LiveParallelVisualRuntimeWriter:
         runtime = state.cases.get(case_id)
         if runtime is None:
             return self._empty_dialogue()
+        if state.flow_config.get("clinical", {}).get("mode") == "llm_required":
+            self._last_dialogue_event_id = event_id
+            return self._model_dialogue(runtime, event)
         action = str(event.get("action", "")).strip()
         conversational_actions = {
             "ask_history",
@@ -749,6 +768,32 @@ class LiveParallelVisualRuntimeWriter:
             self._last_dialogue_event_id = event_id
         return dialogue
 
+    def _model_dialogue(self, runtime, event):
+        """Render actual model output; do not add scripted patient/specialist speech."""
+        action = event.get("action", "")
+        if action not in {"ask_history", "order_test", "request_specialty", "er_finalize", "specialty_finalize", "treat"}:
+            return self._empty_dialogue()
+        actor = self._event_actor_id(event)
+        patient = f"patient_{runtime.case_id}"
+        payload = event.get("payload", {})
+        lines, sequence = [], []
+        if action == "ask_history":
+            texts = [(actor, payload.get("question", "")), ("Patient", payload.get("answer", ""))]
+        else:
+            texts = [(actor, event.get("rationale", runtime.latest_rationale))]
+        location = _dialogue_interaction_location(runtime, action)
+        for speaker, text in texts:
+            if not text:
+                continue
+            lines.append(f"{speaker}: {text}")
+            sequence.append({"speaker": speaker, "text": text,
+                "speaker_entity_id": patient if speaker == "Patient" else actor,
+                "listener_entity_id": actor if speaker == "Patient" else patient,
+                "delay_ms": 2000 if speaker == "Patient" else 0, "interaction_location_id": location})
+        return {"case_id": runtime.case_id, "actor": actor, "action": action, "lines": lines,
+                "sequence": sequence, "speaker_entity_id": actor, "listener_entity_id": patient,
+                "bubble_text": sequence[-1]["text"][:72] if sequence else "", "interaction_location_id": location}
+
     def _remember_conversation(self, dialogue: dict[str, Any], current_time_min: int) -> None:
         lines = [str(line).strip() for line in list(dialogue.get("lines", []) or []) if str(line).strip()]
         if not lines:
@@ -803,8 +848,8 @@ class LiveParallelVisualRuntimeWriter:
             return "er_workup", str(getattr(runtime, "assigned_bed_id", "")).strip() or "er_bed_1", ""
         if normalized == "order_test":
             tests = list(getattr(runtime, "recommended_tests", []) or [])
-            test_name = str(tests[0]).strip().lower() if tests else ""
-            location_id = "imaging_wait_1" if any(token in test_name for token in ("mri", "ct", "xray", "x-ray", "imaging")) else "lab_wait_1"
+            test_name = next((str(t).strip() for t in tests if t not in runtime.completed_tests), "")
+            location_id = "imaging_wait_1" if test_resource_type(test_name, runtime.case_data) == "imaging_slot" else "lab_wait_1"
             return "awaiting_results", location_id, "test"
         if normalized == "test_started":
             pending = list(getattr(runtime, "pending_results", []) or [])
@@ -1045,6 +1090,17 @@ class LiveParallelVisualRuntimeWriter:
         return {
             "case_id": str(runtime.case_id).strip(),
             "zone": self._scheduler_zone(runtime),
+            "health_state": runtime.health_state,
+            "disposition_status": runtime.disposition_status,
+            "completion_scope": "diagnostic_episode",
+            "vital_signs": dict(runtime.vital_signs),
+            "current_symptoms": list(runtime.current_symptoms),
+            "llm_audit": list(runtime.llm_audit),
+            "first_evaluation_min": runtime.first_evaluation_min,
+            "final_diagnosis_min": runtime.final_diagnosis_min,
+            "queue_wait_minutes": runtime.queue_wait_minutes,
+            "priority_score": runtime.priority_score,
+            "priority_rationale": runtime.priority_rationale,
             "triage_level": int(runtime.triage_level or 3),
             "effective_triage_level": int(runtime.effective_priority or runtime.triage_level or 3),
             "deterioration_risk": str(runtime.deterioration_risk).strip(),
@@ -1165,6 +1221,8 @@ class LiveParallelVisualRuntimeWriter:
         }
 
     def _write_snapshot(self, state: HospitalSchedulerState, *, phase: str, actor: str, action: str) -> None:
+        if state.flow_config.get("simulation", {}).get("resource_mode") == "cohort_unconstrained":
+            raise ValueError("Logical unconstrained resources cannot be rendered in the fixed four-bed scene")
         patients = self._patients(state)
         scene_runtime = self._runtime_scene_state(
             state,
@@ -1240,7 +1298,8 @@ class LiveParallelVisualRuntimeWriter:
             "phase": phase,
             "actor": actor,
             "action": action,
-            "simulation_status": "completed" if phase == "completed" else "running",
+            "simulation_status": ("completed" if not state.active_case_ids() else "stopped") if phase == "completed" else "running",
+            "flow_metrics": flow_report(state),
             "zones": zones,
             "patients": patients,
             "resource_occupancy": resource_occupancy,

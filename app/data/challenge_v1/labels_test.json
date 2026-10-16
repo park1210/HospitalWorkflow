@@ -1,0 +1,10 @@
+{
+  "[\"challenge-test-distractors\", \"v1\"]": "Synthetic B",
+  "[\"challenge-test-distractors\", \"v2\"]": "Synthetic A",
+  "[\"challenge-test-superseded\", \"v1\"]": "Synthetic A",
+  "[\"challenge-test-superseded\", \"v2\"]": "Synthetic B",
+  "[\"challenge-test-conflict\", \"v1\"]": "Synthetic B",
+  "[\"challenge-test-conflict\", \"v2\"]": "Synthetic A",
+  "[\"challenge-test-paraphrase\", \"v1\"]": "Synthetic A",
+  "[\"challenge-test-paraphrase\", \"v2\"]": "Synthetic B"
+}

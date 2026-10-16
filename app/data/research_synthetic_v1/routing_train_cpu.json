@@ -1,0 +1,142 @@
+[
+  {
+    "patient_id": "synthetic-patient-0",
+    "decision_id": "synthetic-patient-0-probe",
+    "split": "train",
+    "agent_id": "local-neurology",
+    "model": "qwen-neurology:latest",
+    "version": "d56baced7349a8a3a911933b4e58a2656ce6754fa0bd28fd9c7fe6c9ebfc0128",
+    "observation": {
+      "chief_complaint": "Synthetic recurring discomfort; no diagnostic evidence is available."
+    },
+    "correct": false,
+    "cost": 0.0,
+    "latency_seconds": 30.282,
+    "answer": null,
+    "audit": [
+      {
+        "role": "specialty",
+        "model": "qwen-neurology:latest",
+        "backend": "OllamaProbeClient",
+        "status": "error",
+        "fallback_used": false,
+        "input_sha256": "4e15dfb673ded8f7ea36551a9a3be684aaffd755d2c3d1595c756089152aecb9",
+        "error_type": "JSONDecodeError",
+        "validation_error": "Unterminated string starting at: line 3 column 16 (char 47)",
+        "usage": {
+          "prompt_tokens": 67,
+          "completion_tokens": 192,
+          "total_tokens": 259
+        },
+        "usage_status": "reported",
+        "latency_seconds": 30.282
+      }
+    ],
+    "scope": "single_assessment_probe_not_full_trajectory"
+  },
+  {
+    "patient_id": "synthetic-patient-1",
+    "decision_id": "synthetic-patient-1-probe",
+    "split": "train",
+    "agent_id": "local-neurology",
+    "model": "qwen-neurology:latest",
+    "version": "d56baced7349a8a3a911933b4e58a2656ce6754fa0bd28fd9c7fe6c9ebfc0128",
+    "observation": {
+      "chief_complaint": "Synthetic recurring discomfort; no diagnostic evidence is available."
+    },
+    "correct": false,
+    "cost": 0.0,
+    "latency_seconds": 21.359,
+    "answer": null,
+    "audit": [
+      {
+        "role": "specialty",
+        "model": "qwen-neurology:latest",
+        "backend": "OllamaProbeClient",
+        "status": "error",
+        "fallback_used": false,
+        "input_sha256": "4e15dfb673ded8f7ea36551a9a3be684aaffd755d2c3d1595c756089152aecb9",
+        "error_type": "JSONDecodeError",
+        "validation_error": "Unterminated string starting at: line 3 column 16 (char 47)",
+        "usage": {
+          "prompt_tokens": 67,
+          "completion_tokens": 192,
+          "total_tokens": 259
+        },
+        "usage_status": "reported",
+        "latency_seconds": 21.359
+      }
+    ],
+    "scope": "single_assessment_probe_not_full_trajectory"
+  },
+  {
+    "patient_id": "synthetic-patient-0",
+    "decision_id": "synthetic-patient-0-probe",
+    "split": "train",
+    "agent_id": "local-pulmonology",
+    "model": "qwen-pulmonology:latest",
+    "version": "f49ce9dbb5036498fe3ad0d9600fec881df85877253dc3c3f74cbabd0e92956c",
+    "observation": {
+      "chief_complaint": "Synthetic recurring discomfort; no diagnostic evidence is available."
+    },
+    "correct": false,
+    "cost": 0.0,
+    "latency_seconds": 34.812,
+    "answer": null,
+    "audit": [
+      {
+        "role": "specialty",
+        "model": "qwen-pulmonology:latest",
+        "backend": "OllamaProbeClient",
+        "status": "error",
+        "fallback_used": false,
+        "input_sha256": "913c96790c519a24b233f3012c8bb55296878a52797f78ab1ec5efa1b900266b",
+        "error_type": "JSONDecodeError",
+        "validation_error": "Unterminated string starting at: line 1 column 40 (char 39)",
+        "usage": {
+          "prompt_tokens": 68,
+          "completion_tokens": 192,
+          "total_tokens": 260
+        },
+        "usage_status": "reported",
+        "latency_seconds": 34.812
+      }
+    ],
+    "scope": "single_assessment_probe_not_full_trajectory"
+  },
+  {
+    "patient_id": "synthetic-patient-1",
+    "decision_id": "synthetic-patient-1-probe",
+    "split": "train",
+    "agent_id": "local-pulmonology",
+    "model": "qwen-pulmonology:latest",
+    "version": "f49ce9dbb5036498fe3ad0d9600fec881df85877253dc3c3f74cbabd0e92956c",
+    "observation": {
+      "chief_complaint": "Synthetic recurring discomfort; no diagnostic evidence is available."
+    },
+    "correct": false,
+    "cost": 0.0,
+    "latency_seconds": 23.094,
+    "answer": null,
+    "audit": [
+      {
+        "role": "specialty",
+        "model": "qwen-pulmonology:latest",
+        "backend": "OllamaProbeClient",
+        "status": "error",
+        "fallback_used": false,
+        "input_sha256": "913c96790c519a24b233f3012c8bb55296878a52797f78ab1ec5efa1b900266b",
+        "error_type": "JSONDecodeError",
+        "validation_error": "Unterminated string starting at: line 1 column 40 (char 39)",
+        "usage": {
+          "prompt_tokens": 68,
+          "completion_tokens": 192,
+          "total_tokens": 260
+        },
+        "usage_status": "reported",
+        "latency_seconds": 23.094
+      }
+    ],
+    "scope": "single_assessment_probe_not_full_trajectory"
+  }
+]

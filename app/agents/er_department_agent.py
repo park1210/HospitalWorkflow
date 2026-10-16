@@ -161,6 +161,8 @@ class ERDepartmentAgent:
 
     def _build_policy_snapshot(self, state_dict: dict[str, Any]) -> dict[str, Any]:
         return {
+            "vital_signs": dict(state_dict.get("vital_signs", {})),
+            "current_time_min": state_dict.get("current_time_min", 0),
             "triage_level": int(state_dict.get("triage_level", 3) or 3),
             "is_immediately_unstable": bool(state_dict.get("is_immediately_unstable")),
             "needs_resuscitation_now": bool(state_dict.get("needs_resuscitation_now")),
@@ -887,8 +889,8 @@ class ERDepartmentAgent:
             }
 
             if action == "ask_patient":
-                question = self._clean_question(self._ask_patient_question(state.to_dict(), transcript))
-                answer = self.patient_agent.answer(question)
+                question = self._clean_question(target or self._ask_patient_question(state.to_dict(), transcript))
+                answer = self.patient_agent.answer(question, state)
                 transcript.append({"role": "er_interview", "content": question})
                 transcript.append({"role": "patient", "content": answer})
                 append_known_information(state, answer)

@@ -1,0 +1,24 @@
+[
+  {
+    "patient_id": "synthetic-patient-4",
+    "decision_id": "synthetic-patient-4-probe",
+    "split": "test",
+    "observation": {
+      "chief_complaint": "Synthetic recurring discomfort; no diagnostic evidence is available."
+    },
+    "expected_diagnoses": [
+      "unresolved"
+    ]
+  },
+  {
+    "patient_id": "synthetic-patient-5",
+    "decision_id": "synthetic-patient-5-probe",
+    "split": "test",
+    "observation": {
+      "chief_complaint": "Synthetic recurring discomfort; no diagnostic evidence is available."
+    },
+    "expected_diagnoses": [
+      "unresolved"
+    ]
+  }
+]

@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "provenance": {"synthetic": true, "review_status": "unreviewed", "scope": "two-patient pipeline pilot, not clinical evidence"},
+  "repeats": 3,
+  "retrieved_mode": "selective",
+  "top_k": 5,
+  "minute_limit": 30,
+  "inputs": {
+    "cases": "app/data/voi_synthetic/cases.json",
+    "labels": "app/data/voi_synthetic/labels.json",
+    "memory": "app/data/voi_synthetic/memory.json",
+    "annotations": "app/data/voi_synthetic/memory_annotations.json",
+    "registry": "app/data/research_synthetic_v1/registry_local.json",
+    "routing_utility": "app/data/research_synthetic_v1/routing_utility_bounded.json",
+    "voi_model": "app/data/voi_synthetic/model.json",
+    "prices": "app/data/research_synthetic_v1/prices_local_api_only.json"
+  }
+}

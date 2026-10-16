@@ -1,0 +1,493 @@
+{
+  "scope": "postdiagnostic_physiology_observation",
+  "minutes": 30,
+  "llm_calls": 0,
+  "hospital_resources_simulated": false,
+  "cases": [
+    {
+      "case_id": "P04",
+      "start_minute": 47,
+      "end_minute": 77,
+      "disposition_status": "not_assessed",
+      "clinical_validity_verified": false,
+      "trajectory": [
+        {
+          "minute": 47,
+          "health_state": "Worsening",
+          "vital_signs": {
+            "blood_pressure": "94/60",
+            "systolic_bp": 94.0,
+            "diastolic_bp": 60.0,
+            "heart_rate": 132.0,
+            "respiratory_rate": 32.0,
+            "temperature": "37.0",
+            "oxygen_saturation": 97.0,
+            "mental_status": ""
+          },
+          "current_symptoms": [
+            "Vomiting, abdominal pain, and weakness",
+            "more lethargic, dehydration worsens"
+          ]
+        },
+        {
+          "minute": 57,
+          "health_state": "Critical",
+          "vital_signs": {
+            "blood_pressure": "84/52",
+            "systolic_bp": 84.0,
+            "diastolic_bp": 52.0,
+            "heart_rate": 146.0,
+            "respiratory_rate": 34.0,
+            "temperature": "37.0",
+            "oxygen_saturation": 96.0,
+            "mental_status": ""
+          },
+          "current_symptoms": [
+            "Vomiting, abdominal pain, and weakness",
+            "more lethargic, dehydration worsens",
+            "confused, severe dehydration suspected"
+          ]
+        },
+        {
+          "minute": 77,
+          "health_state": "Critical",
+          "vital_signs": {
+            "blood_pressure": "84/52",
+            "systolic_bp": 84.0,
+            "diastolic_bp": 52.0,
+            "heart_rate": 146.0,
+            "respiratory_rate": 34.0,
+            "temperature": "37.0",
+            "oxygen_saturation": 96.0,
+            "mental_status": ""
+          },
+          "current_symptoms": [
+            "Vomiting, abdominal pain, and weakness",
+            "more lethargic, dehydration worsens",
+            "confused, severe dehydration suspected"
+          ]
+        }
+      ],
+      "events": [
+        {
+          "observed_minute": 57,
+          "event_type": "natural_history",
+          "reason": "Natural history event reached minute 45.",
+          "applied_effect": {
+            "vital_values": {
+              "systolic_bp": 84.0,
+              "diastolic_bp": 52.0,
+              "heart_rate": 146.0,
+              "respiratory_rate": 34.0,
+              "oxygen_saturation": 96.0
+            },
+            "new_symptoms": [
+              "confused, severe dehydration suspected"
+            ],
+            "health_state": "Critical"
+          },
+          "updated_vitals": {
+            "blood_pressure": "84/52",
+            "systolic_bp": 84.0,
+            "diastolic_bp": 52.0,
+            "heart_rate": 146.0,
+            "respiratory_rate": 34.0,
+            "temperature": "37.0",
+            "oxygen_saturation": 96.0,
+            "mental_status": ""
+          },
+          "data_gaps": [],
+          "minute": 45
+        },
+        {
+          "observed_minute": 57,
+          "event_type": "review_needed",
+          "reason": "Configured health state worsened after diagnostic completion."
+        }
+      ],
+      "data_gaps": [],
+      "pending_interventions": [],
+      "interventions": []
+    },
+    {
+      "case_id": "P01",
+      "start_minute": 26,
+      "end_minute": 56,
+      "disposition_status": "not_assessed",
+      "clinical_validity_verified": false,
+      "trajectory": [
+        {
+          "minute": 26,
+          "health_state": "Worsening",
+          "vital_signs": {
+            "blood_pressure": "145/90",
+            "systolic_bp": 145.0,
+            "diastolic_bp": 90.0,
+            "heart_rate": 118.0,
+            "respiratory_rate": 24.0,
+            "temperature": "36.8",
+            "oxygen_saturation": 94.0,
+            "mental_status": ""
+          },
+          "current_symptoms": [
+            "Severe central chest pain for 40 minutes",
+            "sweating",
+            "nausea",
+            "shortness of breath",
+            "chest pain worsens, sweating increases"
+          ]
+        },
+        {
+          "minute": 30,
+          "health_state": "Critical",
+          "vital_signs": {
+            "blood_pressure": "96/64",
+            "systolic_bp": 96.0,
+            "diastolic_bp": 64.0,
+            "heart_rate": 128.0,
+            "respiratory_rate": 28.0,
+            "temperature": "36.8",
+            "oxygen_saturation": 91.0,
+            "mental_status": ""
+          },
+          "current_symptoms": [
+            "Severe central chest pain for 40 minutes",
+            "sweating",
+            "nausea",
+            "shortness of breath",
+            "chest pain worsens, sweating increases",
+            "pale, dizzy, more dyspneic"
+          ]
+        },
+        {
+          "minute": 56,
+          "health_state": "Critical",
+          "vital_signs": {
+            "blood_pressure": "96/64",
+            "systolic_bp": 96.0,
+            "diastolic_bp": 64.0,
+            "heart_rate": 128.0,
+            "respiratory_rate": 28.0,
+            "temperature": "36.8",
+            "oxygen_saturation": 91.0,
+            "mental_status": ""
+          },
+          "current_symptoms": [
+            "Severe central chest pain for 40 minutes",
+            "sweating",
+            "nausea",
+            "shortness of breath",
+            "chest pain worsens, sweating increases",
+            "pale, dizzy, more dyspneic"
+          ]
+        }
+      ],
+      "events": [
+        {
+          "observed_minute": 30,
+          "event_type": "natural_history",
+          "reason": "Natural history event reached minute 30.",
+          "applied_effect": {
+            "vital_values": {
+              "systolic_bp": 96.0,
+              "diastolic_bp": 64.0,
+              "heart_rate": 128.0,
+              "respiratory_rate": 28.0,
+              "oxygen_saturation": 91.0
+            },
+            "new_symptoms": [
+              "pale, dizzy, more dyspneic"
+            ],
+            "health_state": "Critical"
+          },
+          "updated_vitals": {
+            "blood_pressure": "96/64",
+            "systolic_bp": 96.0,
+            "diastolic_bp": 64.0,
+            "heart_rate": 128.0,
+            "respiratory_rate": 28.0,
+            "temperature": "36.8",
+            "oxygen_saturation": 91.0,
+            "mental_status": ""
+          },
+          "data_gaps": [],
+          "minute": 30
+        },
+        {
+          "observed_minute": 30,
+          "event_type": "review_needed",
+          "reason": "Configured health state worsened after diagnostic completion."
+        }
+      ],
+      "data_gaps": [],
+      "pending_interventions": [],
+      "interventions": []
+    },
+    {
+      "case_id": "P02",
+      "start_minute": 41,
+      "end_minute": 71,
+      "disposition_status": "not_assessed",
+      "clinical_validity_verified": false,
+      "trajectory": [
+        {
+          "minute": 41,
+          "health_state": "Worsening",
+          "vital_signs": {
+            "blood_pressure": "116/74",
+            "systolic_bp": 116.0,
+            "diastolic_bp": 74.0,
+            "heart_rate": 132.0,
+            "respiratory_rate": 32.0,
+            "temperature": "37.1",
+            "oxygen_saturation": 86.0,
+            "mental_status": ""
+          },
+          "current_symptoms": [
+            "Sudden shortness of breath and sharp chest pain",
+            "shortness of breath worsens"
+          ]
+        },
+        {
+          "minute": 44,
+          "health_state": "Critical",
+          "vital_signs": {
+            "blood_pressure": "92/58",
+            "systolic_bp": 92.0,
+            "diastolic_bp": 58.0,
+            "heart_rate": 142.0,
+            "respiratory_rate": 34.0,
+            "temperature": "37.1",
+            "oxygen_saturation": 82.0,
+            "mental_status": ""
+          },
+          "current_symptoms": [
+            "Sudden shortness of breath and sharp chest pain",
+            "shortness of breath worsens",
+            "dizziness and near-syncope"
+          ]
+        },
+        {
+          "minute": 71,
+          "health_state": "Critical",
+          "vital_signs": {
+            "blood_pressure": "92/58",
+            "systolic_bp": 92.0,
+            "diastolic_bp": 58.0,
+            "heart_rate": 142.0,
+            "respiratory_rate": 34.0,
+            "temperature": "37.1",
+            "oxygen_saturation": 82.0,
+            "mental_status": ""
+          },
+          "current_symptoms": [
+            "Sudden shortness of breath and sharp chest pain",
+            "shortness of breath worsens",
+            "dizziness and near-syncope"
+          ]
+        }
+      ],
+      "events": [
+        {
+          "observed_minute": 44,
+          "event_type": "natural_history",
+          "reason": "Natural history event reached minute 40.",
+          "applied_effect": {
+            "vital_values": {
+              "systolic_bp": 92.0,
+              "diastolic_bp": 58.0,
+              "heart_rate": 142.0,
+              "respiratory_rate": 34.0,
+              "oxygen_saturation": 82.0
+            },
+            "new_symptoms": [
+              "dizziness and near-syncope"
+            ],
+            "health_state": "Critical"
+          },
+          "updated_vitals": {
+            "blood_pressure": "92/58",
+            "systolic_bp": 92.0,
+            "diastolic_bp": 58.0,
+            "heart_rate": 142.0,
+            "respiratory_rate": 34.0,
+            "temperature": "37.1",
+            "oxygen_saturation": 82.0,
+            "mental_status": ""
+          },
+          "data_gaps": [],
+          "minute": 40
+        },
+        {
+          "observed_minute": 44,
+          "event_type": "review_needed",
+          "reason": "Configured health state worsened after diagnostic completion."
+        }
+      ],
+      "data_gaps": [],
+      "pending_interventions": [],
+      "interventions": []
+    },
+    {
+      "case_id": "P03",
+      "start_minute": 45,
+      "end_minute": 75,
+      "disposition_status": "not_assessed",
+      "clinical_validity_verified": false,
+      "trajectory": [
+        {
+          "minute": 45,
+          "health_state": "Worsening",
+          "vital_signs": {
+            "blood_pressure": "116/74",
+            "systolic_bp": 116.0,
+            "diastolic_bp": 74.0,
+            "heart_rate": 106.0,
+            "respiratory_rate": 20.0,
+            "temperature": 38.2,
+            "oxygen_saturation": 98.0,
+            "mental_status": ""
+          },
+          "current_symptoms": [
+            "Abdominal pain since last night",
+            "loss of appetite",
+            "nausea",
+            "pain becomes more localized and stronger"
+          ]
+        },
+        {
+          "minute": 68,
+          "health_state": "Worsening",
+          "vital_signs": {
+            "blood_pressure": "108/70",
+            "systolic_bp": 108.0,
+            "diastolic_bp": 70.0,
+            "heart_rate": 118.0,
+            "respiratory_rate": 22.0,
+            "temperature": 38.7,
+            "oxygen_saturation": 97.0,
+            "mental_status": ""
+          },
+          "current_symptoms": [
+            "Abdominal pain since last night",
+            "loss of appetite",
+            "nausea",
+            "pain becomes more localized and stronger",
+            "guarding becomes more obvious"
+          ]
+        },
+        {
+          "minute": 75,
+          "health_state": "Worsening",
+          "vital_signs": {
+            "blood_pressure": "108/70",
+            "systolic_bp": 108.0,
+            "diastolic_bp": 70.0,
+            "heart_rate": 118.0,
+            "respiratory_rate": 22.0,
+            "temperature": 38.7,
+            "oxygen_saturation": 97.0,
+            "mental_status": ""
+          },
+          "current_symptoms": [
+            "Abdominal pain since last night",
+            "loss of appetite",
+            "nausea",
+            "pain becomes more localized and stronger",
+            "guarding becomes more obvious"
+          ]
+        }
+      ],
+      "events": [
+        {
+          "observed_minute": 68,
+          "event_type": "natural_history",
+          "reason": "Natural history event reached minute 60.",
+          "applied_effect": {
+            "vital_values": {
+              "systolic_bp": 108.0,
+              "diastolic_bp": 70.0,
+              "heart_rate": 118.0,
+              "respiratory_rate": 22.0,
+              "temperature": 38.7,
+              "oxygen_saturation": 97.0
+            },
+            "new_symptoms": [
+              "guarding becomes more obvious"
+            ],
+            "health_state": "Worsening"
+          },
+          "updated_vitals": {
+            "blood_pressure": "108/70",
+            "systolic_bp": 108.0,
+            "diastolic_bp": 70.0,
+            "heart_rate": 118.0,
+            "respiratory_rate": 22.0,
+            "temperature": 38.7,
+            "oxygen_saturation": 97.0,
+            "mental_status": ""
+          },
+          "data_gaps": [],
+          "minute": 60
+        }
+      ],
+      "data_gaps": [],
+      "pending_interventions": [],
+      "interventions": []
+    },
+    {
+      "case_id": "P05",
+      "start_minute": 72,
+      "end_minute": 102,
+      "disposition_status": "not_assessed",
+      "clinical_validity_verified": false,
+      "trajectory": [
+        {
+          "minute": 72,
+          "health_state": "Critical",
+          "vital_signs": {
+            "blood_pressure": "96/62",
+            "systolic_bp": 96.0,
+            "diastolic_bp": 62.0,
+            "heart_rate": 136.0,
+            "respiratory_rate": 26.0,
+            "temperature": 39.8,
+            "oxygen_saturation": 95.0,
+            "mental_status": ""
+          },
+          "current_symptoms": [
+            "Fever, severe headache, and neck stiffness",
+            "confusion worsens",
+            "decreased responsiveness"
+          ]
+        },
+        {
+          "minute": 102,
+          "health_state": "Critical",
+          "vital_signs": {
+            "blood_pressure": "96/62",
+            "systolic_bp": 96.0,
+            "diastolic_bp": 62.0,
+            "heart_rate": 136.0,
+            "respiratory_rate": 26.0,
+            "temperature": 39.8,
+            "oxygen_saturation": 95.0,
+            "mental_status": ""
+          },
+          "current_symptoms": [
+            "Fever, severe headache, and neck stiffness",
+            "confusion worsens",
+            "decreased responsiveness"
+          ]
+        }
+      ],
+      "events": [],
+      "data_gaps": [
+        "No configured event occurred within this horizon; unchanged state does not demonstrate recovery."
+      ],
+      "pending_interventions": [],
+      "interventions": []
+    }
+  ],
+  "skipped_cases": []
+}

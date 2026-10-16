@@ -1,0 +1,19 @@
+{
+  "decisions": [
+    {
+      "decision_id": "synthetic-patient-4-probe",
+      "regret": 0.0,
+      "oracle_match": true,
+      "status": "available"
+    },
+    {
+      "decision_id": "synthetic-patient-5-probe",
+      "regret": 0.0,
+      "oracle_match": true,
+      "status": "available"
+    }
+  ],
+  "coverage": 1.0,
+  "mean_regret": 0.0,
+  "observed_subset_regret": 0.0
+}

@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "provenance": {
+    "synthetic": true,
+    "review_status": "unreviewed",
+    "scope": "designed challenge cases; not clinical evidence",
+    "split": "validation",
+    "routing": "pre-existing toy-probe utility, not trained on challenge cases"
+  },
+  "repeats": 1,
+  "retrieved_mode": "selective",
+  "top_k": 1,
+  "minute_limit": 30,
+  "inputs": {
+    "cases": "cases_validation.json",
+    "labels": "labels_validation.json",
+    "memory": "memory.json",
+    "annotations": "annotations_validation.json",
+    "registry": "registry.json",
+    "routing_utility": "routing_utility.json",
+    "prices": "prices.json",
+    "voi_model": "model.json",
+    "scenarios": "scenarios.json"
+  }
+}

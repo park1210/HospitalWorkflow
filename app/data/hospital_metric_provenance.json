@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "source_document": "사용자 제공 확장 방향성.pdf, 5·6·9장",
+  "bibliography_status": "transcribed_from_user_document_not_independently_verified",
+  "metrics": {
+    "diagnosis_accuracy": {"kind": "standard_accuracy", "document_reference": "Liu et al. (2026)", "adaptation": "catalog and explicit alias matching; current demo reads gold labels"},
+    "department_accuracy": {"kind": "study_adaptation", "document_reference": "standard classification accuracy", "adaptation": "final department in shared catalog"},
+    "ntcr": {"kind": "study_adaptation", "document_reference": "Chandru et al. (2026), UNTIE-N", "adaptation": "micro ratio of unique required completed tests"},
+    "uti": {"kind": "study_adaptation", "document_reference": "Chandru et al. (2026), UNTIE-U", "adaptation": "nonrecommended completed test events / required Perform tests"},
+    "ucr": {"kind": "study_adaptation", "document_reference": "referral appropriateness concept", "adaptation": "actual consult-start events; no consultations is NA"},
+    "camr": {"kind": "study_defined", "document_reference": "Ruhrberg Estevez et al. (2026), process-safety concept", "adaptation": "explicit critical-action events and optional deadline; not a quoted standardized metric"},
+    "apl": {"kind": "study_adaptation", "document_reference": "Liu et al. (2026)", "adaptation": "recorded clinical actions, excluding movement/resource events"},
+    "ttd": {"kind": "operational_metric", "document_reference": "Austin et al. (2020)", "adaptation": "final diagnosis minus arrival; completed cohort with censoring flags"},
+    "mwt": {"kind": "operational_metric", "document_reference": "Lauks et al. (2016)", "adaptation": "first ER evaluation minus arrival"},
+    "cpwt": {"kind": "study_adaptation", "document_reference": "door-to-doctor time; Johansson et al. (2026)", "adaptation": "independently labelled critical subgroup"},
+    "dber": {"kind": "study_defined", "document_reference": "Luo et al. (2026), temporal deterioration concept", "adaptation": "strictly earlier deterioration / labelled at-risk patients"},
+    "wte": {"kind": "reference_formula", "document_reference": "Johansson et al. (2026)", "adaptation": "1 - CPWT/MWT; missing labels or zero denominator is NA"},
+    "priority": {"kind": "study_defined", "document_reference": "Chapter 6.8", "adaptation": "weighted severity/wait/risk with critical-priority guard; uncalibrated weights"},
+    "deterioration": {"kind": "study_defined", "document_reference": "Chapter 6.9", "adaptation": "explicit thresholds; no inferred clinical cutoffs"}
+  }
+}

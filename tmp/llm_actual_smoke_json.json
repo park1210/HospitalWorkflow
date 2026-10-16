@@ -1,0 +1,1202 @@
+{
+  "status": "completed",
+  "state": {
+    "run_id": "",
+    "current_minute": 13,
+    "tick": 13,
+    "cases": {
+      "synthetic_llm_smoke": {
+        "case_id": "synthetic_llm_smoke",
+        "arrival_time_min": 0,
+        "arrival_index": 0,
+        "triage_level": 3,
+        "effective_priority": 3,
+        "triage_rationale": "Triage assigned a standard ER workup pathway with multiple likely resources.",
+        "deterioration_risk": "low",
+        "zone": "discharged",
+        "workflow_state": "completed",
+        "assigned_bed_id": "er_bed_1",
+        "assigned_er_doctor_id": "doctor_er_0",
+        "assigned_specialist_id": "specialty_general_medicine",
+        "assigned_consult_room_id": "",
+        "bed_assigned_min": 1,
+        "er_arrival_min": 5,
+        "er_started_min": 5,
+        "specialty_arrival_min": 8,
+        "specialty_started_min": 8,
+        "current_location_id": "er_bed_1",
+        "target_location_id": "discharge_1",
+        "interaction_location_id": "discharge_1",
+        "movement_path": [
+          "er_bed_1",
+          "hallway_er_upper",
+          "hallway_er_center",
+          "hallway_er_lower",
+          "door_waiting_to_er",
+          "hallway_waiting_entry",
+          "discharge_1"
+        ],
+        "pending_interaction": {},
+        "target_department": "general_medicine",
+        "assessment_summary": "general_medicine",
+        "recommended_tests": [],
+        "completed_tests": [],
+        "pending_results": [],
+        "test_results": [],
+        "pending_results_count": 0,
+        "objective_findings": [],
+        "question_history": [
+          {
+            "question": "Intermittent mild discomfort",
+            "answer": "I've been feeling this discomfort for about 3 minutes now, and it's been getting a bit worse. It's just a mild ache, but it's been there since this morning.",
+            "actor": "doctor_er_0"
+          }
+        ],
+        "question_count": 1,
+        "consult_history": [
+          {
+            "department": "general_medicine",
+            "opinion": "The patient's symptoms of intermittent mild discomfort are non-specific and could be indicative of a wide range of conditions. A general medicine specialist is best equipped to evaluate and potentially diagnose the cause of the discomfort.",
+            "actor": "specialty_general_medicine"
+          }
+        ],
+        "consult_count": 1,
+        "decision_snapshots": [
+          {
+            "snapshot_id": "parallel_synthetic_llm_smoke_m3",
+            "node": "parallel_scheduler_decision",
+            "turn_index": 1,
+            "current_minute": 3,
+            "proposed_action": {
+              "type": "ask_patient",
+              "target": "Intermittent mild discomfort"
+            },
+            "alternatives": [],
+            "rationale": "Gathering more information about the patient's symptoms to inform the diagnosis and treatment plan.",
+            "state": {
+              "zone": "er_workup",
+              "workflow_state": "waiting_er",
+              "triage_level": 3,
+              "effective_priority": 3,
+              "pending_results_count": 0,
+              "target_department": "general_medicine",
+              "assigned_bed_id": "er_bed_1",
+              "assigned_er_doctor_id": "doctor_er_0",
+              "assigned_specialist_id": "",
+              "er_arrival_min": 3,
+              "er_started_min": 3,
+              "specialty_arrival_min": 0,
+              "specialty_started_min": 0,
+              "current_location_id": "er_bed_1",
+              "target_location_id": "er_bed_1",
+              "interaction_location_id": "er_bedside_1",
+              "pending_interaction": {}
+            }
+          },
+          {
+            "snapshot_id": "parallel_synthetic_llm_smoke_m5",
+            "node": "parallel_scheduler_decision",
+            "turn_index": 2,
+            "current_minute": 5,
+            "proposed_action": {
+              "type": "consult_specialty",
+              "target": "general_medicine"
+            },
+            "alternatives": [],
+            "rationale": "Patient's symptoms are non-specific and may require further evaluation by a general medicine specialist.",
+            "state": {
+              "zone": "er_workup",
+              "workflow_state": "waiting_specialty",
+              "triage_level": 3,
+              "effective_priority": 3,
+              "pending_results_count": 0,
+              "target_department": "general_medicine",
+              "assigned_bed_id": "er_bed_1",
+              "assigned_er_doctor_id": "doctor_er_0",
+              "assigned_specialist_id": "",
+              "er_arrival_min": 5,
+              "er_started_min": 5,
+              "specialty_arrival_min": 0,
+              "specialty_started_min": 0,
+              "current_location_id": "er_bed_1",
+              "target_location_id": "er_bed_1",
+              "interaction_location_id": "er_bedside_1",
+              "pending_interaction": {}
+            }
+          }
+        ],
+        "alerts": [
+          "diagnosis_unresolved"
+        ],
+        "latest_rationale": "The patient's symptoms of intermittent mild discomfort are non-specific and could be indicative of a wide range of conditions. A general medicine specialist is best equipped to evaluate and potentially diagnose the cause of the discomfort.",
+        "latest_action": "specialty_finalize",
+        "latest_actor": "specialty_general_medicine",
+        "latest_target": "general_medicine",
+        "er_turn_count": 2,
+        "specialty_turn_count": 1,
+        "is_completed": true,
+        "first_evaluation_min": 3,
+        "final_diagnosis_min": 12,
+        "queue_wait_minutes": 1,
+        "priority_score": 3.05,
+        "priority_rationale": "Priority=3.050: severity=3.000, queue_wait=0.050, risk=0.000; resuscitation-level patients first; equal scores use arrival order.",
+        "health_state": "Stable",
+        "first_deterioration_min": null,
+        "current_time_min": 12,
+        "vital_signs": {
+          "spo2": 98
+        },
+        "current_symptoms": [
+          "Intermittent mild discomfort"
+        ],
+        "interventions": [],
+        "applied_temporal_event_keys": [],
+        "deterioration_events": [],
+        "llm_audit": [
+          {
+            "role": "er",
+            "model": "llama3.2:3b",
+            "backend": "OllamaClient",
+            "status": "success",
+            "fallback_used": false,
+            "input_sha256": "efb8852e002ec1a9f920b1ae26eed5df7e902a7146de918d6963ddf6bc88f44f",
+            "latency_seconds": 16.828
+          },
+          {
+            "role": "patient",
+            "model": "llama3.2:3b",
+            "backend": "OllamaClient",
+            "status": "success",
+            "fallback_used": false,
+            "input_sha256": "40691fda09d0187b04a9c18e1ef6fe5143d10bd30c40231463eb658036e40428",
+            "latency_seconds": 0.765
+          },
+          {
+            "role": "er",
+            "model": "llama3.2:3b",
+            "backend": "OllamaClient",
+            "status": "success",
+            "fallback_used": false,
+            "input_sha256": "dd6f4c01db303eb3fc0b252a75549a7f7d6dac1111aeadd108086b1201cc90e6",
+            "latency_seconds": 1.454
+          },
+          {
+            "role": "specialty",
+            "model": "qwen2.5:1.5b-instruct",
+            "backend": "OllamaClient",
+            "status": "success",
+            "fallback_used": false,
+            "input_sha256": "cc4c5fe0f40bff41ef173109491ff4f7df255b8b371761088e014cabf8f9adc7",
+            "latency_seconds": 54.36
+          }
+        ],
+        "decision_cache": {
+          "efb8852e002ec1a9f920b1ae26eed5df7e902a7146de918d6963ddf6bc88f44f": {
+            "action": "ask_history",
+            "target": "Intermittent mild discomfort",
+            "rationale": "Gathering more information about the patient's symptoms to inform the diagnosis and treatment plan.",
+            "assessment_summary": "Patient reports intermittent mild discomfort, which may be related to various underlying causes.",
+            "target_department": "general_medicine",
+            "certainty": "unresolved",
+            "alternatives": [],
+            "question": "Intermittent mild discomfort",
+            "answer": "I've been feeling this discomfort for about 3 minutes now, and it's been getting a bit worse. It's just a mild ache, but it's been there since this morning."
+          },
+          "dd6f4c01db303eb3fc0b252a75549a7f7d6dac1111aeadd108086b1201cc90e6": {
+            "action": "request_specialty",
+            "target": "general_medicine",
+            "rationale": "Patient's symptoms are non-specific and may require further evaluation by a general medicine specialist.",
+            "assessment_summary": "Patient's symptoms are non-specific and may require further evaluation by a general medicine specialist.",
+            "target_department": "general_medicine",
+            "certainty": "supported",
+            "alternatives": []
+          },
+          "cc4c5fe0f40bff41ef173109491ff4f7df255b8b371761088e014cabf8f9adc7": {
+            "action": "er_finalize",
+            "target": "general_medicine",
+            "rationale": "The patient's symptoms of intermittent mild discomfort are non-specific and could be indicative of a wide range of conditions. A general medicine specialist is best equipped to evaluate and potentially diagnose the cause of the discomfort.",
+            "assessment_summary": "general_medicine",
+            "target_department": "general_medicine",
+            "certainty": "unresolved",
+            "alternatives": []
+          }
+        }
+      }
+    },
+    "resources": {
+      "triage_nurses": [
+        {
+          "resource_id": "nurse_triage_0",
+          "resource_type": "triage_nurse",
+          "location_id": "triage_desk",
+          "status": "idle",
+          "available_minute": 1,
+          "assigned_case_id": "",
+          "meta": {
+            "allocation_count": 1,
+            "allocated_minutes": 1
+          }
+        }
+      ],
+      "er_doctors": [
+        {
+          "resource_id": "doctor_er_0",
+          "resource_type": "er_doctor",
+          "location_id": "er_bedside_1",
+          "status": "idle",
+          "available_minute": 6,
+          "assigned_case_id": "",
+          "meta": {
+            "allocation_count": 2,
+            "allocated_minutes": 4
+          }
+        }
+      ],
+      "er_beds": [
+        {
+          "resource_id": "er_bed_1",
+          "resource_type": "er_bed",
+          "location_id": "er_bed_1",
+          "status": "idle",
+          "available_minute": 12,
+          "assigned_case_id": "",
+          "meta": {}
+        },
+        {
+          "resource_id": "er_bed_2",
+          "resource_type": "er_bed",
+          "location_id": "er_bed_2",
+          "status": "idle",
+          "available_minute": 0,
+          "assigned_case_id": "",
+          "meta": {}
+        },
+        {
+          "resource_id": "er_bed_3",
+          "resource_type": "er_bed",
+          "location_id": "er_bed_3",
+          "status": "idle",
+          "available_minute": 0,
+          "assigned_case_id": "",
+          "meta": {}
+        },
+        {
+          "resource_id": "er_bed_4",
+          "resource_type": "er_bed",
+          "location_id": "er_bed_4",
+          "status": "idle",
+          "available_minute": 0,
+          "assigned_case_id": "",
+          "meta": {}
+        }
+      ],
+      "lab_slots": [
+        {
+          "resource_id": "lab_slot_1",
+          "resource_type": "lab_slot",
+          "location_id": "lab_station",
+          "status": "idle",
+          "available_minute": 0,
+          "assigned_case_id": "",
+          "meta": {}
+        },
+        {
+          "resource_id": "lab_slot_2",
+          "resource_type": "lab_slot",
+          "location_id": "lab_station",
+          "status": "idle",
+          "available_minute": 0,
+          "assigned_case_id": "",
+          "meta": {}
+        }
+      ],
+      "imaging_slots": [
+        {
+          "resource_id": "imaging_slot_1",
+          "resource_type": "imaging_slot",
+          "location_id": "imaging_machine",
+          "status": "idle",
+          "available_minute": 0,
+          "assigned_case_id": "",
+          "meta": {}
+        }
+      ],
+      "specialists": [
+        {
+          "resource_id": "specialty_neurology",
+          "resource_type": "specialist",
+          "location_id": "sidebar_neurology",
+          "status": "idle",
+          "available_minute": 0,
+          "assigned_case_id": "",
+          "meta": {}
+        },
+        {
+          "resource_id": "specialty_cardiology",
+          "resource_type": "specialist",
+          "location_id": "sidebar_cardiology",
+          "status": "idle",
+          "available_minute": 0,
+          "assigned_case_id": "",
+          "meta": {}
+        },
+        {
+          "resource_id": "specialty_pulmonology",
+          "resource_type": "specialist",
+          "location_id": "sidebar_pulmonology",
+          "status": "idle",
+          "available_minute": 0,
+          "assigned_case_id": "",
+          "meta": {}
+        },
+        {
+          "resource_id": "specialty_gastroenterology",
+          "resource_type": "specialist",
+          "location_id": "sidebar_gastroenterology",
+          "status": "idle",
+          "available_minute": 0,
+          "assigned_case_id": "",
+          "meta": {}
+        },
+        {
+          "resource_id": "specialty_nephrology",
+          "resource_type": "specialist",
+          "location_id": "sidebar_nephrology",
+          "status": "idle",
+          "available_minute": 0,
+          "assigned_case_id": "",
+          "meta": {}
+        },
+        {
+          "resource_id": "specialty_hematology",
+          "resource_type": "specialist",
+          "location_id": "sidebar_hematology",
+          "status": "idle",
+          "available_minute": 0,
+          "assigned_case_id": "",
+          "meta": {}
+        },
+        {
+          "resource_id": "specialty_infectious_disease",
+          "resource_type": "specialist",
+          "location_id": "sidebar_infectious_disease",
+          "status": "idle",
+          "available_minute": 0,
+          "assigned_case_id": "",
+          "meta": {}
+        },
+        {
+          "resource_id": "specialty_orthopedics",
+          "resource_type": "specialist",
+          "location_id": "sidebar_orthopedics",
+          "status": "idle",
+          "available_minute": 0,
+          "assigned_case_id": "",
+          "meta": {}
+        },
+        {
+          "resource_id": "specialty_obstetrics_gynecology",
+          "resource_type": "specialist",
+          "location_id": "sidebar_obgyn",
+          "status": "idle",
+          "available_minute": 0,
+          "assigned_case_id": "",
+          "meta": {}
+        },
+        {
+          "resource_id": "specialty_urology",
+          "resource_type": "specialist",
+          "location_id": "sidebar_urology",
+          "status": "idle",
+          "available_minute": 0,
+          "assigned_case_id": "",
+          "meta": {}
+        },
+        {
+          "resource_id": "specialty_psychiatry",
+          "resource_type": "specialist",
+          "location_id": "sidebar_psychiatry",
+          "status": "idle",
+          "available_minute": 0,
+          "assigned_case_id": "",
+          "meta": {}
+        },
+        {
+          "resource_id": "specialty_endocrinology",
+          "resource_type": "specialist",
+          "location_id": "sidebar_endocrinology",
+          "status": "idle",
+          "available_minute": 0,
+          "assigned_case_id": "",
+          "meta": {}
+        },
+        {
+          "resource_id": "specialty_general_medicine",
+          "resource_type": "specialist",
+          "location_id": "er_bedside_1",
+          "status": "idle",
+          "available_minute": 12,
+          "assigned_case_id": "",
+          "meta": {
+            "allocation_count": 1,
+            "allocated_minutes": 6
+          }
+        },
+        {
+          "resource_id": "specialty_internal_medicine",
+          "resource_type": "specialist",
+          "location_id": "sidebar_internal_medicine",
+          "status": "idle",
+          "available_minute": 0,
+          "assigned_case_id": "",
+          "meta": {}
+        },
+        {
+          "resource_id": "specialty_surgery",
+          "resource_type": "specialist",
+          "location_id": "sidebar_surgery",
+          "status": "idle",
+          "available_minute": 0,
+          "assigned_case_id": "",
+          "meta": {}
+        }
+      ],
+      "consult_rooms": [
+        {
+          "resource_id": "consult_room_1",
+          "resource_type": "consult_room",
+          "location_id": "specialty_consult_1",
+          "status": "idle",
+          "available_minute": 0,
+          "assigned_case_id": "",
+          "meta": {}
+        },
+        {
+          "resource_id": "consult_room_2",
+          "resource_type": "consult_room",
+          "location_id": "specialty_consult_2",
+          "status": "idle",
+          "available_minute": 0,
+          "assigned_case_id": "",
+          "meta": {}
+        },
+        {
+          "resource_id": "consult_room_3",
+          "resource_type": "consult_room",
+          "location_id": "specialty_consult_3",
+          "status": "idle",
+          "available_minute": 0,
+          "assigned_case_id": "",
+          "meta": {}
+        }
+      ]
+    },
+    "queues": {
+      "arrival_queue": [],
+      "triage_queue": [],
+      "bed_queue": [],
+      "er_queue": [],
+      "test_queue": [],
+      "specialty_queue": []
+    },
+    "scheduled_events": [],
+    "event_log": [
+      {
+        "event_id": "synthetic_llm_smoke_m0000_case_started_01",
+        "run_id": "",
+        "case_id": "synthetic_llm_smoke",
+        "minute": 0,
+        "tick": 0,
+        "phase": "arrival_entered",
+        "actor": {
+          "id": "system",
+          "role": "system",
+          "label": ""
+        },
+        "target": {
+          "id": "synthetic_llm_smoke",
+          "role": "patient",
+          "label": ""
+        },
+        "event_type": "case_started",
+        "action": "arrival_entered",
+        "location_id": "arrival_entry_1",
+        "resource_kind": "system",
+        "rationale": "The patient has reached the ER arrival flow and is now waiting for triage.",
+        "payload": {},
+        "state_delta": {
+          "zone": "waiting_room",
+          "workflow_state": "waiting_triage",
+          "triage_level": 3,
+          "effective_priority": 3,
+          "pending_results_count": 0,
+          "target_department": "",
+          "assigned_bed_id": "",
+          "assigned_er_doctor_id": "",
+          "assigned_specialist_id": "",
+          "er_arrival_min": 0,
+          "er_started_min": 0,
+          "specialty_arrival_min": 0,
+          "specialty_started_min": 0,
+          "current_location_id": "arrival_entry_1",
+          "target_location_id": "arrival_entry_1",
+          "interaction_location_id": "triage_desk",
+          "pending_interaction": {}
+        },
+        "meta": {
+          "zone": "waiting_room"
+        },
+        "zone": "waiting_room"
+      },
+      {
+        "event_id": "synthetic_llm_smoke_m0000_triage_started_02",
+        "run_id": "",
+        "case_id": "synthetic_llm_smoke",
+        "minute": 0,
+        "tick": 0,
+        "phase": "triage_started",
+        "actor": {
+          "id": "nurse_triage_0",
+          "role": "triage_nurse",
+          "label": ""
+        },
+        "target": {
+          "id": "synthetic_llm_smoke",
+          "role": "patient",
+          "label": ""
+        },
+        "event_type": "triage_started",
+        "action": "triage_started",
+        "location_id": "triage_desk",
+        "resource_kind": "triage_nurse",
+        "rationale": "A triage nurse was reserved for the configured assessment duration.",
+        "payload": {},
+        "state_delta": {
+          "zone": "waiting_room",
+          "workflow_state": "in_triage",
+          "triage_level": 3,
+          "effective_priority": 3,
+          "pending_results_count": 0,
+          "target_department": "",
+          "assigned_bed_id": "",
+          "assigned_er_doctor_id": "",
+          "assigned_specialist_id": "",
+          "er_arrival_min": 0,
+          "er_started_min": 0,
+          "specialty_arrival_min": 0,
+          "specialty_started_min": 0,
+          "current_location_id": "arrival_entry_1",
+          "target_location_id": "arrival_entry_1",
+          "interaction_location_id": "triage_desk",
+          "pending_interaction": {}
+        },
+        "meta": {
+          "zone": "waiting_room"
+        },
+        "zone": "waiting_room"
+      },
+      {
+        "event_id": "synthetic_llm_smoke_m0001_triage_completed_03",
+        "run_id": "",
+        "case_id": "synthetic_llm_smoke",
+        "minute": 1,
+        "tick": 1,
+        "phase": "perform_triage",
+        "actor": {
+          "id": "nurse_triage_0",
+          "role": "triage_nurse",
+          "label": ""
+        },
+        "target": {
+          "id": "synthetic_llm_smoke",
+          "role": "patient",
+          "label": ""
+        },
+        "event_type": "triage_completed",
+        "action": "perform_triage",
+        "location_id": "triage_desk",
+        "resource_kind": "triage_nurse",
+        "rationale": "Triage assigned a standard ER workup pathway with multiple likely resources.",
+        "payload": {
+          "triage_level": 3
+        },
+        "state_delta": {
+          "zone": "waiting_room",
+          "workflow_state": "waiting_bed",
+          "triage_level": 3,
+          "effective_priority": 3,
+          "pending_results_count": 0,
+          "target_department": "",
+          "assigned_bed_id": "",
+          "assigned_er_doctor_id": "",
+          "assigned_specialist_id": "",
+          "er_arrival_min": 0,
+          "er_started_min": 0,
+          "specialty_arrival_min": 0,
+          "specialty_started_min": 0,
+          "current_location_id": "triage_desk",
+          "target_location_id": "triage_queue_1",
+          "interaction_location_id": "triage_desk",
+          "pending_interaction": {}
+        },
+        "meta": {
+          "zone": "waiting_room"
+        },
+        "zone": "waiting_room"
+      },
+      {
+        "event_id": "synthetic_llm_smoke_m0001_patient_moved_04",
+        "run_id": "",
+        "case_id": "synthetic_llm_smoke",
+        "minute": 1,
+        "tick": 1,
+        "phase": "bed_assigned",
+        "actor": {
+          "id": "system",
+          "role": "system",
+          "label": ""
+        },
+        "target": {
+          "id": "synthetic_llm_smoke",
+          "role": "patient",
+          "label": ""
+        },
+        "event_type": "patient_moved",
+        "action": "bed_assigned",
+        "location_id": "er_bed_1",
+        "resource_kind": "system",
+        "rationale": "A free ER bed was available, so the patient moved into ER workup.",
+        "payload": {
+          "bed_id": "er_bed_1"
+        },
+        "state_delta": {
+          "zone": "er_workup",
+          "workflow_state": "waiting_er",
+          "triage_level": 3,
+          "effective_priority": 3,
+          "pending_results_count": 0,
+          "target_department": "",
+          "assigned_bed_id": "er_bed_1",
+          "assigned_er_doctor_id": "",
+          "assigned_specialist_id": "",
+          "er_arrival_min": 0,
+          "er_started_min": 0,
+          "specialty_arrival_min": 0,
+          "specialty_started_min": 0,
+          "current_location_id": "triage_desk",
+          "target_location_id": "er_bed_1",
+          "interaction_location_id": "er_bedside_1",
+          "pending_interaction": {}
+        },
+        "meta": {
+          "zone": "er_workup"
+        },
+        "zone": "er_workup"
+      },
+      {
+        "event_id": "synthetic_llm_smoke_m0002_assessment_completed_05",
+        "run_id": "",
+        "case_id": "synthetic_llm_smoke",
+        "minute": 2,
+        "tick": 2,
+        "phase": "dispatch_er",
+        "actor": {
+          "id": "doctor_er_0",
+          "role": "er_doctor",
+          "label": ""
+        },
+        "target": {
+          "id": "synthetic_llm_smoke",
+          "role": "patient",
+          "label": ""
+        },
+        "event_type": "assessment_completed",
+        "action": "dispatch_er",
+        "location_id": "er_bedside_1",
+        "resource_kind": "er_doctor",
+        "rationale": "Priority=3.050: severity=3.000, queue_wait=0.050, risk=0.000; resuscitation-level patients first; equal scores use arrival order.",
+        "payload": {
+          "bedside_location_id": "er_bedside_1",
+          "doctor_start_location_id": "er_doctor_station"
+        },
+        "state_delta": {
+          "zone": "er_workup",
+          "workflow_state": "waiting_er_doctor_arrival",
+          "triage_level": 3,
+          "effective_priority": 3,
+          "pending_results_count": 0,
+          "target_department": "",
+          "assigned_bed_id": "er_bed_1",
+          "assigned_er_doctor_id": "doctor_er_0",
+          "assigned_specialist_id": "",
+          "er_arrival_min": 3,
+          "er_started_min": 0,
+          "specialty_arrival_min": 0,
+          "specialty_started_min": 0,
+          "current_location_id": "er_bed_1",
+          "target_location_id": "er_bed_1",
+          "interaction_location_id": "er_bedside_1",
+          "pending_interaction": {
+            "action": "perform_assessment",
+            "actor_id": "doctor_er_0",
+            "location_id": "er_bedside_1",
+            "ready_minute": 3
+          }
+        },
+        "meta": {
+          "zone": "er_workup"
+        },
+        "zone": "er_workup"
+      },
+      {
+        "event_id": "synthetic_llm_smoke_m0003_question_asked_06",
+        "run_id": "",
+        "case_id": "synthetic_llm_smoke",
+        "minute": 3,
+        "tick": 3,
+        "phase": "ask_history",
+        "actor": {
+          "id": "doctor_er_0",
+          "role": "er_doctor",
+          "label": ""
+        },
+        "target": {
+          "id": "synthetic_llm_smoke",
+          "role": "patient",
+          "label": ""
+        },
+        "event_type": "question_asked",
+        "action": "ask_history",
+        "location_id": "er_bedside_1",
+        "resource_kind": "er_doctor",
+        "rationale": "Gathering more information about the patient's symptoms to inform the diagnosis and treatment plan.",
+        "payload": {
+          "question": "Intermittent mild discomfort",
+          "answer": "I've been feeling this discomfort for about 3 minutes now, and it's been getting a bit worse. It's just a mild ache, but it's been there since this morning."
+        },
+        "state_delta": {
+          "zone": "er_workup",
+          "workflow_state": "in_er_interview",
+          "triage_level": 3,
+          "effective_priority": 3,
+          "pending_results_count": 0,
+          "target_department": "general_medicine",
+          "assigned_bed_id": "er_bed_1",
+          "assigned_er_doctor_id": "doctor_er_0",
+          "assigned_specialist_id": "",
+          "er_arrival_min": 3,
+          "er_started_min": 3,
+          "specialty_arrival_min": 0,
+          "specialty_started_min": 0,
+          "current_location_id": "er_bed_1",
+          "target_location_id": "er_bed_1",
+          "interaction_location_id": "er_bedside_1",
+          "pending_interaction": {}
+        },
+        "meta": {
+          "zone": "er_workup"
+        },
+        "zone": "er_workup"
+      },
+      {
+        "event_id": "synthetic_llm_smoke_m0004_assessment_completed_07",
+        "run_id": "",
+        "case_id": "synthetic_llm_smoke",
+        "minute": 4,
+        "tick": 4,
+        "phase": "dispatch_er",
+        "actor": {
+          "id": "doctor_er_0",
+          "role": "er_doctor",
+          "label": ""
+        },
+        "target": {
+          "id": "synthetic_llm_smoke",
+          "role": "patient",
+          "label": ""
+        },
+        "event_type": "assessment_completed",
+        "action": "dispatch_er",
+        "location_id": "er_bedside_1",
+        "resource_kind": "er_doctor",
+        "rationale": "Priority=3.050: severity=3.000, queue_wait=0.050, risk=0.000; resuscitation-level patients first; equal scores use arrival order.",
+        "payload": {
+          "bedside_location_id": "er_bedside_1",
+          "doctor_start_location_id": "er_bedside_1"
+        },
+        "state_delta": {
+          "zone": "er_workup",
+          "workflow_state": "waiting_er_doctor_arrival",
+          "triage_level": 3,
+          "effective_priority": 3,
+          "pending_results_count": 0,
+          "target_department": "general_medicine",
+          "assigned_bed_id": "er_bed_1",
+          "assigned_er_doctor_id": "doctor_er_0",
+          "assigned_specialist_id": "",
+          "er_arrival_min": 5,
+          "er_started_min": 0,
+          "specialty_arrival_min": 0,
+          "specialty_started_min": 0,
+          "current_location_id": "er_bed_1",
+          "target_location_id": "er_bed_1",
+          "interaction_location_id": "er_bedside_1",
+          "pending_interaction": {
+            "action": "perform_assessment",
+            "actor_id": "doctor_er_0",
+            "location_id": "er_bedside_1",
+            "ready_minute": 5
+          }
+        },
+        "meta": {
+          "zone": "er_workup"
+        },
+        "zone": "er_workup"
+      },
+      {
+        "event_id": "synthetic_llm_smoke_m0005_consult_requested_08",
+        "run_id": "",
+        "case_id": "synthetic_llm_smoke",
+        "minute": 5,
+        "tick": 5,
+        "phase": "request_specialty",
+        "actor": {
+          "id": "doctor_er_0",
+          "role": "er_doctor",
+          "label": ""
+        },
+        "target": {
+          "id": "synthetic_llm_smoke",
+          "role": "patient",
+          "label": ""
+        },
+        "event_type": "consult_requested",
+        "action": "request_specialty",
+        "location_id": "er_bedside_1",
+        "resource_kind": "er_doctor",
+        "rationale": "Patient's symptoms are non-specific and may require further evaluation by a general medicine specialist.",
+        "payload": {
+          "department": "general_medicine"
+        },
+        "state_delta": {
+          "zone": "er_workup",
+          "workflow_state": "in_er_interview",
+          "triage_level": 3,
+          "effective_priority": 3,
+          "pending_results_count": 0,
+          "target_department": "general_medicine",
+          "assigned_bed_id": "er_bed_1",
+          "assigned_er_doctor_id": "doctor_er_0",
+          "assigned_specialist_id": "",
+          "er_arrival_min": 5,
+          "er_started_min": 5,
+          "specialty_arrival_min": 0,
+          "specialty_started_min": 0,
+          "current_location_id": "er_bed_1",
+          "target_location_id": "er_bed_1",
+          "interaction_location_id": "er_bedside_1",
+          "pending_interaction": {}
+        },
+        "meta": {
+          "zone": "er_workup"
+        },
+        "zone": "er_workup"
+      },
+      {
+        "event_id": "synthetic_llm_smoke_m0008_consult_started_09",
+        "run_id": "",
+        "case_id": "synthetic_llm_smoke",
+        "minute": 8,
+        "tick": 8,
+        "phase": "consult_started",
+        "actor": {
+          "id": "specialty_general_medicine",
+          "role": "specialist",
+          "label": ""
+        },
+        "target": {
+          "id": "synthetic_llm_smoke",
+          "role": "patient",
+          "label": ""
+        },
+        "event_type": "consult_started",
+        "action": "consult_started",
+        "location_id": "er_bed_1",
+        "resource_kind": "specialist",
+        "rationale": "The leading department was requested to review unresolved evidence at the patient's bedside.",
+        "payload": {
+          "department": "general_medicine",
+          "consult_room_id": "er_bed_consult",
+          "specialist_id": "specialty_general_medicine"
+        },
+        "state_delta": {
+          "zone": "er_workup",
+          "workflow_state": "in_specialty_consult",
+          "triage_level": 3,
+          "effective_priority": 3,
+          "pending_results_count": 0,
+          "target_department": "general_medicine",
+          "assigned_bed_id": "er_bed_1",
+          "assigned_er_doctor_id": "doctor_er_0",
+          "assigned_specialist_id": "specialty_general_medicine",
+          "er_arrival_min": 5,
+          "er_started_min": 5,
+          "specialty_arrival_min": 8,
+          "specialty_started_min": 8,
+          "current_location_id": "er_bed_1",
+          "target_location_id": "er_bed_1",
+          "interaction_location_id": "er_bedside_1",
+          "pending_interaction": {}
+        },
+        "meta": {
+          "zone": "er_workup"
+        },
+        "zone": "er_workup"
+      },
+      {
+        "event_id": "synthetic_llm_smoke_m0012_case_completed_10",
+        "run_id": "",
+        "case_id": "synthetic_llm_smoke",
+        "minute": 12,
+        "tick": 12,
+        "phase": "specialty_finalize",
+        "actor": {
+          "id": "specialty_general_medicine",
+          "role": "specialist",
+          "label": ""
+        },
+        "target": {
+          "id": "synthetic_llm_smoke",
+          "role": "patient",
+          "label": ""
+        },
+        "event_type": "case_completed",
+        "action": "specialty_finalize",
+        "location_id": "discharge_1",
+        "resource_kind": "specialist",
+        "rationale": "The patient's symptoms of intermittent mild discomfort are non-specific and could be indicative of a wide range of conditions. A general medicine specialist is best equipped to evaluate and potentially diagnose the cause of the discomfort.",
+        "payload": {
+          "final_diagnosis": "general_medicine",
+          "final_department": "general_medicine",
+          "diagnosis_status": "unresolved",
+          "completion_scope": "diagnostic_episode_not_discharge_or_recovery_validation"
+        },
+        "state_delta": {
+          "zone": "discharged",
+          "workflow_state": "completed",
+          "triage_level": 3,
+          "effective_priority": 3,
+          "pending_results_count": 0,
+          "target_department": "general_medicine",
+          "assigned_bed_id": "er_bed_1",
+          "assigned_er_doctor_id": "doctor_er_0",
+          "assigned_specialist_id": "specialty_general_medicine",
+          "er_arrival_min": 5,
+          "er_started_min": 5,
+          "specialty_arrival_min": 8,
+          "specialty_started_min": 8,
+          "current_location_id": "er_bed_1",
+          "target_location_id": "discharge_1",
+          "interaction_location_id": "discharge_1",
+          "pending_interaction": {}
+        },
+        "meta": {
+          "zone": "discharged"
+        },
+        "zone": "discharged"
+      }
+    ],
+    "flow_config": {
+      "capacities": {
+        "triage_nurses": 1,
+        "er_doctors": 1,
+        "er_beds": 4,
+        "lab_slots": 2,
+        "imaging_slots": 1
+      },
+      "durations": {
+        "triage": 1,
+        "er_assessment": 1,
+        "er_travel": 1,
+        "specialty_travel": 2,
+        "specialty_consult": 4,
+        "lab_slot": 5,
+        "imaging_slot": 6,
+        "result_hold": 3
+      },
+      "priority": {
+        "severity": 1.0,
+        "waiting": 0.05,
+        "risk": 1.0
+      },
+      "arrival": {
+        "mode": "fixed",
+        "rate_per_minute": 0.2,
+        "seed": 0
+      },
+      "demand": {},
+      "simulation": {
+        "resource_mode": "constrained"
+      },
+      "clinical": {
+        "mode": "llm_required",
+        "max_decisions": 3,
+        "max_questions": 1
+      }
+    },
+    "flow_accounting": {
+      "start_minute": 0,
+      "queues": {
+        "triage_queue": {
+          "entries": 1,
+          "exits": 1,
+          "completed_wait": 0,
+          "area": 0,
+          "open": {}
+        },
+        "bed_queue": {
+          "entries": 1,
+          "exits": 1,
+          "completed_wait": 0,
+          "area": 0,
+          "open": {}
+        },
+        "er_queue": {
+          "entries": 2,
+          "exits": 2,
+          "completed_wait": 1,
+          "area": 1,
+          "open": {}
+        },
+        "test_queue": {
+          "entries": 0,
+          "exits": 0,
+          "completed_wait": 0,
+          "area": 0,
+          "open": {}
+        },
+        "specialty_queue": {
+          "entries": 1,
+          "exits": 1,
+          "completed_wait": 0,
+          "area": 0,
+          "open": {}
+        }
+      },
+      "resources": {
+        "nurse_triage_0": {
+          "busy_minutes": 1,
+          "resource_type": "triage_nurse"
+        },
+        "doctor_er_0": {
+          "busy_minutes": 4,
+          "resource_type": "er_doctor"
+        },
+        "er_bed_1": {
+          "busy_minutes": 11,
+          "resource_type": "er_bed"
+        },
+        "er_bed_2": {
+          "busy_minutes": 0,
+          "resource_type": "er_bed"
+        },
+        "er_bed_3": {
+          "busy_minutes": 0,
+          "resource_type": "er_bed"
+        },
+        "er_bed_4": {
+          "busy_minutes": 0,
+          "resource_type": "er_bed"
+        },
+        "lab_slot_1": {
+          "busy_minutes": 0,
+          "resource_type": "lab_slot"
+        },
+        "lab_slot_2": {
+          "busy_minutes": 0,
+          "resource_type": "lab_slot"
+        },
+        "imaging_slot_1": {
+          "busy_minutes": 0,
+          "resource_type": "imaging_slot"
+        },
+        "specialty_neurology": {
+          "busy_minutes": 0,
+          "resource_type": "specialist"
+        },
+        "specialty_cardiology": {
+          "busy_minutes": 0,
+          "resource_type": "specialist"
+        },
+        "specialty_pulmonology": {
+          "busy_minutes": 0,
+          "resource_type": "specialist"
+        },
+        "specialty_gastroenterology": {
+          "busy_minutes": 0,
+          "resource_type": "specialist"
+        },
+        "specialty_nephrology": {
+          "busy_minutes": 0,
+          "resource_type": "specialist"
+        },
+        "specialty_hematology": {
+          "busy_minutes": 0,
+          "resource_type": "specialist"
+        },
+        "specialty_infectious_disease": {
+          "busy_minutes": 0,
+          "resource_type": "specialist"
+        },
+        "specialty_orthopedics": {
+          "busy_minutes": 0,
+          "resource_type": "specialist"
+        },
+        "specialty_obstetrics_gynecology": {
+          "busy_minutes": 0,
+          "resource_type": "specialist"
+        },
+        "specialty_urology": {
+          "busy_minutes": 0,
+          "resource_type": "specialist"
+        },
+        "specialty_psychiatry": {
+          "busy_minutes": 0,
+          "resource_type": "specialist"
+        },
+        "specialty_endocrinology": {
+          "busy_minutes": 0,
+          "resource_type": "specialist"
+        },
+        "specialty_general_medicine": {
+          "busy_minutes": 6,
+          "resource_type": "specialist"
+        },
+        "specialty_internal_medicine": {
+          "busy_minutes": 0,
+          "resource_type": "specialist"
+        },
+        "specialty_surgery": {
+          "busy_minutes": 0,
+          "resource_type": "specialist"
+        },
+        "consult_room_1": {
+          "busy_minutes": 0,
+          "resource_type": "consult_room"
+        },
+        "consult_room_2": {
+          "busy_minutes": 0,
+          "resource_type": "consult_room"
+        },
+        "consult_room_3": {
+          "busy_minutes": 0,
+          "resource_type": "consult_room"
+        }
+      },
+      "system": {
+        "start_minute": 0,
+        "area": 12
+      }
+    }
+  }
+}

@@ -51,9 +51,30 @@ class HospitalCaseRuntime:
     er_turn_count: int = 0
     specialty_turn_count: int = 0
     is_completed: bool = False
+    disposition_status: str = "not_assessed"
+    reassessment_pending: bool = False
+    reassessment_reason: str = ""
+    first_evaluation_min: int | None = None
+    final_diagnosis_min: int | None = None
+    queue_wait_minutes: int = 0
+    priority_score: float = 0.0
+    priority_rationale: str = ""
+    health_state: str = "Stable"
+    first_deterioration_min: int | None = None
+    current_time_min: int = 0
+    vital_signs: dict[str, Any] = field(default_factory=dict)
+    current_symptoms: list[str] = field(default_factory=list)
+    interventions: list[dict[str, Any]] = field(default_factory=list)
+    applied_temporal_event_keys: list[str] = field(default_factory=list)
+    deterioration_events: list[dict[str, Any]] = field(default_factory=list)
+    llm_audit: list[dict[str, Any]] = field(default_factory=list)
+    decision_cache: dict[str, Any] = field(default_factory=dict)
+    memory_context: dict[str, Any] = field(default_factory=dict)
+    voi_state: dict[str, Any] = field(default_factory=dict)
+    voi_memory_pool: dict[str, Any] = field(default_factory=dict)
 
     def waiting_minutes(self, current_minute: int) -> int:
-        return max(0, int(current_minute or 0) - int(self.arrival_time_min or 0))
+        return self.queue_wait_minutes
 
     @classmethod
     def from_summary(cls, summary: dict[str, Any], case_data: dict[str, Any] | None = None) -> "HospitalCaseRuntime":
@@ -101,6 +122,27 @@ class HospitalCaseRuntime:
             er_turn_count=int(payload.get("er_turn_count", 0) or 0),
             specialty_turn_count=int(payload.get("specialty_turn_count", 0) or 0),
             is_completed=bool(payload.get("is_completed", False)),
+            disposition_status=str(payload.get("disposition_status", "not_assessed")),
+            reassessment_pending=bool(payload.get("reassessment_pending", False)),
+            reassessment_reason=str(payload.get("reassessment_reason", "")),
+            first_evaluation_min=payload.get("first_evaluation_min"),
+            final_diagnosis_min=payload.get("final_diagnosis_min"),
+            queue_wait_minutes=int(payload.get("queue_wait_minutes", 0)),
+            priority_score=float(payload.get("priority_score", 0.0)),
+            priority_rationale=str(payload.get("priority_rationale", "")),
+            health_state=str(payload.get("health_state", "Stable")),
+            first_deterioration_min=payload.get("first_deterioration_min"),
+            current_time_min=int(payload.get("current_time_min", 0)),
+            vital_signs=dict(payload.get("vital_signs", {})),
+            current_symptoms=list(payload.get("current_symptoms", [])),
+            interventions=list(payload.get("interventions", [])),
+            applied_temporal_event_keys=list(payload.get("applied_temporal_event_keys", [])),
+            deterioration_events=list(payload.get("deterioration_events", [])),
+            llm_audit=list(payload.get("llm_audit", [])),
+            decision_cache=dict(payload.get("decision_cache", {})),
+            memory_context=dict(payload.get("memory_context", {})),
+            voi_state=dict(payload.get("voi_state", {})),
+            voi_memory_pool=dict(payload.get("voi_memory_pool", {})),
         )
 
     def to_summary(self) -> dict[str, Any]:
@@ -149,4 +191,25 @@ class HospitalCaseRuntime:
             "er_turn_count": int(self.er_turn_count or 0),
             "specialty_turn_count": int(self.specialty_turn_count or 0),
             "is_completed": bool(self.is_completed),
+            "disposition_status": self.disposition_status,
+            "reassessment_pending": self.reassessment_pending,
+            "reassessment_reason": self.reassessment_reason,
+            "first_evaluation_min": self.first_evaluation_min,
+            "final_diagnosis_min": self.final_diagnosis_min,
+            "queue_wait_minutes": self.queue_wait_minutes,
+            "priority_score": self.priority_score,
+            "priority_rationale": self.priority_rationale,
+            "health_state": self.health_state,
+            "first_deterioration_min": self.first_deterioration_min,
+            "current_time_min": self.current_time_min,
+            "vital_signs": dict(self.vital_signs),
+            "current_symptoms": list(self.current_symptoms),
+            "interventions": list(self.interventions),
+            "applied_temporal_event_keys": list(self.applied_temporal_event_keys),
+            "deterioration_events": list(self.deterioration_events),
+            "llm_audit": list(self.llm_audit),
+            "decision_cache": dict(self.decision_cache),
+            "memory_context": dict(self.memory_context),
+            "voi_state": dict(self.voi_state),
+            "voi_memory_pool": dict(self.voi_memory_pool),
         }

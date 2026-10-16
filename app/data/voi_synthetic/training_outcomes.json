@@ -1,0 +1,322 @@
+[
+  {
+    "patient_id": "voi-train-0",
+    "visit_id": "v1",
+    "split": "train",
+    "diagnosis": "Synthetic A",
+    "action_id": "test-t",
+    "outcome_id": "a"
+  },
+  {
+    "patient_id": "voi-train-0",
+    "visit_id": "v1",
+    "split": "train",
+    "diagnosis": "Synthetic A",
+    "action_id": "interview",
+    "outcome_id": "no"
+  },
+  {
+    "patient_id": "voi-train-0",
+    "visit_id": "v1",
+    "split": "train",
+    "diagnosis": "Synthetic A",
+    "action_id": "memory",
+    "outcome_id": "b"
+  },
+  {
+    "patient_id": "voi-train-0",
+    "visit_id": "v1",
+    "split": "train",
+    "diagnosis": "Synthetic A",
+    "action_id": "consult",
+    "outcome_id": "b"
+  },
+  {
+    "patient_id": "voi-train-1",
+    "visit_id": "v1",
+    "split": "train",
+    "diagnosis": "Synthetic A",
+    "action_id": "test-t",
+    "outcome_id": "a"
+  },
+  {
+    "patient_id": "voi-train-1",
+    "visit_id": "v1",
+    "split": "train",
+    "diagnosis": "Synthetic A",
+    "action_id": "interview",
+    "outcome_id": "yes"
+  },
+  {
+    "patient_id": "voi-train-1",
+    "visit_id": "v1",
+    "split": "train",
+    "diagnosis": "Synthetic A",
+    "action_id": "memory",
+    "outcome_id": "a"
+  },
+  {
+    "patient_id": "voi-train-1",
+    "visit_id": "v1",
+    "split": "train",
+    "diagnosis": "Synthetic A",
+    "action_id": "consult",
+    "outcome_id": "a"
+  },
+  {
+    "patient_id": "voi-train-2",
+    "visit_id": "v1",
+    "split": "train",
+    "diagnosis": "Synthetic A",
+    "action_id": "test-t",
+    "outcome_id": "a"
+  },
+  {
+    "patient_id": "voi-train-2",
+    "visit_id": "v1",
+    "split": "train",
+    "diagnosis": "Synthetic A",
+    "action_id": "interview",
+    "outcome_id": "yes"
+  },
+  {
+    "patient_id": "voi-train-2",
+    "visit_id": "v1",
+    "split": "train",
+    "diagnosis": "Synthetic A",
+    "action_id": "memory",
+    "outcome_id": "a"
+  },
+  {
+    "patient_id": "voi-train-2",
+    "visit_id": "v1",
+    "split": "train",
+    "diagnosis": "Synthetic A",
+    "action_id": "consult",
+    "outcome_id": "a"
+  },
+  {
+    "patient_id": "voi-train-3",
+    "visit_id": "v1",
+    "split": "train",
+    "diagnosis": "Synthetic A",
+    "action_id": "test-t",
+    "outcome_id": "a"
+  },
+  {
+    "patient_id": "voi-train-3",
+    "visit_id": "v1",
+    "split": "train",
+    "diagnosis": "Synthetic A",
+    "action_id": "interview",
+    "outcome_id": "yes"
+  },
+  {
+    "patient_id": "voi-train-3",
+    "visit_id": "v1",
+    "split": "train",
+    "diagnosis": "Synthetic A",
+    "action_id": "memory",
+    "outcome_id": "a"
+  },
+  {
+    "patient_id": "voi-train-3",
+    "visit_id": "v1",
+    "split": "train",
+    "diagnosis": "Synthetic A",
+    "action_id": "consult",
+    "outcome_id": "a"
+  },
+  {
+    "patient_id": "voi-train-4",
+    "visit_id": "v1",
+    "split": "train",
+    "diagnosis": "Synthetic A",
+    "action_id": "test-t",
+    "outcome_id": "a"
+  },
+  {
+    "patient_id": "voi-train-4",
+    "visit_id": "v1",
+    "split": "train",
+    "diagnosis": "Synthetic A",
+    "action_id": "interview",
+    "outcome_id": "yes"
+  },
+  {
+    "patient_id": "voi-train-4",
+    "visit_id": "v1",
+    "split": "train",
+    "diagnosis": "Synthetic A",
+    "action_id": "memory",
+    "outcome_id": "a"
+  },
+  {
+    "patient_id": "voi-train-4",
+    "visit_id": "v1",
+    "split": "train",
+    "diagnosis": "Synthetic A",
+    "action_id": "consult",
+    "outcome_id": "a"
+  },
+  {
+    "patient_id": "voi-train-5",
+    "visit_id": "v1",
+    "split": "train",
+    "diagnosis": "Synthetic B",
+    "action_id": "test-t",
+    "outcome_id": "b"
+  },
+  {
+    "patient_id": "voi-train-5",
+    "visit_id": "v1",
+    "split": "train",
+    "diagnosis": "Synthetic B",
+    "action_id": "interview",
+    "outcome_id": "yes"
+  },
+  {
+    "patient_id": "voi-train-5",
+    "visit_id": "v1",
+    "split": "train",
+    "diagnosis": "Synthetic B",
+    "action_id": "memory",
+    "outcome_id": "a"
+  },
+  {
+    "patient_id": "voi-train-5",
+    "visit_id": "v1",
+    "split": "train",
+    "diagnosis": "Synthetic B",
+    "action_id": "consult",
+    "outcome_id": "a"
+  },
+  {
+    "patient_id": "voi-train-6",
+    "visit_id": "v1",
+    "split": "train",
+    "diagnosis": "Synthetic B",
+    "action_id": "test-t",
+    "outcome_id": "b"
+  },
+  {
+    "patient_id": "voi-train-6",
+    "visit_id": "v1",
+    "split": "train",
+    "diagnosis": "Synthetic B",
+    "action_id": "interview",
+    "outcome_id": "no"
+  },
+  {
+    "patient_id": "voi-train-6",
+    "visit_id": "v1",
+    "split": "train",
+    "diagnosis": "Synthetic B",
+    "action_id": "memory",
+    "outcome_id": "b"
+  },
+  {
+    "patient_id": "voi-train-6",
+    "visit_id": "v1",
+    "split": "train",
+    "diagnosis": "Synthetic B",
+    "action_id": "consult",
+    "outcome_id": "b"
+  },
+  {
+    "patient_id": "voi-train-7",
+    "visit_id": "v1",
+    "split": "train",
+    "diagnosis": "Synthetic B",
+    "action_id": "test-t",
+    "outcome_id": "b"
+  },
+  {
+    "patient_id": "voi-train-7",
+    "visit_id": "v1",
+    "split": "train",
+    "diagnosis": "Synthetic B",
+    "action_id": "interview",
+    "outcome_id": "no"
+  },
+  {
+    "patient_id": "voi-train-7",
+    "visit_id": "v1",
+    "split": "train",
+    "diagnosis": "Synthetic B",
+    "action_id": "memory",
+    "outcome_id": "b"
+  },
+  {
+    "patient_id": "voi-train-7",
+    "visit_id": "v1",
+    "split": "train",
+    "diagnosis": "Synthetic B",
+    "action_id": "consult",
+    "outcome_id": "b"
+  },
+  {
+    "patient_id": "voi-train-8",
+    "visit_id": "v1",
+    "split": "train",
+    "diagnosis": "Synthetic B",
+    "action_id": "test-t",
+    "outcome_id": "b"
+  },
+  {
+    "patient_id": "voi-train-8",
+    "visit_id": "v1",
+    "split": "train",
+    "diagnosis": "Synthetic B",
+    "action_id": "interview",
+    "outcome_id": "no"
+  },
+  {
+    "patient_id": "voi-train-8",
+    "visit_id": "v1",
+    "split": "train",
+    "diagnosis": "Synthetic B",
+    "action_id": "memory",
+    "outcome_id": "b"
+  },
+  {
+    "patient_id": "voi-train-8",
+    "visit_id": "v1",
+    "split": "train",
+    "diagnosis": "Synthetic B",
+    "action_id": "consult",
+    "outcome_id": "b"
+  },
+  {
+    "patient_id": "voi-train-9",
+    "visit_id": "v1",
+    "split": "train",
+    "diagnosis": "Synthetic B",
+    "action_id": "test-t",
+    "outcome_id": "b"
+  },
+  {
+    "patient_id": "voi-train-9",
+    "visit_id": "v1",
+    "split": "train",
+    "diagnosis": "Synthetic B",
+    "action_id": "interview",
+    "outcome_id": "no"
+  },
+  {
+    "patient_id": "voi-train-9",
+    "visit_id": "v1",
+    "split": "train",
+    "diagnosis": "Synthetic B",
+    "action_id": "memory",
+    "outcome_id": "b"
+  },
+  {
+    "patient_id": "voi-train-9",
+    "visit_id": "v1",
+    "split": "train",
+    "diagnosis": "Synthetic B",
+    "action_id": "consult",
+    "outcome_id": "b"
+  }
+]
