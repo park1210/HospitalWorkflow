@@ -1,0 +1,1908 @@
+{
+  "new_model_calls": 0,
+  "summary": [
+    {
+      "group": "ALL",
+      "method": "none",
+      "top_k": 1,
+      "visits": 8,
+      "precision": null,
+      "precision_coverage": 0.0,
+      "recall": 0.0,
+      "recall_coverage": 1.0,
+      "stale_rate": null,
+      "stale_rate_coverage": 0.0,
+      "precision_at_k": 0.0,
+      "precision_at_k_coverage": 1.0,
+      "recall_at_k": 0.0,
+      "recall_at_k_coverage": 1.0,
+      "reciprocal_rank": 0.0,
+      "reciprocal_rank_coverage": 1.0,
+      "hit_at_k": 0.0,
+      "hit_at_k_coverage": 1.0,
+      "mrr": 0.0
+    },
+    {
+      "group": "ALL",
+      "method": "full_history",
+      "top_k": null,
+      "visits": 8,
+      "precision": 0.30625,
+      "precision_coverage": 1.0,
+      "recall": 1.0,
+      "recall_coverage": 1.0,
+      "stale_rate": 0.025,
+      "stale_rate_coverage": 1.0,
+      "precision_at_k": 0.30625,
+      "precision_at_k_coverage": 1.0,
+      "recall_at_k": 1.0,
+      "recall_at_k_coverage": 1.0,
+      "reciprocal_rank": 0.9,
+      "reciprocal_rank_coverage": 1.0,
+      "hit_at_k": 1.0,
+      "hit_at_k_coverage": 1.0,
+      "mrr": 0.9
+    },
+    {
+      "group": "ALL",
+      "method": "lexical",
+      "top_k": 1,
+      "visits": 8,
+      "precision": 1.0,
+      "precision_coverage": 0.75,
+      "recall": 0.5833333333333333,
+      "recall_coverage": 1.0,
+      "stale_rate": 0.0,
+      "stale_rate_coverage": 0.75,
+      "precision_at_k": 0.75,
+      "precision_at_k_coverage": 1.0,
+      "recall_at_k": 0.5833333333333333,
+      "recall_at_k_coverage": 1.0,
+      "reciprocal_rank": 0.75,
+      "reciprocal_rank_coverage": 1.0,
+      "hit_at_k": 0.75,
+      "hit_at_k_coverage": 1.0,
+      "mrr": 0.75
+    },
+    {
+      "group": "ALL",
+      "method": "saved_model_vectors",
+      "top_k": 1,
+      "visits": 8,
+      "precision": 1.0,
+      "precision_coverage": 1.0,
+      "recall": 0.8333333333333333,
+      "recall_coverage": 1.0,
+      "stale_rate": 0.0,
+      "stale_rate_coverage": 1.0,
+      "precision_at_k": 1.0,
+      "precision_at_k_coverage": 1.0,
+      "recall_at_k": 0.8333333333333333,
+      "recall_at_k_coverage": 1.0,
+      "reciprocal_rank": 1.0,
+      "reciprocal_rank_coverage": 1.0,
+      "hit_at_k": 1.0,
+      "hit_at_k_coverage": 1.0,
+      "mrr": 1.0
+    },
+    {
+      "group": "ALL",
+      "method": "lexical",
+      "top_k": 3,
+      "visits": 8,
+      "precision": 1.0,
+      "precision_coverage": 0.75,
+      "recall": 0.75,
+      "recall_coverage": 1.0,
+      "stale_rate": 0.0,
+      "stale_rate_coverage": 0.75,
+      "precision_at_k": 0.41666666666666663,
+      "precision_at_k_coverage": 1.0,
+      "recall_at_k": 0.75,
+      "recall_at_k_coverage": 1.0,
+      "reciprocal_rank": 0.75,
+      "reciprocal_rank_coverage": 1.0,
+      "hit_at_k": 0.75,
+      "hit_at_k_coverage": 1.0,
+      "mrr": 0.75
+    },
+    {
+      "group": "ALL",
+      "method": "saved_model_vectors",
+      "top_k": 3,
+      "visits": 8,
+      "precision": 0.5,
+      "precision_coverage": 1.0,
+      "recall": 1.0,
+      "recall_coverage": 1.0,
+      "stale_rate": 0.0,
+      "stale_rate_coverage": 1.0,
+      "precision_at_k": 0.5,
+      "precision_at_k_coverage": 1.0,
+      "recall_at_k": 1.0,
+      "recall_at_k_coverage": 1.0,
+      "reciprocal_rank": 1.0,
+      "reciprocal_rank_coverage": 1.0,
+      "hit_at_k": 1.0,
+      "hit_at_k_coverage": 1.0,
+      "mrr": 1.0
+    },
+    {
+      "group": "ALL",
+      "method": "lexical",
+      "top_k": 5,
+      "visits": 8,
+      "precision": 1.0,
+      "precision_coverage": 0.75,
+      "recall": 0.75,
+      "recall_coverage": 1.0,
+      "stale_rate": 0.0,
+      "stale_rate_coverage": 0.75,
+      "precision_at_k": 0.25,
+      "precision_at_k_coverage": 1.0,
+      "recall_at_k": 0.75,
+      "recall_at_k_coverage": 1.0,
+      "reciprocal_rank": 0.75,
+      "reciprocal_rank_coverage": 1.0,
+      "hit_at_k": 0.75,
+      "hit_at_k_coverage": 1.0,
+      "mrr": 0.75
+    },
+    {
+      "group": "ALL",
+      "method": "saved_model_vectors",
+      "top_k": 5,
+      "visits": 8,
+      "precision": 0.3375,
+      "precision_coverage": 1.0,
+      "recall": 1.0,
+      "recall_coverage": 1.0,
+      "stale_rate": 0.0,
+      "stale_rate_coverage": 1.0,
+      "precision_at_k": 0.30000000000000004,
+      "precision_at_k_coverage": 1.0,
+      "recall_at_k": 1.0,
+      "recall_at_k_coverage": 1.0,
+      "reciprocal_rank": 1.0,
+      "reciprocal_rank_coverage": 1.0,
+      "hit_at_k": 1.0,
+      "hit_at_k_coverage": 1.0,
+      "mrr": 1.0
+    },
+    {
+      "group": "unspecified",
+      "method": "none",
+      "top_k": 1,
+      "visits": 8,
+      "precision": null,
+      "precision_coverage": 0.0,
+      "recall": 0.0,
+      "recall_coverage": 1.0,
+      "stale_rate": null,
+      "stale_rate_coverage": 0.0,
+      "precision_at_k": 0.0,
+      "precision_at_k_coverage": 1.0,
+      "recall_at_k": 0.0,
+      "recall_at_k_coverage": 1.0,
+      "reciprocal_rank": 0.0,
+      "reciprocal_rank_coverage": 1.0,
+      "hit_at_k": 0.0,
+      "hit_at_k_coverage": 1.0,
+      "mrr": 0.0
+    },
+    {
+      "group": "unspecified",
+      "method": "full_history",
+      "top_k": null,
+      "visits": 8,
+      "precision": 0.30625,
+      "precision_coverage": 1.0,
+      "recall": 1.0,
+      "recall_coverage": 1.0,
+      "stale_rate": 0.025,
+      "stale_rate_coverage": 1.0,
+      "precision_at_k": 0.30625,
+      "precision_at_k_coverage": 1.0,
+      "recall_at_k": 1.0,
+      "recall_at_k_coverage": 1.0,
+      "reciprocal_rank": 0.9,
+      "reciprocal_rank_coverage": 1.0,
+      "hit_at_k": 1.0,
+      "hit_at_k_coverage": 1.0,
+      "mrr": 0.9
+    },
+    {
+      "group": "unspecified",
+      "method": "lexical",
+      "top_k": 1,
+      "visits": 8,
+      "precision": 1.0,
+      "precision_coverage": 0.75,
+      "recall": 0.5833333333333333,
+      "recall_coverage": 1.0,
+      "stale_rate": 0.0,
+      "stale_rate_coverage": 0.75,
+      "precision_at_k": 0.75,
+      "precision_at_k_coverage": 1.0,
+      "recall_at_k": 0.5833333333333333,
+      "recall_at_k_coverage": 1.0,
+      "reciprocal_rank": 0.75,
+      "reciprocal_rank_coverage": 1.0,
+      "hit_at_k": 0.75,
+      "hit_at_k_coverage": 1.0,
+      "mrr": 0.75
+    },
+    {
+      "group": "unspecified",
+      "method": "saved_model_vectors",
+      "top_k": 1,
+      "visits": 8,
+      "precision": 1.0,
+      "precision_coverage": 1.0,
+      "recall": 0.8333333333333333,
+      "recall_coverage": 1.0,
+      "stale_rate": 0.0,
+      "stale_rate_coverage": 1.0,
+      "precision_at_k": 1.0,
+      "precision_at_k_coverage": 1.0,
+      "recall_at_k": 0.8333333333333333,
+      "recall_at_k_coverage": 1.0,
+      "reciprocal_rank": 1.0,
+      "reciprocal_rank_coverage": 1.0,
+      "hit_at_k": 1.0,
+      "hit_at_k_coverage": 1.0,
+      "mrr": 1.0
+    },
+    {
+      "group": "unspecified",
+      "method": "lexical",
+      "top_k": 3,
+      "visits": 8,
+      "precision": 1.0,
+      "precision_coverage": 0.75,
+      "recall": 0.75,
+      "recall_coverage": 1.0,
+      "stale_rate": 0.0,
+      "stale_rate_coverage": 0.75,
+      "precision_at_k": 0.41666666666666663,
+      "precision_at_k_coverage": 1.0,
+      "recall_at_k": 0.75,
+      "recall_at_k_coverage": 1.0,
+      "reciprocal_rank": 0.75,
+      "reciprocal_rank_coverage": 1.0,
+      "hit_at_k": 0.75,
+      "hit_at_k_coverage": 1.0,
+      "mrr": 0.75
+    },
+    {
+      "group": "unspecified",
+      "method": "saved_model_vectors",
+      "top_k": 3,
+      "visits": 8,
+      "precision": 0.5,
+      "precision_coverage": 1.0,
+      "recall": 1.0,
+      "recall_coverage": 1.0,
+      "stale_rate": 0.0,
+      "stale_rate_coverage": 1.0,
+      "precision_at_k": 0.5,
+      "precision_at_k_coverage": 1.0,
+      "recall_at_k": 1.0,
+      "recall_at_k_coverage": 1.0,
+      "reciprocal_rank": 1.0,
+      "reciprocal_rank_coverage": 1.0,
+      "hit_at_k": 1.0,
+      "hit_at_k_coverage": 1.0,
+      "mrr": 1.0
+    },
+    {
+      "group": "unspecified",
+      "method": "lexical",
+      "top_k": 5,
+      "visits": 8,
+      "precision": 1.0,
+      "precision_coverage": 0.75,
+      "recall": 0.75,
+      "recall_coverage": 1.0,
+      "stale_rate": 0.0,
+      "stale_rate_coverage": 0.75,
+      "precision_at_k": 0.25,
+      "precision_at_k_coverage": 1.0,
+      "recall_at_k": 0.75,
+      "recall_at_k_coverage": 1.0,
+      "reciprocal_rank": 0.75,
+      "reciprocal_rank_coverage": 1.0,
+      "hit_at_k": 0.75,
+      "hit_at_k_coverage": 1.0,
+      "mrr": 0.75
+    },
+    {
+      "group": "unspecified",
+      "method": "saved_model_vectors",
+      "top_k": 5,
+      "visits": 8,
+      "precision": 0.3375,
+      "precision_coverage": 1.0,
+      "recall": 1.0,
+      "recall_coverage": 1.0,
+      "stale_rate": 0.0,
+      "stale_rate_coverage": 1.0,
+      "precision_at_k": 0.30000000000000004,
+      "precision_at_k_coverage": 1.0,
+      "recall_at_k": 1.0,
+      "recall_at_k_coverage": 1.0,
+      "reciprocal_rank": 1.0,
+      "reciprocal_rank_coverage": 1.0,
+      "hit_at_k": 1.0,
+      "hit_at_k_coverage": 1.0,
+      "mrr": 1.0
+    }
+  ],
+  "rows": [
+    {
+      "visit": "[\"challenge-validation-distractors\", \"v1\"]",
+      "group": "unspecified",
+      "method": "none",
+      "top_k": 1,
+      "evaluation_k": 1,
+      "eligible_count": 4,
+      "retrieved_count": 0,
+      "precision": null,
+      "recall": 0.0,
+      "stale_rate": null,
+      "precision_at_k": 0.0,
+      "recall_at_k": 0.0,
+      "reciprocal_rank": 0.0,
+      "hit_at_k": 0,
+      "retrieved_ids": [],
+      "relevant_ids": [
+        "challenge-validation-distractors-indicator"
+      ],
+      "conflict_candidates": 0
+    },
+    {
+      "visit": "[\"challenge-validation-distractors\", \"v1\"]",
+      "group": "unspecified",
+      "method": "full_history",
+      "top_k": null,
+      "evaluation_k": 4,
+      "eligible_count": 4,
+      "retrieved_count": 4,
+      "precision": 0.25,
+      "recall": 1.0,
+      "stale_rate": 0.0,
+      "precision_at_k": 0.25,
+      "recall_at_k": 1.0,
+      "reciprocal_rank": 1.0,
+      "hit_at_k": 1,
+      "retrieved_ids": [
+        "challenge-validation-distractors-indicator",
+        "challenge-validation-distractors-noise-0",
+        "challenge-validation-distractors-noise-1",
+        "challenge-validation-distractors-noise-2"
+      ],
+      "relevant_ids": [
+        "challenge-validation-distractors-indicator"
+      ],
+      "conflict_candidates": 0
+    },
+    {
+      "visit": "[\"challenge-validation-distractors\", \"v1\"]",
+      "group": "unspecified",
+      "method": "lexical",
+      "top_k": 1,
+      "evaluation_k": 1,
+      "eligible_count": 4,
+      "retrieved_count": 1,
+      "precision": 1.0,
+      "recall": 1.0,
+      "stale_rate": 0.0,
+      "precision_at_k": 1.0,
+      "recall_at_k": 1.0,
+      "reciprocal_rank": 1.0,
+      "hit_at_k": 1,
+      "retrieved_ids": [
+        "challenge-validation-distractors-indicator"
+      ],
+      "relevant_ids": [
+        "challenge-validation-distractors-indicator"
+      ],
+      "conflict_candidates": 0
+    },
+    {
+      "visit": "[\"challenge-validation-distractors\", \"v1\"]",
+      "group": "unspecified",
+      "method": "saved_model_vectors",
+      "top_k": 1,
+      "evaluation_k": 1,
+      "eligible_count": 4,
+      "retrieved_count": 1,
+      "precision": 1.0,
+      "recall": 1.0,
+      "stale_rate": 0.0,
+      "precision_at_k": 1.0,
+      "recall_at_k": 1.0,
+      "reciprocal_rank": 1.0,
+      "hit_at_k": 1,
+      "retrieved_ids": [
+        "challenge-validation-distractors-indicator"
+      ],
+      "relevant_ids": [
+        "challenge-validation-distractors-indicator"
+      ],
+      "conflict_candidates": 0
+    },
+    {
+      "visit": "[\"challenge-validation-distractors\", \"v1\"]",
+      "group": "unspecified",
+      "method": "lexical",
+      "top_k": 3,
+      "evaluation_k": 3,
+      "eligible_count": 4,
+      "retrieved_count": 1,
+      "precision": 1.0,
+      "recall": 1.0,
+      "stale_rate": 0.0,
+      "precision_at_k": 0.3333333333333333,
+      "recall_at_k": 1.0,
+      "reciprocal_rank": 1.0,
+      "hit_at_k": 1,
+      "retrieved_ids": [
+        "challenge-validation-distractors-indicator"
+      ],
+      "relevant_ids": [
+        "challenge-validation-distractors-indicator"
+      ],
+      "conflict_candidates": 0
+    },
+    {
+      "visit": "[\"challenge-validation-distractors\", \"v1\"]",
+      "group": "unspecified",
+      "method": "saved_model_vectors",
+      "top_k": 3,
+      "evaluation_k": 3,
+      "eligible_count": 4,
+      "retrieved_count": 3,
+      "precision": 0.3333333333333333,
+      "recall": 1.0,
+      "stale_rate": 0.0,
+      "precision_at_k": 0.3333333333333333,
+      "recall_at_k": 1.0,
+      "reciprocal_rank": 1.0,
+      "hit_at_k": 1,
+      "retrieved_ids": [
+        "challenge-validation-distractors-indicator",
+        "challenge-validation-distractors-noise-0",
+        "challenge-validation-distractors-noise-1"
+      ],
+      "relevant_ids": [
+        "challenge-validation-distractors-indicator"
+      ],
+      "conflict_candidates": 0
+    },
+    {
+      "visit": "[\"challenge-validation-distractors\", \"v1\"]",
+      "group": "unspecified",
+      "method": "lexical",
+      "top_k": 5,
+      "evaluation_k": 5,
+      "eligible_count": 4,
+      "retrieved_count": 1,
+      "precision": 1.0,
+      "recall": 1.0,
+      "stale_rate": 0.0,
+      "precision_at_k": 0.2,
+      "recall_at_k": 1.0,
+      "reciprocal_rank": 1.0,
+      "hit_at_k": 1,
+      "retrieved_ids": [
+        "challenge-validation-distractors-indicator"
+      ],
+      "relevant_ids": [
+        "challenge-validation-distractors-indicator"
+      ],
+      "conflict_candidates": 0
+    },
+    {
+      "visit": "[\"challenge-validation-distractors\", \"v1\"]",
+      "group": "unspecified",
+      "method": "saved_model_vectors",
+      "top_k": 5,
+      "evaluation_k": 5,
+      "eligible_count": 4,
+      "retrieved_count": 4,
+      "precision": 0.25,
+      "recall": 1.0,
+      "stale_rate": 0.0,
+      "precision_at_k": 0.2,
+      "recall_at_k": 1.0,
+      "reciprocal_rank": 1.0,
+      "hit_at_k": 1,
+      "retrieved_ids": [
+        "challenge-validation-distractors-indicator",
+        "challenge-validation-distractors-noise-0",
+        "challenge-validation-distractors-noise-1",
+        "challenge-validation-distractors-noise-2"
+      ],
+      "relevant_ids": [
+        "challenge-validation-distractors-indicator"
+      ],
+      "conflict_candidates": 0
+    },
+    {
+      "visit": "[\"challenge-validation-distractors\", \"v2\"]",
+      "group": "unspecified",
+      "method": "none",
+      "top_k": 1,
+      "evaluation_k": 1,
+      "eligible_count": 4,
+      "retrieved_count": 0,
+      "precision": null,
+      "recall": 0.0,
+      "stale_rate": null,
+      "precision_at_k": 0.0,
+      "recall_at_k": 0.0,
+      "reciprocal_rank": 0.0,
+      "hit_at_k": 0,
+      "retrieved_ids": [],
+      "relevant_ids": [
+        "challenge-validation-distractors-indicator"
+      ],
+      "conflict_candidates": 0
+    },
+    {
+      "visit": "[\"challenge-validation-distractors\", \"v2\"]",
+      "group": "unspecified",
+      "method": "full_history",
+      "top_k": null,
+      "evaluation_k": 4,
+      "eligible_count": 4,
+      "retrieved_count": 4,
+      "precision": 0.25,
+      "recall": 1.0,
+      "stale_rate": 0.0,
+      "precision_at_k": 0.25,
+      "recall_at_k": 1.0,
+      "reciprocal_rank": 1.0,
+      "hit_at_k": 1,
+      "retrieved_ids": [
+        "challenge-validation-distractors-indicator",
+        "challenge-validation-distractors-noise-0",
+        "challenge-validation-distractors-noise-1",
+        "challenge-validation-distractors-noise-2"
+      ],
+      "relevant_ids": [
+        "challenge-validation-distractors-indicator"
+      ],
+      "conflict_candidates": 0
+    },
+    {
+      "visit": "[\"challenge-validation-distractors\", \"v2\"]",
+      "group": "unspecified",
+      "method": "lexical",
+      "top_k": 1,
+      "evaluation_k": 1,
+      "eligible_count": 4,
+      "retrieved_count": 1,
+      "precision": 1.0,
+      "recall": 1.0,
+      "stale_rate": 0.0,
+      "precision_at_k": 1.0,
+      "recall_at_k": 1.0,
+      "reciprocal_rank": 1.0,
+      "hit_at_k": 1,
+      "retrieved_ids": [
+        "challenge-validation-distractors-indicator"
+      ],
+      "relevant_ids": [
+        "challenge-validation-distractors-indicator"
+      ],
+      "conflict_candidates": 0
+    },
+    {
+      "visit": "[\"challenge-validation-distractors\", \"v2\"]",
+      "group": "unspecified",
+      "method": "saved_model_vectors",
+      "top_k": 1,
+      "evaluation_k": 1,
+      "eligible_count": 4,
+      "retrieved_count": 1,
+      "precision": 1.0,
+      "recall": 1.0,
+      "stale_rate": 0.0,
+      "precision_at_k": 1.0,
+      "recall_at_k": 1.0,
+      "reciprocal_rank": 1.0,
+      "hit_at_k": 1,
+      "retrieved_ids": [
+        "challenge-validation-distractors-indicator"
+      ],
+      "relevant_ids": [
+        "challenge-validation-distractors-indicator"
+      ],
+      "conflict_candidates": 0
+    },
+    {
+      "visit": "[\"challenge-validation-distractors\", \"v2\"]",
+      "group": "unspecified",
+      "method": "lexical",
+      "top_k": 3,
+      "evaluation_k": 3,
+      "eligible_count": 4,
+      "retrieved_count": 1,
+      "precision": 1.0,
+      "recall": 1.0,
+      "stale_rate": 0.0,
+      "precision_at_k": 0.3333333333333333,
+      "recall_at_k": 1.0,
+      "reciprocal_rank": 1.0,
+      "hit_at_k": 1,
+      "retrieved_ids": [
+        "challenge-validation-distractors-indicator"
+      ],
+      "relevant_ids": [
+        "challenge-validation-distractors-indicator"
+      ],
+      "conflict_candidates": 0
+    },
+    {
+      "visit": "[\"challenge-validation-distractors\", \"v2\"]",
+      "group": "unspecified",
+      "method": "saved_model_vectors",
+      "top_k": 3,
+      "evaluation_k": 3,
+      "eligible_count": 4,
+      "retrieved_count": 3,
+      "precision": 0.3333333333333333,
+      "recall": 1.0,
+      "stale_rate": 0.0,
+      "precision_at_k": 0.3333333333333333,
+      "recall_at_k": 1.0,
+      "reciprocal_rank": 1.0,
+      "hit_at_k": 1,
+      "retrieved_ids": [
+        "challenge-validation-distractors-indicator",
+        "challenge-validation-distractors-noise-0",
+        "challenge-validation-distractors-noise-1"
+      ],
+      "relevant_ids": [
+        "challenge-validation-distractors-indicator"
+      ],
+      "conflict_candidates": 0
+    },
+    {
+      "visit": "[\"challenge-validation-distractors\", \"v2\"]",
+      "group": "unspecified",
+      "method": "lexical",
+      "top_k": 5,
+      "evaluation_k": 5,
+      "eligible_count": 4,
+      "retrieved_count": 1,
+      "precision": 1.0,
+      "recall": 1.0,
+      "stale_rate": 0.0,
+      "precision_at_k": 0.2,
+      "recall_at_k": 1.0,
+      "reciprocal_rank": 1.0,
+      "hit_at_k": 1,
+      "retrieved_ids": [
+        "challenge-validation-distractors-indicator"
+      ],
+      "relevant_ids": [
+        "challenge-validation-distractors-indicator"
+      ],
+      "conflict_candidates": 0
+    },
+    {
+      "visit": "[\"challenge-validation-distractors\", \"v2\"]",
+      "group": "unspecified",
+      "method": "saved_model_vectors",
+      "top_k": 5,
+      "evaluation_k": 5,
+      "eligible_count": 4,
+      "retrieved_count": 4,
+      "precision": 0.25,
+      "recall": 1.0,
+      "stale_rate": 0.0,
+      "precision_at_k": 0.2,
+      "recall_at_k": 1.0,
+      "reciprocal_rank": 1.0,
+      "hit_at_k": 1,
+      "retrieved_ids": [
+        "challenge-validation-distractors-indicator",
+        "challenge-validation-distractors-noise-0",
+        "challenge-validation-distractors-noise-1",
+        "challenge-validation-distractors-noise-2"
+      ],
+      "relevant_ids": [
+        "challenge-validation-distractors-indicator"
+      ],
+      "conflict_candidates": 0
+    },
+    {
+      "visit": "[\"challenge-validation-superseded\", \"v1\"]",
+      "group": "unspecified",
+      "method": "none",
+      "top_k": 1,
+      "evaluation_k": 1,
+      "eligible_count": 4,
+      "retrieved_count": 0,
+      "precision": null,
+      "recall": 0.0,
+      "stale_rate": null,
+      "precision_at_k": 0.0,
+      "recall_at_k": 0.0,
+      "reciprocal_rank": 0.0,
+      "hit_at_k": 0,
+      "retrieved_ids": [],
+      "relevant_ids": [
+        "challenge-validation-superseded-indicator"
+      ],
+      "conflict_candidates": 0
+    },
+    {
+      "visit": "[\"challenge-validation-superseded\", \"v1\"]",
+      "group": "unspecified",
+      "method": "full_history",
+      "top_k": null,
+      "evaluation_k": 4,
+      "eligible_count": 4,
+      "retrieved_count": 4,
+      "precision": 0.25,
+      "recall": 1.0,
+      "stale_rate": 0.0,
+      "precision_at_k": 0.25,
+      "recall_at_k": 1.0,
+      "reciprocal_rank": 1.0,
+      "hit_at_k": 1,
+      "retrieved_ids": [
+        "challenge-validation-superseded-indicator",
+        "challenge-validation-superseded-noise-0",
+        "challenge-validation-superseded-noise-1",
+        "challenge-validation-superseded-noise-2"
+      ],
+      "relevant_ids": [
+        "challenge-validation-superseded-indicator"
+      ],
+      "conflict_candidates": 0
+    },
+    {
+      "visit": "[\"challenge-validation-superseded\", \"v1\"]",
+      "group": "unspecified",
+      "method": "lexical",
+      "top_k": 1,
+      "evaluation_k": 1,
+      "eligible_count": 4,
+      "retrieved_count": 1,
+      "precision": 1.0,
+      "recall": 1.0,
+      "stale_rate": 0.0,
+      "precision_at_k": 1.0,
+      "recall_at_k": 1.0,
+      "reciprocal_rank": 1.0,
+      "hit_at_k": 1,
+      "retrieved_ids": [
+        "challenge-validation-superseded-indicator"
+      ],
+      "relevant_ids": [
+        "challenge-validation-superseded-indicator"
+      ],
+      "conflict_candidates": 0
+    },
+    {
+      "visit": "[\"challenge-validation-superseded\", \"v1\"]",
+      "group": "unspecified",
+      "method": "saved_model_vectors",
+      "top_k": 1,
+      "evaluation_k": 1,
+      "eligible_count": 4,
+      "retrieved_count": 1,
+      "precision": 1.0,
+      "recall": 1.0,
+      "stale_rate": 0.0,
+      "precision_at_k": 1.0,
+      "recall_at_k": 1.0,
+      "reciprocal_rank": 1.0,
+      "hit_at_k": 1,
+      "retrieved_ids": [
+        "challenge-validation-superseded-indicator"
+      ],
+      "relevant_ids": [
+        "challenge-validation-superseded-indicator"
+      ],
+      "conflict_candidates": 0
+    },
+    {
+      "visit": "[\"challenge-validation-superseded\", \"v1\"]",
+      "group": "unspecified",
+      "method": "lexical",
+      "top_k": 3,
+      "evaluation_k": 3,
+      "eligible_count": 4,
+      "retrieved_count": 1,
+      "precision": 1.0,
+      "recall": 1.0,
+      "stale_rate": 0.0,
+      "precision_at_k": 0.3333333333333333,
+      "recall_at_k": 1.0,
+      "reciprocal_rank": 1.0,
+      "hit_at_k": 1,
+      "retrieved_ids": [
+        "challenge-validation-superseded-indicator"
+      ],
+      "relevant_ids": [
+        "challenge-validation-superseded-indicator"
+      ],
+      "conflict_candidates": 0
+    },
+    {
+      "visit": "[\"challenge-validation-superseded\", \"v1\"]",
+      "group": "unspecified",
+      "method": "saved_model_vectors",
+      "top_k": 3,
+      "evaluation_k": 3,
+      "eligible_count": 4,
+      "retrieved_count": 3,
+      "precision": 0.3333333333333333,
+      "recall": 1.0,
+      "stale_rate": 0.0,
+      "precision_at_k": 0.3333333333333333,
+      "recall_at_k": 1.0,
+      "reciprocal_rank": 1.0,
+      "hit_at_k": 1,
+      "retrieved_ids": [
+        "challenge-validation-superseded-indicator",
+        "challenge-validation-superseded-noise-0",
+        "challenge-validation-superseded-noise-1"
+      ],
+      "relevant_ids": [
+        "challenge-validation-superseded-indicator"
+      ],
+      "conflict_candidates": 0
+    },
+    {
+      "visit": "[\"challenge-validation-superseded\", \"v1\"]",
+      "group": "unspecified",
+      "method": "lexical",
+      "top_k": 5,
+      "evaluation_k": 5,
+      "eligible_count": 4,
+      "retrieved_count": 1,
+      "precision": 1.0,
+      "recall": 1.0,
+      "stale_rate": 0.0,
+      "precision_at_k": 0.2,
+      "recall_at_k": 1.0,
+      "reciprocal_rank": 1.0,
+      "hit_at_k": 1,
+      "retrieved_ids": [
+        "challenge-validation-superseded-indicator"
+      ],
+      "relevant_ids": [
+        "challenge-validation-superseded-indicator"
+      ],
+      "conflict_candidates": 0
+    },
+    {
+      "visit": "[\"challenge-validation-superseded\", \"v1\"]",
+      "group": "unspecified",
+      "method": "saved_model_vectors",
+      "top_k": 5,
+      "evaluation_k": 5,
+      "eligible_count": 4,
+      "retrieved_count": 4,
+      "precision": 0.25,
+      "recall": 1.0,
+      "stale_rate": 0.0,
+      "precision_at_k": 0.2,
+      "recall_at_k": 1.0,
+      "reciprocal_rank": 1.0,
+      "hit_at_k": 1,
+      "retrieved_ids": [
+        "challenge-validation-superseded-indicator",
+        "challenge-validation-superseded-noise-0",
+        "challenge-validation-superseded-noise-1",
+        "challenge-validation-superseded-noise-2"
+      ],
+      "relevant_ids": [
+        "challenge-validation-superseded-indicator"
+      ],
+      "conflict_candidates": 0
+    },
+    {
+      "visit": "[\"challenge-validation-superseded\", \"v2\"]",
+      "group": "unspecified",
+      "method": "none",
+      "top_k": 1,
+      "evaluation_k": 1,
+      "eligible_count": 5,
+      "retrieved_count": 0,
+      "precision": null,
+      "recall": 0.0,
+      "stale_rate": null,
+      "precision_at_k": 0.0,
+      "recall_at_k": 0.0,
+      "reciprocal_rank": 0.0,
+      "hit_at_k": 0,
+      "retrieved_ids": [],
+      "relevant_ids": [
+        "challenge-validation-superseded-update"
+      ],
+      "conflict_candidates": 0
+    },
+    {
+      "visit": "[\"challenge-validation-superseded\", \"v2\"]",
+      "group": "unspecified",
+      "method": "full_history",
+      "top_k": null,
+      "evaluation_k": 5,
+      "eligible_count": 5,
+      "retrieved_count": 5,
+      "precision": 0.2,
+      "recall": 1.0,
+      "stale_rate": 0.2,
+      "precision_at_k": 0.2,
+      "recall_at_k": 1.0,
+      "reciprocal_rank": 0.2,
+      "hit_at_k": 1,
+      "retrieved_ids": [
+        "challenge-validation-superseded-indicator",
+        "challenge-validation-superseded-noise-0",
+        "challenge-validation-superseded-noise-1",
+        "challenge-validation-superseded-noise-2",
+        "challenge-validation-superseded-update"
+      ],
+      "relevant_ids": [
+        "challenge-validation-superseded-update"
+      ],
+      "conflict_candidates": 0
+    },
+    {
+      "visit": "[\"challenge-validation-superseded\", \"v2\"]",
+      "group": "unspecified",
+      "method": "lexical",
+      "top_k": 1,
+      "evaluation_k": 1,
+      "eligible_count": 5,
+      "retrieved_count": 1,
+      "precision": 1.0,
+      "recall": 1.0,
+      "stale_rate": 0.0,
+      "precision_at_k": 1.0,
+      "recall_at_k": 1.0,
+      "reciprocal_rank": 1.0,
+      "hit_at_k": 1,
+      "retrieved_ids": [
+        "challenge-validation-superseded-update"
+      ],
+      "relevant_ids": [
+        "challenge-validation-superseded-update"
+      ],
+      "conflict_candidates": 0
+    },
+    {
+      "visit": "[\"challenge-validation-superseded\", \"v2\"]",
+      "group": "unspecified",
+      "method": "saved_model_vectors",
+      "top_k": 1,
+      "evaluation_k": 1,
+      "eligible_count": 5,
+      "retrieved_count": 1,
+      "precision": 1.0,
+      "recall": 1.0,
+      "stale_rate": 0.0,
+      "precision_at_k": 1.0,
+      "recall_at_k": 1.0,
+      "reciprocal_rank": 1.0,
+      "hit_at_k": 1,
+      "retrieved_ids": [
+        "challenge-validation-superseded-update"
+      ],
+      "relevant_ids": [
+        "challenge-validation-superseded-update"
+      ],
+      "conflict_candidates": 0
+    },
+    {
+      "visit": "[\"challenge-validation-superseded\", \"v2\"]",
+      "group": "unspecified",
+      "method": "lexical",
+      "top_k": 3,
+      "evaluation_k": 3,
+      "eligible_count": 5,
+      "retrieved_count": 1,
+      "precision": 1.0,
+      "recall": 1.0,
+      "stale_rate": 0.0,
+      "precision_at_k": 0.3333333333333333,
+      "recall_at_k": 1.0,
+      "reciprocal_rank": 1.0,
+      "hit_at_k": 1,
+      "retrieved_ids": [
+        "challenge-validation-superseded-update"
+      ],
+      "relevant_ids": [
+        "challenge-validation-superseded-update"
+      ],
+      "conflict_candidates": 0
+    },
+    {
+      "visit": "[\"challenge-validation-superseded\", \"v2\"]",
+      "group": "unspecified",
+      "method": "saved_model_vectors",
+      "top_k": 3,
+      "evaluation_k": 3,
+      "eligible_count": 5,
+      "retrieved_count": 3,
+      "precision": 0.3333333333333333,
+      "recall": 1.0,
+      "stale_rate": 0.0,
+      "precision_at_k": 0.3333333333333333,
+      "recall_at_k": 1.0,
+      "reciprocal_rank": 1.0,
+      "hit_at_k": 1,
+      "retrieved_ids": [
+        "challenge-validation-superseded-update",
+        "challenge-validation-superseded-noise-0",
+        "challenge-validation-superseded-noise-1"
+      ],
+      "relevant_ids": [
+        "challenge-validation-superseded-update"
+      ],
+      "conflict_candidates": 0
+    },
+    {
+      "visit": "[\"challenge-validation-superseded\", \"v2\"]",
+      "group": "unspecified",
+      "method": "lexical",
+      "top_k": 5,
+      "evaluation_k": 5,
+      "eligible_count": 5,
+      "retrieved_count": 1,
+      "precision": 1.0,
+      "recall": 1.0,
+      "stale_rate": 0.0,
+      "precision_at_k": 0.2,
+      "recall_at_k": 1.0,
+      "reciprocal_rank": 1.0,
+      "hit_at_k": 1,
+      "retrieved_ids": [
+        "challenge-validation-superseded-update"
+      ],
+      "relevant_ids": [
+        "challenge-validation-superseded-update"
+      ],
+      "conflict_candidates": 0
+    },
+    {
+      "visit": "[\"challenge-validation-superseded\", \"v2\"]",
+      "group": "unspecified",
+      "method": "saved_model_vectors",
+      "top_k": 5,
+      "evaluation_k": 5,
+      "eligible_count": 5,
+      "retrieved_count": 4,
+      "precision": 0.25,
+      "recall": 1.0,
+      "stale_rate": 0.0,
+      "precision_at_k": 0.2,
+      "recall_at_k": 1.0,
+      "reciprocal_rank": 1.0,
+      "hit_at_k": 1,
+      "retrieved_ids": [
+        "challenge-validation-superseded-update",
+        "challenge-validation-superseded-noise-0",
+        "challenge-validation-superseded-noise-1",
+        "challenge-validation-superseded-noise-2"
+      ],
+      "relevant_ids": [
+        "challenge-validation-superseded-update"
+      ],
+      "conflict_candidates": 0
+    },
+    {
+      "visit": "[\"challenge-validation-conflict\", \"v1\"]",
+      "group": "unspecified",
+      "method": "none",
+      "top_k": 1,
+      "evaluation_k": 1,
+      "eligible_count": 6,
+      "retrieved_count": 0,
+      "precision": null,
+      "recall": 0.0,
+      "stale_rate": null,
+      "precision_at_k": 0.0,
+      "recall_at_k": 0.0,
+      "reciprocal_rank": 0.0,
+      "hit_at_k": 0,
+      "retrieved_ids": [],
+      "relevant_ids": [
+        "challenge-validation-conflict-indicator",
+        "challenge-validation-conflict-positive",
+        "challenge-validation-conflict-negative"
+      ],
+      "conflict_candidates": 0
+    },
+    {
+      "visit": "[\"challenge-validation-conflict\", \"v1\"]",
+      "group": "unspecified",
+      "method": "full_history",
+      "top_k": null,
+      "evaluation_k": 6,
+      "eligible_count": 6,
+      "retrieved_count": 6,
+      "precision": 0.5,
+      "recall": 1.0,
+      "stale_rate": 0.0,
+      "precision_at_k": 0.5,
+      "recall_at_k": 1.0,
+      "reciprocal_rank": 1.0,
+      "hit_at_k": 1,
+      "retrieved_ids": [
+        "challenge-validation-conflict-indicator",
+        "challenge-validation-conflict-negative",
+        "challenge-validation-conflict-noise-0",
+        "challenge-validation-conflict-noise-1",
+        "challenge-validation-conflict-noise-2",
+        "challenge-validation-conflict-positive"
+      ],
+      "relevant_ids": [
+        "challenge-validation-conflict-indicator",
+        "challenge-validation-conflict-positive",
+        "challenge-validation-conflict-negative"
+      ],
+      "conflict_candidates": 1
+    },
+    {
+      "visit": "[\"challenge-validation-conflict\", \"v1\"]",
+      "group": "unspecified",
+      "method": "lexical",
+      "top_k": 1,
+      "evaluation_k": 1,
+      "eligible_count": 6,
+      "retrieved_count": 1,
+      "precision": 1.0,
+      "recall": 0.3333333333333333,
+      "stale_rate": 0.0,
+      "precision_at_k": 1.0,
+      "recall_at_k": 0.3333333333333333,
+      "reciprocal_rank": 1.0,
+      "hit_at_k": 1,
+      "retrieved_ids": [
+        "challenge-validation-conflict-indicator"
+      ],
+      "relevant_ids": [
+        "challenge-validation-conflict-indicator",
+        "challenge-validation-conflict-positive",
+        "challenge-validation-conflict-negative"
+      ],
+      "conflict_candidates": 0
+    },
+    {
+      "visit": "[\"challenge-validation-conflict\", \"v1\"]",
+      "group": "unspecified",
+      "method": "saved_model_vectors",
+      "top_k": 1,
+      "evaluation_k": 1,
+      "eligible_count": 6,
+      "retrieved_count": 1,
+      "precision": 1.0,
+      "recall": 0.3333333333333333,
+      "stale_rate": 0.0,
+      "precision_at_k": 1.0,
+      "recall_at_k": 0.3333333333333333,
+      "reciprocal_rank": 1.0,
+      "hit_at_k": 1,
+      "retrieved_ids": [
+        "challenge-validation-conflict-indicator"
+      ],
+      "relevant_ids": [
+        "challenge-validation-conflict-indicator",
+        "challenge-validation-conflict-positive",
+        "challenge-validation-conflict-negative"
+      ],
+      "conflict_candidates": 0
+    },
+    {
+      "visit": "[\"challenge-validation-conflict\", \"v1\"]",
+      "group": "unspecified",
+      "method": "lexical",
+      "top_k": 3,
+      "evaluation_k": 3,
+      "eligible_count": 6,
+      "retrieved_count": 3,
+      "precision": 1.0,
+      "recall": 1.0,
+      "stale_rate": 0.0,
+      "precision_at_k": 1.0,
+      "recall_at_k": 1.0,
+      "reciprocal_rank": 1.0,
+      "hit_at_k": 1,
+      "retrieved_ids": [
+        "challenge-validation-conflict-indicator",
+        "challenge-validation-conflict-negative",
+        "challenge-validation-conflict-positive"
+      ],
+      "relevant_ids": [
+        "challenge-validation-conflict-indicator",
+        "challenge-validation-conflict-positive",
+        "challenge-validation-conflict-negative"
+      ],
+      "conflict_candidates": 1
+    },
+    {
+      "visit": "[\"challenge-validation-conflict\", \"v1\"]",
+      "group": "unspecified",
+      "method": "saved_model_vectors",
+      "top_k": 3,
+      "evaluation_k": 3,
+      "eligible_count": 6,
+      "retrieved_count": 3,
+      "precision": 1.0,
+      "recall": 1.0,
+      "stale_rate": 0.0,
+      "precision_at_k": 1.0,
+      "recall_at_k": 1.0,
+      "reciprocal_rank": 1.0,
+      "hit_at_k": 1,
+      "retrieved_ids": [
+        "challenge-validation-conflict-indicator",
+        "challenge-validation-conflict-positive",
+        "challenge-validation-conflict-negative"
+      ],
+      "relevant_ids": [
+        "challenge-validation-conflict-indicator",
+        "challenge-validation-conflict-positive",
+        "challenge-validation-conflict-negative"
+      ],
+      "conflict_candidates": 1
+    },
+    {
+      "visit": "[\"challenge-validation-conflict\", \"v1\"]",
+      "group": "unspecified",
+      "method": "lexical",
+      "top_k": 5,
+      "evaluation_k": 5,
+      "eligible_count": 6,
+      "retrieved_count": 3,
+      "precision": 1.0,
+      "recall": 1.0,
+      "stale_rate": 0.0,
+      "precision_at_k": 0.6,
+      "recall_at_k": 1.0,
+      "reciprocal_rank": 1.0,
+      "hit_at_k": 1,
+      "retrieved_ids": [
+        "challenge-validation-conflict-indicator",
+        "challenge-validation-conflict-negative",
+        "challenge-validation-conflict-positive"
+      ],
+      "relevant_ids": [
+        "challenge-validation-conflict-indicator",
+        "challenge-validation-conflict-positive",
+        "challenge-validation-conflict-negative"
+      ],
+      "conflict_candidates": 1
+    },
+    {
+      "visit": "[\"challenge-validation-conflict\", \"v1\"]",
+      "group": "unspecified",
+      "method": "saved_model_vectors",
+      "top_k": 5,
+      "evaluation_k": 5,
+      "eligible_count": 6,
+      "retrieved_count": 5,
+      "precision": 0.6,
+      "recall": 1.0,
+      "stale_rate": 0.0,
+      "precision_at_k": 0.6,
+      "recall_at_k": 1.0,
+      "reciprocal_rank": 1.0,
+      "hit_at_k": 1,
+      "retrieved_ids": [
+        "challenge-validation-conflict-indicator",
+        "challenge-validation-conflict-positive",
+        "challenge-validation-conflict-negative",
+        "challenge-validation-conflict-noise-0",
+        "challenge-validation-conflict-noise-1"
+      ],
+      "relevant_ids": [
+        "challenge-validation-conflict-indicator",
+        "challenge-validation-conflict-positive",
+        "challenge-validation-conflict-negative"
+      ],
+      "conflict_candidates": 1
+    },
+    {
+      "visit": "[\"challenge-validation-conflict\", \"v2\"]",
+      "group": "unspecified",
+      "method": "none",
+      "top_k": 1,
+      "evaluation_k": 1,
+      "eligible_count": 6,
+      "retrieved_count": 0,
+      "precision": null,
+      "recall": 0.0,
+      "stale_rate": null,
+      "precision_at_k": 0.0,
+      "recall_at_k": 0.0,
+      "reciprocal_rank": 0.0,
+      "hit_at_k": 0,
+      "retrieved_ids": [],
+      "relevant_ids": [
+        "challenge-validation-conflict-indicator",
+        "challenge-validation-conflict-positive",
+        "challenge-validation-conflict-negative"
+      ],
+      "conflict_candidates": 0
+    },
+    {
+      "visit": "[\"challenge-validation-conflict\", \"v2\"]",
+      "group": "unspecified",
+      "method": "full_history",
+      "top_k": null,
+      "evaluation_k": 6,
+      "eligible_count": 6,
+      "retrieved_count": 6,
+      "precision": 0.5,
+      "recall": 1.0,
+      "stale_rate": 0.0,
+      "precision_at_k": 0.5,
+      "recall_at_k": 1.0,
+      "reciprocal_rank": 1.0,
+      "hit_at_k": 1,
+      "retrieved_ids": [
+        "challenge-validation-conflict-indicator",
+        "challenge-validation-conflict-negative",
+        "challenge-validation-conflict-noise-0",
+        "challenge-validation-conflict-noise-1",
+        "challenge-validation-conflict-noise-2",
+        "challenge-validation-conflict-positive"
+      ],
+      "relevant_ids": [
+        "challenge-validation-conflict-indicator",
+        "challenge-validation-conflict-positive",
+        "challenge-validation-conflict-negative"
+      ],
+      "conflict_candidates": 1
+    },
+    {
+      "visit": "[\"challenge-validation-conflict\", \"v2\"]",
+      "group": "unspecified",
+      "method": "lexical",
+      "top_k": 1,
+      "evaluation_k": 1,
+      "eligible_count": 6,
+      "retrieved_count": 1,
+      "precision": 1.0,
+      "recall": 0.3333333333333333,
+      "stale_rate": 0.0,
+      "precision_at_k": 1.0,
+      "recall_at_k": 0.3333333333333333,
+      "reciprocal_rank": 1.0,
+      "hit_at_k": 1,
+      "retrieved_ids": [
+        "challenge-validation-conflict-indicator"
+      ],
+      "relevant_ids": [
+        "challenge-validation-conflict-indicator",
+        "challenge-validation-conflict-positive",
+        "challenge-validation-conflict-negative"
+      ],
+      "conflict_candidates": 0
+    },
+    {
+      "visit": "[\"challenge-validation-conflict\", \"v2\"]",
+      "group": "unspecified",
+      "method": "saved_model_vectors",
+      "top_k": 1,
+      "evaluation_k": 1,
+      "eligible_count": 6,
+      "retrieved_count": 1,
+      "precision": 1.0,
+      "recall": 0.3333333333333333,
+      "stale_rate": 0.0,
+      "precision_at_k": 1.0,
+      "recall_at_k": 0.3333333333333333,
+      "reciprocal_rank": 1.0,
+      "hit_at_k": 1,
+      "retrieved_ids": [
+        "challenge-validation-conflict-indicator"
+      ],
+      "relevant_ids": [
+        "challenge-validation-conflict-indicator",
+        "challenge-validation-conflict-positive",
+        "challenge-validation-conflict-negative"
+      ],
+      "conflict_candidates": 0
+    },
+    {
+      "visit": "[\"challenge-validation-conflict\", \"v2\"]",
+      "group": "unspecified",
+      "method": "lexical",
+      "top_k": 3,
+      "evaluation_k": 3,
+      "eligible_count": 6,
+      "retrieved_count": 3,
+      "precision": 1.0,
+      "recall": 1.0,
+      "stale_rate": 0.0,
+      "precision_at_k": 1.0,
+      "recall_at_k": 1.0,
+      "reciprocal_rank": 1.0,
+      "hit_at_k": 1,
+      "retrieved_ids": [
+        "challenge-validation-conflict-indicator",
+        "challenge-validation-conflict-negative",
+        "challenge-validation-conflict-positive"
+      ],
+      "relevant_ids": [
+        "challenge-validation-conflict-indicator",
+        "challenge-validation-conflict-positive",
+        "challenge-validation-conflict-negative"
+      ],
+      "conflict_candidates": 1
+    },
+    {
+      "visit": "[\"challenge-validation-conflict\", \"v2\"]",
+      "group": "unspecified",
+      "method": "saved_model_vectors",
+      "top_k": 3,
+      "evaluation_k": 3,
+      "eligible_count": 6,
+      "retrieved_count": 3,
+      "precision": 1.0,
+      "recall": 1.0,
+      "stale_rate": 0.0,
+      "precision_at_k": 1.0,
+      "recall_at_k": 1.0,
+      "reciprocal_rank": 1.0,
+      "hit_at_k": 1,
+      "retrieved_ids": [
+        "challenge-validation-conflict-indicator",
+        "challenge-validation-conflict-positive",
+        "challenge-validation-conflict-negative"
+      ],
+      "relevant_ids": [
+        "challenge-validation-conflict-indicator",
+        "challenge-validation-conflict-positive",
+        "challenge-validation-conflict-negative"
+      ],
+      "conflict_candidates": 1
+    },
+    {
+      "visit": "[\"challenge-validation-conflict\", \"v2\"]",
+      "group": "unspecified",
+      "method": "lexical",
+      "top_k": 5,
+      "evaluation_k": 5,
+      "eligible_count": 6,
+      "retrieved_count": 3,
+      "precision": 1.0,
+      "recall": 1.0,
+      "stale_rate": 0.0,
+      "precision_at_k": 0.6,
+      "recall_at_k": 1.0,
+      "reciprocal_rank": 1.0,
+      "hit_at_k": 1,
+      "retrieved_ids": [
+        "challenge-validation-conflict-indicator",
+        "challenge-validation-conflict-negative",
+        "challenge-validation-conflict-positive"
+      ],
+      "relevant_ids": [
+        "challenge-validation-conflict-indicator",
+        "challenge-validation-conflict-positive",
+        "challenge-validation-conflict-negative"
+      ],
+      "conflict_candidates": 1
+    },
+    {
+      "visit": "[\"challenge-validation-conflict\", \"v2\"]",
+      "group": "unspecified",
+      "method": "saved_model_vectors",
+      "top_k": 5,
+      "evaluation_k": 5,
+      "eligible_count": 6,
+      "retrieved_count": 5,
+      "precision": 0.6,
+      "recall": 1.0,
+      "stale_rate": 0.0,
+      "precision_at_k": 0.6,
+      "recall_at_k": 1.0,
+      "reciprocal_rank": 1.0,
+      "hit_at_k": 1,
+      "retrieved_ids": [
+        "challenge-validation-conflict-indicator",
+        "challenge-validation-conflict-positive",
+        "challenge-validation-conflict-negative",
+        "challenge-validation-conflict-noise-0",
+        "challenge-validation-conflict-noise-1"
+      ],
+      "relevant_ids": [
+        "challenge-validation-conflict-indicator",
+        "challenge-validation-conflict-positive",
+        "challenge-validation-conflict-negative"
+      ],
+      "conflict_candidates": 1
+    },
+    {
+      "visit": "[\"challenge-validation-paraphrase\", \"v1\"]",
+      "group": "unspecified",
+      "method": "none",
+      "top_k": 1,
+      "evaluation_k": 1,
+      "eligible_count": 4,
+      "retrieved_count": 0,
+      "precision": null,
+      "recall": 0.0,
+      "stale_rate": null,
+      "precision_at_k": 0.0,
+      "recall_at_k": 0.0,
+      "reciprocal_rank": 0.0,
+      "hit_at_k": 0,
+      "retrieved_ids": [],
+      "relevant_ids": [
+        "challenge-validation-paraphrase-indicator"
+      ],
+      "conflict_candidates": 0
+    },
+    {
+      "visit": "[\"challenge-validation-paraphrase\", \"v1\"]",
+      "group": "unspecified",
+      "method": "full_history",
+      "top_k": null,
+      "evaluation_k": 4,
+      "eligible_count": 4,
+      "retrieved_count": 4,
+      "precision": 0.25,
+      "recall": 1.0,
+      "stale_rate": 0.0,
+      "precision_at_k": 0.25,
+      "recall_at_k": 1.0,
+      "reciprocal_rank": 1.0,
+      "hit_at_k": 1,
+      "retrieved_ids": [
+        "challenge-validation-paraphrase-indicator",
+        "challenge-validation-paraphrase-noise-0",
+        "challenge-validation-paraphrase-noise-1",
+        "challenge-validation-paraphrase-noise-2"
+      ],
+      "relevant_ids": [
+        "challenge-validation-paraphrase-indicator"
+      ],
+      "conflict_candidates": 0
+    },
+    {
+      "visit": "[\"challenge-validation-paraphrase\", \"v1\"]",
+      "group": "unspecified",
+      "method": "lexical",
+      "top_k": 1,
+      "evaluation_k": 1,
+      "eligible_count": 4,
+      "retrieved_count": 0,
+      "precision": null,
+      "recall": 0.0,
+      "stale_rate": null,
+      "precision_at_k": 0.0,
+      "recall_at_k": 0.0,
+      "reciprocal_rank": 0.0,
+      "hit_at_k": 0,
+      "retrieved_ids": [],
+      "relevant_ids": [
+        "challenge-validation-paraphrase-indicator"
+      ],
+      "conflict_candidates": 0
+    },
+    {
+      "visit": "[\"challenge-validation-paraphrase\", \"v1\"]",
+      "group": "unspecified",
+      "method": "saved_model_vectors",
+      "top_k": 1,
+      "evaluation_k": 1,
+      "eligible_count": 4,
+      "retrieved_count": 1,
+      "precision": 1.0,
+      "recall": 1.0,
+      "stale_rate": 0.0,
+      "precision_at_k": 1.0,
+      "recall_at_k": 1.0,
+      "reciprocal_rank": 1.0,
+      "hit_at_k": 1,
+      "retrieved_ids": [
+        "challenge-validation-paraphrase-indicator"
+      ],
+      "relevant_ids": [
+        "challenge-validation-paraphrase-indicator"
+      ],
+      "conflict_candidates": 0
+    },
+    {
+      "visit": "[\"challenge-validation-paraphrase\", \"v1\"]",
+      "group": "unspecified",
+      "method": "lexical",
+      "top_k": 3,
+      "evaluation_k": 3,
+      "eligible_count": 4,
+      "retrieved_count": 0,
+      "precision": null,
+      "recall": 0.0,
+      "stale_rate": null,
+      "precision_at_k": 0.0,
+      "recall_at_k": 0.0,
+      "reciprocal_rank": 0.0,
+      "hit_at_k": 0,
+      "retrieved_ids": [],
+      "relevant_ids": [
+        "challenge-validation-paraphrase-indicator"
+      ],
+      "conflict_candidates": 0
+    },
+    {
+      "visit": "[\"challenge-validation-paraphrase\", \"v1\"]",
+      "group": "unspecified",
+      "method": "saved_model_vectors",
+      "top_k": 3,
+      "evaluation_k": 3,
+      "eligible_count": 4,
+      "retrieved_count": 3,
+      "precision": 0.3333333333333333,
+      "recall": 1.0,
+      "stale_rate": 0.0,
+      "precision_at_k": 0.3333333333333333,
+      "recall_at_k": 1.0,
+      "reciprocal_rank": 1.0,
+      "hit_at_k": 1,
+      "retrieved_ids": [
+        "challenge-validation-paraphrase-indicator",
+        "challenge-validation-paraphrase-noise-2",
+        "challenge-validation-paraphrase-noise-0"
+      ],
+      "relevant_ids": [
+        "challenge-validation-paraphrase-indicator"
+      ],
+      "conflict_candidates": 0
+    },
+    {
+      "visit": "[\"challenge-validation-paraphrase\", \"v1\"]",
+      "group": "unspecified",
+      "method": "lexical",
+      "top_k": 5,
+      "evaluation_k": 5,
+      "eligible_count": 4,
+      "retrieved_count": 0,
+      "precision": null,
+      "recall": 0.0,
+      "stale_rate": null,
+      "precision_at_k": 0.0,
+      "recall_at_k": 0.0,
+      "reciprocal_rank": 0.0,
+      "hit_at_k": 0,
+      "retrieved_ids": [],
+      "relevant_ids": [
+        "challenge-validation-paraphrase-indicator"
+      ],
+      "conflict_candidates": 0
+    },
+    {
+      "visit": "[\"challenge-validation-paraphrase\", \"v1\"]",
+      "group": "unspecified",
+      "method": "saved_model_vectors",
+      "top_k": 5,
+      "evaluation_k": 5,
+      "eligible_count": 4,
+      "retrieved_count": 4,
+      "precision": 0.25,
+      "recall": 1.0,
+      "stale_rate": 0.0,
+      "precision_at_k": 0.2,
+      "recall_at_k": 1.0,
+      "reciprocal_rank": 1.0,
+      "hit_at_k": 1,
+      "retrieved_ids": [
+        "challenge-validation-paraphrase-indicator",
+        "challenge-validation-paraphrase-noise-2",
+        "challenge-validation-paraphrase-noise-0",
+        "challenge-validation-paraphrase-noise-1"
+      ],
+      "relevant_ids": [
+        "challenge-validation-paraphrase-indicator"
+      ],
+      "conflict_candidates": 0
+    },
+    {
+      "visit": "[\"challenge-validation-paraphrase\", \"v2\"]",
+      "group": "unspecified",
+      "method": "none",
+      "top_k": 1,
+      "evaluation_k": 1,
+      "eligible_count": 4,
+      "retrieved_count": 0,
+      "precision": null,
+      "recall": 0.0,
+      "stale_rate": null,
+      "precision_at_k": 0.0,
+      "recall_at_k": 0.0,
+      "reciprocal_rank": 0.0,
+      "hit_at_k": 0,
+      "retrieved_ids": [],
+      "relevant_ids": [
+        "challenge-validation-paraphrase-indicator"
+      ],
+      "conflict_candidates": 0
+    },
+    {
+      "visit": "[\"challenge-validation-paraphrase\", \"v2\"]",
+      "group": "unspecified",
+      "method": "full_history",
+      "top_k": null,
+      "evaluation_k": 4,
+      "eligible_count": 4,
+      "retrieved_count": 4,
+      "precision": 0.25,
+      "recall": 1.0,
+      "stale_rate": 0.0,
+      "precision_at_k": 0.25,
+      "recall_at_k": 1.0,
+      "reciprocal_rank": 1.0,
+      "hit_at_k": 1,
+      "retrieved_ids": [
+        "challenge-validation-paraphrase-indicator",
+        "challenge-validation-paraphrase-noise-0",
+        "challenge-validation-paraphrase-noise-1",
+        "challenge-validation-paraphrase-noise-2"
+      ],
+      "relevant_ids": [
+        "challenge-validation-paraphrase-indicator"
+      ],
+      "conflict_candidates": 0
+    },
+    {
+      "visit": "[\"challenge-validation-paraphrase\", \"v2\"]",
+      "group": "unspecified",
+      "method": "lexical",
+      "top_k": 1,
+      "evaluation_k": 1,
+      "eligible_count": 4,
+      "retrieved_count": 0,
+      "precision": null,
+      "recall": 0.0,
+      "stale_rate": null,
+      "precision_at_k": 0.0,
+      "recall_at_k": 0.0,
+      "reciprocal_rank": 0.0,
+      "hit_at_k": 0,
+      "retrieved_ids": [],
+      "relevant_ids": [
+        "challenge-validation-paraphrase-indicator"
+      ],
+      "conflict_candidates": 0
+    },
+    {
+      "visit": "[\"challenge-validation-paraphrase\", \"v2\"]",
+      "group": "unspecified",
+      "method": "saved_model_vectors",
+      "top_k": 1,
+      "evaluation_k": 1,
+      "eligible_count": 4,
+      "retrieved_count": 1,
+      "precision": 1.0,
+      "recall": 1.0,
+      "stale_rate": 0.0,
+      "precision_at_k": 1.0,
+      "recall_at_k": 1.0,
+      "reciprocal_rank": 1.0,
+      "hit_at_k": 1,
+      "retrieved_ids": [
+        "challenge-validation-paraphrase-indicator"
+      ],
+      "relevant_ids": [
+        "challenge-validation-paraphrase-indicator"
+      ],
+      "conflict_candidates": 0
+    },
+    {
+      "visit": "[\"challenge-validation-paraphrase\", \"v2\"]",
+      "group": "unspecified",
+      "method": "lexical",
+      "top_k": 3,
+      "evaluation_k": 3,
+      "eligible_count": 4,
+      "retrieved_count": 0,
+      "precision": null,
+      "recall": 0.0,
+      "stale_rate": null,
+      "precision_at_k": 0.0,
+      "recall_at_k": 0.0,
+      "reciprocal_rank": 0.0,
+      "hit_at_k": 0,
+      "retrieved_ids": [],
+      "relevant_ids": [
+        "challenge-validation-paraphrase-indicator"
+      ],
+      "conflict_candidates": 0
+    },
+    {
+      "visit": "[\"challenge-validation-paraphrase\", \"v2\"]",
+      "group": "unspecified",
+      "method": "saved_model_vectors",
+      "top_k": 3,
+      "evaluation_k": 3,
+      "eligible_count": 4,
+      "retrieved_count": 3,
+      "precision": 0.3333333333333333,
+      "recall": 1.0,
+      "stale_rate": 0.0,
+      "precision_at_k": 0.3333333333333333,
+      "recall_at_k": 1.0,
+      "reciprocal_rank": 1.0,
+      "hit_at_k": 1,
+      "retrieved_ids": [
+        "challenge-validation-paraphrase-indicator",
+        "challenge-validation-paraphrase-noise-2",
+        "challenge-validation-paraphrase-noise-0"
+      ],
+      "relevant_ids": [
+        "challenge-validation-paraphrase-indicator"
+      ],
+      "conflict_candidates": 0
+    },
+    {
+      "visit": "[\"challenge-validation-paraphrase\", \"v2\"]",
+      "group": "unspecified",
+      "method": "lexical",
+      "top_k": 5,
+      "evaluation_k": 5,
+      "eligible_count": 4,
+      "retrieved_count": 0,
+      "precision": null,
+      "recall": 0.0,
+      "stale_rate": null,
+      "precision_at_k": 0.0,
+      "recall_at_k": 0.0,
+      "reciprocal_rank": 0.0,
+      "hit_at_k": 0,
+      "retrieved_ids": [],
+      "relevant_ids": [
+        "challenge-validation-paraphrase-indicator"
+      ],
+      "conflict_candidates": 0
+    },
+    {
+      "visit": "[\"challenge-validation-paraphrase\", \"v2\"]",
+      "group": "unspecified",
+      "method": "saved_model_vectors",
+      "top_k": 5,
+      "evaluation_k": 5,
+      "eligible_count": 4,
+      "retrieved_count": 4,
+      "precision": 0.25,
+      "recall": 1.0,
+      "stale_rate": 0.0,
+      "precision_at_k": 0.2,
+      "recall_at_k": 1.0,
+      "reciprocal_rank": 1.0,
+      "hit_at_k": 1,
+      "retrieved_ids": [
+        "challenge-validation-paraphrase-indicator",
+        "challenge-validation-paraphrase-noise-2",
+        "challenge-validation-paraphrase-noise-0",
+        "challenge-validation-paraphrase-noise-1"
+      ],
+      "relevant_ids": [
+        "challenge-validation-paraphrase-indicator"
+      ],
+      "conflict_candidates": 0
+    }
+  ],
+  "embedding_model": "embeddinggemma",
+  "embedding_revision": "v1",
+  "embedding_sha256": "abb8d2b6e3d1edfc7a35c3762fba0acef9cfbd97bc083cd23183486860ff4cdc",
+  "interpretation": "Saved embeddings are supplied artifacts. Retrieval relevance depends on supplied gold annotations. Full history is reported separately from fixed Top-K strategies. Semantic retrieval retains the existing positive-cosine filter. Scores do not establish clinical validity.",
+  "input_sha256": {
+    "cases": "852bf9815a5016763f08819ddf31df2e291a5f85e5527db2fd3cc30e5e1e8b8a",
+    "memory": "4598fc1779314a28dbdb4c070d477fb0ef231ade20f0abfe39dc03c29637b287",
+    "annotations": "87058d1fef13cc450d513ab7571d4597987d383bf20a2d19a09eb1aa154be608",
+    "embeddings": "0b1e19058f439c04a2c94453cb4cfdfd095323b2b534aaa68f0fb1a83cb70bc1"
+  }
+}

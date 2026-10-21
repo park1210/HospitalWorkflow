@@ -1,4 +1,10 @@
-"""RuleSimilarityRouter estimator baseline; scores are NOT calibrated probabilities."""
+
+"""Adaptive specialty-routing utility estimation.
+
+Uses patient-disjoint training outcomes and Jaccard similarity.
+Estimated correctness is not a calibrated probability.
+"""
+
 from copy import deepcopy
 import hashlib
 import json
@@ -6,90 +12,335 @@ import math
 import re
 
 
+DEFAULT_WEIGHTS = {
+    "accuracy": 1.0,
+    "cost": 0.0,
+    "latency": 0.0,
+}
+
+
 def observed_tokens(observation):
-    texts = [observation.get("chief_complaint", ""), *observation.get("current_symptoms", []),
-             *observation.get("objective_findings", [])]
-    texts += [r.get("answer", "") for r in observation.get("history", []) if r.get("answer_status") != "unknown"]
-    texts += [r["text"] for r in observation.get("longitudinal_memory", {}).get("records", [])
-              if r.get("status_as_of_visit") != "superseded"]
-    return sorted(set(re.findall(r"\w+", " ".join(map(str, texts)).casefold())))
+    """Tokenize only observable information."""
+    if not isinstance(observation, dict):
+        raise ValueError("observation must be a dictionary")
+
+    texts = [
+        observation.get("chief_complaint", ""),
+        *observation.get("current_symptoms", []),
+        *observation.get("objective_findings", []),
+    ]
+
+    for row in observation.get("history", []):
+        if (
+            isinstance(row, dict)
+            and row.get("answer_status") != "unknown"
+        ):
+            texts.append(row.get("answer", ""))
+
+    memory = observation.get("longitudinal_memory", {})
+
+    for row in memory.get("records", []):
+        if (
+            isinstance(row, dict)
+            and row.get("status_as_of_visit") != "superseded"
+        ):
+            texts.append(row.get("text", ""))
+
+    combined = " ".join(str(value) for value in texts)
+
+    return sorted(
+        set(re.findall(r"\w+", combined.casefold()))
+    )
 
 
 def nonnegative(value):
-    return type(value) in (int, float) and math.isfinite(value) and value >= 0
+    return (
+        type(value) in (int, float)
+        and math.isfinite(value)
+        and value >= 0
+    )
+
+
+def jaccard_similarity(first, second):
+    first = set(first)
+    second = set(second)
+
+    union = first | second
+
+    if not union:
+        return 0.0
+
+    return len(first & second) / len(union)
 
 
 class RoutingUtility:
+    """Fitted routing estimator based on historical outcomes."""
+
     def __init__(self, artifact, registry):
-        if artifact.get("schema_version") != 1 or artifact.get("method") != "jaccard_beta_v1":
-            raise ValueError("Unsupported routing utility artifact")
+        if not isinstance(artifact, dict):
+            raise ValueError("Invalid routing artifact")
+
+        if (
+            artifact.get("schema_version") != 1
+            or artifact.get("method") != "jaccard_beta_v1"
+        ):
+            raise ValueError(
+                "Unsupported routing utility artifact"
+            )
+
         if artifact.get("registry") != registry.snapshot():
-            raise ValueError("Routing model registry/version mismatch")
-        if set(artifact.get("weights", {})) != {"accuracy", "cost", "latency"} or not all(
-                nonnegative(v) for v in artifact["weights"].values()) or artifact["weights"]["accuracy"] <= 0:
-            raise ValueError("Utility requires nonnegative weights and positive accuracy weight")
-        if type(artifact.get("min_samples")) is not int or artifact["min_samples"] < 1:
-            raise ValueError("min_samples must be positive")
-        self.artifact = deepcopy(artifact)
-        if not artifact.get("samples"):
+            raise ValueError(
+                "Routing model registry/version mismatch"
+            )
+
+        weights = artifact.get("weights", {})
+
+        if (
+            set(weights) != {"accuracy", "cost", "latency"}
+            or not all(
+                nonnegative(value)
+                for value in weights.values()
+            )
+            or weights["accuracy"] <= 0
+        ):
+            raise ValueError(
+                "Utility requires nonnegative weights "
+                "and positive accuracy weight"
+            )
+
+        min_samples = artifact.get("min_samples")
+
+        if type(min_samples) is not int or min_samples < 1:
+            raise ValueError(
+                "min_samples must be a positive integer"
+            )
+
+        samples = artifact.get("samples")
+
+        if not isinstance(samples, list) or not samples:
             raise ValueError("No training outcomes")
-        agents = {a["agent_id"] for a in artifact["registry"]["agents"] if a["role"] == "specialty"}
+
+        self.artifact = deepcopy(artifact)
+
+        agents = {
+            agent["agent_id"]
+            for agent in artifact["registry"]["agents"]
+            if agent["role"] == "specialty"
+        }
+
         seen = set()
         groups = {}
-        for r in artifact["samples"]:
-            if (r.get("agent_id") not in agents or type(r.get("correct")) is not bool
-                    or any(not nonnegative(r.get(k)) for k in ("cost", "latency_seconds"))
-                    or any(not isinstance(r.get(k), str) or not r[k] for k in ("patient_id", "decision_id"))
-                    or not isinstance(r.get("tokens"), list) or any(not isinstance(t, str) for t in r["tokens"])):
-                raise ValueError("Invalid training outcome")
-            key = (r["patient_id"], r["decision_id"], r["agent_id"])
+
+        for row in samples:
+            if (
+                row.get("agent_id") not in agents
+                or type(row.get("correct")) is not bool
+                or any(
+                    not nonnegative(row.get(field))
+                    for field in ("cost", "latency_seconds")
+                )
+                or any(
+                    not isinstance(row.get(field), str)
+                    or not row[field]
+                    for field in ("patient_id", "decision_id")
+                )
+                or not isinstance(row.get("tokens"), list)
+                or any(
+                    not isinstance(token, str)
+                    for token in row["tokens"]
+                )
+            ):
+                raise ValueError(
+                    "Invalid training outcome"
+                )
+
+            key = (
+                row["patient_id"],
+                row["decision_id"],
+                row["agent_id"],
+            )
+
             if key in seen:
-                raise ValueError("Duplicate training outcome")
+                raise ValueError(
+                    "Duplicate training outcome"
+                )
+
             seen.add(key)
-            group = groups.setdefault((r["patient_id"], r["decision_id"]), [])
-            group.append(r)
+
+            group_key = (
+                row["patient_id"],
+                row["decision_id"],
+            )
+
+            groups.setdefault(group_key, []).append(row)
+
         for group in groups.values():
-            if {r["agent_id"] for r in group} != agents or any(r["tokens"] != group[0]["tokens"] for r in group):
-                raise ValueError("Training needs all registered specialties on the same observation per decision")
-        self.training_patients = {r["patient_id"] for r in artifact["samples"]}
-        self.fingerprint = hashlib.sha256(json.dumps(artifact, sort_keys=True).encode()).hexdigest()
+            if (
+                {row["agent_id"] for row in group} != agents
+                or any(
+                    row["tokens"] != group[0]["tokens"]
+                    for row in group
+                )
+            ):
+                raise ValueError(
+                    "Training needs all registered specialties "
+                    "on the same observation per decision"
+                )
+
+        self.training_patients = {
+            row["patient_id"]
+            for row in samples
+        }
+
+        self.fingerprint = hashlib.sha256(
+            json.dumps(
+                artifact,
+                sort_keys=True,
+            ).encode()
+        ).hexdigest()
 
     def score(self, observation, agent):
+        """Estimate utility for one specialist.
+
+        Returns None when training support is insufficient.
+        """
         tokens = set(observed_tokens(observation))
+
         matches = []
-        for r in self.artifact["samples"]:
-            if r["agent_id"] != agent["agent_id"]:
+
+        for row in self.artifact["samples"]:
+            if row["agent_id"] != agent["agent_id"]:
                 continue
-            other = set(r["tokens"])
-            similarity = len(tokens & other) / len(tokens | other) if tokens | other else 0
+
+            similarity = jaccard_similarity(
+                tokens,
+                row["tokens"],
+            )
+
             if similarity > 0:
-                matches.append((similarity, r))
+                matches.append((similarity, row))
+
         if len(matches) < self.artifact["min_samples"]:
             return None
-        weight = sum(w for w, _ in matches)
-        probability = (1 + sum(w * r["correct"] for w, r in matches)) / (2 + weight)
-        cost = sum(w * r["cost"] for w, r in matches) / weight
-        latency = sum(w * r["latency_seconds"] for w, r in matches) / weight
-        # Keep artifact/API compatibility; cost and latency are audit-only.
-        return {"score": probability, "utility": probability,
-                "score_semantics": "uncalibrated_similarity_weighted_outcomes",
-                "estimated_correct": probability, "estimated_cost": cost, "estimated_latency_seconds": latency,
-                "matched_samples": len(matches), "effective_weight": weight}
+
+        total_weight = sum(
+            weight
+            for weight, _ in matches
+        )
+
+        # Beta(1, 1) smoothed estimate.
+        estimated_correct = (
+            1.0
+            + sum(
+                weight * float(row["correct"])
+                for weight, row in matches
+            )
+        ) / (2.0 + total_weight)
+
+        estimated_cost = sum(
+            weight * row["cost"]
+            for weight, row in matches
+        ) / total_weight
+
+        estimated_latency = sum(
+            weight * row["latency_seconds"]
+            for weight, row in matches
+        ) / total_weight
+
+        weights = self.artifact["weights"]
+
+        utility = (
+            weights["accuracy"] * estimated_correct
+            - weights["cost"] * estimated_cost
+            - weights["latency"] * estimated_latency
+        )
+
+        return {
+            "score": utility,
+            "utility": utility,
+            "score_semantics": (
+                "uncalibrated_expected_utility"
+            ),
+            "estimated_correct": estimated_correct,
+            "estimated_cost": estimated_cost,
+            "estimated_latency_seconds": estimated_latency,
+            "matched_samples": len(matches),
+            "effective_weight": total_weight,
+        }
 
 
-def fit_utility(rows, registry, *, weights=None, min_samples=2):
-    # Outcome collection must use a separate patient split from evaluation.
+def fit_utility(
+    rows,
+    registry,
+    *,
+    weights=None,
+    min_samples=2,
+):
+    """Fit a routing artifact from training-only outcomes."""
     samples = []
+
     for row in rows:
         if row.get("split") != "train":
-            raise ValueError("Only explicitly train-labelled outcomes can fit the router")
-        agent = next((a for a in registry.snapshot()["agents"] if a["agent_id"] == row["agent_id"]), None)
-        if agent is None or any(row.get(k, agent[k]) != agent[k] for k in ("model", "version")):
-            raise ValueError("Outcome model/version does not match registry")
-        samples.append({k: row[k] for k in ("patient_id", "decision_id", "agent_id", "correct", "cost", "latency_seconds")})
-        samples[-1]["tokens"] = observed_tokens(row["observation"])
-    artifact = {"schema_version": 1, "method": "jaccard_beta_v1", "registry": registry.snapshot(),
-                "weights": weights or {"accuracy": 1.0, "cost": 0.0, "latency": 0.0},
-                "min_samples": min_samples, "samples": samples}
+            raise ValueError(
+                "Only explicitly train-labelled outcomes "
+                "can fit the router"
+            )
+
+        agent = next(
+            (
+                item
+                for item in registry.snapshot()["agents"]
+                if item["agent_id"] == row["agent_id"]
+            ),
+            None,
+        )
+
+        if (
+            agent is None
+            or agent["role"] != "specialty"
+            or any(
+                row.get(field, agent[field]) != agent[field]
+                for field in ("model", "version")
+            )
+        ):
+            raise ValueError(
+                "Outcome model/version does not match registry"
+            )
+
+        sample = {
+            key: row[key]
+            for key in (
+                "patient_id",
+                "decision_id",
+                "agent_id",
+                "correct",
+                "cost",
+                "latency_seconds",
+            )
+        }
+
+        sample["tokens"] = observed_tokens(
+            row["observation"]
+        )
+
+        samples.append(sample)
+
+    effective_weights = (
+        deepcopy(DEFAULT_WEIGHTS)
+        if weights is None
+        else deepcopy(weights)
+    )
+
+    artifact = {
+        "schema_version": 1,
+        "method": "jaccard_beta_v1",
+        "registry": registry.snapshot(),
+        "weights": effective_weights,
+        "min_samples": min_samples,
+        "samples": samples,
+    }
+
+    # Enforce artifact validation before returning.
     RoutingUtility(artifact, registry)
+
     return artifact

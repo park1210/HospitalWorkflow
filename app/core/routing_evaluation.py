@@ -1,75 +1,307 @@
-"""Held-out full-information regret; missing outcomes remain unevaluated."""
+
+"""Held-out specialty routing evaluation.
+
+Abstentions have no observed regret.
+Counterfactual regret is evaluated only with complete outcomes.
+"""
+
+import json
+
 from app.core.routing_utility import nonnegative
 
 
 def decisions_from_outcomes(outcomes, registry):
-    """Recompute the router on held-out observations; oracle results stay separate."""
-    import json
+    """Recompute routing on held-out observations.
+
+    The routing policy never receives oracle correctness labels.
+    """
     groups = {}
+
     for row in outcomes:
         if row["split"] not in {"validation", "test"}:
-            raise ValueError("Evaluation requires held-out outcomes")
-        groups.setdefault((row["patient_id"], row["decision_id"]), []).append(row)
+            raise ValueError(
+                "Evaluation requires held-out outcomes"
+            )
+
+        key = (
+            row["patient_id"],
+            row["decision_id"],
+        )
+        groups.setdefault(key, []).append(row)
+
     decisions = []
-    agents = [a for a in registry.snapshot()["agents"] if a["role"] == "specialty"]
+
+    agents = [
+        agent
+        for agent in registry.snapshot()["agents"]
+        if agent["role"] == "specialty"
+    ]
+
+    agent_by_id = {
+        agent["agent_id"]: agent
+        for agent in agents
+    }
+
     for (patient, decision), rows in groups.items():
-        if len({r["agent_id"] for r in rows}) != len(rows):
-            raise ValueError("Duplicate candidate outcomes")
-        if any(json.dumps(r["observation"], sort_keys=True) != json.dumps(rows[0]["observation"], sort_keys=True) for r in rows):
-            raise ValueError("Counterfactual probes must share an identical observation")
-        if registry.utility is None or patient in registry.utility.training_patients:
-            raise ValueError("Need fitted router and disjoint evaluation patients")
-        route = registry.route(rows[0]["observation"], [a["department"] for a in agents], mode="adaptive")
-        if len(route["allowed_departments"]) != 1:
-            # No autonomous choice under insufficient training coverage.
-            decisions.append({"patient_id": patient, "decision_id": decision,
-                              "candidate_agent_ids": [a["agent_id"] for a in agents],
-                              "chosen_agent_id": None, "outcomes": {}, "status": "router_abstained"})
-            continue
-        chosen = registry.get("specialty", route["allowed_departments"][0])["agent_id"]
+        if (
+            registry.utility is None
+            or patient in registry.utility.training_patients
+        ):
+            raise ValueError(
+                "Need fitted router and disjoint evaluation patients"
+            )
+
+        if len({
+            row["agent_id"]
+            for row in rows
+        }) != len(rows):
+            raise ValueError(
+                "Duplicate candidate outcomes"
+            )
+
+        reference_observation = json.dumps(
+            rows[0]["observation"],
+            sort_keys=True,
+        )
+
         for row in rows:
-            agent = next((a for a in agents if a["agent_id"] == row["agent_id"]), None)
-            if agent is None or any(row.get(k, agent[k]) != agent[k] for k in ("model", "version")):
-                raise ValueError("Counterfactual model/version mismatch")
-        decisions.append({"patient_id": patient, "decision_id": decision,
-                          "candidate_agent_ids": [a["agent_id"] for a in agents], "chosen_agent_id": chosen,
-                          "outcomes": {r["agent_id"]: {k: r[k] for k in ("correct", "cost", "latency_seconds")}
-                                       for r in rows if r.get("cost") is not None}})
+            if (
+                json.dumps(
+                    row["observation"],
+                    sort_keys=True,
+                ) != reference_observation
+            ):
+                raise ValueError(
+                    "Counterfactual probes must share "
+                    "an identical observation"
+                )
+
+            agent = agent_by_id.get(
+                row["agent_id"]
+            )
+
+            if (
+                agent is None
+                or any(
+                    row.get(field, agent[field])
+                    != agent[field]
+                    for field in ("model", "version")
+                )
+            ):
+                raise ValueError(
+                    "Counterfactual model/version mismatch"
+                )
+
+        route = registry.route(
+            rows[0]["observation"],
+            [
+                agent["department"]
+                for agent in agents
+            ],
+            mode="adaptive",
+        )
+
+        candidate_ids = [
+            agent["agent_id"]
+            for agent in agents
+        ]
+
+        # Decide whether a router actually selected a
+        # specialty, rather than inferring from menu size.
+        if (
+            route.get("decision_status") != "selected"
+            or route.get("selected_specialty") is None
+        ):
+            decisions.append({
+                "patient_id": patient,
+                "decision_id": decision,
+                "candidate_agent_ids": candidate_ids,
+                "chosen_agent_id": None,
+                "outcomes": {},
+                "status": "router_abstained",
+                "decision_status": route.get(
+                    "decision_status", "abstained"
+                ),
+            })
+            continue
+
+        selected_department = route[
+            "selected_specialty"
+        ]
+
+        chosen = registry.get(
+            "specialty",
+            selected_department,
+        )["agent_id"]
+
+        decisions.append({
+            "patient_id": patient,
+            "decision_id": decision,
+            "candidate_agent_ids": candidate_ids,
+            "chosen_agent_id": chosen,
+            "outcomes": {
+                row["agent_id"]: {
+                    key: row[key]
+                    for key in (
+                        "correct",
+                        "cost",
+                        "latency_seconds",
+                    )
+                }
+                for row in rows
+                if row.get("cost") is not None
+            },
+            "status": "router_selected",
+            "decision_status": "selected",
+        })
+
     return decisions
 
 
 def evaluate_routing(decisions, utility):
+    """Evaluate full-information routing regret and coverage."""
     rows = []
     seen = set()
-    registered = {a["agent_id"] for a in utility.artifact["registry"]["agents"] if a["role"] == "specialty"}
+
+    registered = {
+        agent["agent_id"]
+        for agent in utility.artifact["registry"]["agents"]
+        if agent["role"] == "specialty"
+    }
+
     for row in decisions:
-        if row["patient_id"] in utility.training_patients:
-            raise ValueError("Routing evaluation patient overlaps training")
-        candidates = row["candidate_agent_ids"]
-        key = (row["patient_id"], row["decision_id"])
+        patient = row["patient_id"]
+        decision_id = row["decision_id"]
+
+        if patient in utility.training_patients:
+            raise ValueError(
+                "Routing evaluation patient overlaps training"
+            )
+
+        key = (patient, decision_id)
+
         if key in seen:
-            raise ValueError("Duplicate evaluation decision")
+            raise ValueError(
+                "Duplicate evaluation decision"
+            )
+
         seen.add(key)
-        if row.get("status") == "router_abstained" and row["chosen_agent_id"] is None:
-            rows.append({"decision_id": row["decision_id"], "regret": None, "status": "router_abstained"})
+
+        candidates = row["candidate_agent_ids"]
+        chosen = row.get("chosen_agent_id")
+
+        if (
+            not candidates
+            or len(set(candidates)) != len(candidates)
+            or not set(candidates) <= registered
+        ):
+            raise ValueError(
+                "Invalid routing candidate IDs"
+            )
+
+        status = row.get(
+            "decision_status",
+            (
+                "abstained"
+                if row.get("status") == "router_abstained"
+                else "selected"
+            ),
+        )
+
+        if status in {"abstained", "unavailable"}:
+            if chosen is not None:
+                raise ValueError(
+                    "Abstained routing must not have "
+                    "a selected specialist"
+                )
+
+            rows.append({
+                "decision_id": decision_id,
+                "regret": None,
+                "oracle_match": None,
+                "status": "router_abstained",
+            })
             continue
-        if (not candidates or len(set(candidates)) != len(candidates) or row["chosen_agent_id"] not in candidates
-                or not set(candidates) <= registered):
-            raise ValueError("Invalid routing candidate/chosen IDs")
+
+        if status != "selected" or chosen not in candidates:
+            raise ValueError(
+                "Invalid routing choice or decision status"
+            )
+
         outcomes = row["outcomes"]
+
         if set(outcomes) != set(candidates):
-            rows.append({"decision_id": row["decision_id"], "regret": None, "status": "missing_counterfactuals"})
+            rows.append({
+                "decision_id": decision_id,
+                "regret": None,
+                "oracle_match": None,
+                "status": "missing_counterfactuals",
+            })
             continue
+
+        weights = utility.artifact["weights"]
         scores = {}
+
         for agent_id, result in outcomes.items():
-            if type(result.get("correct")) is not bool or any(not nonnegative(result.get(k)) for k in ("cost", "latency_seconds")):
-                raise ValueError("Invalid oracle outcome")
-            w = utility.artifact["weights"]
-            scores[agent_id] = w["accuracy"] * result["correct"] - w["cost"] * result["cost"] - w["latency"] * result["latency_seconds"]
+            if (
+                type(result.get("correct")) is not bool
+                or any(
+                    not nonnegative(result.get(field))
+                    for field in (
+                        "cost",
+                        "latency_seconds",
+                    )
+                )
+            ):
+                raise ValueError(
+                    "Invalid oracle outcome"
+                )
+
+            scores[agent_id] = (
+                weights["accuracy"] * float(result["correct"])
+                - weights["cost"] * result["cost"]
+                - weights["latency"]
+                * result["latency_seconds"]
+            )
+
         best = max(scores.values())
-        rows.append({"decision_id": row["decision_id"], "regret": best - scores[row["chosen_agent_id"]],
-                     "oracle_match": scores[row["chosen_agent_id"]] == best, "status": "available"})
-    valid = [r for r in rows if r["regret"] is not None]
-    return {"decisions": rows, "coverage": len(valid) / len(rows) if rows else None,
-            "mean_regret": sum(r["regret"] for r in valid) / len(valid) if valid and len(valid) == len(rows) else None,
-            "observed_subset_regret": sum(r["regret"] for r in valid) / len(valid) if valid else None}
+
+        rows.append({
+            "decision_id": decision_id,
+            "regret": best - scores[chosen],
+            "oracle_match": scores[chosen] == best,
+            "status": "available",
+        })
+
+    valid = [
+        row
+        for row in rows
+        if row["regret"] is not None
+    ]
+
+    coverage = (
+        len(valid) / len(rows)
+        if rows else None
+    )
+
+    observed_subset_regret = (
+        sum(row["regret"] for row in valid) / len(valid)
+        if valid else None
+    )
+
+    return {
+        "decisions": rows,
+        "coverage": coverage,
+        "mean_regret": (
+            observed_subset_regret
+            if valid and len(valid) == len(rows)
+            else None
+        ),
+        "observed_subset_regret": observed_subset_regret,
+        "abstention_count": sum(
+            row["status"] == "router_abstained"
+            for row in rows
+        ),
+        "evaluated_count": len(valid),
+        "total_count": len(rows),
+    }
