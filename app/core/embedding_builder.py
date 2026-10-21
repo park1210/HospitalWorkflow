@@ -7,6 +7,7 @@ from urllib.request import Request, urlopen
 from app.core.longitudinal_memory import PatientMemoryStore, visit_identity
 from app.core.memory_evaluation import visit_key
 from app.core.memory_retrieval import MemoryEmbeddings
+from app.core.clinical_observation import prepare_encounter, memory_query, initial_symptoms
 
 
 def lexical_vector(text, dimensions=256):
@@ -17,12 +18,24 @@ def lexical_vector(text, dimensions=256):
     return vector
 
 
-def build_embeddings(records, cases, *, model="lexical-hash-256", revision="v1", endpoint=None, batch_size=32, embed=None, cpu=False):
+def build_embeddings(records, cases, *, model="lexical-hash-256", revision="v1", endpoint=None, batch_size=32, embed=None, cpu=False, query_states=()):
     PatientMemoryStore(records)
     if type(batch_size) is not int or batch_size < 1:
         raise ValueError("batch_size must be positive")
-    texts = {"records": {r["memory_id"]: r["text"] for r in records},
-             "queries": {visit_key(visit_identity(c)): str(c.get("doctor_visible_info", {}).get("chief_complaint", "")) for c in cases}}
+    queries = {}
+    for source in cases:
+        c = prepare_encounter(source)
+        visible = c.get("doctor_visible_info", {})
+        query = str(visible.get("chief_complaint", ""))
+        if "index_encounter_id" in c:
+            query = memory_query({"chief_complaint": visible.get("chief_complaint", ""),
+                                  "current_symptoms": initial_symptoms(c),
+                                  "vital_signs": visible.get("initial_vitals", {})})
+        queries[visit_key(visit_identity(c))] = query
+    for state in query_states:
+        query = memory_query(state)
+        queries[MemoryEmbeddings.text_hash(query)] = query
+    texts = {"records": {r["memory_id"]: r["text"] for r in records}, "queries": queries}
     unique = list(dict.fromkeys(t for group in texts.values() for t in group.values()))
     vectors = {}
     for offset in range(0, len(unique), batch_size):

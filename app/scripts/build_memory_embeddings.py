@@ -14,6 +14,7 @@ def main():
     p.add_argument("--revision", default="v1")
     p.add_argument("--endpoint", help="Native Ollama base URL, e.g. http://localhost:11434")
     p.add_argument("--cpu", action="store_true", help="Disable GPU offload for native Ollama embeddings")
+    p.add_argument("--query-states", type=Path, help="Optional list of public observation states for expanded query vectors")
     args = p.parse_args()
     if args.output.exists():
         raise ValueError("Choose a new output file")
@@ -21,7 +22,8 @@ def main():
     if memory.get("schema_version") != 1:
         raise ValueError("Unsupported memory schema")
     result = build_embeddings(memory["records"], json.loads(args.cases.read_text(encoding="utf-8")),
-                              model=args.model, revision=args.revision, endpoint=args.endpoint, cpu=args.cpu)
+                              model=args.model, revision=args.revision, endpoint=args.endpoint, cpu=args.cpu,
+                              query_states=json.loads(args.query_states.read_text(encoding="utf-8")) if args.query_states else ())
     args.output.parent.mkdir(parents=True, exist_ok=True)
     with args.output.open("x", encoding="utf-8") as f:
         json.dump(result, f, ensure_ascii=False, indent=2)

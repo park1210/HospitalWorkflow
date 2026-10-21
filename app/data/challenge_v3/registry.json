@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "agents": [
+    {
+      "agent_id": "local-er",
+      "role": "er",
+      "department": "",
+      "model": "llama3.2:3b",
+      "version": "challenge-v3-er",
+      "keywords": []
+    },
+    {
+      "agent_id": "local-neurology",
+      "role": "specialty",
+      "department": "neurology",
+      "model": "qwen-neurology:latest",
+      "version": "challenge-v3-neuro",
+      "keywords": [
+        "focal",
+        "sensory",
+        "neurologic",
+        "neurology"
+      ]
+    },
+    {
+      "agent_id": "local-pulmonology",
+      "role": "specialty",
+      "department": "pulmonology",
+      "model": "qwen-pulmonology:latest",
+      "version": "challenge-v3-pulm",
+      "keywords": [
+        "respiratory",
+        "breathing",
+        "pulmonary",
+        "pulmonology"
+      ]
+    }
+  ]
+}

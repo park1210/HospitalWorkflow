@@ -1,0 +1,2042 @@
+[
+  {
+    "case_id": "challenge-v4-test-p001-v1",
+    "longitudinal": {
+      "patient_id": "challenge-v4-test-p001",
+      "visit_id": "v1",
+      "started_at": "2026-03-01T00:00:00Z"
+    },
+    "doctor_visible_info": {
+      "chief_complaint": "Acute synthetic diagnostic concern",
+      "initial_vitals": {
+        "spo2": 98
+      }
+    },
+    "patient_visible_info": {
+      "history": "No relevant longitudinal history is required for this control case."
+    },
+    "available_tests": [
+      "T_BASE"
+    ],
+    "test_access": {
+      "T_BASE": [
+        "er",
+        "neurology",
+        "pulmonology"
+      ]
+    },
+    "hidden_test_results": {
+      "T_BASE": {
+        "result": "Diagnostic result supports Synthetic A and does not support Synthetic B"
+      }
+    },
+    "resource_profile": {
+      "test_resources": {
+        "T_BASE": "lab_slot"
+      },
+      "test_occupancy": {
+        "T_BASE": 1
+      },
+      "test_turnaround": {
+        "T_BASE": 1
+      }
+    }
+  },
+  {
+    "case_id": "challenge-v4-test-p002-v1",
+    "longitudinal": {
+      "patient_id": "challenge-v4-test-p002",
+      "visit_id": "v1",
+      "started_at": "2026-03-01T00:00:00Z"
+    },
+    "doctor_visible_info": {
+      "chief_complaint": "Acute synthetic diagnostic concern",
+      "initial_vitals": {
+        "spo2": 98
+      }
+    },
+    "patient_visible_info": {
+      "history": "No relevant longitudinal history is required for this control case."
+    },
+    "available_tests": [
+      "T_BASE"
+    ],
+    "test_access": {
+      "T_BASE": [
+        "er",
+        "neurology",
+        "pulmonology"
+      ]
+    },
+    "hidden_test_results": {
+      "T_BASE": {
+        "result": "Diagnostic result supports Synthetic B and does not support Synthetic A"
+      }
+    },
+    "resource_profile": {
+      "test_resources": {
+        "T_BASE": "lab_slot"
+      },
+      "test_occupancy": {
+        "T_BASE": 1
+      },
+      "test_turnaround": {
+        "T_BASE": 1
+      }
+    }
+  },
+  {
+    "case_id": "challenge-v4-test-p003-v1",
+    "longitudinal": {
+      "patient_id": "challenge-v4-test-p003",
+      "visit_id": "v1",
+      "started_at": "2026-03-01T00:00:00Z"
+    },
+    "doctor_visible_info": {
+      "chief_complaint": "Acute synthetic diagnostic concern",
+      "initial_vitals": {
+        "spo2": 98
+      }
+    },
+    "patient_visible_info": {
+      "history": "No relevant longitudinal history is required for this control case."
+    },
+    "available_tests": [
+      "T_BASE"
+    ],
+    "test_access": {
+      "T_BASE": [
+        "er",
+        "neurology",
+        "pulmonology"
+      ]
+    },
+    "hidden_test_results": {
+      "T_BASE": {
+        "result": "Diagnostic result supports Synthetic A and does not support Synthetic B"
+      }
+    },
+    "resource_profile": {
+      "test_resources": {
+        "T_BASE": "lab_slot"
+      },
+      "test_occupancy": {
+        "T_BASE": 1
+      },
+      "test_turnaround": {
+        "T_BASE": 1
+      }
+    }
+  },
+  {
+    "case_id": "challenge-v4-test-p004-v1",
+    "longitudinal": {
+      "patient_id": "challenge-v4-test-p004",
+      "visit_id": "v1",
+      "started_at": "2026-03-01T00:00:00Z"
+    },
+    "doctor_visible_info": {
+      "chief_complaint": "Acute synthetic diagnostic concern",
+      "initial_vitals": {
+        "spo2": 98
+      }
+    },
+    "patient_visible_info": {
+      "history": "No relevant longitudinal history is required for this control case."
+    },
+    "available_tests": [
+      "T_BASE"
+    ],
+    "test_access": {
+      "T_BASE": [
+        "er",
+        "neurology",
+        "pulmonology"
+      ]
+    },
+    "hidden_test_results": {
+      "T_BASE": {
+        "result": "Diagnostic result supports Synthetic B and does not support Synthetic A"
+      }
+    },
+    "resource_profile": {
+      "test_resources": {
+        "T_BASE": "lab_slot"
+      },
+      "test_occupancy": {
+        "T_BASE": 1
+      },
+      "test_turnaround": {
+        "T_BASE": 1
+      }
+    }
+  },
+  {
+    "case_id": "challenge-v4-test-p005-v1",
+    "longitudinal": {
+      "patient_id": "challenge-v4-test-p005",
+      "visit_id": "v1",
+      "started_at": "2026-03-01T00:00:00Z"
+    },
+    "doctor_visible_info": {
+      "chief_complaint": "Acute synthetic diagnostic concern",
+      "initial_vitals": {
+        "spo2": 98
+      }
+    },
+    "patient_visible_info": {
+      "history": "No relevant longitudinal history is required for this control case."
+    },
+    "available_tests": [
+      "T_BASE"
+    ],
+    "test_access": {
+      "T_BASE": [
+        "er",
+        "neurology",
+        "pulmonology"
+      ]
+    },
+    "hidden_test_results": {
+      "T_BASE": {
+        "result": "Diagnostic result supports Synthetic A and does not support Synthetic B"
+      }
+    },
+    "resource_profile": {
+      "test_resources": {
+        "T_BASE": "lab_slot"
+      },
+      "test_occupancy": {
+        "T_BASE": 1
+      },
+      "test_turnaround": {
+        "T_BASE": 1
+      }
+    }
+  },
+  {
+    "case_id": "challenge-v4-test-p006-v1",
+    "longitudinal": {
+      "patient_id": "challenge-v4-test-p006",
+      "visit_id": "v1",
+      "started_at": "2026-03-01T00:00:00Z"
+    },
+    "doctor_visible_info": {
+      "chief_complaint": "Acute synthetic diagnostic concern",
+      "initial_vitals": {
+        "spo2": 98
+      }
+    },
+    "patient_visible_info": {
+      "history": "No relevant longitudinal history is required for this control case."
+    },
+    "available_tests": [
+      "T_BASE"
+    ],
+    "test_access": {
+      "T_BASE": [
+        "er",
+        "neurology",
+        "pulmonology"
+      ]
+    },
+    "hidden_test_results": {
+      "T_BASE": {
+        "result": "Diagnostic result supports Synthetic B and does not support Synthetic A"
+      }
+    },
+    "resource_profile": {
+      "test_resources": {
+        "T_BASE": "lab_slot"
+      },
+      "test_occupancy": {
+        "T_BASE": 1
+      },
+      "test_turnaround": {
+        "T_BASE": 1
+      }
+    }
+  },
+  {
+    "case_id": "challenge-v4-test-p007-v1",
+    "longitudinal": {
+      "patient_id": "challenge-v4-test-p007",
+      "visit_id": "v1",
+      "started_at": "2026-03-01T00:00:00Z"
+    },
+    "doctor_visible_info": {
+      "chief_complaint": "Acute synthetic diagnostic concern",
+      "initial_vitals": {
+        "spo2": 98
+      }
+    },
+    "patient_visible_info": {
+      "history": "No relevant longitudinal history is required for this control case."
+    },
+    "available_tests": [
+      "T_BASE"
+    ],
+    "test_access": {
+      "T_BASE": [
+        "er",
+        "neurology",
+        "pulmonology"
+      ]
+    },
+    "hidden_test_results": {
+      "T_BASE": {
+        "result": "Diagnostic result supports Synthetic A and does not support Synthetic B"
+      }
+    },
+    "resource_profile": {
+      "test_resources": {
+        "T_BASE": "lab_slot"
+      },
+      "test_occupancy": {
+        "T_BASE": 1
+      },
+      "test_turnaround": {
+        "T_BASE": 1
+      }
+    }
+  },
+  {
+    "case_id": "challenge-v4-test-p008-v1",
+    "longitudinal": {
+      "patient_id": "challenge-v4-test-p008",
+      "visit_id": "v1",
+      "started_at": "2026-03-01T00:00:00Z"
+    },
+    "doctor_visible_info": {
+      "chief_complaint": "Acute synthetic diagnostic concern",
+      "initial_vitals": {
+        "spo2": 98
+      }
+    },
+    "patient_visible_info": {
+      "history": "No relevant longitudinal history is required for this control case."
+    },
+    "available_tests": [
+      "T_BASE"
+    ],
+    "test_access": {
+      "T_BASE": [
+        "er",
+        "neurology",
+        "pulmonology"
+      ]
+    },
+    "hidden_test_results": {
+      "T_BASE": {
+        "result": "Diagnostic result supports Synthetic B and does not support Synthetic A"
+      }
+    },
+    "resource_profile": {
+      "test_resources": {
+        "T_BASE": "lab_slot"
+      },
+      "test_occupancy": {
+        "T_BASE": 1
+      },
+      "test_turnaround": {
+        "T_BASE": 1
+      }
+    }
+  },
+  {
+    "case_id": "challenge-v4-test-p009-v1",
+    "longitudinal": {
+      "patient_id": "challenge-v4-test-p009",
+      "visit_id": "v1",
+      "started_at": "2026-03-01T00:00:00Z"
+    },
+    "doctor_visible_info": {
+      "chief_complaint": "Acute synthetic diagnostic concern",
+      "initial_vitals": {
+        "spo2": 98
+      }
+    },
+    "patient_visible_info": {
+      "history": "No relevant longitudinal history is required for this control case."
+    },
+    "available_tests": [
+      "T_BASE"
+    ],
+    "test_access": {
+      "T_BASE": [
+        "er",
+        "neurology",
+        "pulmonology"
+      ]
+    },
+    "hidden_test_results": {
+      "T_BASE": {
+        "result": "Diagnostic result supports Synthetic A and does not support Synthetic B"
+      }
+    },
+    "resource_profile": {
+      "test_resources": {
+        "T_BASE": "lab_slot"
+      },
+      "test_occupancy": {
+        "T_BASE": 1
+      },
+      "test_turnaround": {
+        "T_BASE": 1
+      }
+    }
+  },
+  {
+    "case_id": "challenge-v4-test-p010-v1",
+    "longitudinal": {
+      "patient_id": "challenge-v4-test-p010",
+      "visit_id": "v1",
+      "started_at": "2026-03-01T00:00:00Z"
+    },
+    "doctor_visible_info": {
+      "chief_complaint": "Acute synthetic diagnostic concern",
+      "initial_vitals": {
+        "spo2": 98
+      }
+    },
+    "patient_visible_info": {
+      "history": "No relevant longitudinal history is required for this control case."
+    },
+    "available_tests": [
+      "T_BASE"
+    ],
+    "test_access": {
+      "T_BASE": [
+        "er",
+        "neurology",
+        "pulmonology"
+      ]
+    },
+    "hidden_test_results": {
+      "T_BASE": {
+        "result": "Diagnostic result supports Synthetic B and does not support Synthetic A"
+      }
+    },
+    "resource_profile": {
+      "test_resources": {
+        "T_BASE": "lab_slot"
+      },
+      "test_occupancy": {
+        "T_BASE": 1
+      },
+      "test_turnaround": {
+        "T_BASE": 1
+      }
+    }
+  },
+  {
+    "case_id": "challenge-v4-test-p011-v1",
+    "longitudinal": {
+      "patient_id": "challenge-v4-test-p011",
+      "visit_id": "v1",
+      "started_at": "2026-03-01T00:00:00Z"
+    },
+    "doctor_visible_info": {
+      "chief_complaint": "Recurrent synthetic syndrome with a pattern similar to a previous documented episode",
+      "initial_vitals": {
+        "spo2": 98
+      }
+    },
+    "patient_visible_info": {
+      "history": "The patient remembers having a similar previous episode but cannot recall which longitudinal pattern was documented."
+    },
+    "available_tests": [
+      "T_CONTEXT"
+    ],
+    "test_access": {
+      "T_CONTEXT": [
+        "er",
+        "neurology",
+        "pulmonology"
+      ]
+    },
+    "hidden_test_results": {
+      "T_CONTEXT": {
+        "result": "Current objective finding is compatible with both Synthetic A and Synthetic B"
+      }
+    },
+    "resource_profile": {
+      "test_resources": {
+        "T_CONTEXT": "lab_slot"
+      },
+      "test_occupancy": {
+        "T_CONTEXT": 1
+      },
+      "test_turnaround": {
+        "T_CONTEXT": 1
+      }
+    }
+  },
+  {
+    "case_id": "challenge-v4-test-p012-v1",
+    "longitudinal": {
+      "patient_id": "challenge-v4-test-p012",
+      "visit_id": "v1",
+      "started_at": "2026-03-01T00:00:00Z"
+    },
+    "doctor_visible_info": {
+      "chief_complaint": "Recurrent synthetic syndrome with a pattern similar to a previous documented episode",
+      "initial_vitals": {
+        "spo2": 98
+      }
+    },
+    "patient_visible_info": {
+      "history": "The patient remembers having a similar previous episode but cannot recall which longitudinal pattern was documented."
+    },
+    "available_tests": [
+      "T_CONTEXT"
+    ],
+    "test_access": {
+      "T_CONTEXT": [
+        "er",
+        "neurology",
+        "pulmonology"
+      ]
+    },
+    "hidden_test_results": {
+      "T_CONTEXT": {
+        "result": "Current objective finding is compatible with both Synthetic A and Synthetic B"
+      }
+    },
+    "resource_profile": {
+      "test_resources": {
+        "T_CONTEXT": "lab_slot"
+      },
+      "test_occupancy": {
+        "T_CONTEXT": 1
+      },
+      "test_turnaround": {
+        "T_CONTEXT": 1
+      }
+    }
+  },
+  {
+    "case_id": "challenge-v4-test-p013-v1",
+    "longitudinal": {
+      "patient_id": "challenge-v4-test-p013",
+      "visit_id": "v1",
+      "started_at": "2026-03-01T00:00:00Z"
+    },
+    "doctor_visible_info": {
+      "chief_complaint": "Recurrent synthetic syndrome with a pattern similar to a previous documented episode",
+      "initial_vitals": {
+        "spo2": 98
+      }
+    },
+    "patient_visible_info": {
+      "history": "The patient remembers having a similar previous episode but cannot recall which longitudinal pattern was documented."
+    },
+    "available_tests": [
+      "T_CONTEXT"
+    ],
+    "test_access": {
+      "T_CONTEXT": [
+        "er",
+        "neurology",
+        "pulmonology"
+      ]
+    },
+    "hidden_test_results": {
+      "T_CONTEXT": {
+        "result": "Current objective finding is compatible with both Synthetic A and Synthetic B"
+      }
+    },
+    "resource_profile": {
+      "test_resources": {
+        "T_CONTEXT": "lab_slot"
+      },
+      "test_occupancy": {
+        "T_CONTEXT": 1
+      },
+      "test_turnaround": {
+        "T_CONTEXT": 1
+      }
+    }
+  },
+  {
+    "case_id": "challenge-v4-test-p014-v1",
+    "longitudinal": {
+      "patient_id": "challenge-v4-test-p014",
+      "visit_id": "v1",
+      "started_at": "2026-03-01T00:00:00Z"
+    },
+    "doctor_visible_info": {
+      "chief_complaint": "Recurrent synthetic syndrome with a pattern similar to a previous documented episode",
+      "initial_vitals": {
+        "spo2": 98
+      }
+    },
+    "patient_visible_info": {
+      "history": "The patient remembers having a similar previous episode but cannot recall which longitudinal pattern was documented."
+    },
+    "available_tests": [
+      "T_CONTEXT"
+    ],
+    "test_access": {
+      "T_CONTEXT": [
+        "er",
+        "neurology",
+        "pulmonology"
+      ]
+    },
+    "hidden_test_results": {
+      "T_CONTEXT": {
+        "result": "Current objective finding is compatible with both Synthetic A and Synthetic B"
+      }
+    },
+    "resource_profile": {
+      "test_resources": {
+        "T_CONTEXT": "lab_slot"
+      },
+      "test_occupancy": {
+        "T_CONTEXT": 1
+      },
+      "test_turnaround": {
+        "T_CONTEXT": 1
+      }
+    }
+  },
+  {
+    "case_id": "challenge-v4-test-p015-v1",
+    "longitudinal": {
+      "patient_id": "challenge-v4-test-p015",
+      "visit_id": "v1",
+      "started_at": "2026-03-01T00:00:00Z"
+    },
+    "doctor_visible_info": {
+      "chief_complaint": "Recurrent synthetic syndrome with a pattern similar to a previous documented episode",
+      "initial_vitals": {
+        "spo2": 98
+      }
+    },
+    "patient_visible_info": {
+      "history": "The patient remembers having a similar previous episode but cannot recall which longitudinal pattern was documented."
+    },
+    "available_tests": [
+      "T_CONTEXT"
+    ],
+    "test_access": {
+      "T_CONTEXT": [
+        "er",
+        "neurology",
+        "pulmonology"
+      ]
+    },
+    "hidden_test_results": {
+      "T_CONTEXT": {
+        "result": "Current objective finding is compatible with both Synthetic A and Synthetic B"
+      }
+    },
+    "resource_profile": {
+      "test_resources": {
+        "T_CONTEXT": "lab_slot"
+      },
+      "test_occupancy": {
+        "T_CONTEXT": 1
+      },
+      "test_turnaround": {
+        "T_CONTEXT": 1
+      }
+    }
+  },
+  {
+    "case_id": "challenge-v4-test-p016-v1",
+    "longitudinal": {
+      "patient_id": "challenge-v4-test-p016",
+      "visit_id": "v1",
+      "started_at": "2026-03-01T00:00:00Z"
+    },
+    "doctor_visible_info": {
+      "chief_complaint": "Recurrent synthetic syndrome with a pattern similar to a previous documented episode",
+      "initial_vitals": {
+        "spo2": 98
+      }
+    },
+    "patient_visible_info": {
+      "history": "The patient remembers having a similar previous episode but cannot recall which longitudinal pattern was documented."
+    },
+    "available_tests": [
+      "T_CONTEXT"
+    ],
+    "test_access": {
+      "T_CONTEXT": [
+        "er",
+        "neurology",
+        "pulmonology"
+      ]
+    },
+    "hidden_test_results": {
+      "T_CONTEXT": {
+        "result": "Current objective finding is compatible with both Synthetic A and Synthetic B"
+      }
+    },
+    "resource_profile": {
+      "test_resources": {
+        "T_CONTEXT": "lab_slot"
+      },
+      "test_occupancy": {
+        "T_CONTEXT": 1
+      },
+      "test_turnaround": {
+        "T_CONTEXT": 1
+      }
+    }
+  },
+  {
+    "case_id": "challenge-v4-test-p017-v1",
+    "longitudinal": {
+      "patient_id": "challenge-v4-test-p017",
+      "visit_id": "v1",
+      "started_at": "2026-03-01T00:00:00Z"
+    },
+    "doctor_visible_info": {
+      "chief_complaint": "Recurrent synthetic syndrome with a pattern similar to a previous documented episode",
+      "initial_vitals": {
+        "spo2": 98
+      }
+    },
+    "patient_visible_info": {
+      "history": "The patient remembers having a similar previous episode but cannot recall which longitudinal pattern was documented."
+    },
+    "available_tests": [
+      "T_CONTEXT"
+    ],
+    "test_access": {
+      "T_CONTEXT": [
+        "er",
+        "neurology",
+        "pulmonology"
+      ]
+    },
+    "hidden_test_results": {
+      "T_CONTEXT": {
+        "result": "Current objective finding is compatible with both Synthetic A and Synthetic B"
+      }
+    },
+    "resource_profile": {
+      "test_resources": {
+        "T_CONTEXT": "lab_slot"
+      },
+      "test_occupancy": {
+        "T_CONTEXT": 1
+      },
+      "test_turnaround": {
+        "T_CONTEXT": 1
+      }
+    }
+  },
+  {
+    "case_id": "challenge-v4-test-p018-v1",
+    "longitudinal": {
+      "patient_id": "challenge-v4-test-p018",
+      "visit_id": "v1",
+      "started_at": "2026-03-01T00:00:00Z"
+    },
+    "doctor_visible_info": {
+      "chief_complaint": "Recurrent synthetic syndrome with a pattern similar to a previous documented episode",
+      "initial_vitals": {
+        "spo2": 98
+      }
+    },
+    "patient_visible_info": {
+      "history": "The patient remembers having a similar previous episode but cannot recall which longitudinal pattern was documented."
+    },
+    "available_tests": [
+      "T_CONTEXT"
+    ],
+    "test_access": {
+      "T_CONTEXT": [
+        "er",
+        "neurology",
+        "pulmonology"
+      ]
+    },
+    "hidden_test_results": {
+      "T_CONTEXT": {
+        "result": "Current objective finding is compatible with both Synthetic A and Synthetic B"
+      }
+    },
+    "resource_profile": {
+      "test_resources": {
+        "T_CONTEXT": "lab_slot"
+      },
+      "test_occupancy": {
+        "T_CONTEXT": 1
+      },
+      "test_turnaround": {
+        "T_CONTEXT": 1
+      }
+    }
+  },
+  {
+    "case_id": "challenge-v4-test-p019-v1",
+    "longitudinal": {
+      "patient_id": "challenge-v4-test-p019",
+      "visit_id": "v1",
+      "started_at": "2026-03-01T00:00:00Z"
+    },
+    "doctor_visible_info": {
+      "chief_complaint": "Recurrent synthetic syndrome with a pattern similar to a previous documented episode",
+      "initial_vitals": {
+        "spo2": 98
+      }
+    },
+    "patient_visible_info": {
+      "history": "The patient remembers having a similar previous episode but cannot recall which longitudinal pattern was documented."
+    },
+    "available_tests": [
+      "T_CONTEXT"
+    ],
+    "test_access": {
+      "T_CONTEXT": [
+        "er",
+        "neurology",
+        "pulmonology"
+      ]
+    },
+    "hidden_test_results": {
+      "T_CONTEXT": {
+        "result": "Current objective finding is compatible with both Synthetic A and Synthetic B"
+      }
+    },
+    "resource_profile": {
+      "test_resources": {
+        "T_CONTEXT": "lab_slot"
+      },
+      "test_occupancy": {
+        "T_CONTEXT": 1
+      },
+      "test_turnaround": {
+        "T_CONTEXT": 1
+      }
+    }
+  },
+  {
+    "case_id": "challenge-v4-test-p020-v1",
+    "longitudinal": {
+      "patient_id": "challenge-v4-test-p020",
+      "visit_id": "v1",
+      "started_at": "2026-03-01T00:00:00Z"
+    },
+    "doctor_visible_info": {
+      "chief_complaint": "Recurrent synthetic syndrome with a pattern similar to a previous documented episode",
+      "initial_vitals": {
+        "spo2": 98
+      }
+    },
+    "patient_visible_info": {
+      "history": "The patient remembers having a similar previous episode but cannot recall which longitudinal pattern was documented."
+    },
+    "available_tests": [
+      "T_CONTEXT"
+    ],
+    "test_access": {
+      "T_CONTEXT": [
+        "er",
+        "neurology",
+        "pulmonology"
+      ]
+    },
+    "hidden_test_results": {
+      "T_CONTEXT": {
+        "result": "Current objective finding is compatible with both Synthetic A and Synthetic B"
+      }
+    },
+    "resource_profile": {
+      "test_resources": {
+        "T_CONTEXT": "lab_slot"
+      },
+      "test_occupancy": {
+        "T_CONTEXT": 1
+      },
+      "test_turnaround": {
+        "T_CONTEXT": 1
+      }
+    }
+  },
+  {
+    "case_id": "challenge-v4-test-p021-v1",
+    "longitudinal": {
+      "patient_id": "challenge-v4-test-p021",
+      "visit_id": "v1",
+      "started_at": "2026-03-01T00:00:00Z"
+    },
+    "doctor_visible_info": {
+      "chief_complaint": "Recurrent focal sensory neurologic pattern with intermittent unilateral symptoms",
+      "initial_vitals": {
+        "spo2": 98
+      }
+    },
+    "patient_visible_info": {
+      "history": "Initial ER information does not provide a decisive disease-specific finding."
+    },
+    "available_tests": [
+      "T_SCREEN",
+      "T_NEURO",
+      "T_PULM"
+    ],
+    "test_access": {
+      "T_SCREEN": [
+        "er",
+        "neurology",
+        "pulmonology"
+      ],
+      "T_NEURO": [
+        "neurology"
+      ],
+      "T_PULM": [
+        "pulmonology"
+      ]
+    },
+    "hidden_test_results": {
+      "T_SCREEN": {
+        "result": "Nondiscriminative screening abnormality; specialty evaluation is required"
+      },
+      "T_NEURO": {
+        "result": "Neurology-specific result supports Synthetic A and does not support Synthetic B"
+      },
+      "T_PULM": {
+        "result": "Pulmonology-specific result is nondiagnostic"
+      }
+    },
+    "resource_profile": {
+      "test_resources": {
+        "T_SCREEN": "lab_slot",
+        "T_NEURO": "lab_slot",
+        "T_PULM": "lab_slot"
+      },
+      "test_occupancy": {
+        "T_SCREEN": 1,
+        "T_NEURO": 1,
+        "T_PULM": 1
+      },
+      "test_turnaround": {
+        "T_SCREEN": 1,
+        "T_NEURO": 1,
+        "T_PULM": 1
+      }
+    }
+  },
+  {
+    "case_id": "challenge-v4-test-p022-v1",
+    "longitudinal": {
+      "patient_id": "challenge-v4-test-p022",
+      "visit_id": "v1",
+      "started_at": "2026-03-01T00:00:00Z"
+    },
+    "doctor_visible_info": {
+      "chief_complaint": "Recurrent respiratory breathing pattern with intermittent exertional symptoms",
+      "initial_vitals": {
+        "spo2": 98
+      }
+    },
+    "patient_visible_info": {
+      "history": "Initial ER information does not provide a decisive disease-specific finding."
+    },
+    "available_tests": [
+      "T_SCREEN",
+      "T_NEURO",
+      "T_PULM"
+    ],
+    "test_access": {
+      "T_SCREEN": [
+        "er",
+        "neurology",
+        "pulmonology"
+      ],
+      "T_NEURO": [
+        "neurology"
+      ],
+      "T_PULM": [
+        "pulmonology"
+      ]
+    },
+    "hidden_test_results": {
+      "T_SCREEN": {
+        "result": "Nondiscriminative screening abnormality; specialty evaluation is required"
+      },
+      "T_NEURO": {
+        "result": "Neurology-specific result is nondiagnostic"
+      },
+      "T_PULM": {
+        "result": "Pulmonology-specific result supports Synthetic B and does not support Synthetic A"
+      }
+    },
+    "resource_profile": {
+      "test_resources": {
+        "T_SCREEN": "lab_slot",
+        "T_NEURO": "lab_slot",
+        "T_PULM": "lab_slot"
+      },
+      "test_occupancy": {
+        "T_SCREEN": 1,
+        "T_NEURO": 1,
+        "T_PULM": 1
+      },
+      "test_turnaround": {
+        "T_SCREEN": 1,
+        "T_NEURO": 1,
+        "T_PULM": 1
+      }
+    }
+  },
+  {
+    "case_id": "challenge-v4-test-p023-v1",
+    "longitudinal": {
+      "patient_id": "challenge-v4-test-p023",
+      "visit_id": "v1",
+      "started_at": "2026-03-01T00:00:00Z"
+    },
+    "doctor_visible_info": {
+      "chief_complaint": "Recurrent focal sensory neurologic pattern with intermittent unilateral symptoms",
+      "initial_vitals": {
+        "spo2": 98
+      }
+    },
+    "patient_visible_info": {
+      "history": "Initial ER information does not provide a decisive disease-specific finding."
+    },
+    "available_tests": [
+      "T_SCREEN",
+      "T_NEURO",
+      "T_PULM"
+    ],
+    "test_access": {
+      "T_SCREEN": [
+        "er",
+        "neurology",
+        "pulmonology"
+      ],
+      "T_NEURO": [
+        "neurology"
+      ],
+      "T_PULM": [
+        "pulmonology"
+      ]
+    },
+    "hidden_test_results": {
+      "T_SCREEN": {
+        "result": "Nondiscriminative screening abnormality; specialty evaluation is required"
+      },
+      "T_NEURO": {
+        "result": "Neurology-specific result supports Synthetic A and does not support Synthetic B"
+      },
+      "T_PULM": {
+        "result": "Pulmonology-specific result is nondiagnostic"
+      }
+    },
+    "resource_profile": {
+      "test_resources": {
+        "T_SCREEN": "lab_slot",
+        "T_NEURO": "lab_slot",
+        "T_PULM": "lab_slot"
+      },
+      "test_occupancy": {
+        "T_SCREEN": 1,
+        "T_NEURO": 1,
+        "T_PULM": 1
+      },
+      "test_turnaround": {
+        "T_SCREEN": 1,
+        "T_NEURO": 1,
+        "T_PULM": 1
+      }
+    }
+  },
+  {
+    "case_id": "challenge-v4-test-p024-v1",
+    "longitudinal": {
+      "patient_id": "challenge-v4-test-p024",
+      "visit_id": "v1",
+      "started_at": "2026-03-01T00:00:00Z"
+    },
+    "doctor_visible_info": {
+      "chief_complaint": "Recurrent respiratory breathing pattern with intermittent exertional symptoms",
+      "initial_vitals": {
+        "spo2": 98
+      }
+    },
+    "patient_visible_info": {
+      "history": "Initial ER information does not provide a decisive disease-specific finding."
+    },
+    "available_tests": [
+      "T_SCREEN",
+      "T_NEURO",
+      "T_PULM"
+    ],
+    "test_access": {
+      "T_SCREEN": [
+        "er",
+        "neurology",
+        "pulmonology"
+      ],
+      "T_NEURO": [
+        "neurology"
+      ],
+      "T_PULM": [
+        "pulmonology"
+      ]
+    },
+    "hidden_test_results": {
+      "T_SCREEN": {
+        "result": "Nondiscriminative screening abnormality; specialty evaluation is required"
+      },
+      "T_NEURO": {
+        "result": "Neurology-specific result is nondiagnostic"
+      },
+      "T_PULM": {
+        "result": "Pulmonology-specific result supports Synthetic B and does not support Synthetic A"
+      }
+    },
+    "resource_profile": {
+      "test_resources": {
+        "T_SCREEN": "lab_slot",
+        "T_NEURO": "lab_slot",
+        "T_PULM": "lab_slot"
+      },
+      "test_occupancy": {
+        "T_SCREEN": 1,
+        "T_NEURO": 1,
+        "T_PULM": 1
+      },
+      "test_turnaround": {
+        "T_SCREEN": 1,
+        "T_NEURO": 1,
+        "T_PULM": 1
+      }
+    }
+  },
+  {
+    "case_id": "challenge-v4-test-p025-v1",
+    "longitudinal": {
+      "patient_id": "challenge-v4-test-p025",
+      "visit_id": "v1",
+      "started_at": "2026-03-01T00:00:00Z"
+    },
+    "doctor_visible_info": {
+      "chief_complaint": "Recurrent focal sensory neurologic pattern with intermittent unilateral symptoms",
+      "initial_vitals": {
+        "spo2": 98
+      }
+    },
+    "patient_visible_info": {
+      "history": "Initial ER information does not provide a decisive disease-specific finding."
+    },
+    "available_tests": [
+      "T_SCREEN",
+      "T_NEURO",
+      "T_PULM"
+    ],
+    "test_access": {
+      "T_SCREEN": [
+        "er",
+        "neurology",
+        "pulmonology"
+      ],
+      "T_NEURO": [
+        "neurology"
+      ],
+      "T_PULM": [
+        "pulmonology"
+      ]
+    },
+    "hidden_test_results": {
+      "T_SCREEN": {
+        "result": "Nondiscriminative screening abnormality; specialty evaluation is required"
+      },
+      "T_NEURO": {
+        "result": "Neurology-specific result supports Synthetic A and does not support Synthetic B"
+      },
+      "T_PULM": {
+        "result": "Pulmonology-specific result is nondiagnostic"
+      }
+    },
+    "resource_profile": {
+      "test_resources": {
+        "T_SCREEN": "lab_slot",
+        "T_NEURO": "lab_slot",
+        "T_PULM": "lab_slot"
+      },
+      "test_occupancy": {
+        "T_SCREEN": 1,
+        "T_NEURO": 1,
+        "T_PULM": 1
+      },
+      "test_turnaround": {
+        "T_SCREEN": 1,
+        "T_NEURO": 1,
+        "T_PULM": 1
+      }
+    }
+  },
+  {
+    "case_id": "challenge-v4-test-p026-v1",
+    "longitudinal": {
+      "patient_id": "challenge-v4-test-p026",
+      "visit_id": "v1",
+      "started_at": "2026-03-01T00:00:00Z"
+    },
+    "doctor_visible_info": {
+      "chief_complaint": "Recurrent respiratory breathing pattern with intermittent exertional symptoms",
+      "initial_vitals": {
+        "spo2": 98
+      }
+    },
+    "patient_visible_info": {
+      "history": "Initial ER information does not provide a decisive disease-specific finding."
+    },
+    "available_tests": [
+      "T_SCREEN",
+      "T_NEURO",
+      "T_PULM"
+    ],
+    "test_access": {
+      "T_SCREEN": [
+        "er",
+        "neurology",
+        "pulmonology"
+      ],
+      "T_NEURO": [
+        "neurology"
+      ],
+      "T_PULM": [
+        "pulmonology"
+      ]
+    },
+    "hidden_test_results": {
+      "T_SCREEN": {
+        "result": "Nondiscriminative screening abnormality; specialty evaluation is required"
+      },
+      "T_NEURO": {
+        "result": "Neurology-specific result is nondiagnostic"
+      },
+      "T_PULM": {
+        "result": "Pulmonology-specific result supports Synthetic B and does not support Synthetic A"
+      }
+    },
+    "resource_profile": {
+      "test_resources": {
+        "T_SCREEN": "lab_slot",
+        "T_NEURO": "lab_slot",
+        "T_PULM": "lab_slot"
+      },
+      "test_occupancy": {
+        "T_SCREEN": 1,
+        "T_NEURO": 1,
+        "T_PULM": 1
+      },
+      "test_turnaround": {
+        "T_SCREEN": 1,
+        "T_NEURO": 1,
+        "T_PULM": 1
+      }
+    }
+  },
+  {
+    "case_id": "challenge-v4-test-p027-v1",
+    "longitudinal": {
+      "patient_id": "challenge-v4-test-p027",
+      "visit_id": "v1",
+      "started_at": "2026-03-01T00:00:00Z"
+    },
+    "doctor_visible_info": {
+      "chief_complaint": "Recurrent focal sensory neurologic pattern with intermittent unilateral symptoms",
+      "initial_vitals": {
+        "spo2": 98
+      }
+    },
+    "patient_visible_info": {
+      "history": "Initial ER information does not provide a decisive disease-specific finding."
+    },
+    "available_tests": [
+      "T_SCREEN",
+      "T_NEURO",
+      "T_PULM"
+    ],
+    "test_access": {
+      "T_SCREEN": [
+        "er",
+        "neurology",
+        "pulmonology"
+      ],
+      "T_NEURO": [
+        "neurology"
+      ],
+      "T_PULM": [
+        "pulmonology"
+      ]
+    },
+    "hidden_test_results": {
+      "T_SCREEN": {
+        "result": "Nondiscriminative screening abnormality; specialty evaluation is required"
+      },
+      "T_NEURO": {
+        "result": "Neurology-specific result supports Synthetic A and does not support Synthetic B"
+      },
+      "T_PULM": {
+        "result": "Pulmonology-specific result is nondiagnostic"
+      }
+    },
+    "resource_profile": {
+      "test_resources": {
+        "T_SCREEN": "lab_slot",
+        "T_NEURO": "lab_slot",
+        "T_PULM": "lab_slot"
+      },
+      "test_occupancy": {
+        "T_SCREEN": 1,
+        "T_NEURO": 1,
+        "T_PULM": 1
+      },
+      "test_turnaround": {
+        "T_SCREEN": 1,
+        "T_NEURO": 1,
+        "T_PULM": 1
+      }
+    }
+  },
+  {
+    "case_id": "challenge-v4-test-p028-v1",
+    "longitudinal": {
+      "patient_id": "challenge-v4-test-p028",
+      "visit_id": "v1",
+      "started_at": "2026-03-01T00:00:00Z"
+    },
+    "doctor_visible_info": {
+      "chief_complaint": "Recurrent respiratory breathing pattern with intermittent exertional symptoms",
+      "initial_vitals": {
+        "spo2": 98
+      }
+    },
+    "patient_visible_info": {
+      "history": "Initial ER information does not provide a decisive disease-specific finding."
+    },
+    "available_tests": [
+      "T_SCREEN",
+      "T_NEURO",
+      "T_PULM"
+    ],
+    "test_access": {
+      "T_SCREEN": [
+        "er",
+        "neurology",
+        "pulmonology"
+      ],
+      "T_NEURO": [
+        "neurology"
+      ],
+      "T_PULM": [
+        "pulmonology"
+      ]
+    },
+    "hidden_test_results": {
+      "T_SCREEN": {
+        "result": "Nondiscriminative screening abnormality; specialty evaluation is required"
+      },
+      "T_NEURO": {
+        "result": "Neurology-specific result is nondiagnostic"
+      },
+      "T_PULM": {
+        "result": "Pulmonology-specific result supports Synthetic B and does not support Synthetic A"
+      }
+    },
+    "resource_profile": {
+      "test_resources": {
+        "T_SCREEN": "lab_slot",
+        "T_NEURO": "lab_slot",
+        "T_PULM": "lab_slot"
+      },
+      "test_occupancy": {
+        "T_SCREEN": 1,
+        "T_NEURO": 1,
+        "T_PULM": 1
+      },
+      "test_turnaround": {
+        "T_SCREEN": 1,
+        "T_NEURO": 1,
+        "T_PULM": 1
+      }
+    }
+  },
+  {
+    "case_id": "challenge-v4-test-p029-v1",
+    "longitudinal": {
+      "patient_id": "challenge-v4-test-p029",
+      "visit_id": "v1",
+      "started_at": "2026-03-01T00:00:00Z"
+    },
+    "doctor_visible_info": {
+      "chief_complaint": "Recurrent focal sensory neurologic pattern with intermittent unilateral symptoms",
+      "initial_vitals": {
+        "spo2": 98
+      }
+    },
+    "patient_visible_info": {
+      "history": "Initial ER information does not provide a decisive disease-specific finding."
+    },
+    "available_tests": [
+      "T_SCREEN",
+      "T_NEURO",
+      "T_PULM"
+    ],
+    "test_access": {
+      "T_SCREEN": [
+        "er",
+        "neurology",
+        "pulmonology"
+      ],
+      "T_NEURO": [
+        "neurology"
+      ],
+      "T_PULM": [
+        "pulmonology"
+      ]
+    },
+    "hidden_test_results": {
+      "T_SCREEN": {
+        "result": "Nondiscriminative screening abnormality; specialty evaluation is required"
+      },
+      "T_NEURO": {
+        "result": "Neurology-specific result supports Synthetic A and does not support Synthetic B"
+      },
+      "T_PULM": {
+        "result": "Pulmonology-specific result is nondiagnostic"
+      }
+    },
+    "resource_profile": {
+      "test_resources": {
+        "T_SCREEN": "lab_slot",
+        "T_NEURO": "lab_slot",
+        "T_PULM": "lab_slot"
+      },
+      "test_occupancy": {
+        "T_SCREEN": 1,
+        "T_NEURO": 1,
+        "T_PULM": 1
+      },
+      "test_turnaround": {
+        "T_SCREEN": 1,
+        "T_NEURO": 1,
+        "T_PULM": 1
+      }
+    }
+  },
+  {
+    "case_id": "challenge-v4-test-p030-v1",
+    "longitudinal": {
+      "patient_id": "challenge-v4-test-p030",
+      "visit_id": "v1",
+      "started_at": "2026-03-01T00:00:00Z"
+    },
+    "doctor_visible_info": {
+      "chief_complaint": "Recurrent respiratory breathing pattern with intermittent exertional symptoms",
+      "initial_vitals": {
+        "spo2": 98
+      }
+    },
+    "patient_visible_info": {
+      "history": "Initial ER information does not provide a decisive disease-specific finding."
+    },
+    "available_tests": [
+      "T_SCREEN",
+      "T_NEURO",
+      "T_PULM"
+    ],
+    "test_access": {
+      "T_SCREEN": [
+        "er",
+        "neurology",
+        "pulmonology"
+      ],
+      "T_NEURO": [
+        "neurology"
+      ],
+      "T_PULM": [
+        "pulmonology"
+      ]
+    },
+    "hidden_test_results": {
+      "T_SCREEN": {
+        "result": "Nondiscriminative screening abnormality; specialty evaluation is required"
+      },
+      "T_NEURO": {
+        "result": "Neurology-specific result is nondiagnostic"
+      },
+      "T_PULM": {
+        "result": "Pulmonology-specific result supports Synthetic B and does not support Synthetic A"
+      }
+    },
+    "resource_profile": {
+      "test_resources": {
+        "T_SCREEN": "lab_slot",
+        "T_NEURO": "lab_slot",
+        "T_PULM": "lab_slot"
+      },
+      "test_occupancy": {
+        "T_SCREEN": 1,
+        "T_NEURO": 1,
+        "T_PULM": 1
+      },
+      "test_turnaround": {
+        "T_SCREEN": 1,
+        "T_NEURO": 1,
+        "T_PULM": 1
+      }
+    }
+  },
+  {
+    "case_id": "challenge-v4-test-p031-v1",
+    "longitudinal": {
+      "patient_id": "challenge-v4-test-p031",
+      "visit_id": "v1",
+      "started_at": "2026-03-01T00:00:00Z"
+    },
+    "doctor_visible_info": {
+      "chief_complaint": "Synthetic diagnostic uncertainty requiring selection between low-value and high-value testing",
+      "initial_vitals": {
+        "spo2": 98
+      }
+    },
+    "patient_visible_info": {
+      "history": "Initial history is compatible with both candidate diagnoses."
+    },
+    "available_tests": [
+      "T_LOW",
+      "T_HIGH"
+    ],
+    "test_access": {
+      "T_LOW": [
+        "er",
+        "neurology",
+        "pulmonology"
+      ],
+      "T_HIGH": [
+        "er",
+        "neurology",
+        "pulmonology"
+      ]
+    },
+    "hidden_test_results": {
+      "T_LOW": {
+        "result": "Weak tendency toward Synthetic A, insufficient for final diagnosis"
+      },
+      "T_HIGH": {
+        "result": "High-confidence objective result supports Synthetic A and does not support Synthetic B"
+      }
+    },
+    "resource_profile": {
+      "test_resources": {
+        "T_LOW": "lab_slot",
+        "T_HIGH": "lab_slot"
+      },
+      "test_occupancy": {
+        "T_LOW": 1,
+        "T_HIGH": 1
+      },
+      "test_turnaround": {
+        "T_LOW": 1,
+        "T_HIGH": 1
+      }
+    }
+  },
+  {
+    "case_id": "challenge-v4-test-p032-v1",
+    "longitudinal": {
+      "patient_id": "challenge-v4-test-p032",
+      "visit_id": "v1",
+      "started_at": "2026-03-01T00:00:00Z"
+    },
+    "doctor_visible_info": {
+      "chief_complaint": "Synthetic diagnostic uncertainty requiring selection between low-value and high-value testing",
+      "initial_vitals": {
+        "spo2": 98
+      }
+    },
+    "patient_visible_info": {
+      "history": "Initial history is compatible with both candidate diagnoses."
+    },
+    "available_tests": [
+      "T_LOW",
+      "T_HIGH"
+    ],
+    "test_access": {
+      "T_LOW": [
+        "er",
+        "neurology",
+        "pulmonology"
+      ],
+      "T_HIGH": [
+        "er",
+        "neurology",
+        "pulmonology"
+      ]
+    },
+    "hidden_test_results": {
+      "T_LOW": {
+        "result": "Weak tendency toward Synthetic B, insufficient for final diagnosis"
+      },
+      "T_HIGH": {
+        "result": "High-confidence objective result supports Synthetic B and does not support Synthetic A"
+      }
+    },
+    "resource_profile": {
+      "test_resources": {
+        "T_LOW": "lab_slot",
+        "T_HIGH": "lab_slot"
+      },
+      "test_occupancy": {
+        "T_LOW": 1,
+        "T_HIGH": 1
+      },
+      "test_turnaround": {
+        "T_LOW": 1,
+        "T_HIGH": 1
+      }
+    }
+  },
+  {
+    "case_id": "challenge-v4-test-p033-v1",
+    "longitudinal": {
+      "patient_id": "challenge-v4-test-p033",
+      "visit_id": "v1",
+      "started_at": "2026-03-01T00:00:00Z"
+    },
+    "doctor_visible_info": {
+      "chief_complaint": "Synthetic diagnostic uncertainty requiring selection between low-value and high-value testing",
+      "initial_vitals": {
+        "spo2": 98
+      }
+    },
+    "patient_visible_info": {
+      "history": "Initial history is compatible with both candidate diagnoses."
+    },
+    "available_tests": [
+      "T_LOW",
+      "T_HIGH"
+    ],
+    "test_access": {
+      "T_LOW": [
+        "er",
+        "neurology",
+        "pulmonology"
+      ],
+      "T_HIGH": [
+        "er",
+        "neurology",
+        "pulmonology"
+      ]
+    },
+    "hidden_test_results": {
+      "T_LOW": {
+        "result": "Weak tendency toward Synthetic A, insufficient for final diagnosis"
+      },
+      "T_HIGH": {
+        "result": "High-confidence objective result supports Synthetic A and does not support Synthetic B"
+      }
+    },
+    "resource_profile": {
+      "test_resources": {
+        "T_LOW": "lab_slot",
+        "T_HIGH": "lab_slot"
+      },
+      "test_occupancy": {
+        "T_LOW": 1,
+        "T_HIGH": 1
+      },
+      "test_turnaround": {
+        "T_LOW": 1,
+        "T_HIGH": 1
+      }
+    }
+  },
+  {
+    "case_id": "challenge-v4-test-p034-v1",
+    "longitudinal": {
+      "patient_id": "challenge-v4-test-p034",
+      "visit_id": "v1",
+      "started_at": "2026-03-01T00:00:00Z"
+    },
+    "doctor_visible_info": {
+      "chief_complaint": "Synthetic diagnostic uncertainty requiring selection between low-value and high-value testing",
+      "initial_vitals": {
+        "spo2": 98
+      }
+    },
+    "patient_visible_info": {
+      "history": "Initial history is compatible with both candidate diagnoses."
+    },
+    "available_tests": [
+      "T_LOW",
+      "T_HIGH"
+    ],
+    "test_access": {
+      "T_LOW": [
+        "er",
+        "neurology",
+        "pulmonology"
+      ],
+      "T_HIGH": [
+        "er",
+        "neurology",
+        "pulmonology"
+      ]
+    },
+    "hidden_test_results": {
+      "T_LOW": {
+        "result": "Weak tendency toward Synthetic B, insufficient for final diagnosis"
+      },
+      "T_HIGH": {
+        "result": "High-confidence objective result supports Synthetic B and does not support Synthetic A"
+      }
+    },
+    "resource_profile": {
+      "test_resources": {
+        "T_LOW": "lab_slot",
+        "T_HIGH": "lab_slot"
+      },
+      "test_occupancy": {
+        "T_LOW": 1,
+        "T_HIGH": 1
+      },
+      "test_turnaround": {
+        "T_LOW": 1,
+        "T_HIGH": 1
+      }
+    }
+  },
+  {
+    "case_id": "challenge-v4-test-p035-v1",
+    "longitudinal": {
+      "patient_id": "challenge-v4-test-p035",
+      "visit_id": "v1",
+      "started_at": "2026-03-01T00:00:00Z"
+    },
+    "doctor_visible_info": {
+      "chief_complaint": "Synthetic diagnostic uncertainty requiring selection between low-value and high-value testing",
+      "initial_vitals": {
+        "spo2": 98
+      }
+    },
+    "patient_visible_info": {
+      "history": "Initial history is compatible with both candidate diagnoses."
+    },
+    "available_tests": [
+      "T_LOW",
+      "T_HIGH"
+    ],
+    "test_access": {
+      "T_LOW": [
+        "er",
+        "neurology",
+        "pulmonology"
+      ],
+      "T_HIGH": [
+        "er",
+        "neurology",
+        "pulmonology"
+      ]
+    },
+    "hidden_test_results": {
+      "T_LOW": {
+        "result": "Weak tendency toward Synthetic A, insufficient for final diagnosis"
+      },
+      "T_HIGH": {
+        "result": "High-confidence objective result supports Synthetic A and does not support Synthetic B"
+      }
+    },
+    "resource_profile": {
+      "test_resources": {
+        "T_LOW": "lab_slot",
+        "T_HIGH": "lab_slot"
+      },
+      "test_occupancy": {
+        "T_LOW": 1,
+        "T_HIGH": 1
+      },
+      "test_turnaround": {
+        "T_LOW": 1,
+        "T_HIGH": 1
+      }
+    }
+  },
+  {
+    "case_id": "challenge-v4-test-p036-v1",
+    "longitudinal": {
+      "patient_id": "challenge-v4-test-p036",
+      "visit_id": "v1",
+      "started_at": "2026-03-01T00:00:00Z"
+    },
+    "doctor_visible_info": {
+      "chief_complaint": "Synthetic diagnostic uncertainty requiring selection between low-value and high-value testing",
+      "initial_vitals": {
+        "spo2": 98
+      }
+    },
+    "patient_visible_info": {
+      "history": "Initial history is compatible with both candidate diagnoses."
+    },
+    "available_tests": [
+      "T_LOW",
+      "T_HIGH"
+    ],
+    "test_access": {
+      "T_LOW": [
+        "er",
+        "neurology",
+        "pulmonology"
+      ],
+      "T_HIGH": [
+        "er",
+        "neurology",
+        "pulmonology"
+      ]
+    },
+    "hidden_test_results": {
+      "T_LOW": {
+        "result": "Weak tendency toward Synthetic B, insufficient for final diagnosis"
+      },
+      "T_HIGH": {
+        "result": "High-confidence objective result supports Synthetic B and does not support Synthetic A"
+      }
+    },
+    "resource_profile": {
+      "test_resources": {
+        "T_LOW": "lab_slot",
+        "T_HIGH": "lab_slot"
+      },
+      "test_occupancy": {
+        "T_LOW": 1,
+        "T_HIGH": 1
+      },
+      "test_turnaround": {
+        "T_LOW": 1,
+        "T_HIGH": 1
+      }
+    }
+  },
+  {
+    "case_id": "challenge-v4-test-p037-v1",
+    "longitudinal": {
+      "patient_id": "challenge-v4-test-p037",
+      "visit_id": "v1",
+      "started_at": "2026-03-01T00:00:00Z"
+    },
+    "doctor_visible_info": {
+      "chief_complaint": "Synthetic diagnostic uncertainty requiring selection between low-value and high-value testing",
+      "initial_vitals": {
+        "spo2": 98
+      }
+    },
+    "patient_visible_info": {
+      "history": "Initial history is compatible with both candidate diagnoses."
+    },
+    "available_tests": [
+      "T_LOW",
+      "T_HIGH"
+    ],
+    "test_access": {
+      "T_LOW": [
+        "er",
+        "neurology",
+        "pulmonology"
+      ],
+      "T_HIGH": [
+        "er",
+        "neurology",
+        "pulmonology"
+      ]
+    },
+    "hidden_test_results": {
+      "T_LOW": {
+        "result": "Weak tendency toward Synthetic A, insufficient for final diagnosis"
+      },
+      "T_HIGH": {
+        "result": "High-confidence objective result supports Synthetic A and does not support Synthetic B"
+      }
+    },
+    "resource_profile": {
+      "test_resources": {
+        "T_LOW": "lab_slot",
+        "T_HIGH": "lab_slot"
+      },
+      "test_occupancy": {
+        "T_LOW": 1,
+        "T_HIGH": 1
+      },
+      "test_turnaround": {
+        "T_LOW": 1,
+        "T_HIGH": 1
+      }
+    }
+  },
+  {
+    "case_id": "challenge-v4-test-p038-v1",
+    "longitudinal": {
+      "patient_id": "challenge-v4-test-p038",
+      "visit_id": "v1",
+      "started_at": "2026-03-01T00:00:00Z"
+    },
+    "doctor_visible_info": {
+      "chief_complaint": "Synthetic diagnostic uncertainty requiring selection between low-value and high-value testing",
+      "initial_vitals": {
+        "spo2": 98
+      }
+    },
+    "patient_visible_info": {
+      "history": "Initial history is compatible with both candidate diagnoses."
+    },
+    "available_tests": [
+      "T_LOW",
+      "T_HIGH"
+    ],
+    "test_access": {
+      "T_LOW": [
+        "er",
+        "neurology",
+        "pulmonology"
+      ],
+      "T_HIGH": [
+        "er",
+        "neurology",
+        "pulmonology"
+      ]
+    },
+    "hidden_test_results": {
+      "T_LOW": {
+        "result": "Weak tendency toward Synthetic B, insufficient for final diagnosis"
+      },
+      "T_HIGH": {
+        "result": "High-confidence objective result supports Synthetic B and does not support Synthetic A"
+      }
+    },
+    "resource_profile": {
+      "test_resources": {
+        "T_LOW": "lab_slot",
+        "T_HIGH": "lab_slot"
+      },
+      "test_occupancy": {
+        "T_LOW": 1,
+        "T_HIGH": 1
+      },
+      "test_turnaround": {
+        "T_LOW": 1,
+        "T_HIGH": 1
+      }
+    }
+  },
+  {
+    "case_id": "challenge-v4-test-p039-v1",
+    "longitudinal": {
+      "patient_id": "challenge-v4-test-p039",
+      "visit_id": "v1",
+      "started_at": "2026-03-01T00:00:00Z"
+    },
+    "doctor_visible_info": {
+      "chief_complaint": "Synthetic diagnostic uncertainty requiring selection between low-value and high-value testing",
+      "initial_vitals": {
+        "spo2": 98
+      }
+    },
+    "patient_visible_info": {
+      "history": "Initial history is compatible with both candidate diagnoses."
+    },
+    "available_tests": [
+      "T_LOW",
+      "T_HIGH"
+    ],
+    "test_access": {
+      "T_LOW": [
+        "er",
+        "neurology",
+        "pulmonology"
+      ],
+      "T_HIGH": [
+        "er",
+        "neurology",
+        "pulmonology"
+      ]
+    },
+    "hidden_test_results": {
+      "T_LOW": {
+        "result": "Weak tendency toward Synthetic A, insufficient for final diagnosis"
+      },
+      "T_HIGH": {
+        "result": "High-confidence objective result supports Synthetic A and does not support Synthetic B"
+      }
+    },
+    "resource_profile": {
+      "test_resources": {
+        "T_LOW": "lab_slot",
+        "T_HIGH": "lab_slot"
+      },
+      "test_occupancy": {
+        "T_LOW": 1,
+        "T_HIGH": 1
+      },
+      "test_turnaround": {
+        "T_LOW": 1,
+        "T_HIGH": 1
+      }
+    }
+  },
+  {
+    "case_id": "challenge-v4-test-p040-v1",
+    "longitudinal": {
+      "patient_id": "challenge-v4-test-p040",
+      "visit_id": "v1",
+      "started_at": "2026-03-01T00:00:00Z"
+    },
+    "doctor_visible_info": {
+      "chief_complaint": "Synthetic diagnostic uncertainty requiring selection between low-value and high-value testing",
+      "initial_vitals": {
+        "spo2": 98
+      }
+    },
+    "patient_visible_info": {
+      "history": "Initial history is compatible with both candidate diagnoses."
+    },
+    "available_tests": [
+      "T_LOW",
+      "T_HIGH"
+    ],
+    "test_access": {
+      "T_LOW": [
+        "er",
+        "neurology",
+        "pulmonology"
+      ],
+      "T_HIGH": [
+        "er",
+        "neurology",
+        "pulmonology"
+      ]
+    },
+    "hidden_test_results": {
+      "T_LOW": {
+        "result": "Weak tendency toward Synthetic B, insufficient for final diagnosis"
+      },
+      "T_HIGH": {
+        "result": "High-confidence objective result supports Synthetic B and does not support Synthetic A"
+      }
+    },
+    "resource_profile": {
+      "test_resources": {
+        "T_LOW": "lab_slot",
+        "T_HIGH": "lab_slot"
+      },
+      "test_occupancy": {
+        "T_LOW": 1,
+        "T_HIGH": 1
+      },
+      "test_turnaround": {
+        "T_LOW": 1,
+        "T_HIGH": 1
+      }
+    }
+  }
+]

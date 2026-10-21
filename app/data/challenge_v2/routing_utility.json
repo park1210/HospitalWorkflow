@@ -1,0 +1,107 @@
+{
+  "schema_version": 1,
+  "method": "jaccard_beta_v1",
+  "registry": {
+    "schema_version": 1,
+    "agents": [
+      {
+        "agent_id": "local-er",
+        "role": "er",
+        "department": "",
+        "model": "llama3.2:3b",
+        "version": "challenge-v2-er",
+        "keywords": []
+      },
+      {
+        "agent_id": "local-neurology",
+        "role": "specialty",
+        "department": "neurology",
+        "model": "qwen-neurology:latest",
+        "version": "challenge-v2-neurology",
+        "keywords": [
+          "synthetic",
+          "marker",
+          "pattern",
+          "recurrent"
+        ]
+      },
+      {
+        "agent_id": "local-pulmonology",
+        "role": "specialty",
+        "department": "pulmonology",
+        "model": "qwen-pulmonology:latest",
+        "version": "challenge-v2-pulmonology",
+        "keywords": [
+          "synthetic",
+          "discomfort",
+          "pattern",
+          "recurring"
+        ]
+      }
+    ]
+  },
+  "weights": {
+    "accuracy": 1,
+    "cost": 0,
+    "latency": 0.001
+  },
+  "min_samples": 2,
+  "samples": [
+    {
+      "patient_id": "routing-train-0",
+      "decision_id": "routing-train-0-probe",
+      "agent_id": "local-neurology",
+      "correct": true,
+      "cost": 0.0,
+      "latency_seconds": 8.0,
+      "tokens": [
+        "synthetic",
+        "marker",
+        "pattern",
+        "recurrent"
+      ]
+    },
+    {
+      "patient_id": "routing-train-0",
+      "decision_id": "routing-train-0-probe",
+      "agent_id": "local-pulmonology",
+      "correct": false,
+      "cost": 0.0,
+      "latency_seconds": 10.0,
+      "tokens": [
+        "synthetic",
+        "marker",
+        "pattern",
+        "recurrent"
+      ]
+    },
+    {
+      "patient_id": "routing-train-1",
+      "decision_id": "routing-train-1-probe",
+      "agent_id": "local-neurology",
+      "correct": false,
+      "cost": 0.0,
+      "latency_seconds": 9.0,
+      "tokens": [
+        "synthetic",
+        "discomfort",
+        "recurring",
+        "pattern"
+      ]
+    },
+    {
+      "patient_id": "routing-train-1",
+      "decision_id": "routing-train-1-probe",
+      "agent_id": "local-pulmonology",
+      "correct": true,
+      "cost": 0.0,
+      "latency_seconds": 11.0,
+      "tokens": [
+        "synthetic",
+        "discomfort",
+        "recurring",
+        "pattern"
+      ]
+    }
+  ]
+}

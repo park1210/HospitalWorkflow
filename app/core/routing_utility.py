@@ -1,4 +1,4 @@
-"""Offline fitted contextual utility; labels never enter runtime observations."""
+"""RuleSimilarityRouter estimator baseline; scores are NOT calibrated probabilities."""
 from copy import deepcopy
 import hashlib
 import json
@@ -70,8 +70,9 @@ class RoutingUtility:
         probability = (1 + sum(w * r["correct"] for w, r in matches)) / (2 + weight)
         cost = sum(w * r["cost"] for w, r in matches) / weight
         latency = sum(w * r["latency_seconds"] for w, r in matches) / weight
-        a = self.artifact["weights"]
-        return {"utility": a["accuracy"] * probability - a["cost"] * cost - a["latency"] * latency,
+        # Keep artifact/API compatibility; cost and latency are audit-only.
+        return {"score": probability, "utility": probability,
+                "score_semantics": "uncalibrated_similarity_weighted_outcomes",
                 "estimated_correct": probability, "estimated_cost": cost, "estimated_latency_seconds": latency,
                 "matched_samples": len(matches), "effective_weight": weight}
 

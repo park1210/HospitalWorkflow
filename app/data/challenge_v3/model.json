@@ -1,0 +1,358 @@
+{
+  "schema_version": 1,
+  "model_id": "synthetic-v3-process-aware",
+  "revision": "v3",
+  "provenance": {
+    "synthetic": true,
+    "review_status": "unreviewed",
+    "training_patients": [
+      "voi-train-001",
+      "voi-train-002"
+    ],
+    "assumptions": [
+      "Fixed finite diagnosis universe",
+      "Categorical synthetic outcome probabilities",
+      "Objective support required for supported diagnosis",
+      "Synthetic costs are utility units, not clinical prices"
+    ]
+  },
+  "diagnoses": {
+    "Synthetic A": "general_medicine",
+    "Synthetic B": "general_medicine"
+  },
+  "prior": {
+    "Synthetic A": 0.5,
+    "Synthetic B": 0.5
+  },
+  "terminal_utility": {
+    "Synthetic A": {
+      "Synthetic A": 1,
+      "Synthetic B": 0
+    },
+    "Synthetic B": {
+      "Synthetic A": 0,
+      "Synthetic B": 1
+    }
+  },
+  "cost_weights": {
+    "money": 1,
+    "minutes": 0,
+    "tokens": 0
+  },
+  "stop_probability": 0.95,
+  "horizon": 2,
+  "actions": [
+    {
+      "id": "baseline-test",
+      "type": "request_test",
+      "target": "T_BASE",
+      "cost": {
+        "money": 0.05,
+        "minutes": 0,
+        "tokens": 0
+      },
+      "outcomes": [
+        {
+          "id": "alpha",
+          "likelihood": {
+            "Synthetic A": 0.999,
+            "Synthetic B": 0.001
+          },
+          "observation": {
+            "source": "objective_findings",
+            "text": "T_BASE: Baseline alpha signal"
+          },
+          "supports_diagnoses": [
+            "Synthetic A"
+          ]
+        },
+        {
+          "id": "beta",
+          "likelihood": {
+            "Synthetic A": 0.001,
+            "Synthetic B": 0.999
+          },
+          "observation": {
+            "source": "objective_findings",
+            "text": "T_BASE: Baseline beta signal"
+          },
+          "supports_diagnoses": [
+            "Synthetic B"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "context-test",
+      "type": "request_test",
+      "target": "T_CONTEXT",
+      "cost": {
+        "money": 0.01,
+        "minutes": 0,
+        "tokens": 0
+      },
+      "outcomes": [
+        {
+          "id": "present",
+          "likelihood": {
+            "Synthetic A": 0.5,
+            "Synthetic B": 0.5
+          },
+          "observation": {
+            "source": "objective_findings",
+            "text": "T_CONTEXT: Shared objective marker present"
+          },
+          "supports_diagnoses": [
+            "Synthetic A",
+            "Synthetic B"
+          ]
+        },
+        {
+          "id": "absent",
+          "likelihood": {
+            "Synthetic A": 0.5,
+            "Synthetic B": 0.5
+          },
+          "observation": {
+            "source": "objective_findings",
+            "text": "T_CONTEXT: Shared objective marker absent"
+          },
+          "supports_diagnoses": [
+            "Synthetic A",
+            "Synthetic B"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "routing-screen",
+      "type": "request_test",
+      "target": "T_SCREEN",
+      "cost": {
+        "money": 0.01,
+        "minutes": 0,
+        "tokens": 0
+      },
+      "outcomes": [
+        {
+          "id": "positive",
+          "likelihood": {
+            "Synthetic A": 0.5,
+            "Synthetic B": 0.5
+          },
+          "observation": {
+            "source": "objective_findings",
+            "text": "T_SCREEN: Shared routing screen positive"
+          },
+          "supports_diagnoses": [
+            "Synthetic A",
+            "Synthetic B"
+          ]
+        },
+        {
+          "id": "negative",
+          "likelihood": {
+            "Synthetic A": 0.5,
+            "Synthetic B": 0.5
+          },
+          "observation": {
+            "source": "objective_findings",
+            "text": "T_SCREEN: Shared routing screen negative"
+          },
+          "supports_diagnoses": [
+            "Synthetic A",
+            "Synthetic B"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "neuro-test",
+      "type": "request_test",
+      "target": "T_NEURO",
+      "cost": {
+        "money": 0.05,
+        "minutes": 0,
+        "tokens": 0
+      },
+      "outcomes": [
+        {
+          "id": "alpha",
+          "likelihood": {
+            "Synthetic A": 0.999,
+            "Synthetic B": 0.001
+          },
+          "observation": {
+            "source": "objective_findings",
+            "text": "T_NEURO: Neuro-specific alpha signal detected"
+          },
+          "supports_diagnoses": [
+            "Synthetic A"
+          ]
+        },
+        {
+          "id": "nondiagnostic",
+          "likelihood": {
+            "Synthetic A": 0.001,
+            "Synthetic B": 0.999
+          },
+          "observation": {
+            "source": "objective_findings",
+            "text": "T_NEURO: Neurologic study nondiagnostic"
+          },
+          "supports_diagnoses": []
+        }
+      ]
+    },
+    {
+      "id": "pulm-test",
+      "type": "request_test",
+      "target": "T_PULM",
+      "cost": {
+        "money": 0.05,
+        "minutes": 0,
+        "tokens": 0
+      },
+      "outcomes": [
+        {
+          "id": "nondiagnostic",
+          "likelihood": {
+            "Synthetic A": 0.999,
+            "Synthetic B": 0.001
+          },
+          "observation": {
+            "source": "objective_findings",
+            "text": "T_PULM: Pulmonary study nondiagnostic"
+          },
+          "supports_diagnoses": []
+        },
+        {
+          "id": "beta",
+          "likelihood": {
+            "Synthetic A": 0.001,
+            "Synthetic B": 0.999
+          },
+          "observation": {
+            "source": "objective_findings",
+            "text": "T_PULM: Pulmonary-specific beta signal detected"
+          },
+          "supports_diagnoses": [
+            "Synthetic B"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "low-info-test",
+      "type": "request_test",
+      "target": "T_LOW",
+      "cost": {
+        "money": 0.01,
+        "minutes": 0,
+        "tokens": 0
+      },
+      "outcomes": [
+        {
+          "id": "alpha",
+          "likelihood": {
+            "Synthetic A": 0.6,
+            "Synthetic B": 0.4
+          },
+          "observation": {
+            "source": "objective_findings",
+            "text": "T_LOW: Weak alpha tendency"
+          },
+          "supports_diagnoses": []
+        },
+        {
+          "id": "beta",
+          "likelihood": {
+            "Synthetic A": 0.4,
+            "Synthetic B": 0.6
+          },
+          "observation": {
+            "source": "objective_findings",
+            "text": "T_LOW: Weak beta tendency"
+          },
+          "supports_diagnoses": []
+        }
+      ]
+    },
+    {
+      "id": "high-info-test",
+      "type": "request_test",
+      "target": "T_HIGH",
+      "cost": {
+        "money": 0.08,
+        "minutes": 0,
+        "tokens": 0
+      },
+      "outcomes": [
+        {
+          "id": "alpha",
+          "likelihood": {
+            "Synthetic A": 0.999,
+            "Synthetic B": 0.001
+          },
+          "observation": {
+            "source": "objective_findings",
+            "text": "T_HIGH: High-confidence alpha signal"
+          },
+          "supports_diagnoses": [
+            "Synthetic A"
+          ]
+        },
+        {
+          "id": "beta",
+          "likelihood": {
+            "Synthetic A": 0.001,
+            "Synthetic B": 0.999
+          },
+          "observation": {
+            "source": "objective_findings",
+            "text": "T_HIGH: High-confidence beta signal"
+          },
+          "supports_diagnoses": [
+            "Synthetic B"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "memory",
+      "type": "retrieve_memory",
+      "target": "longitudinal",
+      "cost": {
+        "money": 0.01,
+        "minutes": 0,
+        "tokens": 0
+      },
+      "outcomes": [
+        {
+          "id": "alpha",
+          "likelihood": {
+            "Synthetic A": 0.97,
+            "Synthetic B": 0.03
+          },
+          "observation": {
+            "source": "memory",
+            "text": "Longitudinal pattern alpha."
+          },
+          "supports_diagnoses": []
+        },
+        {
+          "id": "beta",
+          "likelihood": {
+            "Synthetic A": 0.03,
+            "Synthetic B": 0.97
+          },
+          "observation": {
+            "source": "memory",
+            "text": "Longitudinal pattern beta."
+          },
+          "supports_diagnoses": []
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,242 @@
+[
+  {
+    "patient_id": "challenge-v3-test-p001",
+    "visit_id": "v1",
+    "split": "test",
+    "group": "baseline"
+  },
+  {
+    "patient_id": "challenge-v3-test-p002",
+    "visit_id": "v1",
+    "split": "test",
+    "group": "baseline"
+  },
+  {
+    "patient_id": "challenge-v3-test-p003",
+    "visit_id": "v1",
+    "split": "test",
+    "group": "baseline"
+  },
+  {
+    "patient_id": "challenge-v3-test-p004",
+    "visit_id": "v1",
+    "split": "test",
+    "group": "baseline"
+  },
+  {
+    "patient_id": "challenge-v3-test-p005",
+    "visit_id": "v1",
+    "split": "test",
+    "group": "baseline"
+  },
+  {
+    "patient_id": "challenge-v3-test-p006",
+    "visit_id": "v1",
+    "split": "test",
+    "group": "baseline"
+  },
+  {
+    "patient_id": "challenge-v3-test-p007",
+    "visit_id": "v1",
+    "split": "test",
+    "group": "baseline"
+  },
+  {
+    "patient_id": "challenge-v3-test-p008",
+    "visit_id": "v1",
+    "split": "test",
+    "group": "baseline"
+  },
+  {
+    "patient_id": "challenge-v3-test-p009",
+    "visit_id": "v1",
+    "split": "test",
+    "group": "baseline"
+  },
+  {
+    "patient_id": "challenge-v3-test-p010",
+    "visit_id": "v1",
+    "split": "test",
+    "group": "baseline"
+  },
+  {
+    "patient_id": "challenge-v3-test-p011",
+    "visit_id": "v1",
+    "split": "test",
+    "group": "memory_critical"
+  },
+  {
+    "patient_id": "challenge-v3-test-p012",
+    "visit_id": "v1",
+    "split": "test",
+    "group": "memory_critical"
+  },
+  {
+    "patient_id": "challenge-v3-test-p013",
+    "visit_id": "v1",
+    "split": "test",
+    "group": "memory_critical"
+  },
+  {
+    "patient_id": "challenge-v3-test-p014",
+    "visit_id": "v1",
+    "split": "test",
+    "group": "memory_critical"
+  },
+  {
+    "patient_id": "challenge-v3-test-p015",
+    "visit_id": "v1",
+    "split": "test",
+    "group": "memory_critical"
+  },
+  {
+    "patient_id": "challenge-v3-test-p016",
+    "visit_id": "v1",
+    "split": "test",
+    "group": "memory_critical"
+  },
+  {
+    "patient_id": "challenge-v3-test-p017",
+    "visit_id": "v1",
+    "split": "test",
+    "group": "memory_critical"
+  },
+  {
+    "patient_id": "challenge-v3-test-p018",
+    "visit_id": "v1",
+    "split": "test",
+    "group": "memory_critical"
+  },
+  {
+    "patient_id": "challenge-v3-test-p019",
+    "visit_id": "v1",
+    "split": "test",
+    "group": "memory_critical"
+  },
+  {
+    "patient_id": "challenge-v3-test-p020",
+    "visit_id": "v1",
+    "split": "test",
+    "group": "memory_critical"
+  },
+  {
+    "patient_id": "challenge-v3-test-p021",
+    "visit_id": "v1",
+    "split": "test",
+    "group": "routing_critical"
+  },
+  {
+    "patient_id": "challenge-v3-test-p022",
+    "visit_id": "v1",
+    "split": "test",
+    "group": "routing_critical"
+  },
+  {
+    "patient_id": "challenge-v3-test-p023",
+    "visit_id": "v1",
+    "split": "test",
+    "group": "routing_critical"
+  },
+  {
+    "patient_id": "challenge-v3-test-p024",
+    "visit_id": "v1",
+    "split": "test",
+    "group": "routing_critical"
+  },
+  {
+    "patient_id": "challenge-v3-test-p025",
+    "visit_id": "v1",
+    "split": "test",
+    "group": "routing_critical"
+  },
+  {
+    "patient_id": "challenge-v3-test-p026",
+    "visit_id": "v1",
+    "split": "test",
+    "group": "routing_critical"
+  },
+  {
+    "patient_id": "challenge-v3-test-p027",
+    "visit_id": "v1",
+    "split": "test",
+    "group": "routing_critical"
+  },
+  {
+    "patient_id": "challenge-v3-test-p028",
+    "visit_id": "v1",
+    "split": "test",
+    "group": "routing_critical"
+  },
+  {
+    "patient_id": "challenge-v3-test-p029",
+    "visit_id": "v1",
+    "split": "test",
+    "group": "routing_critical"
+  },
+  {
+    "patient_id": "challenge-v3-test-p030",
+    "visit_id": "v1",
+    "split": "test",
+    "group": "routing_critical"
+  },
+  {
+    "patient_id": "challenge-v3-test-p031",
+    "visit_id": "v1",
+    "split": "test",
+    "group": "voi_critical"
+  },
+  {
+    "patient_id": "challenge-v3-test-p032",
+    "visit_id": "v1",
+    "split": "test",
+    "group": "voi_critical"
+  },
+  {
+    "patient_id": "challenge-v3-test-p033",
+    "visit_id": "v1",
+    "split": "test",
+    "group": "voi_critical"
+  },
+  {
+    "patient_id": "challenge-v3-test-p034",
+    "visit_id": "v1",
+    "split": "test",
+    "group": "voi_critical"
+  },
+  {
+    "patient_id": "challenge-v3-test-p035",
+    "visit_id": "v1",
+    "split": "test",
+    "group": "voi_critical"
+  },
+  {
+    "patient_id": "challenge-v3-test-p036",
+    "visit_id": "v1",
+    "split": "test",
+    "group": "voi_critical"
+  },
+  {
+    "patient_id": "challenge-v3-test-p037",
+    "visit_id": "v1",
+    "split": "test",
+    "group": "voi_critical"
+  },
+  {
+    "patient_id": "challenge-v3-test-p038",
+    "visit_id": "v1",
+    "split": "test",
+    "group": "voi_critical"
+  },
+  {
+    "patient_id": "challenge-v3-test-p039",
+    "visit_id": "v1",
+    "split": "test",
+    "group": "voi_critical"
+  },
+  {
+    "patient_id": "challenge-v3-test-p040",
+    "visit_id": "v1",
+    "split": "test",
+    "group": "voi_critical"
+  }
+]

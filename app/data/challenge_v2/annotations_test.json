@@ -1,0 +1,282 @@
+{
+  "[\"challenge-v2-test-p01\", \"v1\"]": {
+    "relevant_memory_ids": [
+      "challenge-v2-test-p01-indicator",
+      "challenge-v2-test-p01-pattern-detail"
+    ],
+    "stale_memory_ids": []
+  },
+  "[\"challenge-v2-test-p01\", \"v2\"]": {
+    "relevant_memory_ids": [
+      "challenge-v2-test-p01-indicator",
+      "challenge-v2-test-p01-pattern-detail"
+    ],
+    "stale_memory_ids": []
+  },
+  "[\"challenge-v2-test-p02\", \"v1\"]": {
+    "relevant_memory_ids": [
+      "challenge-v2-test-p02-indicator",
+      "challenge-v2-test-p02-pattern-detail"
+    ],
+    "stale_memory_ids": []
+  },
+  "[\"challenge-v2-test-p02\", \"v2\"]": {
+    "relevant_memory_ids": [
+      "challenge-v2-test-p02-indicator",
+      "challenge-v2-test-p02-pattern-detail"
+    ],
+    "stale_memory_ids": []
+  },
+  "[\"challenge-v2-test-p03\", \"v1\"]": {
+    "relevant_memory_ids": [
+      "challenge-v2-test-p03-indicator",
+      "challenge-v2-test-p03-pattern-detail"
+    ],
+    "stale_memory_ids": []
+  },
+  "[\"challenge-v2-test-p03\", \"v2\"]": {
+    "relevant_memory_ids": [
+      "challenge-v2-test-p03-indicator",
+      "challenge-v2-test-p03-pattern-detail"
+    ],
+    "stale_memory_ids": []
+  },
+  "[\"challenge-v2-test-p04\", \"v1\"]": {
+    "relevant_memory_ids": [
+      "challenge-v2-test-p04-indicator",
+      "challenge-v2-test-p04-pattern-detail"
+    ],
+    "stale_memory_ids": []
+  },
+  "[\"challenge-v2-test-p04\", \"v2\"]": {
+    "relevant_memory_ids": [
+      "challenge-v2-test-p04-update",
+      "challenge-v2-test-p04-pattern-detail"
+    ],
+    "stale_memory_ids": [
+      "challenge-v2-test-p04-indicator"
+    ]
+  },
+  "[\"challenge-v2-test-p05\", \"v1\"]": {
+    "relevant_memory_ids": [
+      "challenge-v2-test-p05-indicator",
+      "challenge-v2-test-p05-pattern-detail"
+    ],
+    "stale_memory_ids": []
+  },
+  "[\"challenge-v2-test-p05\", \"v2\"]": {
+    "relevant_memory_ids": [
+      "challenge-v2-test-p05-indicator",
+      "challenge-v2-test-p05-pattern-detail"
+    ],
+    "stale_memory_ids": []
+  },
+  "[\"challenge-v2-test-p06\", \"v1\"]": {
+    "relevant_memory_ids": [
+      "challenge-v2-test-p06-indicator"
+    ],
+    "stale_memory_ids": []
+  },
+  "[\"challenge-v2-test-p06\", \"v2\"]": {
+    "relevant_memory_ids": [
+      "challenge-v2-test-p06-indicator"
+    ],
+    "stale_memory_ids": []
+  },
+  "[\"challenge-v2-test-p07\", \"v1\"]": {
+    "relevant_memory_ids": [
+      "challenge-v2-test-p07-indicator"
+    ],
+    "stale_memory_ids": []
+  },
+  "[\"challenge-v2-test-p07\", \"v2\"]": {
+    "relevant_memory_ids": [
+      "challenge-v2-test-p07-indicator"
+    ],
+    "stale_memory_ids": []
+  },
+  "[\"challenge-v2-test-p08\", \"v1\"]": {
+    "relevant_memory_ids": [
+      "challenge-v2-test-p08-indicator"
+    ],
+    "stale_memory_ids": []
+  },
+  "[\"challenge-v2-test-p08\", \"v2\"]": {
+    "relevant_memory_ids": [
+      "challenge-v2-test-p08-update"
+    ],
+    "stale_memory_ids": [
+      "challenge-v2-test-p08-indicator"
+    ]
+  },
+  "[\"challenge-v2-test-p09\", \"v1\"]": {
+    "relevant_memory_ids": [
+      "challenge-v2-test-p09-indicator"
+    ],
+    "stale_memory_ids": []
+  },
+  "[\"challenge-v2-test-p09\", \"v2\"]": {
+    "relevant_memory_ids": [
+      "challenge-v2-test-p09-indicator"
+    ],
+    "stale_memory_ids": []
+  },
+  "[\"challenge-v2-test-p10\", \"v1\"]": {
+    "relevant_memory_ids": [
+      "challenge-v2-test-p10-indicator"
+    ],
+    "stale_memory_ids": []
+  },
+  "[\"challenge-v2-test-p10\", \"v2\"]": {
+    "relevant_memory_ids": [
+      "challenge-v2-test-p10-indicator"
+    ],
+    "stale_memory_ids": []
+  },
+  "[\"challenge-v2-test-p11\", \"v1\"]": {
+    "relevant_memory_ids": [
+      "challenge-v2-test-p11-indicator",
+      "challenge-v2-test-p11-positive",
+      "challenge-v2-test-p11-negative"
+    ],
+    "stale_memory_ids": []
+  },
+  "[\"challenge-v2-test-p11\", \"v2\"]": {
+    "relevant_memory_ids": [
+      "challenge-v2-test-p11-indicator",
+      "challenge-v2-test-p11-positive",
+      "challenge-v2-test-p11-negative"
+    ],
+    "stale_memory_ids": []
+  },
+  "[\"challenge-v2-test-p12\", \"v1\"]": {
+    "relevant_memory_ids": [
+      "challenge-v2-test-p12-indicator",
+      "challenge-v2-test-p12-positive",
+      "challenge-v2-test-p12-negative"
+    ],
+    "stale_memory_ids": []
+  },
+  "[\"challenge-v2-test-p12\", \"v2\"]": {
+    "relevant_memory_ids": [
+      "challenge-v2-test-p12-update",
+      "challenge-v2-test-p12-positive",
+      "challenge-v2-test-p12-negative"
+    ],
+    "stale_memory_ids": [
+      "challenge-v2-test-p12-indicator"
+    ]
+  },
+  "[\"challenge-v2-test-p13\", \"v1\"]": {
+    "relevant_memory_ids": [
+      "challenge-v2-test-p13-indicator",
+      "challenge-v2-test-p13-positive",
+      "challenge-v2-test-p13-negative"
+    ],
+    "stale_memory_ids": []
+  },
+  "[\"challenge-v2-test-p13\", \"v2\"]": {
+    "relevant_memory_ids": [
+      "challenge-v2-test-p13-indicator",
+      "challenge-v2-test-p13-positive",
+      "challenge-v2-test-p13-negative"
+    ],
+    "stale_memory_ids": []
+  },
+  "[\"challenge-v2-test-p14\", \"v1\"]": {
+    "relevant_memory_ids": [
+      "challenge-v2-test-p14-indicator",
+      "challenge-v2-test-p14-positive",
+      "challenge-v2-test-p14-negative"
+    ],
+    "stale_memory_ids": []
+  },
+  "[\"challenge-v2-test-p14\", \"v2\"]": {
+    "relevant_memory_ids": [
+      "challenge-v2-test-p14-indicator",
+      "challenge-v2-test-p14-positive",
+      "challenge-v2-test-p14-negative"
+    ],
+    "stale_memory_ids": []
+  },
+  "[\"challenge-v2-test-p15\", \"v1\"]": {
+    "relevant_memory_ids": [
+      "challenge-v2-test-p15-indicator",
+      "challenge-v2-test-p15-positive",
+      "challenge-v2-test-p15-negative"
+    ],
+    "stale_memory_ids": []
+  },
+  "[\"challenge-v2-test-p15\", \"v2\"]": {
+    "relevant_memory_ids": [
+      "challenge-v2-test-p15-indicator",
+      "challenge-v2-test-p15-positive",
+      "challenge-v2-test-p15-negative"
+    ],
+    "stale_memory_ids": []
+  },
+  "[\"challenge-v2-test-p16\", \"v1\"]": {
+    "relevant_memory_ids": [
+      "challenge-v2-test-p16-semantic-marker"
+    ],
+    "stale_memory_ids": []
+  },
+  "[\"challenge-v2-test-p16\", \"v2\"]": {
+    "relevant_memory_ids": [
+      "challenge-v2-test-p16-semantic-marker"
+    ],
+    "stale_memory_ids": [
+      "challenge-v2-test-p16-indicator"
+    ]
+  },
+  "[\"challenge-v2-test-p17\", \"v1\"]": {
+    "relevant_memory_ids": [
+      "challenge-v2-test-p17-semantic-marker"
+    ],
+    "stale_memory_ids": []
+  },
+  "[\"challenge-v2-test-p17\", \"v2\"]": {
+    "relevant_memory_ids": [
+      "challenge-v2-test-p17-semantic-marker"
+    ],
+    "stale_memory_ids": []
+  },
+  "[\"challenge-v2-test-p18\", \"v1\"]": {
+    "relevant_memory_ids": [
+      "challenge-v2-test-p18-semantic-marker"
+    ],
+    "stale_memory_ids": []
+  },
+  "[\"challenge-v2-test-p18\", \"v2\"]": {
+    "relevant_memory_ids": [
+      "challenge-v2-test-p18-semantic-marker"
+    ],
+    "stale_memory_ids": []
+  },
+  "[\"challenge-v2-test-p19\", \"v1\"]": {
+    "relevant_memory_ids": [
+      "challenge-v2-test-p19-semantic-marker"
+    ],
+    "stale_memory_ids": []
+  },
+  "[\"challenge-v2-test-p19\", \"v2\"]": {
+    "relevant_memory_ids": [
+      "challenge-v2-test-p19-semantic-marker"
+    ],
+    "stale_memory_ids": []
+  },
+  "[\"challenge-v2-test-p20\", \"v1\"]": {
+    "relevant_memory_ids": [
+      "challenge-v2-test-p20-semantic-marker"
+    ],
+    "stale_memory_ids": []
+  },
+  "[\"challenge-v2-test-p20\", \"v2\"]": {
+    "relevant_memory_ids": [
+      "challenge-v2-test-p20-semantic-marker"
+    ],
+    "stale_memory_ids": [
+      "challenge-v2-test-p20-indicator"
+    ]
+  }
+}

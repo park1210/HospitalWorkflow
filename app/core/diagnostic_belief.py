@@ -1,5 +1,31 @@
 """Finite diagnostic beliefs; exact Bayes updates, no inferred clinical rates."""
+from __future__ import annotations
 import math
+from dataclasses import dataclass
+
+
+@dataclass
+class DiagnosisBelief:
+    """Explicit model-derived belief; absence is not a uniform prior."""
+    probabilities: dict | None = None
+    status: str = "unavailable"
+    reason: str | None = "missing_outcome_model"
+
+    def __post_init__(self):
+        if self.probabilities is not None:
+            self.probabilities = distribution(self.probabilities)
+            self.status, self.reason = "available", None
+
+    def snapshot(self):
+        return {"probabilities": None if self.probabilities is None else dict(self.probabilities),
+                "status": self.status, "reason": self.reason}
+
+
+def validation_utility(diagnoses, correct=1.0, incorrect=0.0):
+    """Configurable algorithm-validation utility ONLY, not clinical utility."""
+    if any(type(v) not in (int, float) or not math.isfinite(v) for v in (correct, incorrect)):
+        raise ValueError("Utility values must be finite")
+    return {choice: {d: correct if d == choice else incorrect for d in diagnoses} for choice in diagnoses}
 
 
 def distribution(values, keys=None):
@@ -29,6 +55,10 @@ def entropy(belief):
 
 
 def terminal_choice(belief, utility):
+    distribution(belief)
+    if not utility or any(set(row) != set(belief) or any(
+            type(v) not in (int, float) or not math.isfinite(v) for v in row.values()) for row in utility.values()):
+        raise ValueError("Utility must contain finite values for every diagnosis")
     scores = {choice: sum(belief[d] * row[d] for d in belief) for choice, row in utility.items()}
     chosen = min(scores, key=lambda choice: (-scores[choice], choice))
     return chosen, scores[chosen]

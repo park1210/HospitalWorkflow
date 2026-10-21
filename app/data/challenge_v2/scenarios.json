@@ -1,0 +1,242 @@
+[
+  {
+    "patient_id": "challenge-v2-test-p01",
+    "visit_id": "v1",
+    "split": "test",
+    "group": "memory_critical"
+  },
+  {
+    "patient_id": "challenge-v2-test-p01",
+    "visit_id": "v2",
+    "split": "test",
+    "group": "memory_critical"
+  },
+  {
+    "patient_id": "challenge-v2-test-p02",
+    "visit_id": "v1",
+    "split": "test",
+    "group": "memory_critical"
+  },
+  {
+    "patient_id": "challenge-v2-test-p02",
+    "visit_id": "v2",
+    "split": "test",
+    "group": "memory_critical"
+  },
+  {
+    "patient_id": "challenge-v2-test-p03",
+    "visit_id": "v1",
+    "split": "test",
+    "group": "memory_critical"
+  },
+  {
+    "patient_id": "challenge-v2-test-p03",
+    "visit_id": "v2",
+    "split": "test",
+    "group": "memory_critical"
+  },
+  {
+    "patient_id": "challenge-v2-test-p04",
+    "visit_id": "v1",
+    "split": "test",
+    "group": "memory_critical"
+  },
+  {
+    "patient_id": "challenge-v2-test-p04",
+    "visit_id": "v2",
+    "split": "test",
+    "group": "memory_critical"
+  },
+  {
+    "patient_id": "challenge-v2-test-p05",
+    "visit_id": "v1",
+    "split": "test",
+    "group": "memory_critical"
+  },
+  {
+    "patient_id": "challenge-v2-test-p05",
+    "visit_id": "v2",
+    "split": "test",
+    "group": "memory_critical"
+  },
+  {
+    "patient_id": "challenge-v2-test-p06",
+    "visit_id": "v1",
+    "split": "test",
+    "group": "distractors"
+  },
+  {
+    "patient_id": "challenge-v2-test-p06",
+    "visit_id": "v2",
+    "split": "test",
+    "group": "distractors"
+  },
+  {
+    "patient_id": "challenge-v2-test-p07",
+    "visit_id": "v1",
+    "split": "test",
+    "group": "distractors"
+  },
+  {
+    "patient_id": "challenge-v2-test-p07",
+    "visit_id": "v2",
+    "split": "test",
+    "group": "distractors"
+  },
+  {
+    "patient_id": "challenge-v2-test-p08",
+    "visit_id": "v1",
+    "split": "test",
+    "group": "distractors"
+  },
+  {
+    "patient_id": "challenge-v2-test-p08",
+    "visit_id": "v2",
+    "split": "test",
+    "group": "distractors"
+  },
+  {
+    "patient_id": "challenge-v2-test-p09",
+    "visit_id": "v1",
+    "split": "test",
+    "group": "distractors"
+  },
+  {
+    "patient_id": "challenge-v2-test-p09",
+    "visit_id": "v2",
+    "split": "test",
+    "group": "distractors"
+  },
+  {
+    "patient_id": "challenge-v2-test-p10",
+    "visit_id": "v1",
+    "split": "test",
+    "group": "distractors"
+  },
+  {
+    "patient_id": "challenge-v2-test-p10",
+    "visit_id": "v2",
+    "split": "test",
+    "group": "distractors"
+  },
+  {
+    "patient_id": "challenge-v2-test-p11",
+    "visit_id": "v1",
+    "split": "test",
+    "group": "conflict"
+  },
+  {
+    "patient_id": "challenge-v2-test-p11",
+    "visit_id": "v2",
+    "split": "test",
+    "group": "conflict"
+  },
+  {
+    "patient_id": "challenge-v2-test-p12",
+    "visit_id": "v1",
+    "split": "test",
+    "group": "conflict"
+  },
+  {
+    "patient_id": "challenge-v2-test-p12",
+    "visit_id": "v2",
+    "split": "test",
+    "group": "conflict"
+  },
+  {
+    "patient_id": "challenge-v2-test-p13",
+    "visit_id": "v1",
+    "split": "test",
+    "group": "conflict"
+  },
+  {
+    "patient_id": "challenge-v2-test-p13",
+    "visit_id": "v2",
+    "split": "test",
+    "group": "conflict"
+  },
+  {
+    "patient_id": "challenge-v2-test-p14",
+    "visit_id": "v1",
+    "split": "test",
+    "group": "conflict"
+  },
+  {
+    "patient_id": "challenge-v2-test-p14",
+    "visit_id": "v2",
+    "split": "test",
+    "group": "conflict"
+  },
+  {
+    "patient_id": "challenge-v2-test-p15",
+    "visit_id": "v1",
+    "split": "test",
+    "group": "conflict"
+  },
+  {
+    "patient_id": "challenge-v2-test-p15",
+    "visit_id": "v2",
+    "split": "test",
+    "group": "conflict"
+  },
+  {
+    "patient_id": "challenge-v2-test-p16",
+    "visit_id": "v1",
+    "split": "test",
+    "group": "paraphrase"
+  },
+  {
+    "patient_id": "challenge-v2-test-p16",
+    "visit_id": "v2",
+    "split": "test",
+    "group": "paraphrase"
+  },
+  {
+    "patient_id": "challenge-v2-test-p17",
+    "visit_id": "v1",
+    "split": "test",
+    "group": "paraphrase"
+  },
+  {
+    "patient_id": "challenge-v2-test-p17",
+    "visit_id": "v2",
+    "split": "test",
+    "group": "paraphrase"
+  },
+  {
+    "patient_id": "challenge-v2-test-p18",
+    "visit_id": "v1",
+    "split": "test",
+    "group": "paraphrase"
+  },
+  {
+    "patient_id": "challenge-v2-test-p18",
+    "visit_id": "v2",
+    "split": "test",
+    "group": "paraphrase"
+  },
+  {
+    "patient_id": "challenge-v2-test-p19",
+    "visit_id": "v1",
+    "split": "test",
+    "group": "paraphrase"
+  },
+  {
+    "patient_id": "challenge-v2-test-p19",
+    "visit_id": "v2",
+    "split": "test",
+    "group": "paraphrase"
+  },
+  {
+    "patient_id": "challenge-v2-test-p20",
+    "visit_id": "v1",
+    "split": "test",
+    "group": "paraphrase"
+  },
+  {
+    "patient_id": "challenge-v2-test-p20",
+    "visit_id": "v2",
+    "split": "test",
+    "group": "paraphrase"
+  }
+]

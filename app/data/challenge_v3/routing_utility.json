@@ -1,0 +1,167 @@
+{
+  "schema_version": 1,
+  "method": "jaccard_beta_v1",
+  "registry": {
+    "schema_version": 1,
+    "agents": [
+      {
+        "agent_id": "local-er",
+        "role": "er",
+        "department": "",
+        "model": "llama3.2:3b",
+        "version": "challenge-v3-er",
+        "keywords": []
+      },
+      {
+        "agent_id": "local-neurology",
+        "role": "specialty",
+        "department": "neurology",
+        "model": "qwen-neurology:latest",
+        "version": "challenge-v3-neuro",
+        "keywords": [
+          "focal",
+          "sensory",
+          "neurologic",
+          "neurology"
+        ]
+      },
+      {
+        "agent_id": "local-pulmonology",
+        "role": "specialty",
+        "department": "pulmonology",
+        "model": "qwen-pulmonology:latest",
+        "version": "challenge-v3-pulm",
+        "keywords": [
+          "respiratory",
+          "breathing",
+          "pulmonary",
+          "pulmonology"
+        ]
+      }
+    ]
+  },
+  "weights": {
+    "accuracy": 1.0,
+    "cost": 0.0,
+    "latency": 0.001
+  },
+  "min_samples": 2,
+  "samples": [
+    {
+      "patient_id": "router-train-neuro-1",
+      "decision_id": "router-train-neuro-1-probe",
+      "agent_id": "local-neurology",
+      "correct": true,
+      "cost": 0.0,
+      "latency_seconds": 8.0,
+      "tokens": [
+        "recurrent",
+        "focal",
+        "pathway",
+        "sensory",
+        "pattern"
+      ]
+    },
+    {
+      "patient_id": "router-train-neuro-1",
+      "decision_id": "router-train-neuro-1-probe",
+      "agent_id": "local-pulmonology",
+      "correct": false,
+      "cost": 0.0,
+      "latency_seconds": 8.0,
+      "tokens": [
+        "recurrent",
+        "focal",
+        "pathway",
+        "sensory",
+        "pattern"
+      ]
+    },
+    {
+      "patient_id": "router-train-neuro-2",
+      "decision_id": "router-train-neuro-2-probe",
+      "agent_id": "local-neurology",
+      "correct": true,
+      "cost": 0.0,
+      "latency_seconds": 8.0,
+      "tokens": [
+        "focal",
+        "neurologic",
+        "sensory",
+        "concern"
+      ]
+    },
+    {
+      "patient_id": "router-train-neuro-2",
+      "decision_id": "router-train-neuro-2-probe",
+      "agent_id": "local-pulmonology",
+      "correct": false,
+      "cost": 0.0,
+      "latency_seconds": 8.0,
+      "tokens": [
+        "focal",
+        "neurologic",
+        "sensory",
+        "concern"
+      ]
+    },
+    {
+      "patient_id": "router-train-pulm-1",
+      "decision_id": "router-train-pulm-1-probe",
+      "agent_id": "local-neurology",
+      "correct": false,
+      "cost": 0.0,
+      "latency_seconds": 8.0,
+      "tokens": [
+        "recurrent",
+        "respiratory",
+        "pathway",
+        "breathing",
+        "pattern"
+      ]
+    },
+    {
+      "patient_id": "router-train-pulm-1",
+      "decision_id": "router-train-pulm-1-probe",
+      "agent_id": "local-pulmonology",
+      "correct": true,
+      "cost": 0.0,
+      "latency_seconds": 8.0,
+      "tokens": [
+        "recurrent",
+        "respiratory",
+        "pathway",
+        "breathing",
+        "pattern"
+      ]
+    },
+    {
+      "patient_id": "router-train-pulm-2",
+      "decision_id": "router-train-pulm-2-probe",
+      "agent_id": "local-neurology",
+      "correct": false,
+      "cost": 0.0,
+      "latency_seconds": 8.0,
+      "tokens": [
+        "pulmonary",
+        "respiratory",
+        "breathing",
+        "concern"
+      ]
+    },
+    {
+      "patient_id": "router-train-pulm-2",
+      "decision_id": "router-train-pulm-2-probe",
+      "agent_id": "local-pulmonology",
+      "correct": true,
+      "cost": 0.0,
+      "latency_seconds": 8.0,
+      "tokens": [
+        "pulmonary",
+        "respiratory",
+        "breathing",
+        "concern"
+      ]
+    }
+  ]
+}

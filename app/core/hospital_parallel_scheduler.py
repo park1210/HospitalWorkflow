@@ -858,6 +858,12 @@ class HospitalParallelScheduler:
                 remaining.append(case_id)
                 continue
             duration = timing["turnaround_min"]
+            if "index_encounter_id" in runtime.case_data:
+                source = next((e for e in runtime.case_data["current_encounter_events"]
+                               if e["action"] == "Test" and e["target"] == next_test), None)
+                if source is None:
+                    raise ValueError("Requested test has no encounter source event")
+                duration = max(duration, source["available_minute"] - state.current_minute)
             resource.acquire(case_id, state.current_minute, timing["occupancy_min"])
             runtime.pending_results.append(
                 {

@@ -1,0 +1,80 @@
+[
+  {
+    "case_id": "encounter-neuro",
+    "longitudinal": {"patient_id": "encounter-p001"},
+    "index_encounter_id": "v1",
+    "index_encounter_start": "2026-03-01T00:00:00Z",
+    "primary_specialty": "neurology",
+    "past_visits": [{
+      "visit_id": "v0", "started_at": "2026-01-01T00:00:00Z",
+      "records": [{
+        "memory_id": "encounter-p001-history", "patient_id": "encounter-p001",
+        "visit_id": "v0", "visit_started_at": "2026-01-01T00:00:00Z",
+        "observed_at": "2026-01-01T00:00:00Z", "available_at": "2026-01-01T00:00:00Z",
+        "source_id": "unreviewed-encounter-pilot", "kind": "history",
+        "text": "Previous focal sensory neurologic symptoms were documented.", "supersedes": []
+      }]
+    }],
+    "current_initial_state": {
+      "doctor_visible_info": {"chief_complaint": "Focal unilateral sensory symptoms requiring neurologic assessment", "initial_vitals": {"spo2": 98}},
+      "patient_visible_info": {"history": "Sensory symptoms started today."}
+    },
+    "current_encounter_events": [
+      {"event_id": "neuro-result", "action": "Test", "target": "Focused neurologic examination", "available_minute": 8,
+       "evidence": "Objective examination documents reduced sensation in the left hand, without motor weakness."}
+    ],
+    "resource_profile": {
+      "test_resources": {"Focused neurologic examination": "lab_slot"},
+      "test_occupancy": {"Focused neurologic examination": 1},
+      "test_turnaround": {"Focused neurologic examination": 1}
+    }
+  },
+  {
+    "case_id": "encounter-pulm",
+    "longitudinal": {"patient_id": "encounter-p002"},
+    "index_encounter_id": "v1",
+    "index_encounter_start": "2026-03-01T00:00:00Z",
+    "primary_specialty": "pulmonology",
+    "past_visits": [{
+      "visit_id": "v0", "started_at": "2026-01-01T00:00:00Z",
+      "records": [{
+        "memory_id": "encounter-p002-history", "patient_id": "encounter-p002",
+        "visit_id": "v0", "visit_started_at": "2026-01-01T00:00:00Z",
+        "observed_at": "2026-01-01T00:00:00Z", "available_at": "2026-01-01T00:00:00Z",
+        "source_id": "unreviewed-encounter-pilot", "kind": "history",
+        "text": "Previous exertional breathing symptoms prompted pulmonary review.", "supersedes": []
+      }]
+    }],
+    "current_initial_state": {
+      "doctor_visible_info": {"chief_complaint": "Exertional breathing difficulty and respiratory symptoms", "initial_vitals": {"spo2": 96}},
+      "patient_visible_info": {"history": "Breathing symptoms started today."}
+    },
+    "current_encounter_events": [
+      {"event_id": "pulm-result", "action": "Test", "target": "Respiratory examination", "available_minute": 0,
+       "evidence": "Objective respiratory examination documents bilateral expiratory wheezing."}
+    ],
+    "resource_profile": {
+      "test_resources": {"Respiratory examination": "lab_slot"},
+      "test_occupancy": {"Respiratory examination": 1},
+      "test_turnaround": {"Respiratory examination": 1}
+    }
+  },
+  {
+    "case_id": "encounter-history",
+    "longitudinal": {"patient_id": "encounter-p003"},
+    "index_encounter_id": "v1",
+    "index_encounter_start": "2026-03-01T00:00:00Z",
+    "primary_specialty": "neurology",
+    "past_visits": [],
+    "current_initial_state": {
+      "doctor_visible_info": {"chief_complaint": "Intermittent focal sensory symptoms", "initial_vitals": {"spo2": 98}},
+      "patient_visible_info": {"history": "The symptom onset needs clarification."}
+    },
+    "current_encounter_events": [
+      {"event_id": "onset-answer", "action": "Ask", "target": "When did the sensory symptoms start?", "available_minute": 0,
+       "evidence": "The sensory symptoms started yesterday."},
+      {"event_id": "consult-note", "action": "Consult", "target": "pulmonology", "available_minute": 0,
+       "evidence": "No respiratory investigation is documented for this encounter; a respiratory diagnosis cannot be established."}
+    ]
+  }
+]

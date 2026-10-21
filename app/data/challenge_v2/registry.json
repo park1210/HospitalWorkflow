@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "agents": [
+    {
+      "agent_id": "local-er",
+      "role": "er",
+      "department": "",
+      "model": "llama3.2:3b",
+      "version": "challenge-v2-er",
+      "keywords": []
+    },
+    {
+      "agent_id": "local-neurology",
+      "role": "specialty",
+      "department": "neurology",
+      "model": "qwen-neurology:latest",
+      "version": "challenge-v2-neurology",
+      "keywords": [
+        "synthetic",
+        "marker",
+        "pattern",
+        "recurrent"
+      ]
+    },
+    {
+      "agent_id": "local-pulmonology",
+      "role": "specialty",
+      "department": "pulmonology",
+      "model": "qwen-pulmonology:latest",
+      "version": "challenge-v2-pulmonology",
+      "keywords": [
+        "synthetic",
+        "discomfort",
+        "pattern",
+        "recurring"
+      ]
+    }
+  ]
+}

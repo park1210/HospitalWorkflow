@@ -3,7 +3,7 @@ from copy import deepcopy
 import hashlib
 import json
 import math
-from app.core.diagnostic_belief import distribution, posterior
+from app.core.diagnostic_belief import distribution, posterior, validation_utility
 from app.utils.department_catalog import SUPPORTED_DEPARTMENTS
 
 
@@ -13,6 +13,14 @@ def normalized(text):
 
 class InformationOutcomes:
     def __init__(self, artifact):
+        artifact = deepcopy(artifact)
+        if isinstance(artifact, dict) and artifact.get("terminal_utility") is None and artifact.get("diagnoses"):
+            artifact["terminal_utility"] = validation_utility(artifact["diagnoses"])
+            artifact.setdefault("provenance", {})["utility_scope"] = "algorithm_validation_only"
+        # Legacy fields remain readable, but neither determines action selection.
+        if isinstance(artifact, dict):
+            artifact.setdefault("stop_probability", 0.95)
+            artifact.setdefault("horizon", 1)
         required = {"schema_version", "model_id", "revision", "provenance", "diagnoses", "prior", "terminal_utility",
                     "cost_weights", "stop_probability", "horizon", "actions"}
         if not isinstance(artifact, dict) or set(artifact) != required or artifact["schema_version"] != 1:

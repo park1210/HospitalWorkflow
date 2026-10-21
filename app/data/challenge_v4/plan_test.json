@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "provenance": {
+    "synthetic": true,
+    "review_status": "unreviewed",
+    "scope": "frozen process-discriminative synthetic challenge; not clinical evidence",
+    "split": "test_v4",
+    "routing": "synthetic pre-specified routing utility; evaluation patients excluded from fitting"
+  },
+  "repeats": 1,
+  "retrieved_mode": "selective",
+  "top_k": 1,
+  "minute_limit": 30,
+  "inputs": {
+    "cases": "cases_test.json",
+    "labels": "labels_test.json",
+    "memory": "memory.json",
+    "annotations": "annotations_test.json",
+    "registry": "registry.json",
+    "routing_utility": "routing_utility.json",
+    "prices": "prices.json",
+    "voi_model": "model.json",
+    "scenarios": "scenarios.json"
+  }
+}

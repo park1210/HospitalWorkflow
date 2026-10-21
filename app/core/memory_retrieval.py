@@ -35,7 +35,8 @@ class MemoryEmbeddings:
         return hashlib.sha256(text.encode()).hexdigest()
 
     def scores(self, records, query, key):
-        query_row = self.payload["queries"].get(key)
+        # State-expanded queries may have several versions during one encounter.
+        query_row = self.payload["queries"].get(self.text_hash(query), self.payload["queries"].get(key))
         if query_row is None or query_row.get("text_sha256") != self.text_hash(query):
             raise ValueError("Missing or mismatched query embedding")
         q = query_row["vector"]

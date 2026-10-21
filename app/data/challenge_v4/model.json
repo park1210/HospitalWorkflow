@@ -1,0 +1,313 @@
+{
+  "schema_version": 1,
+  "model_id": "synthetic-v4-process-discriminative",
+  "revision": "v4",
+  "provenance": {
+    "synthetic": true,
+    "review_status": "unreviewed",
+    "training_patients": [
+      "voi-v4-train-001",
+      "voi-v4-train-002"
+    ],
+    "assumptions": [
+      "Synthetic finite diagnosis universe",
+      "Categorical outcome likelihood model",
+      "Objective evidence is required for supported finalization",
+      "Synthetic action costs are utility units rather than clinical monetary costs"
+    ]
+  },
+  "diagnoses": {
+    "Synthetic A": "general_medicine",
+    "Synthetic B": "general_medicine"
+  },
+  "prior": {
+    "Synthetic A": 0.5,
+    "Synthetic B": 0.5
+  },
+  "terminal_utility": {
+    "Synthetic A": {
+      "Synthetic A": 1,
+      "Synthetic B": 0
+    },
+    "Synthetic B": {
+      "Synthetic A": 0,
+      "Synthetic B": 1
+    }
+  },
+  "cost_weights": {
+    "money": 1,
+    "minutes": 0,
+    "tokens": 0
+  },
+  "stop_probability": 0.95,
+  "horizon": 2,
+  "actions": [
+    {
+      "id": "baseline-test",
+      "type": "request_test",
+      "target": "T_BASE",
+      "cost": {
+        "money": 0.02,
+        "minutes": 0,
+        "tokens": 0
+      },
+      "outcomes": [
+        {
+          "id": "a",
+          "likelihood": {
+            "Synthetic A": 0.999,
+            "Synthetic B": 0.001
+          },
+          "observation": {
+            "source": "objective_findings",
+            "text": "T_BASE: Diagnostic result supports Synthetic A and does not support Synthetic B"
+          },
+          "supports_diagnoses": [
+            "Synthetic A"
+          ]
+        },
+        {
+          "id": "b",
+          "likelihood": {
+            "Synthetic A": 0.001,
+            "Synthetic B": 0.999
+          },
+          "observation": {
+            "source": "objective_findings",
+            "text": "T_BASE: Diagnostic result supports Synthetic B and does not support Synthetic A"
+          },
+          "supports_diagnoses": [
+            "Synthetic B"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "context-test",
+      "type": "request_test",
+      "target": "T_CONTEXT",
+      "cost": {
+        "money": 0.02,
+        "minutes": 0,
+        "tokens": 0
+      },
+      "outcomes": [
+        {
+          "id": "present",
+          "likelihood": {
+            "Synthetic A": 0.5,
+            "Synthetic B": 0.5
+          },
+          "observation": {
+            "source": "objective_findings",
+            "text": "T_CONTEXT: Current objective finding is compatible with both Synthetic A and Synthetic B"
+          },
+          "supports_diagnoses": [
+            "Synthetic A",
+            "Synthetic B"
+          ]
+        },
+        {
+          "id": "absent",
+          "likelihood": {
+            "Synthetic A": 0.5,
+            "Synthetic B": 0.5
+          },
+          "observation": {
+            "source": "objective_findings",
+            "text": "T_CONTEXT: Current objective finding is absent"
+          },
+          "supports_diagnoses": []
+        }
+      ]
+    },
+    {
+      "id": "routing-screen",
+      "type": "request_test",
+      "target": "T_SCREEN",
+      "cost": {
+        "money": 0.01,
+        "minutes": 0,
+        "tokens": 0
+      },
+      "outcomes": [
+        {
+          "id": "positive",
+          "likelihood": {
+            "Synthetic A": 0.5,
+            "Synthetic B": 0.5
+          },
+          "observation": {
+            "source": "objective_findings",
+            "text": "T_SCREEN: Nondiscriminative screening abnormality; specialty evaluation is required"
+          },
+          "supports_diagnoses": []
+        },
+        {
+          "id": "negative",
+          "likelihood": {
+            "Synthetic A": 0.5,
+            "Synthetic B": 0.5
+          },
+          "observation": {
+            "source": "objective_findings",
+            "text": "T_SCREEN: No useful disease-specific information"
+          },
+          "supports_diagnoses": []
+        }
+      ]
+    },
+    {
+      "id": "neuro-test",
+      "type": "request_test",
+      "target": "T_NEURO",
+      "cost": {
+        "money": 0.03,
+        "minutes": 0,
+        "tokens": 0
+      },
+      "outcomes": [
+        {
+          "id": "a",
+          "likelihood": {
+            "Synthetic A": 0.999,
+            "Synthetic B": 0.001
+          },
+          "observation": {
+            "source": "objective_findings",
+            "text": "T_NEURO: Neurology-specific result supports Synthetic A and does not support Synthetic B"
+          },
+          "supports_diagnoses": [
+            "Synthetic A"
+          ]
+        },
+        {
+          "id": "nondiagnostic",
+          "likelihood": {
+            "Synthetic A": 0.001,
+            "Synthetic B": 0.999
+          },
+          "observation": {
+            "source": "objective_findings",
+            "text": "T_NEURO: Neurology-specific result is nondiagnostic"
+          },
+          "supports_diagnoses": []
+        }
+      ]
+    },
+    {
+      "id": "pulm-test",
+      "type": "request_test",
+      "target": "T_PULM",
+      "cost": {
+        "money": 0.03,
+        "minutes": 0,
+        "tokens": 0
+      },
+      "outcomes": [
+        {
+          "id": "nondiagnostic",
+          "likelihood": {
+            "Synthetic A": 0.999,
+            "Synthetic B": 0.001
+          },
+          "observation": {
+            "source": "objective_findings",
+            "text": "T_PULM: Pulmonology-specific result is nondiagnostic"
+          },
+          "supports_diagnoses": []
+        },
+        {
+          "id": "b",
+          "likelihood": {
+            "Synthetic A": 0.001,
+            "Synthetic B": 0.999
+          },
+          "observation": {
+            "source": "objective_findings",
+            "text": "T_PULM: Pulmonology-specific result supports Synthetic B and does not support Synthetic A"
+          },
+          "supports_diagnoses": [
+            "Synthetic B"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "low-information-test",
+      "type": "request_test",
+      "target": "T_LOW",
+      "cost": {
+        "money": 0.08,
+        "minutes": 0,
+        "tokens": 0
+      },
+      "outcomes": [
+        {
+          "id": "weak-a",
+          "likelihood": {
+            "Synthetic A": 0.6,
+            "Synthetic B": 0.4
+          },
+          "observation": {
+            "source": "objective_findings",
+            "text": "T_LOW: Weak tendency toward Synthetic A, insufficient for final diagnosis"
+          },
+          "supports_diagnoses": []
+        },
+        {
+          "id": "weak-b",
+          "likelihood": {
+            "Synthetic A": 0.4,
+            "Synthetic B": 0.6
+          },
+          "observation": {
+            "source": "objective_findings",
+            "text": "T_LOW: Weak tendency toward Synthetic B, insufficient for final diagnosis"
+          },
+          "supports_diagnoses": []
+        }
+      ]
+    },
+    {
+      "id": "high-information-test",
+      "type": "request_test",
+      "target": "T_HIGH",
+      "cost": {
+        "money": 0.04,
+        "minutes": 0,
+        "tokens": 0
+      },
+      "outcomes": [
+        {
+          "id": "a",
+          "likelihood": {
+            "Synthetic A": 0.999,
+            "Synthetic B": 0.001
+          },
+          "observation": {
+            "source": "objective_findings",
+            "text": "T_HIGH: High-confidence objective result supports Synthetic A and does not support Synthetic B"
+          },
+          "supports_diagnoses": [
+            "Synthetic A"
+          ]
+        },
+        {
+          "id": "b",
+          "likelihood": {
+            "Synthetic A": 0.001,
+            "Synthetic B": 0.999
+          },
+          "observation": {
+            "source": "objective_findings",
+            "text": "T_HIGH: High-confidence objective result supports Synthetic B and does not support Synthetic A"
+          },
+          "supports_diagnoses": [
+            "Synthetic B"
+          ]
+        }
+      ]
+    }
+  ]
+}

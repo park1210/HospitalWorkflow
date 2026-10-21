@@ -23,11 +23,16 @@ def patient_facts(observation):
 
 
 def selection_schema(facts):
-    return {"type": "object", "properties": {
-        "fact_ids": {"type": "array", "maxItems": 3 if facts else 0,
-                     "items": {"type": "string", "enum": [f["id"] for f in facts] or ["unavailable"]}},
-        "unknown": {"type": "boolean", **({"enum": [True]} if not facts else {})}},
-        "required": ["fact_ids", "unknown"], "additionalProperties": False}
+    def branch(unknown):
+        return {"type": "object", "properties": {
+            "fact_ids": {"type": "array", "minItems": 0 if unknown else 1,
+                         "maxItems": 0 if unknown else min(3, len(facts)),
+                         "uniqueItems": True,
+                         "items": {"type": "string", "enum": [f["id"] for f in facts] or ["unavailable"]}},
+            "unknown": {"type": "boolean", "enum": [unknown]}},
+            "required": ["fact_ids", "unknown"], "additionalProperties": False}
+    # Match render_selection: unknown and factual speech are mutually exclusive.
+    return {"anyOf": [branch(True), branch(False)]} if facts else branch(True)
 
 
 def facts_for_question(facts, question):

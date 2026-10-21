@@ -24,6 +24,30 @@ Rules:
 
 
 class PatientAgent:
+    def initial_utterance(self) -> dict:
+        """Extractive v2 presentation: never interpret symptom values or times."""
+        visible = self.case["synthea_v2_patient_input"]
+        symptoms = visible["current_symptoms"]
+        names = list(dict.fromkeys(s["symptom_name"] for s in symptoms))
+        return {"utterance": "My symptoms are: " + ", ".join(names) + "." if names else "I am unsure.",
+                "used_symptom_ids": [s["id"] for s in symptoms],
+                "source_fact_ids": [s["id"] for s in symptoms], "grounded": True, "unknown": not bool(names),
+                "method": "deterministic_extractive", "actual_llm_calls": 0}
+
+    def answer_v2(self, question: str) -> dict:
+        """Only explicit, supported question categories; missing details stay unknown."""
+        visible = self.case["synthea_v2_patient_input"]
+        if question == "What symptoms are you experiencing?":
+            return self.initial_utterance()
+        field = {"What allergies have you been told about?": "known_allergies",
+                 "What medications do you know you take?": "known_medications",
+                 "What medical history do you know about?": "known_history"}.get(question)
+        facts = visible.get(field, []) if field else []
+        return {"utterance": "My documented history includes: " + "; ".join(f["text"] for f in facts) + "." if facts else "I am unsure.",
+                "source_fact_ids": [f["id"] for f in facts], "used_symptom_ids": [],
+                "grounded": True, "unknown": not bool(facts),
+                "method": "deterministic_extractive", "actual_llm_calls": 0}
+
     def __init__(self, case: dict[str, Any]) -> None:
         self.case = case
         self.patient_info = case.get("patient_visible_info", {})
@@ -203,6 +227,9 @@ class PatientAgent:
         return self._best_history_sentence(["noticed", "started", "worse", "better", "changed"]) or self._to_spoken_history(history) or self._to_first_person(chief_complaint) or "I am not sure."
 
     def answer(self, question: str, state=None, *, required: bool = False) -> str:
+        if "synthea_v2_patient_input" in self.case:
+            self.last_grounding = self.answer_v2(question)
+            return self.last_grounding["utterance"]
         fallback_answer = self._fallback_answer(question)
         if not required and not settings.USE_LLM_FOR_PATIENT_AGENT:
             return fallback_answer
@@ -221,9 +248,22 @@ class PatientAgent:
         audit = state.setdefault("llm_audit", []) if isinstance(state, dict) else getattr(state, "llm_audit", [])
         self.last_audit = audit
         selection = {}
+        normalization = {}
         def validate_selection(raw):
-            answer = render_selection(raw, facts)
-            selection.update(json.loads(raw))
+            value = json.loads(raw)
+            # Some backends do not enforce conditional schemas. Honor explicit
+            # uncertainty without turning contradictory IDs into asserted facts.
+            # Other malformed selections remain errors; no generated facts/retry.
+            if isinstance(value, dict) and set(value) == {"fact_ids", "unknown"} and value.get("unknown") is True:
+                ids = value.get("fact_ids")
+                available = {f["id"] for f in facts}
+                if (isinstance(ids, list) and 0 < len(ids) <= 3
+                        and all(isinstance(i, str) and i in available for i in ids)
+                        and len(set(ids)) == len(ids)):
+                    normalization.update(reason="unknown_overrides_fact_ids", discarded_fact_ids=list(ids))
+                    value = {"fact_ids": [], "unknown": True}
+            answer = render_selection(json.dumps(value), facts)
+            selection.update(value)
             return answer
         try:
             answer = role_call(self.client, role="patient", model=settings.OLLAMA_MODEL,
@@ -232,6 +272,8 @@ class PatientAgent:
                              validate=validate_selection, schema=selection_schema(facts))
             audit[-1]["grounding"] = {"mode": "extractive_selection", "facts": facts,
                                       "selection": selection, "rendered_answer": answer}
+            if normalization:
+                audit[-1]["output_normalization"] = normalization
             return answer
         except RoleCallError:
             if required:

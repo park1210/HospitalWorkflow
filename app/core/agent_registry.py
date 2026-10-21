@@ -47,6 +47,20 @@ class AgentRegistry:
                 return deepcopy(agent)
         raise ValueError(f"No registered agent for {role}/{department}")
 
+    def select_specialty(self, current_state, retrieved_memory, departments, *, router="rule_similarity", seed=0):
+        """Common primary-router interface; unimplemented routers never masquerade as baselines."""
+        if router not in {"rule_similarity", "llm", "memory_aware_llm"}:
+            raise ValueError("Unknown specialty router")
+        if router != "rule_similarity":
+            return {"router": router, "status": "unavailable", "reason": "router_not_implemented",
+                    "specialty_scores": {}, "selected_specialty": None}
+        observed = deepcopy(current_state)
+        observed["longitudinal_memory"] = deepcopy(retrieved_memory)
+        result = self.route(observed, departments, mode="adaptive", seed=seed)
+        return {**result, "router": "RuleSimilarityRouter", "status": "available",
+                "score_semantics": "uncalibrated similarity-weighted outcome score or keyword baseline",
+                "scope": "primary_specialty_selection"}
+
     def route(self, observation, departments, *, mode="llm", seed=0):
         if mode not in {"llm", "er_only", "rule", "random", "adaptive"}:
             raise ValueError("Unknown routing baseline")
@@ -63,6 +77,7 @@ class AgentRegistry:
         tokens = set(re.findall(r"\w+", " ".join(str(t) for t in texts).casefold()))
         scores = {d: sum(set(re.findall(r"\w+", word.casefold())) <= tokens
                          for word in self.get("specialty", d)["keywords"]) for d in candidates}
+        specialty_scores = dict(scores)
         selected = candidates
         estimates = {}
         reason = "LLM may choose among registered and currently available departments."
@@ -77,17 +92,18 @@ class AgentRegistry:
             selected = [candidates[int(digest, 16) % len(candidates)]] if candidates else []
             reason = "Seeded hash selects one available department from the observed token set."
         elif mode == "adaptive":
-            if self.utility is None:
-                raise ValueError("Adaptive routing requires a fitted utility artifact")
-            estimates = {d: self.utility.score(observation, self.get("specialty", d)) for d in candidates}
+            estimates = {d: self.utility.score(observation, self.get("specialty", d)) if self.utility else None
+                         for d in candidates}
             supported = [d for d in candidates if estimates[d] is not None]
             if len(supported) == len(candidates):
-                selected = sorted(supported, key=lambda d: (-estimates[d]["utility"], d))[:1]
-                reason = "Maximum estimated accuracy/cost/latency utility among eligible specialties."
+                specialty_scores = {d: estimates[d]["score"] for d in candidates}
+                selected = sorted(supported, key=lambda d: (-specialty_scores[d], d))[:1]
+                reason = "Maximum context-and-memory specialty score; cost/latency do not affect selection."
             else:
-                selected = candidates
-                reason = "Insufficient comparable training coverage; preserve all eligible options for the physician."
+                selected = sorted(candidates, key=lambda d: (-scores[d], d))[:1]
+                reason = "Incomplete fitted coverage: existing keyword score argmax; canonical label breaks ties."
         return {"mode": mode, "seed": seed, "candidate_departments": candidates,
+                "specialty_scores": specialty_scores, "selected_specialty": selected[0] if len(selected) == 1 else None,
                 "utility_estimates": estimates, "utility_artifact_sha256": self.utility.fingerprint if self.utility else None,
                 "allowed_departments": selected, "keyword_scores": scores, "rationale": reason,
                 "scope": "consultation_menu; physician still decides whether and when to consult"}

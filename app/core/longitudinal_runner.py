@@ -13,20 +13,38 @@ from app.llm.role_call import RoleCallError
 from app.config import settings
 from app.core.call_costs import summarize_costs
 from app.core.information_value import InformationPolicy
-from app.core.clinical_observation import doctor_observation
+from app.core.clinical_observation import doctor_observation, prepare_encounter, memory_query
 
 
 def run_longitudinal(cases, *, mode="none", top_k=5, minute_limit=120, client=None,
                      registry_manifest=None, routing_mode="llm", routing_seed=0,
                      initial_memory=None, memory_source="closed_loop", memory_annotations=None,
                      max_memory_chars=None, embedding_artifact=None, routing_utility=None,
-                     resume_report=None, checkpoint_callback=None, token_prices=None, voi_model=None, diagnosis_catalog=None):
+                     resume_report=None, checkpoint_callback=None, token_prices=None, voi_model=None, diagnosis_catalog=None,
+                     action_selector=None):
     if diagnosis_catalog is not None and (not isinstance(diagnosis_catalog, list) or not diagnosis_catalog
             or any(not isinstance(d, str) or not d.strip() or len(d) > 240 for d in diagnosis_catalog)
             or len(set(diagnosis_catalog)) != len(diagnosis_catalog)):
         raise ValueError("Diagnosis catalog must be unique nonempty labels of at most 240 characters")
+    cases = [prepare_encounter(case) for case in cases]
+    if initial_memory is None and any("index_encounter_id" in c for c in cases):
+        initial_memory = []
+    encounter_records = [r for c in cases for v in c.get("past_visits", []) for r in v["records"]]
+    if encounter_records:
+        merged = {r["memory_id"]: r for r in initial_memory or []}
+        for record in encounter_records:
+            if record["memory_id"] in merged and merged[record["memory_id"]] != record:
+                raise ValueError("Conflicting memory copies across encounters")
+            merged[record["memory_id"]] = record
+        initial_memory = list(merged.values())
+    if any("index_encounter_id" in c for c in cases) and registry_manifest is None:
+        raise ValueError("Encounter routing requires an explicit agent registry")
     summarize_costs([], token_prices or {})
-    information_policy = InformationPolicy(voi_model) if voi_model is not None else None
+    action_selector = action_selector or ("bayesian_voi" if voi_model is not None else "specialist_heuristic")
+    if action_selector not in {"bayesian_voi", "information_gain", "specialist_heuristic", "random"}:
+        raise ValueError("Unknown action selector")
+    information_policy = InformationPolicy(voi_model, action_selector) if (
+        voi_model is not None and action_selector in {"bayesian_voi", "information_gain"}) else None
     if memory_source not in {"closed_loop", "fixed"} or (memory_source == "fixed" and initial_memory is None):
         raise ValueError("Fixed-memory experiments require an explicit initial memory artifact")
     annotations = deepcopy(memory_annotations or {})
@@ -70,6 +88,9 @@ def run_longitudinal(cases, *, mode="none", top_k=5, minute_limit=120, client=No
                 "token_prices": token_prices}
     contract["voi_model_sha256"] = information_policy.model.fingerprint if information_policy else None
     contract["diagnosis_catalog"] = diagnosis_catalog
+    # Do not resume old paid visits under a changed action/grounding contract.
+    contract["clinical_policy_revision"] = "one-step-diagnose-q-selector-v3"
+    contract["action_selector"] = action_selector
     experiment_signature = hashlib.sha256(json.dumps(contract, sort_keys=True).encode()).hexdigest()
     retrieval_config = {"top_k": top_k, "max_chars": max_memory_chars,
                         "embedding_sha256": embeddings.fingerprint if embeddings else None}
@@ -135,15 +156,29 @@ def run_longitudinal(cases, *, mode="none", top_k=5, minute_limit=120, client=No
         scheduler.clinical_policy.routing_mode = routing_mode
         scheduler.clinical_policy.routing_seed = routing_seed
         scheduler.clinical_policy.information_policy = information_policy
+        scheduler.clinical_policy.action_selector = action_selector
         scheduler.clinical_policy.diagnosis_catalog = diagnosis_catalog
+        # The visit horizon must constrain choices, not just stop the scheduler
+        # while an avoidable late consultation is still running.
+        scheduler.clinical_policy.decision_deadline_minute = minute_limit
+        scheduler.clinical_policy.flow_durations = dict(scheduler.config["durations"])
         # Each visit has its own local simulation clock and no other patients.
         case.setdefault("temporal_profile", {})["arrival_time_min"] = 0
         state = scheduler.initialize([case])
         runtime = state.case(case["case_id"])
+        if "synthea_v2_patient_input" in case:
+            runtime.objective_findings.extend(case.get("synthea_v2_initial_evidence", []))
         query = str(case.get("doctor_visible_info", {}).get("chief_complaint", ""))
+        if "index_encounter_id" in case:
+            query = memory_query(doctor_observation(runtime))
+            def refresh_memory(rt, observed, identity=identity):
+                return store.retrieve(identity, memory_query(observed), mode, top_k,
+                                      max_chars=max_memory_chars, embeddings=embeddings)
+            scheduler.clinical_policy.memory_retriever = refresh_memory
         runtime.memory_context = store.retrieve(identity, query, mode, top_k,
                                                max_chars=max_memory_chars, embeddings=embeddings)
-        if information_policy and any(a["type"] == "retrieve_memory" for a in voi_model["actions"]):
+        if ("index_encounter_id" not in case and information_policy
+                and any(a["type"] == "retrieve_memory" for a in voi_model["actions"])):
             runtime.voi_memory_pool = deepcopy(runtime.memory_context)
             runtime.memory_context = {"mode": "none", "records": []}
         eligible = store.retrieve(identity, query, "full_history")["records"]
@@ -170,8 +205,20 @@ def run_longitudinal(cases, *, mode="none", top_k=5, minute_limit=120, client=No
                         "final_state": state.snapshot()})
         if failed:
             results[-1]["error_type"] = failed
+            results[-1]["stop_reason"] = "role_call_failed"
+            last_error = next((a for a in reversed(runtime.llm_audit)
+                               if a.get("status") == "error"), {})
+            results[-1]["failure_detail"] = {key: last_error[key] for key in
+                ("role", "error_type", "failure_category", "validation_error") if key in last_error}
             return report("failed")
         if not runtime.is_completed:
+            results[-1]["stop_reason"] = "visit_minute_limit_reached"
+            results[-1]["stop_detail"] = {
+                "minute_limit": minute_limit, "current_minute": state.current_minute,
+                "workflow_state": runtime.workflow_state,
+                "pending_results_count": runtime.pending_results_count,
+                "consult_count": len(runtime.consult_history),
+            }
             return report("incomplete")
         if memory_source == "closed_loop":
             next_store = PatientMemoryStore(store.snapshot()["records"])
