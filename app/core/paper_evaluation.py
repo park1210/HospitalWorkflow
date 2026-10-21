@@ -25,7 +25,10 @@ def episode_rows(cases, labels, report, condition, repeat, gold_departments=None
         trace = state.get("voi_state", {}).get("history", []) if state else []
         selected = [r for r in trace if r.get("status") == "selected"]
         decisions = [r["decision"] for r in audit if r.get("decision") and r.get("status") == "success"]
-        decisions += [{"action": r["selected_action"], "rationale": r.get("rationale", "")} for r in selected]
+        # Encounter decisions already include the VoI override in the LLM audit.
+        # Counting the planning trace again doubles B4's executed action count.
+        if "index_encounter_id" not in case:
+            decisions += [{"action": r["selected_action"], "rationale": r.get("rationale", "")} for r in selected]
         # Historical reports lacking decision logs cannot support action-count claims.
         logging_complete = all(r.get("decision") for r in audit if r.get("status") == "success" and r.get("role") != "patient")
         gains = [next((c["information_gain_nats"] for c in r.get("candidates", []) if c["action_id"] == r.get("action_id")), None)

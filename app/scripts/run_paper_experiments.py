@@ -185,6 +185,8 @@ def main():
                 report = run_with_recovery(data["cases"], mode=mode, top_k=plan["top_k"], minute_limit=plan["minute_limit"],
                     memory_source="fixed", initial_memory=data["memory"]["records"], memory_annotations=data.get("annotations"),
                     embedding_artifact=data.get("embeddings"), registry_manifest=data["registry"], routing_mode=routing,
+                    primary_router="adaptive" if name in {"B3", "B4"} else "rule_similarity",
+                    max_memory_chars=plan.get("max_memory_chars"),
                     routing_utility=data["routing_utility"], voi_model=data["voi_model"] if voi else None,
                     diagnosis_catalog=list(data["voi_model"]["diagnoses"]),
                     token_prices=data.get("prices"), max_retries=0, client=OfflineOnly() if args.offline else None,

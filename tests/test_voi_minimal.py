@@ -29,7 +29,7 @@ class VoIMinimalTests(unittest.TestCase):
         self.assertLess(entropy(belief), entropy(model["prior"]))
         scores = action_values(model["prior"], model["actions"], model)
         self.assertEqual(scores[0]["action_id"], "test-t")
-        self.assertAlmostEqual(scores[0]["voi"], .44)
+        self.assertAlmostEqual(scores[0]["voi"], .49)
         model["horizon"] = 2
         self.assertGreaterEqual(action_values(model["prior"], model["actions"], model)[0]["voi"], .44 - 1e-9)
 

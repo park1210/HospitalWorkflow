@@ -22,7 +22,7 @@ def run_longitudinal(cases, *, mode="none", top_k=5, minute_limit=120, client=No
                      max_memory_chars=None, embedding_artifact=None, routing_utility=None,
                      resume_report=None, checkpoint_callback=None, token_prices=None, voi_model=None, diagnosis_catalog=None,
                      action_selector=None, primary_router="rule_similarity"):
-    if primary_router not in {"rule_similarity", "llm", "memory_aware_llm"}:
+    if primary_router not in {"rule_similarity", "adaptive", "llm", "memory_aware_llm"}:
         raise ValueError("Unknown primary router")
     if diagnosis_catalog is not None and (not isinstance(diagnosis_catalog, list) or not diagnosis_catalog
             or any(not isinstance(d, str) or not d.strip() or len(d) > 240 for d in diagnosis_catalog)
@@ -91,7 +91,7 @@ def run_longitudinal(cases, *, mode="none", top_k=5, minute_limit=120, client=No
     contract["voi_model_sha256"] = information_policy.model.fingerprint if information_policy else None
     contract["diagnosis_catalog"] = diagnosis_catalog
     # Do not resume old paid visits under a changed action/grounding contract.
-    contract["clinical_policy_revision"] = "primary-router-contract-repair-cache-v4"
+    contract["clinical_policy_revision"] = "adaptive-primary-executable-multistep-v5"
     contract["action_selector"] = action_selector
     experiment_signature = hashlib.sha256(json.dumps(contract, sort_keys=True).encode()).hexdigest()
     retrieval_config = {"top_k": top_k, "max_chars": max_memory_chars,

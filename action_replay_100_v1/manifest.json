@@ -1,0 +1,68 @@
+{
+  "schema_version": "action-replay-100-v1",
+  "files_sha256": {
+    "annotations.jsonl": "68b5b36292b908b0baf440925531c1ff5bcd080e1487a3a33791ea20a40f8869",
+    "cases.json": "3f05400dab04e900188c10c4e1d38c688c20e2016903ccb4596d0e49671022e6",
+    "cases_recorded_time_proxy.json": "7c0c4938b8c53620288275d1fe579e6b25f0cb5a3ef8838d47bb62eb0bfa66f1",
+    "case_event_summary.csv": "78c14d92405aff7b6ec3372215afd895fe0100d8901b1c62365dce6e0e39f6bb",
+    "departments_source_policy.json": "daae9fec6163bb901b14472b2f63a061781fc504e0aa05d5e12385dcfcc9e397",
+    "environment.jsonl": "a8f3555991d86b4817e0febdccd7d0049df4c22ed36ede49b455e33cb3e4c6b3",
+    "event_audit.jsonl": "d014df09b0a951b10bf04861a361c360c98507bcbef6a30b5a6f8eab107cb41f",
+    "labels_observed.json": "bae3f66fff1adc208c44d1e68f19f10a22679e89e8d765acc8942825a3786904",
+    "memory.json": "3e23368bcc735d9db18d38125f72f1d96e5b6d586d67a5348fb29f7d75ee8831",
+    "memory_annotations_reviewed.json": "e3566b3a06430868d71e9287dfd6c6c520a3da027aabea01951d407ee131dc2f",
+    "patient_states.jsonl": "222f4ee9aaf3e9a014bd48f647dc94fcd1f6bbc6f319d8e2773a405414481465",
+    "provenance.jsonl": "996e06bfa1b2b7b6057ecd4dc18f3245c42eb0d23d715bf02ac3a5fd400a795f",
+    "README.md": "71a3a86f36634c992cb585906e8c2cae9e7a38476d34537fb50d1dec9bd6540d",
+    "replay_loader.py": "a62f86eaa1f9bea888121eea02bbbe93f83b0c919aae313707aefae0271a27b2",
+    "replay_policy.json": "d0739fdc7c8ab51298fc513084a6fd3d8da9677e2483688cfe9a99b76d778a8d",
+    "replay_report.md": "9b6e4152589777faf75636895d5913af35680d769aa6708b30465a7172182ac0",
+    "replay_summary.json": "6f0977d12dd289a4a355052fb46b897ad5795c7b4e7cd6f9b8be0c4d7d3a8be3",
+    "selected_cases.csv": "33ad02fdd47f24733e5463756781c659805ae3c53a2aef59883fe4d33831c4f4"
+  },
+  "source_inputs_sha256": {
+    "experiments\\23_ready_sample_100\\output\\ready_100_v1\\manifest.json": "261ce56da332178def018550751de1708e265b40b2a6d60c6ea17b1b463dda35",
+    "experiments\\24_action_replay_100\\replay_policy.json": "d0739fdc7c8ab51298fc513084a6fd3d8da9677e2483688cfe9a99b76d778a8d",
+    "experiments\\24_action_replay_100\\build_action_replay.py": "46a6211afb5930d5eac8dff63148c610394186e67d4375d33eb54df242b785aa",
+    "experiments\\09_data_contract_100\\benchmark_contract_config.yaml": "2fbfee939b7553f51a4d2e724fed3f6ccab95ab31596cbb36f2a56264603cd33",
+    "experiments\\24_action_replay_100\\README.md": "71a3a86f36634c992cb585906e8c2cae9e7a38476d34537fb50d1dec9bd6540d",
+    "experiments\\24_action_replay_100\\replay_loader.py": "a62f86eaa1f9bea888121eea02bbbe93f83b0c919aae313707aefae0271a27b2"
+  },
+  "summary": {
+    "case_count": 100,
+    "unique_patients": 100,
+    "specialty_distribution": {
+      "cardiology": 20,
+      "endocrinology": 20,
+      "neurology": 20,
+      "nephrology": 20,
+      "pulmonology": 17,
+      "orthopedics": 3
+    },
+    "event_statistics": {
+      "cases": 100,
+      "ask_events": 100,
+      "test_events": 4399,
+      "cases_with_tests": 97,
+      "observation_value_events": 4374,
+      "procedure_metadata_events": 25
+    },
+    "omitted_source_event_counts": {
+      "non_test_events": 925,
+      "patient_report_reserved_for_ask": 100,
+      "outside_index_interval": 539
+    },
+    "cases_without_tests": [
+      "memory-case:38287e70acf12cd9b318c3b3",
+      "memory-case:39cbb81de3aaa770dca42aa9",
+      "memory-case:5035d5dfdc9b677e4959d0e6"
+    ],
+    "snapshot_policy": "latest_within_index_snapshot_on_request",
+    "actual_release_times_verified": false,
+    "human_clinical_review": "pending",
+    "routing_model_created": false,
+    "voi_model_created": false,
+    "model_imported_or_executed": false,
+    "tests_or_llm_calls_executed": false
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "default_availability_policy": "latest_within_index_snapshot_on_request",
+  "alternative_availability_policy": "recorded_time_upper_bound_proxy",
+  "symptom_cutoff": "original_decision_time",
+  "symptom_source": "explicit_patient_report_observation",
+  "withhold_reported_score_until_asked": true,
+  "ask_template": "What was your most recently reported pain score?",
+  "latest_test_grouping": ["event_type", "system", "code", "units"],
+  "same_timestamp_conflict": "preserve_all_distinct_recorded_values",
+  "include_observation_values": true,
+  "include_imaging_metadata_only": true,
+  "include_diagnostic_procedure_performed_only": true,
+  "include_medications_as_tests": false,
+  "create_consult_notes": false,
+  "infer_symptom_onset_duration_or_active": false,
+  "note": "snapshot available_minute=0은 사용자 요청에 따른 재생 가정이며 실제 공개 시각이 아니다. 최신값 선택은 같은 환자·index encounter 내부에 한정한다. 원본 시간과 정밀도는 별도 audit에 유지한다."
+}

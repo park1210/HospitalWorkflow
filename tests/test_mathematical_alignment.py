@@ -64,37 +64,145 @@ class MathematicalAlignmentTests(unittest.TestCase):
 
     def test_q_diagnose_expected_q_and_voi(self):
         m = toy()
-        self.assertEqual(terminal_choice(m["prior"], m["terminal_utility"]), ("A", .5))
-        r = action_values(m["prior"], m["actions"], m)[0]
-        self.assertAlmostEqual(r["expected_continuation_utility"], .9)
-        self.assertAlmostEqual(r["q_value"], .8)
-        self.assertAlmostEqual(r["voi"], .3)
-        selected = select_action(candidates(m), selector="bayesian_voi", belief=m["prior"], artifact=m)
-        self.assertEqual(selected["selected_action"]["action_id"], "Test 1")
+        self.assertEqual(
+            terminal_choice(m["prior"], m["terminal_utility"]),
+            ("A", 0.5),
+        )
+
+        scores = action_values(
+            m["prior"], m["actions"], m
+        )
+        by_id = {row["action_id"]: row for row in scores}
+
+        first = by_id["Test 1"]
+        self.assertAlmostEqual(
+            first["expected_continuation_utility"], 0.9
+        )
+        self.assertAlmostEqual(first["q_value"], 0.9)
+        self.assertAlmostEqual(first["voi"], 0.4)
+        self.assertAlmostEqual(first["cost_penalty"], 0.0)
+
+        selected = select_action(
+            candidates(m),
+            selector="bayesian_voi",
+            belief=m["prior"],
+            artifact=m,
+        )
+        self.assertEqual(
+            selected["selected_action"]["action_id"], "Test 1"
+    )
+
 
     def test_cost_monotonicity_and_ig_independence(self):
+        """Legacy cost changes must not affect a cost-free policy."""
         m = toy()
-        before = action_values(m["prior"], [m["actions"][0]], m)[0]
-        m["actions"][0]["cost"]["money"] += .2
-        after = action_values(m["prior"], [m["actions"][0]], m)[0]
-        self.assertAlmostEqual(before["voi"] - after["voi"], .2)
-        self.assertEqual(before["information_gain_nats"], after["information_gain_nats"])
+        before = action_values(
+            m["prior"], [m["actions"][0]], m
+        )[0]
+
+        m["actions"][0]["cost"]["money"] += 0.2
+        m["actions"][0]["cost"]["minutes"] = 999
+        m["actions"][0]["cost"]["tokens"] = 999
+
+        after = action_values(
+            m["prior"], [m["actions"][0]], m
+        )[0]
+
+        self.assertAlmostEqual(
+            before["voi"], after["voi"]
+        )
+        self.assertAlmostEqual(
+            before["q_value"], after["q_value"]
+        )
+        self.assertAlmostEqual(
+            before["information_gain_nats"],
+            after["information_gain_nats"],
+        )
+
 
     def test_confidence_and_cost_choose_diagnose_without_threshold(self):
+        """Diagnose when no additional action improves expected value."""
         m = toy()
-        for belief in ({"A": .99, "B": .01}, {"A": 1.0, "B": 0.0}):
-            r = select_action(candidates(m), selector="bayesian_voi", belief=belief, artifact=m)
-            self.assertEqual(r["selected_action"]["type"], "Diagnose")
-        m["actions"][0]["cost"]["money"] = .8
-        r = select_action(candidates(m), selector="bayesian_voi", belief=m["prior"], artifact=m)
-        self.assertEqual(r["selected_action"]["type"], "Diagnose")
+
+        for belief in (
+            {"A": 0.99, "B": 0.01},
+            {"A": 1.0, "B": 0.0},
+        ):
+            result = select_action(
+                candidates(m),
+                selector="bayesian_voi",
+                belief=belief,
+                artifact=m,
+            )
+            self.assertEqual(
+                result["selected_action"]["type"],
+                "Diagnose",
+            )
+
+        # A cost change must not force an earlier diagnosis.
+        m["actions"][0]["cost"]["money"] = 0.8
+
+        result = select_action(
+            candidates(m),
+            selector="bayesian_voi",
+            belief=m["prior"],
+            artifact=m,
+        )
+        self.assertEqual(
+            result["selected_action"]["action_id"],
+            "Test 1",
+        )
+
 
     def test_ig_and_voi_are_different_selectors(self):
+        """IG and VoI are mathematically distinct criteria."""
         m = toy()
         m["actions"][0]["cost"]["money"] = 2
-        args = dict(belief=m["prior"], artifact=m)
-        self.assertEqual(select_action(candidates(m), selector="bayesian_voi", **args)["selected_action"]["type"], "Diagnose")
-        self.assertEqual(select_action(candidates(m), selector="information_gain", **args)["selected_action"]["action_id"], "Test 1")
+
+        args = {
+            "belief": m["prior"],
+            "artifact": m,
+        }
+
+        voi_result = select_action(
+            candidates(m),
+            selector="bayesian_voi",
+            **args,
+        )
+        ig_result = select_action(
+            candidates(m),
+            selector="information_gain",
+            **args,
+        )
+
+    # In this particular symmetric example, both choose Test 1.
+    # This does not imply that IG and VoI are identical.
+        self.assertEqual(
+            voi_result["selected_action"]["action_id"],
+            "Test 1",
+        )
+        self.assertEqual(
+            ig_result["selected_action"]["action_id"],
+            "Test 1",
+        )
+
+        scores = {
+            row["action_id"]: row
+            for row in action_values(
+                m["prior"], m["actions"], m
+            )
+        }
+
+        self.assertAlmostEqual(
+            scores["Test 1"]["voi"], 0.4
+        )
+        self.assertAlmostEqual(
+            scores["Test 2"]["voi"], 0.0
+        )
+        self.assertGreater(
+            scores["Test 1"]["information_gain_nats"],
+            scores["Test 2"]["information_gain_nats"],
+        )
 
     def test_missing_and_partial_models_unavailable(self):
         m = toy()

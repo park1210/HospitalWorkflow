@@ -4,6 +4,7 @@ import json
 from pathlib import Path
 from types import SimpleNamespace
 import unittest
+from unittest import result
 
 from app.agents.patient_agent import PatientAgent
 from app.core.agent_registry import AgentRegistry
@@ -69,7 +70,31 @@ class V2IntegrationTests(unittest.TestCase):
         self.assertEqual(len(result["memory"]["records"]), 2)
         self.assertEqual(result["memory"]["mode"], "full_history")
         self.assertEqual(result["actual_llm_calls"], 0)
-        self.assertEqual(result["binding"]["model"], result["boundary_traces"][0]["model_binding"])
+        
+        trace = result["boundary_traces"][0]
+        binding = result["binding"]
+        if trace["role"] == "specialty":
+            self.assertIsNotNone(binding)
+            self.assertEqual(
+                binding["model"],
+                trace["model_binding"],
+                )
+        elif trace["role"] == "er":
+    # No specialty binding is required if the ER
+    # continues after routing abstention.
+            self.assertIsNone(binding)
+
+            registry = AgentRegistry(self.manifest)
+            self.assertEqual(
+                trace["model_binding"],
+            registry.get("er")["model"],
+            )
+
+        else:
+            self.fail(
+                "Unexpected boundary role: " + str(trace["role"])
+            )
+
 
     def test_unreleased_event_not_returned(self):
         runtime = SimpleNamespace(current_time_min=0, case_data={"current_encounter_events": [

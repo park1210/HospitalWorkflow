@@ -1,7 +1,11 @@
 
 """Explicit model bindings and specialty consultation routing.
 
-Separate candidate availability from an actual routing decision.
+Routing decisions and available consultation candidates
+are represented separately.
+
+The rule_similarity primary router uses the rule baseline.
+The adaptive router abstains without sufficient fitted evidence.
 """
 
 from copy import deepcopy
@@ -68,6 +72,7 @@ class AgentRegistry:
                 raise ValueError("keywords must be nonempty strings")
 
             binding = (agent["role"], agent["department"])
+
             if agent["agent_id"] in ids or binding in bindings:
                 raise ValueError(
                     "Duplicate agent or role/department binding"
@@ -92,10 +97,7 @@ class AgentRegistry:
 
     def get(self, role, department=""):
         for agent in self._manifest["agents"]:
-            if (
-                agent["role"] == role
-                and agent["department"] == department
-            ):
+            if agent["role"] == role and agent["department"] == department:
                 return deepcopy(agent)
 
         raise ValueError(
@@ -111,13 +113,13 @@ class AgentRegistry:
         router="rule_similarity",
         seed=0,
     ):
-        """Interface used to request a primary specialty selection."""
+        """Select the primary specialty using the requested router."""
         if router not in {
-            "rule_similarity", "llm", "memory_aware_llm"
+            "rule_similarity", "adaptive", "llm", "memory_aware_llm"
         }:
             raise ValueError("Unknown specialty router")
 
-        if router != "rule_similarity":
+        if router not in {"rule_similarity", "adaptive"}:
             return {
                 "router": router,
                 "status": "unavailable",
@@ -132,24 +134,27 @@ class AgentRegistry:
         observed = deepcopy(current_state)
         observed["longitudinal_memory"] = deepcopy(retrieved_memory)
 
+        # IMPORTANT:
+        # RuleSimilarityRouter is a rule baseline,
+        # not a fitted adaptive utility router.
         result = self.route(
             observed,
             departments,
-            mode="adaptive",
+            mode="adaptive" if router == "adaptive" else "rule",
             seed=seed,
         )
 
         return {
             **result,
-            "router": "RuleSimilarityRouter",
+            "router": "AdaptiveAccuracyRouter" if router == "adaptive" else "RuleSimilarityRouter",
             "status": (
                 "available"
                 if result["decision_status"] == "selected"
                 else result["decision_status"]
             ),
             "score_semantics": (
-                "uncalibrated similarity-weighted expected utility "
-                "or keyword baseline"
+                "uncalibrated similarity-weighted correctness" if router == "adaptive"
+                else "keyword overlap score; not a calibrated probability"
             ),
             "scope": "primary_specialty_selection",
         }
@@ -162,14 +167,13 @@ class AgentRegistry:
         mode="llm",
         seed=0,
     ):
-        """Route without confusing allowed candidates and selection.
+        """Return routing decision with explicit decision_status.
 
-        decision_status:
-          selected    - A specialty was explicitly selected.
-          abstained   - Adaptive evidence was insufficient.
-          unavailable - No registered candidate exists.
-          delegated   - Selection is delegated to an LLM.
-          disabled    - ER-only mode disables consultation.
+        selected: a router selected a specialty.
+        abstained: evidence was insufficient for selection.
+        unavailable: no registered specialty candidate.
+        delegated: selection is delegated to another model.
+        disabled: ER-only mode disables consultation.
         """
         if mode not in {
             "llm", "er_only", "rule", "random", "adaptive"
@@ -225,6 +229,7 @@ class AgentRegistry:
         scores = {}
         for department in candidates:
             agent = self.get("specialty", department)
+
             scores[department] = sum(
                 bool(re.findall(r"\w+", keyword.casefold()))
                 and set(
@@ -258,7 +263,8 @@ class AgentRegistry:
             ranked = sorted(
                 candidates,
                 key=lambda department: (
-                    -scores[department], department
+                    -scores[department],
+                    department,
                 ),
             )
 
@@ -271,8 +277,8 @@ class AgentRegistry:
                 decision_status = "abstained"
 
             reason = (
-                "Highest positive keyword score; "
-                "no positive match means abstention."
+                "Highest configured keyword overlap. "
+                "No positive match means abstention."
             )
 
         elif mode == "random":
@@ -288,7 +294,9 @@ class AgentRegistry:
             ]
             allowed = [selected_specialty]
             decision_status = "selected"
-            reason = "Seeded hash selects one available specialty."
+            reason = (
+                "Seeded hash selects one available specialty."
+            )
 
         elif mode == "adaptive":
             estimates = {
@@ -328,12 +336,11 @@ class AgentRegistry:
                 decision_status = "selected"
                 reason = (
                     "Selected maximum estimated utility "
-                    "using accuracy, cost, and latency."
+                    "using similarity-weighted correctness only."
                 )
-
             else:
-                # Keep consultation options available while
-                # explicitly reporting no autonomous decision.
+                # Keep the available menu, but do not invent
+                # a decision without fitted evidence.
                 allowed = list(candidates)
                 selected_specialty = None
                 decision_status = "abstained"

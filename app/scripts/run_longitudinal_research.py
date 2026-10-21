@@ -38,6 +38,8 @@ def main():
     parser.add_argument("--minute-limit", type=int, default=120)
     parser.add_argument("--agent-registry", type=Path)
     parser.add_argument("--routing-mode", choices=["llm", "er_only", "rule", "random", "adaptive"], default="llm")
+    parser.add_argument("--primary-router", choices=["rule_similarity", "adaptive", "llm", "memory_aware_llm"],
+                        default="rule_similarity", help="Actual executing doctor selection; adaptive requires --routing-utility")
     parser.add_argument("--routing-utility", type=Path)
     parser.add_argument("--token-prices", type=Path)
     parser.add_argument("--voi-model", type=Path, help="Explicit finite diagnosis/outcome/utility model; opt-in")
@@ -80,7 +82,7 @@ def main():
                              routing_utility=read_optional(args.routing_utility), token_prices=read_optional(args.token_prices),
                              resume_report=read_optional(args.resume), checkpoint_callback=save_checkpoint,
                              max_retries=args.max_retries, voi_model=read_optional(args.voi_model),
-                             action_selector=args.action_selector)
+                             action_selector=args.action_selector, primary_router=args.primary_router)
     args.output.parent.mkdir(parents=True, exist_ok=True)
     with args.output.open("x", encoding="utf-8") as stream:
         json.dump(result, stream, ensure_ascii=False, indent=2)

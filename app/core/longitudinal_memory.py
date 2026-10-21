@@ -60,6 +60,7 @@ class PatientMemoryStore:
 
     def __init__(self, records=()):
         self._records = []
+        self._by_id = {}
 
         for record in records:
             self.add(record)
@@ -118,10 +119,7 @@ class PatientMemoryStore:
                 "visit <= observation <= availability"
             )
 
-        if any(
-            r["memory_id"] == record["memory_id"]
-            for r in self._records
-        ):
+        if record["memory_id"] in self._by_id:
             raise ValueError(
                 "Duplicate memory_id"
             )
@@ -138,14 +136,7 @@ class PatientMemoryStore:
             )
 
         for memory_id in record["supersedes"]:
-            old = next(
-                (
-                    r
-                    for r in self._records
-                    if r["memory_id"] == memory_id
-                ),
-                None,
-            )
+            old = self._by_id.get(memory_id)
 
             if (
                 old is None
@@ -162,6 +153,7 @@ class PatientMemoryStore:
         self._records.append(
             deepcopy(record)
         )
+        self._by_id[record["memory_id"]] = self._records[-1]
 
     def snapshot(self):
         return {

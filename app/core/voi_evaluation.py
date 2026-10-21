@@ -38,8 +38,66 @@ def fit_outcomes(template, rows, alpha=1.0):
     artifact["provenance"].update(review_status="unreviewed", fit_method="dirichlet_counts_v1", smoothing_alpha=alpha,
                                   training_patients=sorted(patients), training_visits=len(cases), training_rows=len(rows))
     artifact["revision"] += ":fitted"
+    # Preserve the external v2 contract instead of exporting internal v1 shims.
+    if model.source_schema_version == 2:
+        artifact["schema_version"] = 2
+        artifact.pop("cost_weights", None)
+        for action in artifact["actions"]:
+            action.pop("cost", None)
     InformationOutcomes(artifact)
     return artifact
+
+
+def fit_outcome_spec(spec, rows, alpha=1.0, *, evaluation_patients=(), min_observations=1):
+    """Fit a probability-free action specification using the existing estimator.
+
+    A cell with no empirical support is not replaced by smoothing-only evidence.
+    Utility, diagnosis taxonomy, outcome discretization and support annotations
+    must be supplied explicitly; this function does not infer clinical rules.
+    """
+    if type(min_observations) is not int or min_observations < 1:
+        raise ValueError("min_observations must be positive")
+    required = {"model_id", "revision", "provenance", "diagnoses", "terminal_utility", "horizon", "actions"}
+    if not isinstance(spec, dict) or set(spec) != required:
+        raise ValueError("Specification requires identity, provenance, diagnoses, terminal_utility, horizon, actions only")
+    if not isinstance(spec["diagnoses"], dict) or not 2 <= len(spec["diagnoses"]) <= 32:
+        raise ValueError("Need 2..32 diagnoses")
+    if spec["terminal_utility"] is None:
+        raise ValueError("Explicit terminal utility required")
+    if not isinstance(rows, list) or not rows:
+        raise ValueError("Actual training outcome rows required")
+    if set(evaluation_patients) & {r["patient_id"] for r in rows}:
+        raise ValueError("Train/evaluation patient overlap")
+    template = deepcopy(spec)
+    template["schema_version"] = 2
+    diagnoses = spec["diagnoses"]
+    # These temporary values only permit reuse of the strict artifact validator.
+    # Every prior/likelihood is replaced by counted observations before export.
+    template["prior"] = {d: 1 / len(diagnoses) for d in diagnoses}
+    if not isinstance(template["actions"], list) or not template["actions"]:
+        raise ValueError("Explicit action definitions required")
+    for action in template["actions"]:
+        if set(action) != {"id", "type", "target", "outcomes"}:
+            raise ValueError("Action spec allows id/type/target/outcomes only")
+        if not isinstance(action["outcomes"], list) or not action["outcomes"]:
+            raise ValueError("Explicit outcome definitions required")
+        for outcome in action["outcomes"]:
+            if set(outcome) != {"id", "observation", "supports_diagnoses"}:
+                raise ValueError("Outcome spec allows id/observation/supports_diagnoses only")
+            outcome["likelihood"] = {d: 1 / len(action["outcomes"]) for d in diagnoses}
+    InformationOutcomes(template)
+    fitted = fit_outcomes(template, rows, alpha)
+    support = {a["id"]: {d: sum(r["action_id"] == a["id"] and r["diagnosis"] == d for r in rows)
+                         for d in diagnoses} for a in template["actions"]}
+    missing = [(a, d, n) for a, counts in support.items() for d, n in counts.items() if n < min_observations]
+    if missing:
+        raise ValueError("Insufficient observed action/diagnosis cells: " + repr(missing))
+    fitted["provenance"].update(empirical_support=support, minimum_observations=min_observations,
+                                 coverage_policy="require_every_action_diagnosis_cell",
+                                 estimation_limitations=["Selected observational tests may be biased",
+                                     "Conditional independence is a planning assumption, not established by counts"])
+    InformationOutcomes(fitted)
+    return fitted
 
 
 def evaluate_voi(report, labels):

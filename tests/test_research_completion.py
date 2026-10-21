@@ -45,19 +45,50 @@ class ResearchCompletionTests(unittest.TestCase):
         result = registry.route({"chief_complaint": "unseen"}, ["neurology", "cardiology"], mode="adaptive")
         self.assertEqual(result["allowed_departments"], ["cardiology", "neurology"])
 
-    def test_weights_change_choice(self):
-        rows = training()
-        for r in rows:
-            r["cost"] = 10 if r["agent_id"] == "neuro" else 0
-        registry = AgentRegistry(manifest(), fit_utility(rows, AgentRegistry(manifest()), weights={"accuracy": 1, "cost": 1, "latency": 0}))
-        self.assertEqual(registry.route({"chief_complaint": "synthetic"}, ["neurology", "cardiology"], mode="adaptive")["allowed_departments"], ["cardiology"])
+    def test_cost_latency_do_not_affect_accuracy_routing(self):
+        registry = AgentRegistry(manifest())
+        original_rows = training()
+        original = AgentRegistry(
+            manifest(), fit_utility(original_rows, registry)
+        ).route(
+            {"chief_complaint": "synthetic discomfort"},
+            ["neurology", "cardiology"], mode="adaptive",
+        )
+        changed_rows = deepcopy(original_rows)
+        for row in changed_rows:
+            row["cost"] = 1_000_000 if row["agent_id"] == "neuro" else 0
+            row["latency_seconds"] = 1_000_000 if row["agent_id"] == "neuro" else 0
+        changed = AgentRegistry(
+            manifest(), fit_utility(changed_rows, registry)
+        ).route(
+            {"chief_complaint": "synthetic discomfort"},
+            ["neurology", "cardiology"], mode="adaptive",
+        )
+        self.assertEqual(original["decision_status"], "selected")
+        self.assertEqual(changed["decision_status"], "selected")
+        self.assertEqual(original["selected_specialty"], "neurology")
+        self.assertEqual(changed["selected_specialty"], original["selected_specialty"])
+        self.assertEqual(changed["specialty_scores"], original["specialty_scores"])
 
-    def test_training_rejects_leakage_missing_comparators_and_unknown_cost(self):
-        for edit in (lambda r: r[0].update(split="test"), lambda r: r.pop(), lambda r: r[0].update(cost=None)):
+    def test_training_rejects_leakage_missing_comparators_and_invalid_correctness(self):
+        registry = AgentRegistry(manifest())
+        for edit in (
+            lambda rows: rows[0].update(split="test"),
+            lambda rows: rows.pop(),
+            lambda rows: rows[0].update(correct=None),
+        ):
             rows = training()
             edit(rows)
             with self.assertRaises(ValueError):
-                fit_utility(rows, AgentRegistry(manifest()))
+                fit_utility(rows, registry)
+        rows = training()
+        for row in rows:
+            row.pop("cost", None)
+            row.pop("latency_seconds", None)
+        artifact = fit_utility(rows, registry)
+        self.assertEqual(artifact["method"], "jaccard_beta_accuracy_v2")
+        self.assertNotIn("cost", artifact["samples"][0])
+        self.assertNotIn("latency_seconds", artifact["samples"][0])
 
     def test_evaluation_patient_overlap_rejected_before_calls(self):
         data = case()

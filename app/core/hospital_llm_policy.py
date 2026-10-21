@@ -74,10 +74,10 @@ class HospitalLLMPolicy(HospitalSpecialtyPolicy):
                 # Physical resource handoffs still use the existing Consult action.
                 candidates = [a["department"] for a in self.agent_registry.snapshot()["agents"]
                               if a["role"] == "specialty"]
-                if self.primary_router_mode == "rule_similarity":
+                if self.primary_router_mode in {"rule_similarity", "adaptive"}:
                     execution_routing = self.agent_registry.select_specialty(
                         observed, runtime.memory_context, candidates,
-                        router="rule_similarity", seed=self.routing_seed)
+                        router=self.primary_router_mode, seed=self.routing_seed)
                 elif self.primary_router_mode in {"llm", "memory_aware_llm"}:
                     router = LLMRouter(self.client, self.agent_registry.get("er")["model"],
                                        use_memory=self.primary_router_mode == "memory_aware_llm")
@@ -93,10 +93,12 @@ class HospitalLLMPolicy(HospitalSpecialtyPolicy):
                 runtime.voi_state["primary_routing"] = deepcopy(execution_routing)
                 runtime.voi_state.setdefault("initial_primary_routing", deepcopy(execution_routing))
                 runtime.voi_state.setdefault("primary_routing_history", []).append(deepcopy(execution_routing))
-                selected = execution_routing["selected_specialty"]
-                if not selected:
-                    raise ValueError("Encounter requires at least one registered specialty")
-                role, department = "specialty", selected
+                selected = execution_routing.get("selected_specialty")
+                if selected is not None:
+                    role, department = "specialty", selected
+                else:
+                    # Preserve abstention and continue the ER decision loop.
+                    role, department = "er", ""
 
         memory_ids = [
             r["memory_id"]

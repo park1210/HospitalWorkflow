@@ -2,6 +2,10 @@ import unittest
 
 from test_hospital_flow import cases
 from app.core.hospital_test_model import test_resource_type, test_timing
+
+# These are production helper functions, not pytest test cases.
+test_resource_type.__test__ = False
+test_timing.__test__ = False
 from app.core.hospital_flow import flow_report, validate_state
 from app.core.hospital_parallel_scheduler import HospitalParallelScheduler
 from app.core.hospital_scheduler_state import HospitalSchedulerState

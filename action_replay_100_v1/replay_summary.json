@@ -1,0 +1,37 @@
+{
+  "case_count": 100,
+  "unique_patients": 100,
+  "specialty_distribution": {
+    "cardiology": 20,
+    "endocrinology": 20,
+    "neurology": 20,
+    "nephrology": 20,
+    "pulmonology": 17,
+    "orthopedics": 3
+  },
+  "event_statistics": {
+    "cases": 100,
+    "ask_events": 100,
+    "test_events": 4399,
+    "cases_with_tests": 97,
+    "observation_value_events": 4374,
+    "procedure_metadata_events": 25
+  },
+  "omitted_source_event_counts": {
+    "non_test_events": 925,
+    "patient_report_reserved_for_ask": 100,
+    "outside_index_interval": 539
+  },
+  "cases_without_tests": [
+    "memory-case:38287e70acf12cd9b318c3b3",
+    "memory-case:39cbb81de3aaa770dca42aa9",
+    "memory-case:5035d5dfdc9b677e4959d0e6"
+  ],
+  "snapshot_policy": "latest_within_index_snapshot_on_request",
+  "actual_release_times_verified": false,
+  "human_clinical_review": "pending",
+  "routing_model_created": false,
+  "voi_model_created": false,
+  "model_imported_or_executed": false,
+  "tests_or_llm_calls_executed": false
+}
