@@ -17,12 +17,17 @@ from app.core.clinical_followup import available_consult_departments
 from app.core.hospital_specialty_policy import HospitalSpecialtyPolicy
 from app.core.hospital_test_model import test_timing
 from app.llm.ollama_client import OllamaClient
-from app.llm.role_call import role_call
+from app.llm.role_call import role_call, RoleCallError, ContractValidationError
+from app.core.specialty_router import LLMRouter
 from app.utils.department_catalog import (
     normalize_department,
     SUPPORTED_DEPARTMENTS,
     DEPARTMENT_ALIASES,
     canonicalize_department_text,
+)
+from app.llm.prompt_loader import (
+    er_system_prompt,
+    specialty_system_prompt,
 )
 
 
@@ -37,6 +42,7 @@ class HospitalLLMPolicy(HospitalSpecialtyPolicy):
         self.departments = []
         self.agent_registry = None
         self.routing_mode = "llm"
+        self.primary_router_mode = "rule_similarity"
         self.routing_seed = 0
         self.information_policy = None
         self.action_selector = "specialist_heuristic"
@@ -66,11 +72,27 @@ class HospitalLLMPolicy(HospitalSpecialtyPolicy):
             else:
                 # Logical specialist consultation at the existing decision point.
                 # Physical resource handoffs still use the existing Consult action.
-                execution_routing = self.agent_registry.select_specialty(
-                    observed, runtime.memory_context,
-                    [a["department"] for a in self.agent_registry.snapshot()["agents"]
-                               if a["role"] == "specialty"],
-                    seed=self.routing_seed)
+                candidates = [a["department"] for a in self.agent_registry.snapshot()["agents"]
+                              if a["role"] == "specialty"]
+                if self.primary_router_mode == "rule_similarity":
+                    execution_routing = self.agent_registry.select_specialty(
+                        observed, runtime.memory_context, candidates,
+                        router="rule_similarity", seed=self.routing_seed)
+                elif self.primary_router_mode in {"llm", "memory_aware_llm"}:
+                    router = LLMRouter(self.client, self.agent_registry.get("er")["model"],
+                                       use_memory=self.primary_router_mode == "memory_aware_llm")
+                    try:
+                        execution_routing = router.select(observed, candidates, audit=runtime.llm_audit,
+                            cache=runtime.decision_cache.setdefault("primary_router_cache", {}))
+                    except RoleCallError:
+                        runtime.voi_state["primary_routing"] = deepcopy(runtime.llm_audit[-1]["routing_result"])
+                        runtime.voi_state.setdefault("initial_primary_routing", deepcopy(runtime.voi_state["primary_routing"]))
+                        raise
+                else:
+                    raise ValueError("Unknown primary router")
+                runtime.voi_state["primary_routing"] = deepcopy(execution_routing)
+                runtime.voi_state.setdefault("initial_primary_routing", deepcopy(execution_routing))
+                runtime.voi_state.setdefault("primary_routing_history", []).append(deepcopy(execution_routing))
                 selected = execution_routing["selected_specialty"]
                 if not selected:
                     raise ValueError("Encounter requires at least one registered specialty")
@@ -187,7 +209,7 @@ class HospitalLLMPolicy(HospitalSpecialtyPolicy):
         actions = []
 
         decision_count = sum(
-            a["role"] != "patient" and a["status"] == "success"
+            a["role"] not in {"patient", "router"} and a["status"] == "success"
             for a in runtime.llm_audit
         )
 
@@ -557,9 +579,8 @@ class HospitalLLMPolicy(HospitalSpecialtyPolicy):
                     or label in DEPARTMENT_ALIASES
                 ):
                     if row["certainty"] == "supported":
-                        raise ValueError(
-                            "A department is not a supported diagnosis"
-                        )
+                        raise ContractValidationError("A department is not a supported diagnosis",
+                            code="diagnosis_is_department", field="target", value=row["target"])
 
                 if row["certainty"] == "unresolved":
                     row["target"] = (
@@ -707,6 +728,11 @@ class HospitalLLMPolicy(HospitalSpecialtyPolicy):
 
         if "diagnose" in actions:
             branch = deepcopy(schema)
+            branch["properties"]["target"]["description"] = (
+                "Clinical diagnosis or unresolved presenting problem, NEVER a department name. "
+                "department is the specialty field, target is the clinical problem. Do not invent evidence.")
+            branch["properties"]["target"]["not"] = {
+                "enum": sorted(set(SUPPORTED_DEPARTMENTS) | set(DEPARTMENT_ALIASES))}
 
             branch["properties"]["action"]["enum"] = [
                 "diagnose"
@@ -819,14 +845,16 @@ class HospitalLLMPolicy(HospitalSpecialtyPolicy):
                         )
                     ),
                     system=(
-                        "You are a physician in a fictional hospital simulation. "
-                        "Use only the provided observations. Never assume unreleased "
-                        "results. Every decision needs a brief evidence-based rationale."
+                        specialty_system_prompt(department)
+                        if role == "specialty"
+                        else er_system_prompt()
                     ),
+
                     payload=payload,
                     audit=runtime.llm_audit,
                     validate=validate,
                     schema=schema,
+                    repair_codes=("diagnosis_is_department",),
                 )
 
             finally:

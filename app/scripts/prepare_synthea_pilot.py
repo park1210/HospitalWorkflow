@@ -90,7 +90,9 @@ def main():
               "current_precision": dict(Counter(e["time_precision"] for r in rows for e in r["current_encounter_events"])),
               "past_visits": sum(len(r["past_visits"]) for r in rows),
               "past_events": sum(len(v["events"]) for r in rows for v in r["past_visits"])}
-    Path("synthea_pilot_schema_analysis.md").write_text(
+    schema_report = Path("docs/archive/synthea_pilot_schema_analysis.md")
+    schema_report.parent.mkdir(parents=True, exist_ok=True)
+    schema_report.write_text(
         "# Synthea pilot 실제 스키마 분석\n\n"
         "요청 이름은 `pilot_base_cases(1).jsonl`이나 접근 가능한 실제 파일은 프로젝트 최상위의 "
         "`pilot_base_cases.jsonl`이다. 두 파일의 동일성은 확인되지 않았다. 실제 읽은 파일의 hash를 기록한다.\n\n"

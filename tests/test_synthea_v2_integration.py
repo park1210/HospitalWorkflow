@@ -64,7 +64,7 @@ class V2IntegrationTests(unittest.TestCase):
     def test_full_history_budget_no_selective_fallback_actual_binding(self):
         case, _ = convert_case(self.source)
         result = run_case(case, "full_history_budgeted", self.manifest,
-                          SimpleNamespace(live=False, context_chars=1, top_k=1))
+                          SimpleNamespace(live=False, context_chars=1, memory_chars=30000, top_k=1))
         self.assertEqual(result["status"], "context_limit_exceeded")
         self.assertEqual(len(result["memory"]["records"]), 2)
         self.assertEqual(result["memory"]["mode"], "full_history")

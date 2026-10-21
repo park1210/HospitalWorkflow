@@ -21,7 +21,9 @@ def run_longitudinal(cases, *, mode="none", top_k=5, minute_limit=120, client=No
                      initial_memory=None, memory_source="closed_loop", memory_annotations=None,
                      max_memory_chars=None, embedding_artifact=None, routing_utility=None,
                      resume_report=None, checkpoint_callback=None, token_prices=None, voi_model=None, diagnosis_catalog=None,
-                     action_selector=None):
+                     action_selector=None, primary_router="rule_similarity"):
+    if primary_router not in {"rule_similarity", "llm", "memory_aware_llm"}:
+        raise ValueError("Unknown primary router")
     if diagnosis_catalog is not None and (not isinstance(diagnosis_catalog, list) or not diagnosis_catalog
             or any(not isinstance(d, str) or not d.strip() or len(d) > 240 for d in diagnosis_catalog)
             or len(set(diagnosis_catalog)) != len(diagnosis_catalog)):
@@ -59,7 +61,7 @@ def run_longitudinal(cases, *, mode="none", top_k=5, minute_limit=120, client=No
         raise ValueError("Routing baselines require an explicit agent registry")
     if registry is not None:
         registry.route({}, [], mode=routing_mode, seed=routing_seed)
-    routing_config = {"mode": routing_mode, "seed": routing_seed,
+    routing_config = {"mode": routing_mode, "primary_router": primary_router, "seed": routing_seed,
                       "utility_sha256": registry.utility.fingerprint if registry and registry.utility else None,
                       "registry": registry.snapshot() if registry else None}
     if isinstance(minute_limit, bool) or not isinstance(minute_limit, int) or minute_limit < 1:
@@ -89,7 +91,7 @@ def run_longitudinal(cases, *, mode="none", top_k=5, minute_limit=120, client=No
     contract["voi_model_sha256"] = information_policy.model.fingerprint if information_policy else None
     contract["diagnosis_catalog"] = diagnosis_catalog
     # Do not resume old paid visits under a changed action/grounding contract.
-    contract["clinical_policy_revision"] = "one-step-diagnose-q-selector-v3"
+    contract["clinical_policy_revision"] = "primary-router-contract-repair-cache-v4"
     contract["action_selector"] = action_selector
     experiment_signature = hashlib.sha256(json.dumps(contract, sort_keys=True).encode()).hexdigest()
     retrieval_config = {"top_k": top_k, "max_chars": max_memory_chars,
@@ -154,6 +156,7 @@ def run_longitudinal(cases, *, mode="none", top_k=5, minute_limit=120, client=No
         scheduler = HospitalParallelScheduler({"clinical": {"mode": "llm_required"}}, llm_client=client)
         scheduler.clinical_policy.agent_registry = registry
         scheduler.clinical_policy.routing_mode = routing_mode
+        scheduler.clinical_policy.primary_router_mode = primary_router
         scheduler.clinical_policy.routing_seed = routing_seed
         scheduler.clinical_policy.information_policy = information_policy
         scheduler.clinical_policy.action_selector = action_selector
@@ -209,7 +212,8 @@ def run_longitudinal(cases, *, mode="none", top_k=5, minute_limit=120, client=No
             last_error = next((a for a in reversed(runtime.llm_audit)
                                if a.get("status") == "error"), {})
             results[-1]["failure_detail"] = {key: last_error[key] for key in
-                ("role", "error_type", "failure_category", "validation_error") if key in last_error}
+                ("role", "error_type", "failure_category", "validation_error", "validation_detail",
+                 "response_sha256", "repair_of_audit_index") if key in last_error}
             return report("failed")
         if not runtime.is_completed:
             results[-1]["stop_reason"] = "visit_minute_limit_reached"

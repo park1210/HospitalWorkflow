@@ -1,5 +1,14 @@
 # ClinicaTextSim Hospital Workflow
 
+## 현재 Routing 작업
+
+- [실제 Ollama 실행 실패 원인](routing_failure_analysis.md)
+- [세 Router 실행 방법 및 구현](routing_router_integration_report.md)
+- [추천 사례 명단 — 실행기가 읽는 입력](final_task_candidate_report_v2.md)
+- [과거 단계 문서 모음](docs/archive/README.md): 현재 실행 안내와 구분하여 보관
+
+## 기존 연구·기능 문서
+
 - [7·9·10번 연구 구현 현황 및 작업 지도](tracker.md)
 - [한 번의 명령으로 7·9·10 빠른 데모](docs/quick_research_demo.md): `python -m app.scripts.run_research_demo`
 - [KSC 논문 B0~B4 실험 방법](docs/paper_experiments.md): `python -m app.scripts.run_paper_experiments`

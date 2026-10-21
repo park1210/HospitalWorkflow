@@ -143,8 +143,10 @@ class EncounterPipelineTests(unittest.TestCase):
         for obs in (state, later):
             self.assertIn(records[0]["memory_id"],
                           embeddings.scores(records, memory_query(obs), visit_key(c["longitudinal"])))
+        self.assertEqual(memory_query(state), memory_query(dict(
+            state, working_assessment="not saved", consults=[{"opinion": "not a query field"}])))
         with self.assertRaisesRegex(ValueError, "query embedding"):
-            embeddings.scores(records, memory_query(dict(state, working_assessment="not saved")),
+            embeddings.scores(records, memory_query(dict(state, objective_findings=["Different released finding"])),
                               visit_key(c["longitudinal"]))
 
 

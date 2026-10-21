@@ -1,5 +1,9 @@
 # Synthea v2 모델 연결 및 offline pilot 결과
 
+> 업데이트: `final_task_candidate_report_v2.md`의 추천 명단을 확인한 뒤, 해당 순위대로 재실행한 결과를 `outputs/synthea_v2_recommended/`에 보존했다. Routing 10개는 임시 명단과 1개만 같았고, Memory 9개는 구성은 같지만 순위가 달랐다. 재실행은 기존 challenge_v4 registry와 무축약 full history 조건으로 수행됐으며 실제 LLM 호출 0회, 고유 case/mode 실행 43개였다. 아래 본문은 최초 실행의 기록이다.
+>
+> 이후 사용자가 추가한 shared Qwen registry·budgeted full history 및 Router 선택 연결의 현재 실행 방법은 `routing_router_integration_report.md`를 참고한다. 이전 0% 결과와 context 초과 결과를 새 shared registry/예산 조건의 결과로 사용하지 않는다.
+
 ## 1. 결론
 
 기존 Memory → RuleSimilarityRouter → registry specialty model 호출 경계까지 연결했다. **실제 LLM 호출은 0회**다. 기존 수식, 검색 알고리즘, 라우팅 알고리즘, VoI 코드를 변경하지 않았다. 이번 결과는 연결 및 데이터 경계 검증이며 전문과 LLM의 임상 성능 검증이 아니다.

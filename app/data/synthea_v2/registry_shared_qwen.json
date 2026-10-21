@@ -1,0 +1,276 @@
+{
+  "schema_version": 1,
+  "agents": [
+    {
+      "agent_id": "shared-er",
+      "role": "er",
+      "department": "",
+      "model": "qwen2.5:1.5b-instruct",
+      "version": "synthea-v2-shared-qwen-er",
+      "keywords": []
+    },
+
+    {
+      "agent_id": "shared-cardiology",
+      "role": "specialty",
+      "department": "cardiology",
+      "model": "qwen2.5:1.5b-instruct",
+      "version": "synthea-v2-shared-qwen-cardiology",
+      "keywords": [
+        "chest pain",
+        "troponin",
+        "ecg",
+        "ekg",
+        "arrhythmia",
+        "stemi",
+        "nstemi"
+      ]
+    },
+
+    {
+      "agent_id": "shared-neurology",
+      "role": "specialty",
+      "department": "neurology",
+      "model": "qwen2.5:1.5b-instruct",
+      "version": "synthea-v2-shared-qwen-neurology",
+      "keywords": [
+        "diplopia",
+        "ptosis",
+        "fatigable",
+        "electromyography",
+        "emg",
+        "weakness",
+        "myasthen",
+        "cranial"
+      ]
+    },
+
+    {
+      "agent_id": "shared-pulmonology",
+      "role": "specialty",
+      "department": "pulmonology",
+      "model": "qwen2.5:1.5b-instruct",
+      "version": "synthea-v2-shared-qwen-pulmonology",
+      "keywords": [
+        "dyspnea",
+        "shortness of breath",
+        "hypoxia",
+        "pneumonia",
+        "wheezing",
+        "hemoptysis"
+      ]
+    },
+
+    {
+      "agent_id": "shared-gastroenterology",
+      "role": "specialty",
+      "department": "gastroenterology",
+      "model": "qwen2.5:1.5b-instruct",
+      "version": "synthea-v2-shared-qwen-gastroenterology",
+      "keywords": [
+        "abdominal pain",
+        "hematemesis",
+        "melena",
+        "colitis",
+        "hepatitis",
+        "pancreatitis"
+      ]
+    },
+
+    {
+      "agent_id": "shared-nephrology",
+      "role": "specialty",
+      "department": "nephrology",
+      "model": "qwen2.5:1.5b-instruct",
+      "version": "synthea-v2-shared-qwen-nephrology",
+      "keywords": [
+        "creatinine",
+        "proteinuria",
+        "hematuria",
+        "renal",
+        "kidney"
+      ]
+    },
+
+    {
+      "agent_id": "shared-endocrinology",
+      "role": "specialty",
+      "department": "endocrinology",
+      "model": "qwen2.5:1.5b-instruct",
+      "version": "synthea-v2-shared-qwen-endocrinology",
+      "keywords": [
+        "thyroid",
+        "diabetes",
+        "hyperglycemia",
+        "hypoglycemia",
+        "adrenal"
+      ]
+    },
+
+    {
+      "agent_id": "shared-hematology",
+      "role": "specialty",
+      "department": "hematology",
+      "model": "qwen2.5:1.5b-instruct",
+      "version": "synthea-v2-shared-qwen-hematology",
+      "keywords": [
+        "anemia",
+        "thrombocytopenia",
+        "coagulopathy",
+        "hemolysis",
+        "leukemia"
+      ]
+    },
+
+    {
+      "agent_id": "shared-infectious-disease",
+      "role": "specialty",
+      "department": "infectious_disease",
+      "model": "qwen2.5:1.5b-instruct",
+      "version": "synthea-v2-shared-qwen-infectious-disease",
+      "keywords": [
+        "fever",
+        "infection",
+        "sepsis",
+        "bacteremia",
+        "antibiotic"
+      ]
+    },
+
+    {
+      "agent_id": "shared-dermatology",
+      "role": "specialty",
+      "department": "dermatology",
+      "model": "qwen2.5:1.5b-instruct",
+      "version": "synthea-v2-shared-qwen-dermatology",
+      "keywords": [
+        "rash",
+        "skin",
+        "lesion",
+        "dermatitis"
+      ]
+    },
+
+    {
+      "agent_id": "shared-orthopedics",
+      "role": "specialty",
+      "department": "orthopedics",
+      "model": "qwen2.5:1.5b-instruct",
+      "version": "synthea-v2-shared-qwen-orthopedics",
+      "keywords": [
+        "fracture",
+        "joint",
+        "bone",
+        "dislocation",
+        "ligament"
+      ]
+    },
+
+    {
+      "agent_id": "shared-surgery",
+      "role": "specialty",
+      "department": "surgery",
+      "model": "qwen2.5:1.5b-instruct",
+      "version": "synthea-v2-shared-qwen-surgery",
+      "keywords": [
+        "right lower quadrant",
+        "rebound",
+        "appendic",
+        "periton",
+        "acute abdomen",
+        "torsion"
+      ]
+    },
+
+    {
+      "agent_id": "shared-obstetrics-gynecology",
+      "role": "specialty",
+      "department": "obstetrics_gynecology",
+      "model": "qwen2.5:1.5b-instruct",
+      "version": "synthea-v2-shared-qwen-obstetrics-gynecology",
+      "keywords": [
+        "pregnan",
+        "vaginal bleeding",
+        "pelvic",
+        "uterus",
+        "ovar",
+        "ectopic"
+      ]
+    },
+
+    {
+      "agent_id": "shared-otolaryngology",
+      "role": "specialty",
+      "department": "otolaryngology",
+      "model": "qwen2.5:1.5b-instruct",
+      "version": "synthea-v2-shared-qwen-otolaryngology",
+      "keywords": [
+        "hearing",
+        "vertigo",
+        "sinus",
+        "epistaxis",
+        "tonsil"
+      ]
+    },
+
+    {
+      "agent_id": "shared-rheumatology",
+      "role": "specialty",
+      "department": "rheumatology",
+      "model": "qwen2.5:1.5b-instruct",
+      "version": "synthea-v2-shared-qwen-rheumatology",
+      "keywords": [
+        "arthritis",
+        "lupus",
+        "vasculitis",
+        "joint swelling",
+        "autoimmune"
+      ]
+    },
+
+    {
+      "agent_id": "shared-urology",
+      "role": "specialty",
+      "department": "urology",
+      "model": "qwen2.5:1.5b-instruct",
+      "version": "synthea-v2-shared-qwen-urology",
+      "keywords": [
+        "urinary",
+        "testicular",
+        "prostate",
+        "ureter",
+        "kidney stone"
+      ]
+    },
+
+    {
+      "agent_id": "shared-psychiatry",
+      "role": "specialty",
+      "department": "psychiatry",
+      "model": "qwen2.5:1.5b-instruct",
+      "version": "synthea-v2-shared-qwen-psychiatry",
+      "keywords": [
+        "hallucination",
+        "psychosis",
+        "mania",
+        "depression",
+        "anxiety"
+      ]
+    },
+
+    {
+      "agent_id": "shared-ophthalmology",
+      "role": "specialty",
+      "department": "ophthalmology",
+      "model": "qwen2.5:1.5b-instruct",
+      "version": "synthea-v2-shared-qwen-ophthalmology",
+      "keywords": [
+        "vision",
+        "ocular",
+        "eye",
+        "retina",
+        "cornea"
+      ]
+    }
+  ]
+}

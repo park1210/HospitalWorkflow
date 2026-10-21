@@ -80,13 +80,53 @@ def encounter_evidence(runtime, action, target):
 
 
 def memory_query(observed):
-    """Deterministic query expansion using public state only; same retrieval algorithms."""
+    """Build retrieval query only from externally grounded clinical evidence.
+
+    The model-generated working assessment is intentionally excluded.
+    Otherwise an early incorrect hypothesis can retrieve confirming memories
+    and create a self-reinforcing retrieval loop.
+    """
+
     import json
-    fields = ("chief_complaint", "current_symptoms", "vital_signs", "history",
-              "objective_findings", "consults", "working_assessment")
-    return "\n".join(f"{key}: " + (value if isinstance(value, str) else
-                    json.dumps(value, ensure_ascii=False, sort_keys=True))
-                    for key in fields if (value := observed.get(key)))
+
+    fields = (
+        "chief_complaint",
+        "current_symptoms",
+        "vital_signs",
+        "history",
+        "objective_findings",
+    )
+
+    lines = []
+
+    for key in fields:
+        value = observed.get(key)
+
+        if value in (
+            None,
+            "",
+            [],
+            {},
+        ):
+            continue
+
+        serialized = (
+            value
+            if isinstance(value, str)
+            else json.dumps(
+                value,
+                ensure_ascii=False,
+                sort_keys=True,
+            )
+        )
+
+        lines.append(
+            f"{key}: {serialized}"
+        )
+
+    return "\n".join(
+        lines
+    )
 
 
 def initial_symptoms(case):
