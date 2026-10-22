@@ -43,6 +43,8 @@ def main():
     parser.add_argument("--routing-utility", type=Path)
     parser.add_argument("--token-prices", type=Path)
     parser.add_argument("--voi-model", type=Path, help="Explicit finite diagnosis/outcome/utility model; opt-in")
+    parser.add_argument("--diagnosis-catalog", type=Path, help="Shared JSON list of candidate diagnoses; never per-case labels")
+    parser.add_argument("--diagnosis-departments", type=Path, help="Shared JSON diagnosis-to-department mapping")
     parser.add_argument("--action-selector", choices=["bayesian_voi", "information_gain", "specialist_heuristic", "random"])
     parser.add_argument("--resume", type=Path, help="Restart uncommitted visit from a saved checkpoint/report")
     parser.add_argument("--checkpoint", type=Path, help="Defaults to OUTPUT.checkpoint.json")
@@ -82,7 +84,9 @@ def main():
                              routing_utility=read_optional(args.routing_utility), token_prices=read_optional(args.token_prices),
                              resume_report=read_optional(args.resume), checkpoint_callback=save_checkpoint,
                              max_retries=args.max_retries, voi_model=read_optional(args.voi_model),
-                             action_selector=args.action_selector, primary_router=args.primary_router)
+                             action_selector=args.action_selector, primary_router=args.primary_router,
+                             diagnosis_catalog=read_optional(args.diagnosis_catalog),
+                             diagnosis_departments=read_optional(args.diagnosis_departments))
     args.output.parent.mkdir(parents=True, exist_ok=True)
     with args.output.open("x", encoding="utf-8") as stream:
         json.dump(result, stream, ensure_ascii=False, indent=2)

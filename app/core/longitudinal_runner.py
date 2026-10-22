@@ -21,13 +21,19 @@ def run_longitudinal(cases, *, mode="none", top_k=5, minute_limit=120, client=No
                      initial_memory=None, memory_source="closed_loop", memory_annotations=None,
                      max_memory_chars=None, embedding_artifact=None, routing_utility=None,
                      resume_report=None, checkpoint_callback=None, token_prices=None, voi_model=None, diagnosis_catalog=None,
-                     action_selector=None, primary_router="rule_similarity"):
+                     action_selector=None, primary_router="rule_similarity", diagnosis_departments=None):
     if primary_router not in {"rule_similarity", "adaptive", "llm", "memory_aware_llm"}:
         raise ValueError("Unknown primary router")
     if diagnosis_catalog is not None and (not isinstance(diagnosis_catalog, list) or not diagnosis_catalog
             or any(not isinstance(d, str) or not d.strip() or len(d) > 240 for d in diagnosis_catalog)
             or len(set(diagnosis_catalog)) != len(diagnosis_catalog)):
         raise ValueError("Diagnosis catalog must be unique nonempty labels of at most 240 characters")
+    if diagnosis_departments is not None:
+        from app.utils.department_catalog import SUPPORTED_DEPARTMENTS
+        if (not isinstance(diagnosis_departments, dict) or not diagnosis_catalog
+                or set(diagnosis_departments) != set(diagnosis_catalog)
+                or any(d not in SUPPORTED_DEPARTMENTS for d in diagnosis_departments.values())):
+            raise ValueError("Diagnosis department catalog must cover the diagnosis catalog with canonical departments")
     cases = [prepare_encounter(case) for case in cases]
     if initial_memory is None and any("index_encounter_id" in c for c in cases):
         initial_memory = []
@@ -91,7 +97,8 @@ def run_longitudinal(cases, *, mode="none", top_k=5, minute_limit=120, client=No
     contract["voi_model_sha256"] = information_policy.model.fingerprint if information_policy else None
     contract["diagnosis_catalog"] = diagnosis_catalog
     # Do not resume old paid visits under a changed action/grounding contract.
-    contract["clinical_policy_revision"] = "adaptive-primary-executable-multistep-v5"
+    contract["clinical_policy_revision"] = "adaptive-tie-abstention-shared-catalog-v6"
+    contract["diagnosis_departments"] = deepcopy(diagnosis_departments)
     contract["action_selector"] = action_selector
     experiment_signature = hashlib.sha256(json.dumps(contract, sort_keys=True).encode()).hexdigest()
     retrieval_config = {"top_k": top_k, "max_chars": max_memory_chars,
@@ -135,6 +142,7 @@ def run_longitudinal(cases, *, mode="none", top_k=5, minute_limit=120, client=No
                 "experiment_signature": experiment_signature, "routing_config": routing_config,
                 "model_config": model_config,
                 "diagnosis_catalog": deepcopy(diagnosis_catalog),
+                "diagnosis_departments": deepcopy(diagnosis_departments),
                 "retrieval_config": retrieval_config,
                 "visits": results, "memory": store.snapshot(),
                 "limitations": ["retrieval scores and citations are not clinical correctness",
@@ -161,6 +169,7 @@ def run_longitudinal(cases, *, mode="none", top_k=5, minute_limit=120, client=No
         scheduler.clinical_policy.information_policy = information_policy
         scheduler.clinical_policy.action_selector = action_selector
         scheduler.clinical_policy.diagnosis_catalog = diagnosis_catalog
+        scheduler.clinical_policy.diagnosis_departments = diagnosis_departments
         # The visit horizon must constrain choices, not just stop the scheduler
         # while an avoidable late consultation is still running.
         scheduler.clinical_policy.decision_deadline_minute = minute_limit

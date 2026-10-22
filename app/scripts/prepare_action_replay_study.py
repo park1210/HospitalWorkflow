@@ -155,7 +155,8 @@ def prepare(cases, labels, departments, manifest, *, seed=0, horizon=2, max_acti
         store = PatientMemoryStore([r for v in case['past_visits'] for r in v['records']])
         observed['longitudinal_memory'] = store.retrieve(identity, memory_query(observed), 'selective', 5, max_chars=30000)
         probes.append({'patient_id': patient, 'decision_id': case['index_encounter_id'] + ':initial',
-            'split': 'train', 'observation': observed, 'expected_diagnoses': labels[visit_key(identity)]})
+            'split': 'train', 'observation': observed, 'expected_diagnoses': labels[visit_key(identity)],
+            'diagnosis_catalog': sorted(taxonomy) + ['Unresolved']})
     eval_cases = [transformed[p] for p, _ in test]
     eval_keys = {visit_key({'patient_id': p, 'visit_id': by_patient[p]['index_encounter_id']}) for p, _ in test}
     return {'cases': eval_cases, 'labels': {k: labels[k] for k in eval_keys},

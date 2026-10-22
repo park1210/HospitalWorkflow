@@ -15,6 +15,7 @@ def main():
         p.add_argument("--" + name, type=Path, required=True)
     p.add_argument("--native-endpoint", help="Optional native Ollama URL for explicit CPU probing")
     p.add_argument("--cpu", action="store_true")
+    p.add_argument("--diagnosis-catalog", type=Path, help="One shared diagnosis list for every probe; Unresolved is added")
     args = p.parse_args()
     if args.output.exists():
         raise ValueError("Choose a new output file")
@@ -23,7 +24,17 @@ def main():
         p.error("--cpu requires --native-endpoint")
     client = (OllamaProbeClient(args.native_endpoint, cpu=args.cpu) if args.native_endpoint else
               OllamaClient(base_url=settings.SPECIALTY_BASE_URL, api_key=settings.SPECIALTY_API_KEY))
-    rows = collect_outcomes(read(args.probes), AgentRegistry(read(args.registry)),
+    probes = read(args.probes)
+    if args.diagnosis_catalog:
+        catalog = read(args.diagnosis_catalog)
+        if (not isinstance(catalog, list) or not catalog
+                or any(not isinstance(s, str) or not s.strip() or len(s) > 80 for s in catalog)
+                or len(set(catalog)) != len(catalog)):
+            raise ValueError("Shared diagnosis catalog requires unique nonempty strings of at most 80 characters")
+        catalog = list(catalog) + ([] if "Unresolved" in catalog else ["Unresolved"])
+        for probe in probes:
+            probe["diagnosis_catalog"] = list(catalog)
+    rows = collect_outcomes(probes, AgentRegistry(read(args.registry)),
                             client, read(args.prices))
     args.output.parent.mkdir(parents=True, exist_ok=True)
     with args.output.open("x", encoding="utf-8") as stream:

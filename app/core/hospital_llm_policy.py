@@ -47,6 +47,7 @@ class HospitalLLMPolicy(HospitalSpecialtyPolicy):
         self.information_policy = None
         self.action_selector = "specialist_heuristic"
         self.diagnosis_catalog = None
+        self.diagnosis_departments = None
         self.decision_deadline_minute = None
         self.flow_durations = {}
         self.memory_retriever = None
@@ -395,6 +396,13 @@ class HospitalLLMPolicy(HospitalSpecialtyPolicy):
 
 
         if self.diagnosis_catalog:
+            if self.diagnosis_departments:
+                payload["diagnosis_department_catalog"] = deepcopy(self.diagnosis_departments)
+                payload["department_catalog"] = sorted(set(self.diagnosis_departments.values()))
+                payload["instruction"] += (
+                    " diagnosis_department_catalog is the shared study taxonomy for all patients,"
+                    " not evidence for this patient. Use it to keep diagnosis and department consistent;"
+                    " do not infer a diagnosis from the catalog or from the executing agent's department.")
             payload["diagnosis_catalog"] = self.diagnosis_catalog
 
             payload["instruction"] += (

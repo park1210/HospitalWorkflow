@@ -11,6 +11,7 @@ The adaptive router abstains without sufficient fitted evidence.
 from copy import deepcopy
 import hashlib
 import json
+import math
 import re
 
 from app.utils.department_catalog import SUPPORTED_DEPARTMENTS
@@ -241,6 +242,7 @@ class AgentRegistry:
         specialty_scores = dict(scores)
         allowed = list(candidates)
         selected_specialty = None
+        tied_departments = []
         estimates = {}
 
         if not candidates:
@@ -331,13 +333,21 @@ class AgentRegistry:
                     ),
                 )
 
-                selected_specialty = ranked[0]
-                allowed = [selected_specialty]
-                decision_status = "selected"
-                reason = (
-                    "Selected maximum estimated utility "
-                    "using similarity-weighted correctness only."
-                )
+                best_score = specialty_scores[ranked[0]]
+                tied_departments = [d for d in ranked if math.isclose(
+                    specialty_scores[d], best_score, rel_tol=0.0, abs_tol=1e-12)]
+                if len(tied_departments) > 1:
+                    allowed = list(candidates)
+                    decision_status = "abstained"
+                    reason = "Equal best estimated correctness; no evidence to prefer one specialty. Continue ER assessment."
+                else:
+                    selected_specialty = ranked[0]
+                    allowed = [selected_specialty]
+                    decision_status = "selected"
+                    reason = (
+                        "Selected maximum estimated utility "
+                        "using similarity-weighted correctness only."
+                    )
             else:
                 # Keep the available menu, but do not invent
                 # a decision without fitted evidence.
@@ -357,6 +367,8 @@ class AgentRegistry:
             "selected_specialty": selected_specialty,
             "decision_status": decision_status,
             "specialty_scores": specialty_scores,
+            "tied_departments": tied_departments,
+            "tie_tolerance": 1e-12,
             "utility_estimates": estimates,
             "utility_artifact_sha256": (
                 self.utility.fingerprint

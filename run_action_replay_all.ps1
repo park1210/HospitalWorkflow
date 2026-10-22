@@ -1,7 +1,7 @@
 [CmdletBinding()]
 param(
     [ValidateRange(1, 1000)][int]$Repeats = 1,
-    [string]$StudyDir = 'outputs/action_replay_study_15_v1',
+    [string]$StudyDir = 'outputs/action_replay_study_15_v2',
     [string]$OutputDir = '',
     [string]$RoutingData = '',
     [string]$RoutingUtility = '',
@@ -30,9 +30,24 @@ try {
     $study = (Resolve-Path -LiteralPath $StudyDir).Path
     $plan = Get-Content -LiteralPath (Join-Path $study 'plan.json') -Raw -Encoding UTF8 | ConvertFrom-Json
     foreach ($property in $plan.inputs.PSObject.Properties) {
-        if ($property.Name -ne 'routing_utility') {
-            $property.Value = (Resolve-Path -LiteralPath (Join-Path $study $property.Value)).Path
+        if ($property.Name -eq 'routing_utility') {
+            continue
+            }
+
+        $inputPath = [string]$property.Value
+
+        if ([System.IO.Path]::IsPathRooted($inputPath)) {
+            # 이미 절대 경로라면 그대로 사용
+            $resolvedPath = $inputPath
         }
+        else {
+            # 상대 경로인 경우에만 study 폴더 결합
+            $resolvedPath = Join-Path $study $inputPath
+        }
+
+        $property.Value = (
+            Resolve-Path -LiteralPath $resolvedPath
+        ).Path
     }
     $probes = (Resolve-Path -LiteralPath (Join-Path $study 'routing_probes.json')).Path
     if ([string]::IsNullOrWhiteSpace($OutputDir)) {
@@ -48,6 +63,9 @@ try {
     }
     $fitDir = Join-Path $runRoot 'fitted'
     $runPlan = Join-Path $runRoot 'plan.json'
+    $catalogPath = Join-Path $runRoot 'diagnosis_catalog.json'
+    $voiDefinition = Get-Content -LiteralPath $plan.inputs.voi_model -Raw -Encoding UTF8 | ConvertFrom-Json
+    $sharedDiagnoses = @($voiDefinition.diagnoses.PSObject.Properties.Name)
     $results = Join-Path $runRoot 'results'
     $reuseRows = -not [string]::IsNullOrWhiteSpace($RoutingData)
     if ($reuseRows) {
@@ -67,7 +85,8 @@ try {
     $plan.repeats = $Repeats
 
     Write-Host "Output: $runRoot"
-    $caseCount = @(Get-Content -LiteralPath $plan.inputs.cases -Raw -Encoding UTF8 | ConvertFrom-Json).Count
+    $loadedCases = Get-Content -LiteralPath $plan.inputs.cases -Raw -Encoding UTF8 | ConvertFrom-Json
+    $caseCount = $loadedCases.Count
     Write-Host "Conditions: B0 B1 B2 B3 B4; patients per condition: $caseCount; repeats: $Repeats"
     Write-Host 'B4 is exploratory: unreviewed support annotations imply Unresolved final diagnoses.' -ForegroundColor Yellow
     if (-not $Preview) {
@@ -75,6 +94,7 @@ try {
         # Python json.loads expects UTF-8 without BOM (Windows PowerShell 5 writes a BOM).
         $planText = $plan | ConvertTo-Json -Depth 100
         [System.IO.File]::WriteAllText($runPlan, $planText, (New-Object System.Text.UTF8Encoding($false)))
+        [System.IO.File]::WriteAllText($catalogPath, (ConvertTo-Json -InputObject $sharedDiagnoses), (New-Object System.Text.UTF8Encoding($false)))
         Start-Transcript -LiteralPath (Join-Path $runRoot 'pipeline.log') | Out-Null
         $transcribing = $true
     }
@@ -84,10 +104,15 @@ try {
     } elseif ($reuseRows) {
         Write-Host "Using explicitly supplied routing outcomes: $rows"
     } else {
-        Write-Host 'Training collection is separate from the evaluation subset (330 calls for the prepared study).'
+        $loadedProbes = Get-Content -LiteralPath $probes -Raw -Encoding UTF8 | ConvertFrom-Json
+        $loadedRegistry = Get-Content -LiteralPath $plan.inputs.registry -Raw -Encoding UTF8 | ConvertFrom-Json
+        $specialtyCount = @($loadedRegistry.agents | Where-Object { $_.role -eq 'specialty' }).Count
+        $plannedCalls = $loadedProbes.Count * $specialtyCount
+        Write-Host "Training collection is separate from evaluation: $plannedCalls planned specialty calls."
         Invoke-Stage -Title '1/4 Collect specialty responses (live Ollama calls)' -Arguments @(
             '-m', 'app.scripts.collect_routing_outcomes', '--probes', $probes,
-            '--registry', $plan.inputs.registry, '--prices', $plan.inputs.prices, '--output', $rows)
+            '--registry', $plan.inputs.registry, '--prices', $plan.inputs.prices, '--output', $rows,
+            '--diagnosis-catalog', $catalogPath)
     }
     if (-not $reuseUtility) {
       Invoke-Stage -Title '2/4 Fit routing model' -Arguments @(

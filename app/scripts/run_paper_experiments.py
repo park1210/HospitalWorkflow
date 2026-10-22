@@ -189,6 +189,7 @@ def main():
                     max_memory_chars=plan.get("max_memory_chars"),
                     routing_utility=data["routing_utility"], voi_model=data["voi_model"] if voi else None,
                     diagnosis_catalog=list(data["voi_model"]["diagnoses"]),
+                    diagnosis_departments=dict(data["voi_model"]["diagnoses"]),
                     token_prices=data.get("prices"), max_retries=0, client=OfflineOnly() if args.offline else None,
                     checkpoint_callback=lambda value, n=run_id: write(output / (n + ".checkpoint.json"), value))
                 write(output / (run_id + ".report.json"), report)
